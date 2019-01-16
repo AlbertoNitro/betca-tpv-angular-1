@@ -8,4 +8,11 @@ const routes: Routes = [];
   exports: [RouterModule]
 })
 export class AppRoutingModule {
+  static COMPONENTS = [
+
+  ];
+
+  static DIALOG_COMPONENT = [
+
+  ];
 }
