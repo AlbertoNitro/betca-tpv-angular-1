@@ -4,6 +4,8 @@ import {Router} from '@angular/router';
 import {TokensService} from '../core/tokens.service';
 import {UserService} from './shared/user.service';
 import {CashierClosedComponent} from './cashier-closed/cashier-closed.component';
+import {CashierService} from './shared/cashier.service';
+import {CashierOpenedComponent} from './cashier-opened/cashier-opened.component';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -16,7 +18,8 @@ export class HomeComponent {
   cashierClosed: boolean;
   username: string;
 
-  constructor(private router: Router, private tokensService: TokensService, private userService: UserService) {
+  constructor(private router: Router, private tokensService: TokensService, private userService: UserService,
+              private cashierService: CashierService) {
     this.username = '???';
     this.userService.sessionUsername().subscribe(
       user => this.username = user.username
@@ -26,7 +29,16 @@ export class HomeComponent {
   }
 
   cashier() {
-    this.router.navigate([HomeComponent.URL, CashierClosedComponent.URL]);
+    this.cashierService.last().subscribe(
+      cashierLast => {
+        this.cashierClosed = cashierLast.closed;
+        if (cashierLast.closed) {
+          this.router.navigate([HomeComponent.URL, CashierClosedComponent.URL]);
+        } else {
+          this.router.navigate([HomeComponent.URL, CashierOpenedComponent.URL]);
+        }
+      }
+    );
   }
 
   profile() {

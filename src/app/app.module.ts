@@ -8,6 +8,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CdkTableModule} from '@angular/cdk/table';
 import {CoreModule} from './core/core.module';
 import {UserService} from './home/shared/user.service';
+import {CashierService} from './home/shared/cashier.service';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import {UserService} from './home/shared/user.service';
   ],
   entryComponents: [AppRoutingModule.DIALOG_COMPONENT],
   providers: [
+    CashierService,
     UserService
   ],
   bootstrap: [AppComponent]
