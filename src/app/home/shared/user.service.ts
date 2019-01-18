@@ -12,8 +12,8 @@ export class UserService {
   }
 
 
-  loggedInUsername(): Observable<User> {
-    return null; // this.httpService.authToken().get(TokensService.END_POINT + TokensService.USERNAME);
+  sessionUsername(): Observable<User> {
+    return this.httpService.bearerAuth().get(UserService.END_POINT + '/' + this.httpService.getMobile());
   }
 
 }

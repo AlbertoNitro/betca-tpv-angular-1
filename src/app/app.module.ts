@@ -7,6 +7,7 @@ import {AppMaterialModule} from './app-material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CdkTableModule} from '@angular/cdk/table';
 import {CoreModule} from './core/core.module';
+import {UserService} from './home/shared/user.service';
 
 @NgModule({
   imports: [
@@ -28,7 +29,9 @@ import {CoreModule} from './core/core.module';
     AppRoutingModule.DIALOG_COMPONENT
   ],
   entryComponents: [AppRoutingModule.DIALOG_COMPONENT],
-  providers: [],
+  providers: [
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
