@@ -180,23 +180,28 @@ export class HttpService {
   private handleError(response): any {
     let error: Error;
     if (response.status === HttpService.UNAUTHORIZED) {
+      this.snackBar.open('Unauthorized', 'Error', {
+        duration: 2000
+      });
       this.logout();
-    }
-    try {
-      if (response.status === HttpService.NOT_FOUND) {
-        error = {error: 'Not Found', message: 'API Not implemented', path: ''};
-      } else {
-        error = response.error; // with 'text': JSON.parse(response.error);
-      }
-      this.snackBar.open(error.error + ': ' + error.message, 'Error', {
-        duration: 5000
-      });
-      return throwError(error);
-    } catch (e) {
-      this.snackBar.open(response.error, 'Error', {
-        duration: 5000
-      });
       return throwError(response.error);
+    } else {
+      try {
+        if (response.status === HttpService.NOT_FOUND) {
+          error = {error: 'Not Found', message: 'API Not implemented', path: ''};
+        } else {
+          error = response.error; // with 'text': JSON.parse(response.error);
+        }
+        this.snackBar.open(error.error + ': ' + error.message, 'Error', {
+          duration: 5000
+        });
+        return throwError(error);
+      } catch (e) {
+        this.snackBar.open('No server response', 'Error', {
+          duration: 5000
+        });
+        return throwError(response.error);
+      }
     }
   }
 }
