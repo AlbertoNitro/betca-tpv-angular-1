@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
 
 import {Observable, throwError} from 'rxjs';
-import {map, catchError} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material';
 
 import {Token} from './token.model';
@@ -15,6 +15,7 @@ export class HttpService {
 
   static API_END_POINT = 'http://localhost:8080/api/v0';
   static UNAUTHORIZED = 401;
+  static NOT_FOUND = 404;
 
   private printDirectly: boolean;
   private token: Token;
@@ -87,50 +88,45 @@ export class HttpService {
   get(endpoint: string): Observable<any> {
     return this.http.get(HttpService.API_END_POINT + endpoint, this.createOptions()).pipe(
       map((response => this.extractData(response))
-        , catchError(error => {
-          return this.handleError(error);
-        })
-      )
+      ), catchError(error => {
+        return this.handleError(error);
+      })
     );
   }
 
   post(endpoint: string, body?: Object): Observable<any> {
     return this.http.post(HttpService.API_END_POINT + endpoint, body, this.createOptions()).pipe(
       map((response => this.extractData(response))
-        , catchError(error => {
-          return this.handleError(error);
-        })
-      )
+      ), catchError(error => {
+        return this.handleError(error);
+      })
     );
   }
 
   delete(endpoint: string): Observable<any> {
     return this.http.delete(HttpService.API_END_POINT + endpoint, this.createOptions()).pipe(
       map((response => this.extractData(response))
-        , catchError(error => {
-          return this.handleError(error);
-        })
-      )
+      ), catchError(error => {
+        return this.handleError(error);
+      })
     );
   }
 
   put(endpoint: string, body?: Object): Observable<any> {
     return this.http.put(HttpService.API_END_POINT + endpoint, body, this.createOptions()).pipe(
       map((response => this.extractData(response))
-        , catchError(error => {
-          return this.handleError(error);
-        })
-      )
+      ), catchError(error => {
+        return this.handleError(error);
+      })
     );
   }
 
   patch(endpoint: string, body?: Object): Observable<any> {
     return this.http.patch(HttpService.API_END_POINT + endpoint, body, this.createOptions()).pipe(
       map((response => this.extractData(response))
-        , catchError(error => {
-          return this.handleError(error);
-        })
-      )
+      ), catchError(error => {
+        return this.handleError(error);
+      })
     );
   }
 
@@ -187,8 +183,12 @@ export class HttpService {
       this.logout();
     }
     try {
-      error = response.error; // with 'text': JSON.parse(response.error);
-      this.snackBar.open(error.message, 'Error', {
+      if (response.status === HttpService.NOT_FOUND) {
+        error = {error: 'Not Found', message: 'API Not implemented', path: ''};
+      } else {
+        error = response.error; // with 'text': JSON.parse(response.error);
+      }
+      this.snackBar.open(error.error + ': ' + error.message, 'Error', {
         duration: 5000
       });
       return throwError(error);

@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 
 import {CashierLast} from '../shared/cashier-last.model';
+import {CashierService} from '../shared/cashier.service';
 
 @Component({
   templateUrl: 'cashier-closed.component.html'
@@ -10,7 +11,10 @@ export class CashierClosedComponent {
 
   cashierLast: CashierLast = {closed: undefined};
 
-  constructor() {
+  constructor(private cashierService: CashierService) {
+    this.cashierService.last().subscribe(
+      cashierLast => this.cashierLast = cashierLast
+    );
   }
 
 }
