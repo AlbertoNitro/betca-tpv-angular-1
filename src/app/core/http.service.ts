@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
 
 import {Observable, throwError} from 'rxjs';
-import {map, catchError} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material';
 
 import {Token} from './token.model';

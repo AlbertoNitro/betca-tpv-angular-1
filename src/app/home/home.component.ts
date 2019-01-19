@@ -1,11 +1,11 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 
+import {CashierClosedComponent} from './cashier-closed/cashier-closed.component';
+import {CashierOpenedComponent} from './cashier-opened/cashier-opened.component';
+import {CashierService} from './shared/cashier.service';
 import {TokensService} from '../core/tokens.service';
 import {UserService} from './shared/user.service';
-import {CashierClosedComponent} from './cashier-closed/cashier-closed.component';
-import {CashierService} from './shared/cashier.service';
-import {CashierOpenedComponent} from './cashier-opened/cashier-opened.component';
 
 @Component({
   templateUrl: 'home.component.html',
