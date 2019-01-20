@@ -8,6 +8,7 @@ import {CashierOpenedComponent} from './home/cashier-opened/cashier-opened.compo
 import {HomeComponent} from './home/home.component';
 import {ShoppingCartComponent} from './home/cashier-opened/shopping-cart/shopping-cart.component';
 import {WelcomeComponent} from './welcome/welcome.component';
+import {UsersComponent} from './home/users/users.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
@@ -16,7 +17,8 @@ const routes: Routes = [
     path: HomeComponent.URL, component: HomeComponent,
     children: [
       {path: CashierClosedComponent.URL, component: CashierClosedComponent},
-      {path: CashierOpenedComponent.URL, component: CashierOpenedComponent}
+      {path: CashierOpenedComponent.URL, component: CashierOpenedComponent},
+      {path: UsersComponent.URL, component: UsersComponent}
     ]
   }
 ];
@@ -33,6 +35,7 @@ export class AppRoutingModule {
     CashierOpenedComponent,
     HomeComponent,
     ShoppingCartComponent,
+    UsersComponent,
     WelcomeComponent,
   ];
 

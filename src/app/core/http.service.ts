@@ -184,6 +184,7 @@ export class HttpService {
         duration: 2000
       });
       this.logout();
+      this.router.navigate(['']);
       return throwError(response.error);
     } else {
       try {
