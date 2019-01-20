@@ -16,4 +16,9 @@ export class CashierService {
     return this.httpService.bearerAuth().get(CashierService.END_POINT + CashierService.LAST);
   }
 
+  open(): Observable<any> {
+    return this.httpService.bearerAuth().post(CashierService.END_POINT);
+  }
+
+
 }

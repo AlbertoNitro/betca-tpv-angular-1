@@ -53,6 +53,9 @@ export class HomeComponent {
   }
 
   openCashier() {
+    this.cashierService.open().subscribe(
+      () => this.cashier()
+    );
   }
 
   cashMovement() {
