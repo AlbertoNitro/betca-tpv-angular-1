@@ -19,6 +19,7 @@ import {TokensService} from './tokens.service';
 import {DateComponent} from './date.component';
 import {LoginDialogComponent} from './login-dialog.component';
 import {CancelYesDialogComponent} from './cancel-yes-dialog.component';
+import {CrudComponent} from './crud.component';
 
 
 @NgModule({
@@ -35,18 +36,21 @@ import {CancelYesDialogComponent} from './cancel-yes-dialog.component';
     MatTableModule,
   ],
   declarations: [
+    CancelYesDialogComponent,
+    CrudComponent,
     DateComponent,
-    LoginDialogComponent,
-    CancelYesDialogComponent
+    LoginDialogComponent
   ],
   exports: [
+    CancelYesDialogComponent,
+    CrudComponent,
     DateComponent,
     LoginDialogComponent,
-    CancelYesDialogComponent
+
   ],
   entryComponents: [
-    LoginDialogComponent,
-    CancelYesDialogComponent
+    CancelYesDialogComponent,
+    LoginDialogComponent
   ],
   providers: [
     HttpService,

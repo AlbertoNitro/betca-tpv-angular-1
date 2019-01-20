@@ -6,6 +6,7 @@ import {CashierOpenedComponent} from './cashier-opened/cashier-opened.component'
 import {CashierService} from './shared/cashier.service';
 import {TokensService} from '../core/tokens.service';
 import {UserService} from './shared/user.service';
+import {UsersComponent} from './users/users.component';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -61,6 +62,7 @@ export class HomeComponent {
   }
 
   customers() {
+    this.router.navigate([HomeComponent.URL, UsersComponent.URL]);
   }
 
   vouchers() {
