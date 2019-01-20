@@ -13,6 +13,7 @@
     <mat-form-field>
       <input matInput placeholder="Address" [(ngModel)]="user.address">
     </mat-form-field>
+    <mat-checkbox [(ngModel)]="onlyCustomer">Only Customer</mat-checkbox>
     <button mat-mini-fab color="primary" (click)="search()">
       <mat-icon>search</mat-icon>
     </button>
