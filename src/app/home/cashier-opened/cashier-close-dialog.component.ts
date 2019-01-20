@@ -12,7 +12,6 @@ import {CashierService} from '../shared/cashier.service';
 export class CashierCloseDialogComponent {
   cashierClosure: CashierClosure = {finalCash: undefined, salesCard: undefined, comment: undefined};
   cashierClosing: CashierClosing = {totalVoucher: undefined};
-  withdrawal: number;
 
   constructor(private dialog: MatDialog, private dialogRef: MatDialogRef<CashierCloseDialogComponent>,
               private cashierService: CashierService) {
