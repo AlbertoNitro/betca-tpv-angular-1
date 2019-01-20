@@ -10,6 +10,7 @@ export class UsersComponent {
   static URL = 'customers';
 
   user: User;
+  onlyCustomer = true;
 
   title = 'Users management';
   columns = ['mobile', 'username'];
@@ -21,6 +22,7 @@ export class UsersComponent {
   }
 
   search() {
+    // TODO implement search with fields
     this.userService.readAll().subscribe(
       data => this.data = data
     );
