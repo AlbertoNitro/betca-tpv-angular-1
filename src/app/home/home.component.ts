@@ -7,6 +7,8 @@ import {CashierService} from './shared/cashier.service';
 import {TokensService} from '../core/tokens.service';
 import {UserService} from './shared/user.service';
 import {UsersComponent} from './users/users.component';
+import {CashierCloseDialogComponent} from './cashier-opened/cashier-close-dialog.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -19,8 +21,8 @@ export class HomeComponent {
   cashierClosed: boolean;
   username: string;
 
-  constructor(private router: Router, private tokensService: TokensService, private userService: UserService,
-              private cashierService: CashierService) {
+  constructor(private router: Router, private dialog: MatDialog,
+              private tokensService: TokensService, private userService: UserService, private cashierService: CashierService) {
     this.username = '???';
     this.userService.sessionUsername().subscribe(
       user => this.username = user.username
@@ -50,6 +52,9 @@ export class HomeComponent {
   }
 
   closeCashier() {
+    this.dialog.open(CashierCloseDialogComponent).afterClosed().subscribe(
+      () => this.cashier()
+    );
   }
 
   openCashier() {
