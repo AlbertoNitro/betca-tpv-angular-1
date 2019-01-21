@@ -9,6 +9,9 @@ import {UserService} from './shared/user.service';
 import {UsersComponent} from './users/users.component';
 import {CashierCloseDialogComponent} from './cashier-opened/cashier-close-dialog.component';
 import {MatDialog} from '@angular/material';
+import {CancelYesDialogComponent} from '../core/cancel-yes-dialog.component';
+import {AdminsService} from './admins/admins.service';
+import {DbSeedDialogComponent} from './admins/db-seed-dialog.component';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -22,7 +25,8 @@ export class HomeComponent {
   username: string;
 
   constructor(private router: Router, private dialog: MatDialog,
-              private tokensService: TokensService, private userService: UserService, private cashierService: CashierService) {
+              private tokensService: TokensService, private userService: UserService, private cashierService: CashierService,
+              private adminsService: AdminsService) {
     this.username = '???';
     this.userService.sessionUsername().subscribe(
       user => this.username = user.username
@@ -43,6 +47,20 @@ export class HomeComponent {
       }
     );
   }
+
+  deleteDb() {
+    this.dialog.open(CancelYesDialogComponent).afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.adminsService.deleteDb();
+        }
+      });
+  }
+
+  seedDb() {
+    this.dialog.open(DbSeedDialogComponent);
+  }
+
 
   profile() {
   }

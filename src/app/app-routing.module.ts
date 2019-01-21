@@ -10,6 +10,7 @@ import {ShoppingCartComponent} from './home/cashier-opened/shopping-cart/shoppin
 import {WelcomeComponent} from './welcome/welcome.component';
 import {UsersComponent} from './home/users/users.component';
 import {CashierCloseDialogComponent} from './home/cashier-opened/cashier-close-dialog.component';
+import {DbSeedDialogComponent} from './home/admins/db-seed-dialog.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
@@ -41,6 +42,7 @@ export class AppRoutingModule {
   ];
 
   static DIALOG_COMPONENT = [
-    CashierCloseDialogComponent
+    CashierCloseDialogComponent,
+    DbSeedDialogComponent
   ];
 }

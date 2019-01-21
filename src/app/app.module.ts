@@ -9,6 +9,7 @@ import {CdkTableModule} from '@angular/cdk/table';
 import {CoreModule} from './core/core.module';
 import {UserService} from './home/shared/user.service';
 import {CashierService} from './home/shared/cashier.service';
+import {AdminsService} from './home/admins/admins.service';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import {CashierService} from './home/shared/cashier.service';
   ],
   entryComponents: [AppRoutingModule.DIALOG_COMPONENT],
   providers: [
+    AdminsService,
     CashierService,
     UserService
   ],

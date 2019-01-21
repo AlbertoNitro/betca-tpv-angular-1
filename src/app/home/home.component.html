@@ -23,6 +23,10 @@
     <mat-icon>home</mat-icon>
     <span>Cashier</span>
   </button>
+  <button *ngIf="tokensService.isAdmin()" mat-menu-item [matMenuTriggerFor]="settings">
+    <mat-icon>settings</mat-icon>
+    <span>Admin</span>
+  </button>
   <button mat-menu-item [matMenuTriggerFor]="cashiers">
     <mat-icon>account_balance</mat-icon>
     <span>Cashier closures</span>
@@ -43,6 +47,10 @@
     <mat-icon>assessment</mat-icon>
     <span>Statistics</span>
   </button>
+</mat-menu>
+<mat-menu #settings="matMenu">
+  <button mat-menu-item (click)="deleteDb()">Delete Database</button>
+  <button mat-menu-item (click)="seedDb()">Seed Database</button>
 </mat-menu>
 <mat-menu #cashiers="matMenu">
   <button *ngIf="!cashierClosed" mat-menu-item (click)="closeCashier()">
