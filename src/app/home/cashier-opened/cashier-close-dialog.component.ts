@@ -35,7 +35,7 @@ export class CashierCloseDialogComponent {
   }
 
   private synchronizeTotal() {
-    this.cashierService.readTotals().subscribe(
+    this.cashierService.readLastTotals().subscribe(
       cashierClosing => this.cashierClosing = cashierClosing
     );
   }

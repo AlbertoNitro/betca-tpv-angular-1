@@ -6,7 +6,7 @@
     <mat-table class="mat-elevation-z8" #table [dataSource]="dataSource" matSort>
       <!-- Dynamic column -->
       <ng-container *ngFor="let def of columns" [matColumnDef]="def">
-        <mat-header-cell *matHeaderCellDef>{{ def }}</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>{{ def | uppercase }}</mat-header-cell>
         <mat-cell *matCellDef="let row">{{ row[def] }}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="actions">

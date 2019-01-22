@@ -1,6 +1,6 @@
 export interface CashierClosing {
-  totalVoucher?: number;
+  salesTotal?: number;
   totalCard?: number;
   totalCash?: number;
-  salesTotal?: number;
+  totalVoucher?: number;
 }

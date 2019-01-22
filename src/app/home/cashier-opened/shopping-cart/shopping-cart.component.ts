@@ -169,10 +169,6 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     }
   }
 
-  updateStock(stock: number) {
-    this.shoppingCartService.updateStock(stock);
-  }
-
   ngOnDestroy(): void {
     this.subscriptionDatasource.unsubscribe();
   }

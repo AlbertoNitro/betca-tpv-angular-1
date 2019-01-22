@@ -16,7 +16,6 @@ export class HttpService {
   static API_END_POINT = 'http://localhost:8080/api/v0';
   static UNAUTHORIZED = 401;
   static NOT_FOUND = 404;
-  static NOT_ACCEPTABLE = 406;
 
   private printDirectly: boolean;
   private token: Token;
@@ -77,7 +76,7 @@ export class HttpService {
   pdf(printDirectly = true): HttpService {
     this.printDirectly = printDirectly;
     this.responseType = 'blob';
-    this.header('Accept', 'application/pdf');
+    this.header('Accept', 'application/pdf , application/json');
     return this;
   }
 
@@ -190,9 +189,7 @@ export class HttpService {
     } else {
       try {
         if (response.status === HttpService.NOT_FOUND) {
-          error = {error: 'Not Found', message: 'API Not implemented', path: ''};
-        } else if (response.status === HttpService.NOT_ACCEPTABLE) {
-          error = {error: 'Not Acceptable', message: 'API Not implemented', path: ''};
+          error = {error: 'Not Found', message: '', path: ''};
         } else {
           error = response.error; // with 'text': JSON.parse(response.error);
         }

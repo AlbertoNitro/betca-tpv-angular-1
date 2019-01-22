@@ -150,10 +150,6 @@ export class ShoppingCartService {
     this.synchronizeAll();
   }
 
-  updateStock(stock: number): void {
-    this.articleService.updateStock(this._lastArticle.code, stock);
-  }
-
   isEmpty(): boolean {
     return (!this.shoppingCart || this.shoppingCart.length === 0);
   }

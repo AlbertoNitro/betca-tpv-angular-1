@@ -36,7 +36,7 @@ export class HomeComponent {
   }
 
   cashier() {
-    this.cashierService.last().subscribe(
+    this.cashierService.readLast().subscribe(
       cashierLast => {
         this.cashierClosed = cashierLast.closed;
         if (cashierLast.closed) {

@@ -8,8 +8,6 @@ import {HttpService} from '../../core/http.service';
 export class UserService {
   static END_POINT = '/users';
 
-  static SEARCH = '/search';
-
   constructor(private httpService: HttpService) {
   }
 

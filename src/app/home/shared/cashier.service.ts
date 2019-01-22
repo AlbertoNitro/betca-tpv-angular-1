@@ -15,7 +15,7 @@ export class CashierService {
   constructor(private httpService: HttpService) {
   }
 
-  last(): Observable<CashierLast> {
+  readLast(): Observable<CashierLast> {
     return this.httpService.bearerAuth().get(CashierService.END_POINT + CashierService.LAST);
   }
 
@@ -23,7 +23,7 @@ export class CashierService {
     return this.httpService.bearerAuth().post(CashierService.END_POINT);
   }
 
-  readTotals(): Observable<CashierClosing> {
+  readLastTotals(): Observable<CashierClosing> {
     return this.httpService.bearerAuth().get(
       CashierService.END_POINT + CashierService.LAST + CashierService.TOTALS);
   }

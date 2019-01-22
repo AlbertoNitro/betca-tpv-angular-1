@@ -1,30 +1,30 @@
-<h3 mat-dialog-title>Cierre de Caja (total ventas: € {{cashierClosing.salesTotal}})</h3>
+<h3 mat-dialog-title>Cashier closing(total sales: € {{cashierClosing.salesTotal}})</h3>
 <mat-dialog-content>
   <mat-form-field>
-    <input matInput type="number" placeholder="Total Vales" [value]="cashierClosing.totalVoucher" readonly/>
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput type="number" placeholder="Pagado con Tarjeta (€ {{cashierClosing.totalCard}})"
+    <input matInput type="number" placeholder="Paid with card (€ {{cashierClosing.totalCard}})"
            [(ngModel)]="cashierClosure.salesCard"
            required cdkFocusInitial/>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="number" placeholder="Efectivo en Caja (€ {{cashierClosing.totalCash}})"
+    <input matInput type="number" placeholder="Total cash (€ {{cashierClosing.totalCash}})"
            [(ngModel)]="cashierClosure.finalCash"
            required/>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="text" placeholder="Comentario" [(ngModel)]="cashierClosure.comment" required/>
+    <input matInput type="number" placeholder="Total vouchers" [value]="cashierClosing.totalVoucher" readonly/>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" placeholder="Comment" [(ngModel)]="cashierClosure.comment" required/>
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button mat-dialog-close>Cancel</button>
   <button mat-raised-button color="accent" (click)="close()" [disabled]="invalid()">
     <mat-icon>lock_outline</mat-icon>
-    Cerrar Caja
+    Close cashier
   </button>
   <button mat-raised-button color="primary" (click)="cashMovement()">
     <mat-icon>account_balance_wallet</mat-icon>
-    <span>Movimiento de efectivo en caja</span>
+    <span>Cash movement</span>
   </button>
 </mat-dialog-actions>
