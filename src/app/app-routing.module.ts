@@ -11,6 +11,8 @@ import {WelcomeComponent} from './welcome/welcome.component';
 import {UsersComponent} from './home/users/users.component';
 import {CashierCloseDialogComponent} from './home/cashier-opened/cashier-close-dialog.component';
 import {DbSeedDialogComponent} from './home/admins/db-seed-dialog.component';
+import {CheckOutDialogComponent} from './home/cashier-opened/shopping-cart/check-out-dialog.component';
+import {ArticleQuickCreationDialogComponent} from './home/cashier-opened/shopping-cart/article-quick-creation-dialog.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
@@ -42,7 +44,9 @@ export class AppRoutingModule {
   ];
 
   static DIALOG_COMPONENT = [
+    ArticleQuickCreationDialogComponent,
     CashierCloseDialogComponent,
+    CheckOutDialogComponent,
     DbSeedDialogComponent
   ];
 }

@@ -10,6 +10,9 @@ import {CoreModule} from './core/core.module';
 import {UserService} from './home/shared/user.service';
 import {CashierService} from './home/shared/cashier.service';
 import {AdminsService} from './home/admins/admins.service';
+import {ShoppingCartService} from './home/cashier-opened/shopping-cart/shopping-cart.service';
+import {ArticleService} from './home/shared/article.service';
+import {TicketService} from './home/shared/ticket.service';
 
 @NgModule({
   imports: [
@@ -33,7 +36,10 @@ import {AdminsService} from './home/admins/admins.service';
   entryComponents: [AppRoutingModule.DIALOG_COMPONENT],
   providers: [
     AdminsService,
+    ArticleService,
     CashierService,
+    ShoppingCartService,
+    TicketService,
     UserService
   ],
   bootstrap: [AppComponent]
