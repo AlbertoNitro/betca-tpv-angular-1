@@ -7,7 +7,7 @@ import {CashierService} from './shared/cashier.service';
 import {TokensService} from '../core/tokens.service';
 import {UserService} from './shared/user.service';
 import {UsersComponent} from './users/users.component';
-import {CashierCloseDialogComponent} from './cashier-opened/cashier-close-dialog.component';
+import {CashierCloseDialogComponent} from './cashier-opened/cashier-closure/cashier-close-dialog.component';
 import {MatDialog} from '@angular/material';
 import {CancelYesDialogComponent} from '../core/cancel-yes-dialog.component';
 import {AdminsService} from './admins/admins.service';

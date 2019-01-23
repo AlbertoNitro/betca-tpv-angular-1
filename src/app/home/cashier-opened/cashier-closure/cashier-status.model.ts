@@ -1,4 +1,4 @@
-export interface CashierClosing {
+export interface CashierStatus {
   salesTotal: number;
   totalCard: number;
   totalCash: number;

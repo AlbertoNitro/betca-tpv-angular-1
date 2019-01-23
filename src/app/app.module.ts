@@ -13,6 +13,7 @@ import {AdminsService} from './home/admins/admins.service';
 import {ShoppingCartService} from './home/cashier-opened/shopping-cart/shopping-cart.service';
 import {ArticleService} from './home/shared/article.service';
 import {TicketService} from './home/shared/ticket.service';
+import {CashierClosureService} from './home/cashier-opened/cashier-closure/cashier-closure.service';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import {TicketService} from './home/shared/ticket.service';
   providers: [
     AdminsService,
     ArticleService,
+    CashierClosureService,
     CashierService,
     ShoppingCartService,
     TicketService,
