@@ -2,11 +2,12 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {map} from 'rxjs/operators';
 
-import {Shopping} from '../../shared/shopping.model';
-import {TicketCreation} from '../../shared/ticket-creation.model';
+import {Shopping} from './shopping.model';
+import {TicketCreation} from './ticket-creation.model';
 import {Article} from '../../shared/article.model';
 import {ArticleService} from '../../shared/article.service';
-import {TicketService} from '../../shared/ticket.service';
+import {ApiEndpoint} from '../../shared/api-endpoint.model';
+import {HttpService} from '../../../core/http.service';
 
 @Injectable()
 export class ShoppingCartService {
@@ -23,7 +24,7 @@ export class ShoppingCartService {
 
   private _lastArticle: Article;
 
-  constructor(private articleService: ArticleService, private ticketService: TicketService) {
+  constructor(private articleService: ArticleService, private httpService: HttpService) {
     for (let i = 0; i < ShoppingCartService.SHOPPING_CART_NUM; i++) {
       this.shoppingCartList.push([]);
     }
@@ -133,7 +134,7 @@ export class ShoppingCartService {
 
   checkOut(ticketCreation: TicketCreation): Observable<any> {
     ticketCreation.shoppingCart = this.shoppingCart;
-    return this.ticketService.create(ticketCreation).pipe(
+    return this.httpService.pdf().post(ApiEndpoint.TICKETS, ticketCreation).pipe(
       map(() => this.reset())
     );
   }

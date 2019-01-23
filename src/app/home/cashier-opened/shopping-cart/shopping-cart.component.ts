@@ -2,7 +2,7 @@ import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core
 import {Subscription} from 'rxjs';
 import {MatDialog, MatTableDataSource} from '@angular/material';
 
-import {Shopping} from '../../shared/shopping.model';
+import {Shopping} from './shopping.model';
 import {ShoppingCartService} from './shopping-cart.service';
 
 import {CheckOutDialogComponent} from './check-out-dialog.component';

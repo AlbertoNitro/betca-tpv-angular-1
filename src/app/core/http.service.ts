@@ -19,7 +19,6 @@ export class HttpService {
 
   private printDirectly: boolean;
   private token: Token;
-  private mobile: number;
   private params: HttpParams;
   private headers: HttpHeaders;
   private responseType: string;
@@ -34,12 +33,15 @@ export class HttpService {
   }
 
   getMobile(): number {
-    return this.mobile;
+    return (this.token) ? this.token.mobile : undefined;
+  }
+
+  getName(): string {
+    return (this.token) ? this.token.name : '???';
   }
 
   logout(): void {
     this.token = undefined;
-    this.mobile = undefined;
     this.router.navigate(['']);
   }
 
@@ -47,7 +49,6 @@ export class HttpService {
     return this.authBasic(mobile, password).post(endPoint).pipe(
       map(token => {
         this.token = token;
-        this.mobile = mobile;
       }), catchError(error => {
         return this.handleError(error);
       })
@@ -82,7 +83,7 @@ export class HttpService {
 
   get(endpoint: string): Observable<any> {
     return this.http.get(HttpService.API_END_POINT + endpoint, this.createOptions()).pipe(
-      map((response => this.extractData(response))
+      map(response => this.extractData(response)
       ), catchError(error => {
         return this.handleError(error);
       })
@@ -91,7 +92,7 @@ export class HttpService {
 
   post(endpoint: string, body?: Object): Observable<any> {
     return this.http.post(HttpService.API_END_POINT + endpoint, body, this.createOptions()).pipe(
-      map((response => this.extractData(response))
+      map(response => this.extractData(response)
       ), catchError(error => {
         return this.handleError(error);
       })
@@ -100,7 +101,7 @@ export class HttpService {
 
   delete(endpoint: string): Observable<any> {
     return this.http.delete(HttpService.API_END_POINT + endpoint, this.createOptions()).pipe(
-      map((response => this.extractData(response))
+      map(response => this.extractData(response)
       ), catchError(error => {
         return this.handleError(error);
       })
@@ -109,7 +110,7 @@ export class HttpService {
 
   put(endpoint: string, body?: Object): Observable<any> {
     return this.http.put(HttpService.API_END_POINT + endpoint, body, this.createOptions()).pipe(
-      map((response => this.extractData(response))
+      map(response => this.extractData(response)
       ), catchError(error => {
         return this.handleError(error);
       })
@@ -118,7 +119,7 @@ export class HttpService {
 
   patch(endpoint: string, body?: Object): Observable<any> {
     return this.http.patch(HttpService.API_END_POINT + endpoint, body, this.createOptions()).pipe(
-      map((response => this.extractData(response))
+      map(response => this.extractData(response)
       ), catchError(error => {
         return this.handleError(error);
       })

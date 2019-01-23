@@ -1,9 +1,7 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 
-import {TicketCreation} from '../../shared/ticket-creation.model';
-import {User} from '../../shared/user.model';
-import {UserService} from '../../shared/user.service';
+import {TicketCreation} from './ticket-creation.model';
 import {ShoppingCartService} from './shopping-cart.service';
 
 @Component({
@@ -13,26 +11,15 @@ import {ShoppingCartService} from './shopping-cart.service';
 export class CheckOutDialogComponent {
 
   total: number;
-  user: User;
 
   requestedInvoice = false;
 
   ticketCreation: TicketCreation;
 
-  constructor(@Inject(MAT_DIALOG_DATA) data: any, private dialog: MatDialog, public shoppingCartService: ShoppingCartService,
-              private userService: UserService) {
+  constructor(@Inject(MAT_DIALOG_DATA) data: any, private dialog: MatDialog, public shoppingCartService: ShoppingCartService) {
 
     this.total = data.total;
     this.ticketCreation = data.ticketCreation;
-  }
-
-  updateUser(user: User) {
-    this.user = user;
-    if (this.user) {
-      this.ticketCreation.userMobile = user.mobile;
-    } else {
-      this.ticketCreation.userMobile = null;
-    }
   }
 
   uncommited() {
@@ -110,13 +97,13 @@ export class CheckOutDialogComponent {
 
     this.ticketCreation.note = '';
     if (this.ticketCreation.card > 0) {
-      this.ticketCreation.note += ' Abonado con Tarjeta: ' + Math.round(this.ticketCreation.card * 100) / 100 + '.';
+      this.ticketCreation.note += ' Pay with card: ' + Math.round(this.ticketCreation.card * 100) / 100 + '.';
     }
     if (this.ticketCreation.voucher > 0) {
-      this.ticketCreation.note += ' Abonado con vale: ' + Math.round(this.ticketCreation.voucher * 100) / 100 + '.';
+      this.ticketCreation.note += ' Pay with voucher: ' + Math.round(this.ticketCreation.voucher * 100) / 100 + '.';
     }
     if (this.ticketCreation.cash > 0) {
-      this.ticketCreation.note += ' Abonado en efectivo: ' + Math.round(cash * 100) / 100 + '.';
+      this.ticketCreation.note += ' Pay with cash: ' + Math.round(cash * 100) / 100 + '.';
     }
     if (returned > 0) {
       this.ticketCreation.note += ' Return: ' + Math.round(returned * 100) / 100 + '.';
@@ -141,11 +128,7 @@ export class CheckOutDialogComponent {
   }
 
   invalidInvoice(): boolean {
-    return !this.user || !this.user.dni || !this.user.address || this.returnedAmount() < 0;
-  }
-
-  invalidReservation(): boolean {
-    return (this.total + this.returnedAmount()) < this.shoppingCartService.getTotalCommited();
+    return true;
   }
 
   private formatNumber(value: number): number {

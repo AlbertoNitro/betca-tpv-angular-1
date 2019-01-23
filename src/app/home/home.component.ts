@@ -1,17 +1,17 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
+import {MatDialog} from '@angular/material';
 
+import {TokensService} from '../core/tokens.service';
+import {CashierService} from './shared/cashier.service';
+import {UserService} from './users/user.service';
+import {AdminsService} from './admins/admins.service';
+import {CancelYesDialogComponent} from '../core/cancel-yes-dialog.component';
+import {DbSeedDialogComponent} from './admins/db-seed-dialog.component';
 import {CashierClosedComponent} from './cashier-closed/cashier-closed.component';
 import {CashierOpenedComponent} from './cashier-opened/cashier-opened.component';
-import {CashierService} from './shared/cashier.service';
-import {TokensService} from '../core/tokens.service';
-import {UserService} from './shared/user.service';
-import {UsersComponent} from './users/users.component';
 import {CashierCloseDialogComponent} from './cashier-opened/cashier-closure/cashier-close-dialog.component';
-import {MatDialog} from '@angular/material';
-import {CancelYesDialogComponent} from '../core/cancel-yes-dialog.component';
-import {AdminsService} from './admins/admins.service';
-import {DbSeedDialogComponent} from './admins/db-seed-dialog.component';
+import {UsersComponent} from './users/users.component';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -27,19 +27,16 @@ export class HomeComponent {
   constructor(private router: Router, private dialog: MatDialog,
               private tokensService: TokensService, private userService: UserService, private cashierService: CashierService,
               private adminsService: AdminsService) {
-    this.username = '???';
-    this.userService.sessionUsername().subscribe(
-      user => this.username = user.username
-    );
+    this.username = tokensService.getName();
     this.cashierClosed = true;
     this.cashier();
   }
 
   cashier() {
-    this.cashierService.readLast().subscribe(
-      cashierLast => {
-        this.cashierClosed = cashierLast.closed;
-        if (cashierLast.closed) {
+    this.cashierService.isClosedCashier().subscribe(
+      closed => {
+        this.cashierClosed = closed;
+        if (closed) {
           this.router.navigate([HomeComponent.URL, CashierClosedComponent.URL]);
         } else {
           this.router.navigate([HomeComponent.URL, CashierOpenedComponent.URL]);

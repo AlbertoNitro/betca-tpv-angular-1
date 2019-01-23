@@ -27,4 +27,12 @@ export class TokensService {
   isManager(): boolean {
     return this.httpService.getRoles() !== undefined && this.httpService.getRoles().includes(Role.MANAGER);
   }
+
+  getMobile(): number {
+    return this.httpService.getMobile();
+  }
+
+  getName(): string {
+    return this.httpService.getName();
+  }
 }

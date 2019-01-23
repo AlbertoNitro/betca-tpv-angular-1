@@ -7,12 +7,11 @@ import {AppMaterialModule} from './app-material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CdkTableModule} from '@angular/cdk/table';
 import {CoreModule} from './core/core.module';
-import {UserService} from './home/shared/user.service';
+import {UserService} from './home/users/user.service';
 import {CashierService} from './home/shared/cashier.service';
 import {AdminsService} from './home/admins/admins.service';
 import {ShoppingCartService} from './home/cashier-opened/shopping-cart/shopping-cart.service';
 import {ArticleService} from './home/shared/article.service';
-import {TicketService} from './home/shared/ticket.service';
 import {CashierClosureService} from './home/cashier-opened/cashier-closure/cashier-closure.service';
 
 @NgModule({
@@ -41,7 +40,6 @@ import {CashierClosureService} from './home/cashier-opened/cashier-closure/cashi
     CashierClosureService,
     CashierService,
     ShoppingCartService,
-    TicketService,
     UserService
   ],
   bootstrap: [AppComponent]
