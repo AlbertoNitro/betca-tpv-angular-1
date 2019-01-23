@@ -119,7 +119,7 @@ export class CheckOutDialogComponent {
       this.ticketCreation.note += ' Abonado en efectivo: ' + Math.round(cash * 100) / 100 + '.';
     }
     if (returned > 0) {
-      this.ticketCreation.note += ' Devuelto: ' + Math.round(returned * 100) / 100 + '.';
+      this.ticketCreation.note += ' Return: ' + Math.round(returned * 100) / 100 + '.';
     }
     this.shoppingCartService.checkOut(this.ticketCreation).subscribe(
       () => {

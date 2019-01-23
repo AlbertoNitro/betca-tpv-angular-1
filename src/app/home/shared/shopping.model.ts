@@ -7,8 +7,8 @@ export class Shopping {
   constructor(public code: string, public description: string, public retailPrice: number) {
     this.amount = 1;
     this.discount = 0;
-    this.committed = true;
     this.total = this.retailPrice * this.amount * (1 - this.discount / 100);
+    this.committed = true;
   }
 
   updateTotal(): void {

@@ -111,10 +111,9 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   }
 
   add(code: string) {
-    this.shoppingCartService.add(code).subscribe(
-      article => {
+    this.shoppingCartService.add(code).subscribe(() => {
       },
-      error => this.createArticle(code)
+      () => this.createArticle(code)
     );
   }
 

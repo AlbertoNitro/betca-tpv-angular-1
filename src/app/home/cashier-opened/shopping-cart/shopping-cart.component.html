@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-title>
     <mat-icon color="primary">shopping_cart</mat-icon>
-    Carrito de la Compra {{total() | currency:'EUR':'symbol'}}
+    Shopping Cart {{total() | currency:'EUR':'symbol'}}
   </mat-card-title>
   <mat-card-content>
     <mat-table class="mat-elevation-z8" #table [dataSource]="dataSource">
@@ -70,7 +70,7 @@
     <div class="container">
       <form>
         <mat-form-field>
-          <input matInput placeholder="Producto por Código" type="text" #code cdkFocusInitial>
+          <input matInput placeholder="Product Code" type="text" #code cdkFocusInitial>
         </mat-form-field>
         <button type="submit" mat-mini-fab color="primary" (click)="add(code.value); code.value=''"
                 [disabled]="code.value === ''">
@@ -83,12 +83,12 @@
     </div>
     <button mat-raised-button color="accent" (click)="checkOut()" [disabled]="invalidCheckout()">
       <mat-icon mat-icon-button>credit_card</mat-icon>
-      Pagar
+      Checkout
       <mat-icon>euro_symbol</mat-icon>
     </button>
     <button mat-raised-button color="primary" (click)="createBudget()" [disabled]="total()===0">
       <mat-icon>description</mat-icon>
-      Presupuesto
+      Budget
     </button>
   </mat-card-content>
 </mat-card>

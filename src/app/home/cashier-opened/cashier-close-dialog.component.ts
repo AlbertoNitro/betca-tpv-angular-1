@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material';
 
+import {CashierService} from '../shared/cashier.service';
 import {CashierClosing} from '../shared/cashier-closing.model';
 import {CashierClosure} from '../shared/cashier-closure.model';
-import {CashierService} from '../shared/cashier.service';
 
 @Component({
   templateUrl: 'cashier-close-dialog.component.html',
@@ -11,11 +11,10 @@ import {CashierService} from '../shared/cashier.service';
 })
 export class CashierCloseDialogComponent {
   cashierClosure: CashierClosure = {finalCash: undefined, salesCard: undefined, comment: undefined};
-  cashierClosing: CashierClosing = {totalVoucher: undefined};
+  cashierClosing: CashierClosing;
 
   constructor(private dialog: MatDialog, private dialogRef: MatDialogRef<CashierCloseDialogComponent>,
               private cashierService: CashierService) {
-
     this.synchronizeTotal();
   }
 
@@ -32,6 +31,7 @@ export class CashierCloseDialogComponent {
   }
 
   cashMovement() {
+    this.synchronizeTotal();
   }
 
   private synchronizeTotal() {

@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
-import {Article} from '../../shared/article.model';
-import {ArticleService} from '../../shared/article.service';
 
+import {ArticleService} from '../../shared/article.service';
+import {Article} from '../../shared/article.model';
 
 @Component({
   templateUrl: 'article-quick-creation-dialog.component.html',

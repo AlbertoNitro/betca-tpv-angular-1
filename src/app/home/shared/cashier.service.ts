@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
-import {CashierLast} from './cashier-last.model';
 import {HttpService} from '../../core/http.service';
+import {CashierLast} from './cashier-last.model';
 import {CashierClosing} from './cashier-closing.model';
 import {CashierClosure} from './cashier-closure.model';
 

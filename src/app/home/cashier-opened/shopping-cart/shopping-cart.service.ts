@@ -100,11 +100,6 @@ export class ShoppingCartService {
     this.synchronizeAll();
   }
 
-  deleteAll() {
-    this.shoppingCart = [];
-    this.synchronizeAll();
-  }
-
   add(code: string): Observable<Article> {
     const price: number = Number(code.replace(',', '.'));
     if (!Number.isNaN(price) && code.length <= 5) {
@@ -139,9 +134,7 @@ export class ShoppingCartService {
   checkOut(ticketCreation: TicketCreation): Observable<any> {
     ticketCreation.shoppingCart = this.shoppingCart;
     return this.ticketService.create(ticketCreation).pipe(
-      map(
-        () => this.reset()
-      )
+      map(() => this.reset())
     );
   }
 
