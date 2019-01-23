@@ -7,7 +7,6 @@ import {catchError, map} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material';
 
 import {Token} from './token.model';
-import {Role} from './role.model';
 import {Error} from './error.model';
 
 @Injectable()
@@ -28,16 +27,8 @@ export class HttpService {
     this.resetOptions();
   }
 
-  getRoles(): Array<Role> {
-    return (this.token) ? this.token.roles : undefined;
-  }
-
-  getMobile(): number {
-    return (this.token) ? this.token.mobile : undefined;
-  }
-
-  getName(): string {
-    return (this.token) ? this.token.name : '???';
+  getToken(): Token {
+    return this.token;
   }
 
   logout(): void {
