@@ -12,11 +12,11 @@ export class UserService {
   }
 
   sessionUsername(): Observable<User> {
-    return this.httpService.bearerAuth().get(UserService.END_POINT + '/' + this.httpService.getMobile());
+    return this.httpService.get(UserService.END_POINT + '/' + this.httpService.getMobile());
   }
 
   readAll(): Observable<User[]> {
-    return this.httpService.bearerAuth().get(UserService.END_POINT);
+    return this.httpService.get(UserService.END_POINT);
   }
 
 }

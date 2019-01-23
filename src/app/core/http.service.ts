@@ -68,11 +68,6 @@ export class HttpService {
     return this.header('Authorization', 'Basic ' + btoa(mobile + ':' + password));
   }
 
-  bearerAuth(): HttpService {
-    const tokenValue = (this.token === undefined) ? '' : this.token.token;
-    return this.header('Authorization', 'Bearer ' + tokenValue);
-  }
-
   pdf(printDirectly = true): HttpService {
     this.printDirectly = printDirectly;
     this.responseType = 'blob';
@@ -137,6 +132,9 @@ export class HttpService {
   }
 
   private createOptions(): any {
+    if (this.token !== undefined) {
+      this.header('Authorization', 'Bearer ' + this.token.token);
+    }
     const options: any = {
       headers: this.headers,
       params: this.params,

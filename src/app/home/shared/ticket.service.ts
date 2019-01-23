@@ -12,7 +12,7 @@ export class TicketService {
   }
 
   create(ticketCreation: TicketCreation): Observable<any> {
-    return this.httpService.bearerAuth().pdf().post(TicketService.END_POINT, ticketCreation);
+    return this.httpService.pdf().post(TicketService.END_POINT, ticketCreation);
   }
 
 }

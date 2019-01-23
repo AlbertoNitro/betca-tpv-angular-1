@@ -16,19 +16,19 @@ export class CashierService {
   }
 
   readLast(): Observable<CashierLast> {
-    return this.httpService.bearerAuth().get(CashierService.END_POINT + CashierService.LAST);
+    return this.httpService.get(CashierService.END_POINT + CashierService.LAST);
   }
 
   open(): Observable<any> {
-    return this.httpService.bearerAuth().post(CashierService.END_POINT);
+    return this.httpService.post(CashierService.END_POINT);
   }
 
   readLastTotals(): Observable<CashierClosing> {
-    return this.httpService.bearerAuth().get(
+    return this.httpService.get(
       CashierService.END_POINT + CashierService.LAST + CashierService.TOTALS);
   }
 
   close(cashierClosure: CashierClosure): Observable<any> {
-    return this.httpService.bearerAuth().patch(CashierService.END_POINT + CashierService.LAST, cashierClosure);
+    return this.httpService.patch(CashierService.END_POINT + CashierService.LAST, cashierClosure);
   }
 }

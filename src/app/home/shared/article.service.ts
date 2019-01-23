@@ -12,11 +12,11 @@ export class ArticleService {
   }
 
   readOne(code: String): Observable<Article> {
-    return this.httpService.bearerAuth().get(ArticleService.END_POINT + '/' + code);
+    return this.httpService.get(ArticleService.END_POINT + '/' + code);
   }
 
   create(article: Article): Observable<Article> {
-    return this.httpService.bearerAuth().successful().post(ArticleService.END_POINT, article);
+    return this.httpService.successful().post(ArticleService.END_POINT, article);
 
   }
 
