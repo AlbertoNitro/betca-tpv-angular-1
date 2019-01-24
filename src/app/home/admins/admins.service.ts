@@ -7,7 +7,6 @@ export class AdminsService {
   static END_POINT = '/admins';
   static DB = '/db';
 
-
   constructor(private httpService: HttpService) {
   }
 

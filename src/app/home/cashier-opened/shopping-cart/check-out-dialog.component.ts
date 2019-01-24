@@ -16,7 +16,7 @@ export class CheckOutDialogComponent {
 
   ticketCreation: TicketCreation;
 
-  constructor(@Inject(MAT_DIALOG_DATA) data: any, private dialog: MatDialog, public shoppingCartService: ShoppingCartService) {
+  constructor(@Inject(MAT_DIALOG_DATA) data: any, private dialog: MatDialog, private shoppingCartService: ShoppingCartService) {
 
     this.total = data.total;
     this.ticketCreation = data.ticketCreation;

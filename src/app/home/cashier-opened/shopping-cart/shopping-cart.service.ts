@@ -8,6 +8,7 @@ import {Article} from '../../shared/article.model';
 import {ArticleService} from '../../shared/article.service';
 import {ApiEndpoint} from '../../shared/api-endpoint.model';
 import {HttpService} from '../../../core/http.service';
+import {ArticleQuickCreation} from './article-quick-creation.model';
 
 @Injectable()
 export class ShoppingCartService {
@@ -87,7 +88,6 @@ export class ShoppingCartService {
     return false;
   }
 
-
   private synchronizeAll() {
     this.shoppingCartSubject.next(this.shoppingCart);
     this.synchronizeCartTotal();
@@ -130,6 +130,10 @@ export class ShoppingCartService {
     this._indexShoppingCart %= ShoppingCartService.SHOPPING_CART_NUM;
     this.shoppingCart = this.shoppingCartList[this._indexShoppingCart];
     this.synchronizeAll();
+  }
+
+  createArticle(articleQuickCreation: ArticleQuickCreation): Observable<Article> {
+    return this.httpService.successful().post(ApiEndpoint.ARTICLES, articleQuickCreation);
   }
 
   checkOut(ticketCreation: TicketCreation): Observable<any> {

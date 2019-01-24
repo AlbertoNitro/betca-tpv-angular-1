@@ -7,15 +7,15 @@ import {CashierClosure} from './cashier-closure.model';
 
 
 @Component({
-  templateUrl: 'cashier-close-dialog.component.html',
-  styleUrls: ['cashier-close-dialog.component.css']
+  templateUrl: 'cashier-closure-dialog.component.html',
+  styleUrls: ['cashier-closure-dialog.component.css']
 })
-export class CashierCloseDialogComponent {
+export class CashierClosureDialogComponent {
   cashierClosure: CashierClosure = {finalCash: undefined, finalCard: undefined, comment: undefined};
   cashierClosureData: CashierStatus =
     {salesTotal: undefined, totalCard: undefined, totalCash: undefined, totalVoucher: undefined};
 
-  constructor(private dialog: MatDialog, private dialogRef: MatDialogRef<CashierCloseDialogComponent>,
+  constructor(private dialog: MatDialog, private dialogRef: MatDialogRef<CashierClosureDialogComponent>,
               private cashierClosureService: CashierClosureService) {
     this.cashierClosureService.readLastTotals().subscribe(
       cashierClosureData => this.cashierClosureData = cashierClosureData
