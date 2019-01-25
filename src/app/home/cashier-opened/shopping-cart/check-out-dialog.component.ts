@@ -10,24 +10,25 @@ import {ShoppingCartService} from './shopping-cart.service';
 })
 export class CheckOutDialogComponent {
 
-  total: number;
-
+  totalPurchase: number;
   requestedInvoice = false;
-
   ticketCreation: TicketCreation;
 
-  constructor(@Inject(MAT_DIALOG_DATA) data: any, private dialog: MatDialog, private shoppingCartService: ShoppingCartService) {
+  static format(value: number): number {
+    return value ? value : 0; // empty string,NaN,false,undefined,null,0 is: false
+  }
 
-    this.total = data.total;
+  constructor(@Inject(MAT_DIALOG_DATA) data: any, private dialog: MatDialog, private shoppingCartService: ShoppingCartService) {
+    this.totalPurchase = data.total;
     this.ticketCreation = data.ticketCreation;
   }
 
-  uncommited() {
+  uncommitted() {
     return this.shoppingCartService.uncommitArticlesExist();
   }
 
-  totalCommited() {
-    return this.shoppingCartService.getTotalCommited();
+  totalCommitted() {
+    return this.shoppingCartService.getTotalCommitted();
   }
 
   warning(): boolean {
@@ -36,10 +37,10 @@ export class CheckOutDialogComponent {
 
   returnedAmount(): number {
     return Math.round(
-      (0 + this.formatNumber(this.ticketCreation.cash)
-        + this.formatNumber(this.ticketCreation.card)
-        + this.formatNumber(this.ticketCreation.voucher)
-        - this.total) * 100
+      (CheckOutDialogComponent.format(this.ticketCreation.cash)
+        + CheckOutDialogComponent.format(this.ticketCreation.card)
+        + CheckOutDialogComponent.format(this.ticketCreation.voucher)
+        - this.totalPurchase) * 100
     ) / 100;
   }
 
@@ -55,13 +56,13 @@ export class CheckOutDialogComponent {
     if (this.returnedAmount() < 0) {
       this.ticketCreation.card = -this.returnedAmount();
     } else {
-      this.ticketCreation.card = this.total;
+      this.ticketCreation.card = this.totalPurchase;
       this.ticketCreation.cash = 0;
     }
   }
 
   fillCash() {
-    this.ticketCreation.cash = this.formatNumber(this.ticketCreation.cash);
+    this.ticketCreation.cash = CheckOutDialogComponent.format(this.ticketCreation.cash);
     if (this.returnedAmount() < 0 && this.ticketCreation.cash === 0) {
       this.ticketCreation.cash = -this.returnedAmount();
     } else if (this.ticketCreation.cash < 20) {
@@ -78,18 +79,19 @@ export class CheckOutDialogComponent {
   }
 
   invalidCheckOut(): boolean {
-    return (this.total + this.returnedAmount() - this.shoppingCartService.getTotalCommited() < -0.01); // perdida en operaciones
+    return (this.totalPurchase + this.returnedAmount() - this.shoppingCartService.getTotalCommitted() < -0.01); // rounding errors
   }
 
   checkOut() {
     const returned = this.returnedAmount();
     const cash = this.ticketCreation.cash;
     let voucher = 0;
-    this.formatValues();
+    this.ticketCreation.cash = CheckOutDialogComponent.format(this.ticketCreation.cash);
+    this.ticketCreation.card = CheckOutDialogComponent.format(this.ticketCreation.card);
+    this.ticketCreation.voucher = CheckOutDialogComponent.format(this.ticketCreation.voucher);
     if (returned > 0) {
       this.ticketCreation.cash -= returned;
     }
-
     if (this.ticketCreation.cash < 0) {
       voucher = -this.ticketCreation.cash;
       this.ticketCreation.cash = 0;
@@ -108,10 +110,10 @@ export class CheckOutDialogComponent {
     if (returned > 0) {
       this.ticketCreation.note += ' Return: ' + Math.round(returned * 100) / 100 + '.';
     }
-    this.shoppingCartService.checkOut(this.ticketCreation).subscribe(
-      () => {
+    this.shoppingCartService.checkOut(this.ticketCreation).subscribe(() => {
         if (voucher > 0) {
-          // TODO crear un vale como parte del pago
+          // TODO crear un vale como parte del pago, luego crear la factura
+          this.createInvoice();
         } else {
           this.createInvoice();
         }
@@ -128,17 +130,8 @@ export class CheckOutDialogComponent {
   }
 
   invalidInvoice(): boolean {
+    // TODO pendiente de calcular. Hace falta tener al usuario totalmente completado
     return true;
-  }
-
-  private formatNumber(value: number): number {
-    return ((value === undefined || value === null) ? 0 : value);
-  }
-
-  private formatValues() {
-    this.ticketCreation.cash = this.formatNumber(this.ticketCreation.cash);
-    this.ticketCreation.card = this.formatNumber(this.ticketCreation.card);
-    this.ticketCreation.voucher = this.formatNumber(this.ticketCreation.voucher);
   }
 
 }

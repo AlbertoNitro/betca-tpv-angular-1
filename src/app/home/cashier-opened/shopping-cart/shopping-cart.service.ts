@@ -2,28 +2,31 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {map} from 'rxjs/operators';
 
+import {HttpService} from '../../../core/http.service';
+import {ApiEndpoint} from '../../shared/api-endpoint.model';
+import {ArticleService} from '../../shared/article.service';
+import {Article} from '../../shared/article.model';
 import {Shopping} from './shopping.model';
 import {TicketCreation} from './ticket-creation.model';
-import {Article} from '../../shared/article.model';
-import {ArticleService} from '../../shared/article.service';
-import {ApiEndpoint} from '../../shared/api-endpoint.model';
-import {HttpService} from '../../../core/http.service';
+
 import {ArticleQuickCreation} from './article-quick-creation.model';
 
 @Injectable()
 export class ShoppingCartService {
 
+  static ARTICLE_VARIOUS = '1';
   static SHOPPING_CART_NUM = 4;
 
-  private _total = 0;
-
+  private totalShoppingCart = 0;
   private shoppingCart: Array<Shopping> = [];
-  private _indexShoppingCart = 0;
+  private indexShoppingCart = 0;
   private shoppingCartList: Array<Array<Shopping>> = [];
+  private shoppingCartSubject: Subject<Shopping[]> = new BehaviorSubject(undefined); // refresh auto
+  private lastArticle: Article;
 
-  private shoppingCartSubject: Subject<Shopping[]> = new BehaviorSubject(undefined); // subscripcion implica refresh auto
-
-  private _lastArticle: Article;
+  static isArticleVarious(code: string): boolean {
+    return code === ShoppingCartService.ARTICLE_VARIOUS;
+  }
 
   constructor(private articleService: ArticleService, private httpService: HttpService) {
     for (let i = 0; i < ShoppingCartService.SHOPPING_CART_NUM; i++) {
@@ -35,20 +38,16 @@ export class ShoppingCartService {
     return this.shoppingCartSubject.asObservable();
   }
 
-  get indexShoppingCart(): number {
-    if (this._indexShoppingCart === 0) {
-      return undefined;
-    } else {
-      return this._indexShoppingCart + 1;
-    }
+  getIndexShoppingCart(): number {
+    return this.indexShoppingCart + 1;
   }
 
-  get total() {
-    return this._total;
+  getTotalShoppingCart() {
+    return this.totalShoppingCart;
   }
 
-  get lastArticle(): Article {
-    return this._lastArticle;
+  getLastArticle(): Article {
+    return this.lastArticle;
   }
 
   synchronizeCartTotal(): void {
@@ -56,10 +55,10 @@ export class ShoppingCartService {
     for (const shopping of this.shoppingCart) {
       total = total + shopping.total;
     }
-    this._total = Math.round(total * 100) / 100;
+    this.totalShoppingCart = Math.round(total * 100) / 100;
   }
 
-  getTotalCommited(): number {
+  getTotalCommitted(): number {
     let total = 0;
     for (const shopping of this.shoppingCart) {
       if (shopping.committed) {
@@ -67,16 +66,6 @@ export class ShoppingCartService {
       }
     }
     return Math.round(total * 100) / 100;
-  }
-
-  getReturned(): number {
-    let total = 0;
-    for (const shopping of this.shoppingCart) {
-      if (shopping.total < 0) {
-        total += shopping.total;
-      }
-    }
-    return Math.round(-total * 100) / 100;
   }
 
   uncommitArticlesExist(): boolean {
@@ -101,10 +90,10 @@ export class ShoppingCartService {
     this.synchronizeAll();
   }
 
-  add(code: string): Observable<Article> {
+  add(code: string): Observable<any> {
     const price: number = Number(code.replace(',', '.'));
     if (!Number.isNaN(price) && code.length <= 5) {
-      code = '1';
+      code = ShoppingCartService.ARTICLE_VARIOUS;
     }
     return this.articleService.readOne(code).pipe(
       map(
@@ -113,22 +102,21 @@ export class ShoppingCartService {
           if (article.stock < 1) {
             shopping.committed = false;
           }
-          if (article.code === '1') {
+          if (ShoppingCartService.isArticleVarious(article.code)) {
             shopping.total = price;
             shopping.updateDiscount();
           }
           this.shoppingCart.push(shopping);
-          this._lastArticle = article;
+          this.lastArticle = article;
           this.synchronizeAll();
-          return article;
         })
     );
   }
 
   exchange(): void {
-    this.shoppingCartList[this._indexShoppingCart++] = this.shoppingCart;
-    this._indexShoppingCart %= ShoppingCartService.SHOPPING_CART_NUM;
-    this.shoppingCart = this.shoppingCartList[this._indexShoppingCart];
+    this.shoppingCartList[this.indexShoppingCart++] = this.shoppingCart;
+    this.indexShoppingCart %= ShoppingCartService.SHOPPING_CART_NUM;
+    this.shoppingCart = this.shoppingCartList[this.indexShoppingCart];
     this.synchronizeAll();
   }
 

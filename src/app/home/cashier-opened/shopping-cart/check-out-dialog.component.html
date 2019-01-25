@@ -1,5 +1,5 @@
-<h2 mat-dialog-title>Total Compra: {{total | currency:'EUR':'symbol'}}
-  <span *ngIf="uncommited()"> - Total Pay: {{totalCommited() | currency:'EUR':'symbol'}}</span>
+<h2 mat-dialog-title>Total purchase: {{totalPurchase | currency:'EUR':'symbol'}}
+  <span *ngIf="uncommitted()"> - Total Pay: {{totalCommitted() | currency:'EUR':'symbol'}}</span>
 </h2>
 <mat-dialog-content>
     <span *ngIf="warning()">
@@ -24,7 +24,7 @@
     </button>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="number" placeholder="Cash" [(ngModel)]="ticketCreation.cash" cdkFocusInitial/>
+    <input matInput type="number" placeholder="Cash" cdkFocusInitial [(ngModel)]="ticketCreation.cash"/>
     <button mat-button matSuffix mat-icon-button (click)="fillCash()">
       <mat-icon color="warn">euro_symbol</mat-icon>
     </button>
@@ -45,6 +45,6 @@
 <mat-dialog-actions>
   <button mat-raised-button mat-dialog-close cdkFocusInitial>Cancel</button>
   <button mat-raised-button color="accent" (click)="checkOut()" [disabled]="invalidCheckOut()">Payment
-    <span class="mat-suffix" *ngIf="invalidCheckOut()">( => {{totalCommited()}})</span>
+    <span class="mat-suffix" *ngIf="invalidCheckOut()">( => {{totalCommitted()}})</span>
   </button>
 </mat-dialog-actions>

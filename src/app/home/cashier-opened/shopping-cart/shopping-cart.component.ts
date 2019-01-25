@@ -14,6 +14,7 @@ import {ArticleQuickCreationDialogComponent} from './article-quick-creation-dial
   templateUrl: 'shopping-cart.component.html'
 })
 export class ShoppingCartComponent implements OnInit, OnDestroy {
+
   displayedColumns = ['id', 'description', 'retailPrice', 'amount', 'discount', 'total', 'actions'];
   dataSource: MatTableDataSource<Shopping>;
 
@@ -33,8 +34,20 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     this.elementRef.nativeElement.focus();
   }
 
+  totalShoppingCart(): number {
+    return this.shoppingCartService.getTotalShoppingCart();
+  }
+
   indexShoppingCart(): number {
-    return this.shoppingCartService.indexShoppingCart;
+    return this.shoppingCartService.getIndexShoppingCart() === 0 ? undefined : this.shoppingCartService.getIndexShoppingCart();
+  }
+
+  priceLabel(shopping: Shopping) {
+    if (this.isArticleVarious(shopping.code)) {
+      return Math.round(shopping.total / shopping.amount * 100) / 100;
+    } else {
+      return shopping.retailPrice;
+    }
   }
 
   incrementAmount(shopping: Shopping) {
@@ -56,24 +69,16 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     this.shoppingCartService.synchronizeCartTotal();
   }
 
-  priceLabel(shopping: Shopping) {
-    if (shopping.code === '1') {
-      return Math.round(shopping.total / shopping.amount * 100) / 100;
-    } else {
-      return shopping.retailPrice;
-    }
+  discountLabel(shopping: Shopping): string {
+    return this.isArticleVarious(shopping.code) ? '' : '' + shopping.discount;
   }
 
-  discountLabel(shopping: Shopping): string {
-    if (shopping.code === '1') {
-      return '';
-    } else {
-      return '' + shopping.discount;
-    }
+  isArticleVarious(code: string) {
+    return ShoppingCartService.isArticleVarious(code);
   }
 
   updateDiscount(shopping: Shopping, event: any): void {
-    if (shopping.code !== '1') {
+    if (!this.isArticleVarious(shopping.code)) {
       shopping.discount = Number(event.target.value);
       if (shopping.discount < 0) {
         shopping.discount = 0;
@@ -98,12 +103,12 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     this.shoppingCartService.synchronizeCartTotal();
   }
 
-  changeCommitted(shopping: Shopping) {
-    shopping.committed = !shopping.committed;
+  exchange() {
+    this.shoppingCartService.exchange();
   }
 
-  total(): number {
-    return this.shoppingCartService.total;
+  changeCommitted(shopping: Shopping) {
+    shopping.committed = !shopping.committed;
   }
 
   delete(shopping: Shopping) {
@@ -113,30 +118,36 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   add(code: string) {
     this.shoppingCartService.add(code).subscribe(() => {
       },
-      () => this.createArticle(code)
-    );
-  }
-
-  createArticle(code: string) {
-    const dialogRef = this.dialog.open(ArticleQuickCreationDialogComponent);
-    dialogRef.componentInstance.article = {code: code, description: null, retailPrice: null};
-    dialogRef.afterClosed().subscribe(
-      isCreatedCode => {
-        if (isCreatedCode) {
-          this.add(code);
-        }
+      () => {
+        const dialogRef = this.dialog.open(ArticleQuickCreationDialogComponent);
+        dialogRef.componentInstance.article = {code: code, description: undefined, retailPrice: undefined};
+        dialogRef.afterClosed().subscribe(
+          isCreatedCode => {
+            if (isCreatedCode) {
+              this.add(code);
+            }
+          }
+        );
       }
     );
   }
 
-  invalidCheckout(): boolean {
+  stockLabel(): string {
+    return (this.shoppingCartService.getLastArticle()) ? 'Stock of ' + this.shoppingCartService.getLastArticle().description : 'Stock';
+  }
+
+  stockValue(): number {
+    return (this.shoppingCartService.getLastArticle()) ? this.shoppingCartService.getLastArticle().stock : undefined;
+  }
+
+  isEmpty(): boolean {
     return this.shoppingCartService.isEmpty();
   }
 
   checkOut() {
     this.dialog.open(CheckOutDialogComponent, {
       data: {
-        total: this.shoppingCartService.total,
+        total: this.shoppingCartService.getTotalShoppingCart(),
         ticketCreation: {cash: 0, card: 0, voucher: 0, shoppingCart: null}
       }
     }).afterClosed().subscribe(
@@ -146,26 +157,6 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
 
   createBudget() {
     // TODO crear un presupuesto
-  }
-
-  exchange() {
-    this.shoppingCartService.exchange();
-  }
-
-  stockLabel(): string {
-    if (this.shoppingCartService.lastArticle) {
-      return 'Stock of ' + this.shoppingCartService.lastArticle.description;
-    } else {
-      return 'Stock';
-    }
-  }
-
-  stockValue(): number {
-    if (this.shoppingCartService.lastArticle) {
-      return this.shoppingCartService.lastArticle.stock;
-    } else {
-      return null;
-    }
   }
 
   ngOnDestroy(): void {
