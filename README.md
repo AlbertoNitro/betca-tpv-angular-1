@@ -20,3 +20,93 @@ Un único sistema informático permite la creación e impresión del recibo tick
 https://youtu.be/ozgDhEO18XQ
 
 ## Arquitectura
+
+### Modulos
+![](https://github.com/miw-upm/betca-tpv-angular/blob/develop/docs/app-module.png)
+
+### Plantilla de la arquitectura de un componente
+![](https://github.com/miw-upm/betca-tpv-angular/blob/develop/docs/app-template.png)
+
+### Servicios (CORE)
+![](https://github.com/miw-upm/betca-tpv-angular/blob/develop/docs/core-module.png)
+
+### Jerarquía de componentes y servicios
+![](https://github.com/miw-upm/betca-tpv-angular/blob/develop/docs/app-hierarchy.png)
+
+### Vista de pantallas
+![](https://github.com/miw-upm/betca-tpv-angular/blob/develop/docs/app-view.png)
+
+## Metodología
+
+### Dialogos
+Genéricos, el _**dialog**_ devuelve los datos y se gestiona su evolución en la llamada
+```typescript
+deleteDb() {
+  this.dialog.open(CancelYesDialogComponent).afterClosed().subscribe(
+    result => {
+      if (result) {
+        this.adminsService.deleteDb();
+      }
+    });
+}
+```
+```html
+<mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close cdkFocusInitial color="primary">Cancel</button>
+  <button mat-raised-button [mat-dialog-close]="true">Yes</button>
+</mat-dialog-actions>
+```
+Específicos, el _**dialogo**_ se encarga de llamar al servicio
+```typescript
+closeCashier() {
+  this.dialog.open(CashierCloseDialogComponent);
+}
+```
+```html
+<mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close color="primary" cdkFocusInitial>Cancel</button>
+    <button mat-raised-button mat-dialog-close (click)="close()">Close Cashier</button>
+</mat-dialog-actions>
+```
+```typescript
+export class CashierCloseDialogComponent {
+    cashierClosure: CashierClosure = { finalCash: 0, salesCard: 0, comment: '' };
+    constructor(private cashierService: CashierService) {}
+    close() {
+        this.cashierService.close(this.cashierClosure);
+    }
+}
+```
+### Observadores
+Indefinidos, el sujeto observado, pueden cambiar por acciones en otro lugar de la aplicación a lo largo del tiempo. Debemos darnos de baja cuando se destruya el componente.
+```typescript
+this.subscription = this.cashierService.lastObservable().subscribe(
+  data => {
+    this.cashierClosed = data.closed;
+    if (data.closed) {
+      this.router.navigate([HomeComponent.URL, CashierClosedComponent.URL]);
+    } else {
+      this.router.navigate([HomeComponent.URL, CashierOpenedComponent.URL]);
+    }
+  }
+);
+```
+```typescript
+ngOnDestroy(): void {
+  this.subscription.unsubscribe();
+}
+```
+Peticiones asíncronas, se cierran automáticamente al finalizar la petición
+```typescript
+seedDb(ymlFileName: string): void {
+    this.httpService.authToken().post(AdminsService.END_POINT + AdminsService.DB, ymlFileName).subscribe(
+        () => this.successful()
+    );
+}
+```
+
+
+
+
+
+
