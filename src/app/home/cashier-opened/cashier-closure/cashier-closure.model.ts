@@ -1,5 +1,5 @@
 export interface CashierClosure {
   finalCash: number;
-  salesCard: number;
+  finalCard: number;
   comment: string;
 }

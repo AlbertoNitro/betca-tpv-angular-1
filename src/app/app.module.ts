@@ -1,39 +1,45 @@
-import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
+import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AppMaterialModule} from './app-material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CdkTableModule} from '@angular/cdk/table';
+
+import {AppMaterialModule} from './app-material.module';
+import {AppRoutingModule} from './app-routing.module';
 import {CoreModule} from './core/core.module';
-import {UserService} from './home/shared/user.service';
+
 import {CashierService} from './home/shared/cashier.service';
 import {AdminsService} from './home/admins/admins.service';
+import {ArticleService} from './home/shared/article.service';
+import {CashierClosureService} from './home/cashier-opened/cashier-closure/cashier-closure.service';
+import {ShoppingCartService} from './home/cashier-opened/shopping-cart/shopping-cart.service';
+import {UserService} from './home/users/user.service';
+
+import {AppComponent} from './app.component';
 
 @NgModule({
   imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    CdkTableModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    CoreModule,
     AppMaterialModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    BrowserModule
+    BrowserModule,
+    CdkTableModule,
+    CoreModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     AppComponent,
     AppRoutingModule.COMPONENTS,
-    AppRoutingModule.DIALOG_COMPONENT
+    AppRoutingModule.DIALOGS
   ],
-  entryComponents: [AppRoutingModule.DIALOG_COMPONENT],
+  entryComponents: [AppRoutingModule.DIALOGS],
   providers: [
     AdminsService,
+    ArticleService,
+    CashierClosureService,
     CashierService,
+    ShoppingCartService,
     UserService
   ],
   bootstrap: [AppComponent]

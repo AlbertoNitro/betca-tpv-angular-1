@@ -7,9 +7,12 @@ import {CashierClosedComponent} from './home/cashier-closed/cashier-closed.compo
 import {CashierOpenedComponent} from './home/cashier-opened/cashier-opened.component';
 import {HomeComponent} from './home/home.component';
 import {ShoppingCartComponent} from './home/cashier-opened/shopping-cart/shopping-cart.component';
-import {WelcomeComponent} from './welcome/welcome.component';
 import {UsersComponent} from './home/users/users.component';
-import {CashierCloseDialogComponent} from './home/cashier-opened/cashier-close-dialog.component';
+import {WelcomeComponent} from './welcome/welcome.component';
+
+import {ArticleQuickCreationDialogComponent} from './home/cashier-opened/shopping-cart/article-quick-creation-dialog.component';
+import {CashierClosureDialogComponent} from './home/cashier-opened/cashier-closure/cashier-closure-dialog.component';
+import {CheckOutDialogComponent} from './home/cashier-opened/shopping-cart/check-out-dialog.component';
 import {DbSeedDialogComponent} from './home/admins/db-seed-dialog.component';
 
 const routes: Routes = [
@@ -41,8 +44,10 @@ export class AppRoutingModule {
     WelcomeComponent,
   ];
 
-  static DIALOG_COMPONENT = [
-    CashierCloseDialogComponent,
+  static DIALOGS = [
+    ArticleQuickCreationDialogComponent,
+    CashierClosureDialogComponent,
+    CheckOutDialogComponent,
     DbSeedDialogComponent
   ];
 }

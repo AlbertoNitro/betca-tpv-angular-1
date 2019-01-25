@@ -21,18 +21,18 @@ export class TokensService {
   }
 
   isAdmin(): boolean {
-    if (this.httpService.getRoles() !== undefined) {
-      return this.httpService.getRoles().includes(Role.ADMIN);
-    } else {
-      return false;
-    }
+    return this.httpService.getToken() ? this.httpService.getToken().roles.includes(Role.ADMIN) : false;
   }
 
   isManager(): boolean {
-    if (this.httpService.getRoles() !== undefined) {
-      return this.httpService.getRoles().includes(Role.MANAGER);
-    } else {
-      return false;
-    }
+    return this.httpService.getToken() ? this.httpService.getToken().roles.includes(Role.MANAGER) : false;
+  }
+
+  getMobile(): number {
+    return this.httpService.getToken() ? this.httpService.getToken().mobile : undefined;
+  }
+
+  getName(): string {
+    return this.httpService.getToken() ? this.httpService.getToken().name : '???';
   }
 }

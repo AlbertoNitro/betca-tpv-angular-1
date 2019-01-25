@@ -1,13 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Router} from '@angular/router';
-
 import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material';
 
 import {Token} from './token.model';
-import {Role} from './role.model';
 import {Error} from './error.model';
 
 @Injectable()
@@ -19,7 +17,6 @@ export class HttpService {
 
   private printDirectly: boolean;
   private token: Token;
-  private mobile: number;
   private params: HttpParams;
   private headers: HttpHeaders;
   private responseType: string;
@@ -29,17 +26,12 @@ export class HttpService {
     this.resetOptions();
   }
 
-  getRoles(): Array<Role> {
-    return (this.token) ? this.token.roles : undefined;
-  }
-
-  getMobile(): number {
-    return this.mobile;
+  getToken(): Token {
+    return this.token;
   }
 
   logout(): void {
     this.token = undefined;
-    this.mobile = undefined;
     this.router.navigate(['']);
   }
 
@@ -47,7 +39,6 @@ export class HttpService {
     return this.authBasic(mobile, password).post(endPoint).pipe(
       map(token => {
         this.token = token;
-        this.mobile = mobile;
       }), catchError(error => {
         return this.handleError(error);
       })
@@ -68,15 +59,10 @@ export class HttpService {
     return this.header('Authorization', 'Basic ' + btoa(mobile + ':' + password));
   }
 
-  bearerAuth(): HttpService {
-    const tokenValue = (this.token === undefined) ? '' : this.token.token;
-    return this.header('Authorization', 'Bearer ' + tokenValue);
-  }
-
   pdf(printDirectly = true): HttpService {
     this.printDirectly = printDirectly;
     this.responseType = 'blob';
-    this.header('Accept', 'application/pdf');
+    this.header('Accept', 'application/pdf , application/json');
     return this;
   }
 
@@ -87,7 +73,7 @@ export class HttpService {
 
   get(endpoint: string): Observable<any> {
     return this.http.get(HttpService.API_END_POINT + endpoint, this.createOptions()).pipe(
-      map((response => this.extractData(response))
+      map(response => this.extractData(response)
       ), catchError(error => {
         return this.handleError(error);
       })
@@ -96,7 +82,7 @@ export class HttpService {
 
   post(endpoint: string, body?: Object): Observable<any> {
     return this.http.post(HttpService.API_END_POINT + endpoint, body, this.createOptions()).pipe(
-      map((response => this.extractData(response))
+      map(response => this.extractData(response)
       ), catchError(error => {
         return this.handleError(error);
       })
@@ -105,7 +91,7 @@ export class HttpService {
 
   delete(endpoint: string): Observable<any> {
     return this.http.delete(HttpService.API_END_POINT + endpoint, this.createOptions()).pipe(
-      map((response => this.extractData(response))
+      map(response => this.extractData(response)
       ), catchError(error => {
         return this.handleError(error);
       })
@@ -114,7 +100,7 @@ export class HttpService {
 
   put(endpoint: string, body?: Object): Observable<any> {
     return this.http.put(HttpService.API_END_POINT + endpoint, body, this.createOptions()).pipe(
-      map((response => this.extractData(response))
+      map(response => this.extractData(response)
       ), catchError(error => {
         return this.handleError(error);
       })
@@ -123,7 +109,7 @@ export class HttpService {
 
   patch(endpoint: string, body?: Object): Observable<any> {
     return this.http.patch(HttpService.API_END_POINT + endpoint, body, this.createOptions()).pipe(
-      map((response => this.extractData(response))
+      map(response => this.extractData(response)
       ), catchError(error => {
         return this.handleError(error);
       })
@@ -137,6 +123,9 @@ export class HttpService {
   }
 
   private createOptions(): any {
+    if (this.token !== undefined) {
+      this.header('Authorization', 'Bearer ' + this.token.token);
+    }
     const options: any = {
       headers: this.headers,
       params: this.params,
@@ -189,7 +178,7 @@ export class HttpService {
     } else {
       try {
         if (response.status === HttpService.NOT_FOUND) {
-          error = {error: 'Not Found', message: 'API Not implemented', path: ''};
+          error = {error: 'Not Found', message: '', path: ''};
         } else {
           error = response.error; // with 'text': JSON.parse(response.error);
         }

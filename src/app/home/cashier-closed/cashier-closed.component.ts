@@ -12,7 +12,7 @@ export class CashierClosedComponent {
   cashierLast: CashierLast = {closed: undefined};
 
   constructor(private cashierService: CashierService) {
-    this.cashierService.last().subscribe(
+    this.cashierService.readLast().subscribe(
       cashierLast => this.cashierLast = cashierLast
     );
   }

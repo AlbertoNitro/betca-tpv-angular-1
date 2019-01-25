@@ -7,22 +7,17 @@ export class AdminsService {
   static END_POINT = '/admins';
   static DB = '/db';
 
-
   constructor(private httpService: HttpService) {
   }
 
   deleteDb(): void {
-    this.httpService.bearerAuth().successful().delete(AdminsService.END_POINT + AdminsService.DB).subscribe(
-      () => {
-      }
-    );
+    this.httpService.successful().delete(AdminsService.END_POINT + AdminsService.DB).subscribe(() => {
+    });
   }
 
   seedDb(ymlFileName: string): void {
-    this.httpService.bearerAuth().successful().post(AdminsService.END_POINT + AdminsService.DB, ymlFileName).subscribe(
-      () => {
-      }
-    );
+    this.httpService.successful().post(AdminsService.END_POINT + AdminsService.DB, ymlFileName).subscribe(() => {
+    });
   }
 
 }
