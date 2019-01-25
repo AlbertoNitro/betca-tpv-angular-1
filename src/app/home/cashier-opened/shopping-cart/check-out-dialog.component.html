@@ -44,7 +44,7 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button mat-dialog-close cdkFocusInitial>Cancel</button>
-  <button mat-raised-button color="accent" (click)="checkOut()" [disabled]="invalidCheckOut()">Payment
+  <button mat-raised-button color="accent" (click)="checkOut()" [disabled]="invalidCheckOut()">Pay
     <span class="mat-suffix" *ngIf="invalidCheckOut()">( => {{totalCommitted()}})</span>
   </button>
 </mat-dialog-actions>

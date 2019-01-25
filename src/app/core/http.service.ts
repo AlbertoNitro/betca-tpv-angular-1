@@ -5,6 +5,8 @@ import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material';
 
+import {JwtHelperService} from '@auth0/angular-jwt';
+
 import {Token} from './token.model';
 import {Error} from './error.model';
 
@@ -39,6 +41,9 @@ export class HttpService {
     return this.authBasic(mobile, password).post(endPoint).pipe(
       map(token => {
         this.token = token;
+        this.token.mobile = new JwtHelperService().decodeToken(token.token).user;
+        this.token.name = new JwtHelperService().decodeToken(token.token).name;
+        this.token.roles = new JwtHelperService().decodeToken(token.token).roles;
       }), catchError(error => {
         return this.handleError(error);
       })
