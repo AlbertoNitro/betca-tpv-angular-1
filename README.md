@@ -27,6 +27,21 @@ https://youtu.be/ozgDhEO18XQ
 ### Plantilla de la arquitectura de un componente
 ![](https://github.com/miw-upm/betca-tpv-angular/blob/develop/docs/app-template.png)
 
+#### Responsabilidades
+##### Componente
+> Obtener los datos a traves del `Servicio Local`.   
+> Procesar exclusivamente para preparar la vista.   
+> NO realiza procesos de negocio NI realiza peticiones al API.   
+
+###### Vista (HTML)
+> Organiza la vista.  
+> No procesa cuestiones de vista, las delega en el componente.
+Como exceptión se permite un proceso muy simple, por ejemplo deshabilitar un botón por no tener valor de entrada  
+
+##### Servicio
+> Realiza las peticiones del API a traves del `servicio Http` de Core.  
+> Si hay peticiones repetidas entre varios servicios, se delega a un servicio más genérico situado en una carpeta `shared`
+
 ### Servicios (CORE)
 ![](https://github.com/miw-upm/betca-tpv-angular/blob/develop/docs/core-module.png)
 

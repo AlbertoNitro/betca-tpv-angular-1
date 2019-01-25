@@ -26,7 +26,7 @@ import {AppComponent} from './app.component';
     CdkTableModule,
     CoreModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     AppComponent,
