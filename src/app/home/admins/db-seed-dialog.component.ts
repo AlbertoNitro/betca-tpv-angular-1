@@ -10,8 +10,8 @@ export class DbSeedDialogComponent {
   constructor(private adminsService: AdminsService) {
   }
 
-  seedDb(ymlFileName: string) {
-    this.adminsService.seedDb(ymlFileName);
+  seed(files: FileList) {
+    this.adminsService.seedDb(files.item(0));
   }
 
 }
