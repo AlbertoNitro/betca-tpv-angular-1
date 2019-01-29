@@ -4,11 +4,13 @@ node_js:
 before_install:
   - npm install -g @angular/cli
 install: npm install
-after_script:
-  - chmod +x publish-gh-pages.sh && ./publish-gh-pages.sh
 branches:
   only:
-    - develop
     - master
-
-
+after_script:
+  - chmod +x publish-gh-pages.sh && ./publish-gh-pages.sh
+deploy:
+  provider: heroku
+  api_key:
+    secure: generate your's using travis cli
+  app: angular-cd-demo
