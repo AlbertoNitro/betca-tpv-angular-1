@@ -15,8 +15,10 @@ export class AdminsService {
     });
   }
 
-  seedDb(ymlFileName: string): void {
-    this.httpService.successful().post(AdminsService.END_POINT + AdminsService.DB, ymlFileName).subscribe(() => {
+  seedDb(file: File): void {
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    this.httpService.successful().post(AdminsService.END_POINT + AdminsService.DB, formData).subscribe(() => {
     });
   }
 
