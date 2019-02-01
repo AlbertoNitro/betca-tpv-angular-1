@@ -152,9 +152,3 @@ Proceso intermedio de los datos
     );
   }
 ```
-
-
-
-
-
-
