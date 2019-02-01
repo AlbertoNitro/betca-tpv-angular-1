@@ -5,8 +5,8 @@
 > Proyecto Front-end completo para el uso de la tecnología Angular-Spring.  
 > El Back-end se desarrolla en Spring en el proyecto [betca-tpv-spring](https://github.com/miw-upm/betca-tpv-spring).
 > Se debe arrancar el [API]() en linea de comando mediante:
-> * A partir del código fuente: `>mvn clean spring-boot:run`
-> * A partir del JAR: `java -jar release.jar`  
+> * A partir del código fuente: `> mvn clean spring-boot:run`
+> * A partir del JAR: `> java -jar release.jar`  
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.1.
 
@@ -26,17 +26,26 @@ https://youtu.be/ozgDhEO18XQ
 
 ### Plantilla de la arquitectura de un componente
 ![](https://github.com/miw-upm/betca-tpv-angular/blob/develop/docs/app-template.png)
+```typescript
+export interface LocalModel {
+  code: string;
+  description: string;
+  retailPrice: number;
+}
+```
 
 #### Responsabilidades
-##### Componente
-> Obtener los datos a traves del `Servicio Local`.   
-> Procesar exclusivamente para preparar la vista.   
-> NO realiza procesos de negocio NI realiza peticiones al API.   
 
 ###### Vista (HTML)
 > Organiza la vista.  
 > No procesa cuestiones de vista, las delega en el componente.
 Como exceptión se permite un proceso muy simple, por ejemplo deshabilitar un botón por no tener valor de entrada  
+
+##### Componente
+> Obtener los datos a traves del `Servicio Local`.   
+> Procesar exclusivamente para preparar la vista.   
+> NO realiza procesos de negocio NI realiza peticiones al API, lo delega en el servicio Local 
+
 
 ##### Servicio
 > Realiza las peticiones del API a traves del `servicio Http` de Core.  
@@ -71,6 +80,14 @@ deleteDb() {
   <button mat-raised-button [mat-dialog-close]="true">Yes</button>
 </mat-dialog-actions>
 ```
+```typescript
+@Component({
+  templateUrl: 'cancel-yes-dialog.component.html',
+  styleUrls: ['./dialog.component.css']
+})
+export class CancelYesDialogComponent {
+}
+```
 Específicos, el _**dialogo**_ se encarga de llamar al servicio
 ```typescript
 closeCashier() {
@@ -93,7 +110,7 @@ export class CashierCloseDialogComponent {
 }
 ```
 ### Observadores
-Indefinidos, el sujeto observado, pueden cambiar por acciones en otro lugar de la aplicación a lo largo del tiempo. Debemos darnos de baja cuando se destruya el componente.
+Con un ciclo de vida sin cierre. El sujeto observado, pueden cambiar por acciones en otro lugar de la aplicación a lo largo del tiempo. Debemos darnos de baja cuando se destruya el componente.
 ```typescript
 this.subscription = this.cashierService.lastObservable().subscribe(
   data => {
@@ -111,13 +128,29 @@ ngOnDestroy(): void {
   this.subscription.unsubscribe();
 }
 ```
-Peticiones asíncronas, se cierran automáticamente al finalizar la petición
+Peticiones asíncronas al API, se cierran automáticamente al finalizar la petición
 ```typescript
-seedDb(ymlFileName: string): void {
-    this.httpService.authToken().post(AdminsService.END_POINT + AdminsService.DB, ymlFileName).subscribe(
-        () => this.successful()
-    );
+seedDb(file: File): void {
+  const formData: FormData = new FormData();
+  formData.append('file', file, file.name);
+  this.httpService.successful().post(AdminsService.END_POINT + AdminsService.DB, formData).subscribe(() => {
+  });
 }
+```
+Proceso intermedio de los datos
+```typescript
+  login(mobile: number, password: string, endPoint: string): Observable<any> {
+    return this.authBasic(mobile, password).post(endPoint).pipe(
+      map(token => {
+        this.token = token;
+        this.token.mobile = new JwtHelperService().decodeToken(token.token).user;
+        this.token.name = new JwtHelperService().decodeToken(token.token).name;
+        this.token.roles = new JwtHelperService().decodeToken(token.token).roles;
+      }), catchError(error => {
+        return this.handleError(error);
+      })
+    );
+  }
 ```
 
 

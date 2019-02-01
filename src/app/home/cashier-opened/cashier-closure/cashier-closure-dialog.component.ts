@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material';
 
 import {CashierClosureService} from './cashier-closure.service';
-import {CashierStatus} from './cashier-status.model';
+import {CashierState} from './cashier-state.model';
 import {CashierClosure} from './cashier-closure.model';
 
 
@@ -12,7 +12,7 @@ import {CashierClosure} from './cashier-closure.model';
 })
 export class CashierClosureDialogComponent {
   cashierClosure: CashierClosure = {finalCash: undefined, finalCard: undefined, comment: undefined};
-  cashierClosureData: CashierStatus =
+  cashierClosureData: CashierState =
     {salesTotal: undefined, totalCard: undefined, totalCash: undefined, totalVoucher: undefined};
 
   constructor(private dialog: MatDialog, private dialogRef: MatDialogRef<CashierClosureDialogComponent>,

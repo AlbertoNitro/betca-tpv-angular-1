@@ -3,13 +3,13 @@ import {Observable} from 'rxjs';
 
 import {HttpService} from '../../../core/http.service';
 import {ApiEndpoint} from '../../shared/api-endpoint.model';
-import {CashierStatus} from './cashier-status.model';
+import {CashierState} from './cashier-state.model';
 import {CashierClosure} from './cashier-closure.model';
 
 
 @Injectable()
 export class CashierClosureService {
-  static TOTALS = '/totals';
+  static STATE = '/state';
 
   constructor(private httpService: HttpService) {
   }
@@ -18,9 +18,9 @@ export class CashierClosureService {
     return this.httpService.patch(ApiEndpoint.CASHIER_CLOSURES_LAST, cashierClosure);
   }
 
-  readLastTotals(): Observable<CashierStatus> {
+  readLastTotals(): Observable<CashierState> {
     return this.httpService.get(
-      ApiEndpoint.CASHIER_CLOSURES_LAST + CashierClosureService.TOTALS);
+      ApiEndpoint.CASHIER_CLOSURES_LAST + CashierClosureService.STATE);
   }
 
 }
