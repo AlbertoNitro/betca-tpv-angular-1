@@ -7,25 +7,22 @@ import {MatTableDataSource} from '@angular/material';
 })
 export class CrudComponent {
 
-  @Input()
-  set data(data: any[]) {
-    this.dataSource = new MatTableDataSource<any>(data);
-  }
-
   @Input() title = 'Management';
   @Input() columns: Array<String>;
-
   @Input() createAction = true;
   @Input() readAction = true;
   @Input() updateAction = true;
   @Input() deleteAction = true;
-
   @Output() create = new EventEmitter<any>();
   @Output() read = new EventEmitter<any>();
   @Output() update = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
-
   dataSource: MatTableDataSource<any>;
+
+  @Input()
+  set data(data: any[]) {
+    this.dataSource = new MatTableDataSource<any>(data);
+  }
 
   onRead(item) {
     this.read.emit(item);

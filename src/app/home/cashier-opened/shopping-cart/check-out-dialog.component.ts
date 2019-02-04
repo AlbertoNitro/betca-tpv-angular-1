@@ -14,13 +14,13 @@ export class CheckOutDialogComponent {
   requestedInvoice = false;
   ticketCreation: TicketCreation;
 
-  static format(value: number): number {
-    return value ? value : 0; // empty string,NaN,false,undefined,null,0 is: false
-  }
-
   constructor(@Inject(MAT_DIALOG_DATA) data: any, private dialog: MatDialog, private shoppingCartService: ShoppingCartService) {
     this.totalPurchase = data.total;
     this.ticketCreation = data.ticketCreation;
+  }
+
+  static format(value: number): number {
+    return value ? value : 0; // empty string,NaN,false,undefined,null,0 is: false
   }
 
   uncommitted() {

@@ -19,12 +19,12 @@ export class Shopping {
     this.discount = this.round(100 * (1 - (this.total / (this.amount * this.retailPrice))));
   }
 
-  private round(value: number) {
-    return Math.round(value * 100) / 100;
-  }
-
   toString(): string {
     return 'code:' + this.code + ',delivered:' + this.committed;
+  }
+
+  private round(value: number) {
+    return Math.round(value * 100) / 100;
   }
 
 }

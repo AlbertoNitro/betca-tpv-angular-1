@@ -2,22 +2,22 @@
   <mat-card-title>Search</mat-card-title>
   <mat-card-content>
     <mat-form-field>
-      <input matInput placeholder="Mobile" [(ngModel)]="user.mobile">
+      <input [(ngModel)]="user.mobile" matInput placeholder="Mobile">
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Username" [(ngModel)]="user.username">
+      <input [(ngModel)]="user.username" matInput placeholder="Username">
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Dni" [(ngModel)]="user.dni">
+      <input [(ngModel)]="user.dni" matInput placeholder="Dni">
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Address" [(ngModel)]="user.address">
+      <input [(ngModel)]="user.address" matInput placeholder="Address">
     </mat-form-field>
     <mat-checkbox [(ngModel)]="onlyCustomer">Only Customer</mat-checkbox>
-    <button mat-mini-fab color="primary" (click)="search()">
+    <button (click)="search()" color="primary" mat-mini-fab>
       <mat-icon>search</mat-icon>
     </button>
-    <button mat-mini-fab color="primary" (click)="resetSearch()">
+    <button (click)="resetSearch()" color="primary" mat-mini-fab>
       <mat-icon>close</mat-icon>
     </button>
   </mat-card-content>

@@ -32,6 +32,14 @@ export class HomeComponent {
     this.cashier();
   }
 
+  isAdmin(): boolean {
+    return this.tokensService.isAdmin();
+  }
+
+  isManager(): boolean {
+    return this.tokensService.isManager();
+  }
+
   cashier() {
     this.cashierService.isClosedCashier().subscribe(
       closed => {

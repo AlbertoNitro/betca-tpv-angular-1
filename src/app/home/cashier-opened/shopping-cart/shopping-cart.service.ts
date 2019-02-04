@@ -24,14 +24,14 @@ export class ShoppingCartService {
   private shoppingCartSubject: Subject<Shopping[]> = new BehaviorSubject(undefined); // refresh auto
   private lastArticle: Article;
 
-  static isArticleVarious(code: string): boolean {
-    return code === ShoppingCartService.ARTICLE_VARIOUS;
-  }
-
   constructor(private articleService: ArticleService, private httpService: HttpService) {
     for (let i = 0; i < ShoppingCartService.SHOPPING_CART_NUM; i++) {
       this.shoppingCartList.push([]);
     }
+  }
+
+  static isArticleVarious(code: string): boolean {
+    return code === ShoppingCartService.ARTICLE_VARIOUS;
   }
 
   shoppingCartObservable(): Observable<Shopping[]> {
@@ -75,11 +75,6 @@ export class ShoppingCartService {
       }
     }
     return false;
-  }
-
-  private synchronizeAll() {
-    this.shoppingCartSubject.next(this.shoppingCart);
-    this.synchronizeCartTotal();
   }
 
   delete(shopping: Shopping): void {
@@ -131,13 +126,18 @@ export class ShoppingCartService {
     );
   }
 
+  isEmpty(): boolean {
+    return (!this.shoppingCart || this.shoppingCart.length === 0);
+  }
+
+  private synchronizeAll() {
+    this.shoppingCartSubject.next(this.shoppingCart);
+    this.synchronizeCartTotal();
+  }
+
   private reset() {
     this.shoppingCart = [];
     this.synchronizeAll();
-  }
-
-  isEmpty(): boolean {
-    return (!this.shoppingCart || this.shoppingCart.length === 0);
   }
 
 }
