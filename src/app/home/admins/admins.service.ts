@@ -16,8 +16,11 @@ export class AdminsService {
   }
 
   seedDb(file: File): void {
-    const formData: FormData = new FormData();
-    formData.append('file', file, file.name);
+    let formData: FormData = null;
+    if (file) {
+      formData = new FormData();
+      formData.append('file', file, file.name);
+    }
     this.httpService.successful().post(AdminsService.END_POINT + AdminsService.DB, formData).subscribe(() => {
     });
   }
