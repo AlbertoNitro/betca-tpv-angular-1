@@ -11,6 +11,8 @@ notifications:
   email:
     recipients:
       - j.bernal@upm.es
+script:
+  - ng test --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox
 # Deploy https://betca-tpv-spring.herokuapp.com/api/v0/swagger-ui.html
 deploy:
   provider: heroku
