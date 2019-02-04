@@ -3,10 +3,12 @@
 #### [Máster en Ingeniería Web por la U.P.M.](http://miw.etsisi.upm.es)
 
 > Proyecto Front-end completo para el uso de la tecnología Angular-Spring.  
-> El Back-end se desarrolla en Spring en el proyecto [betca-tpv-spring](https://github.com/miw-upm/betca-tpv-spring).
-> Se debe arrancar el [API]() en linea de comando mediante:
-> * A partir del código fuente: `> mvn clean spring-boot:run`
-> * A partir del JAR: `> java -jar release.jar`  
+> Web en acción: [https://betca-tpv-angular.herokuapp.com](https://betca-tpv-angular.herokuapp.com).  
+> El Back-end se desarrolla en Spring en el proyecto [betca-tpv-spring](https://github.com/miw-upm/betca-tpv-spring). [API-Swagger](https://betca-tpv-spring.herokuapp.com/api/v0/swagger-ui.html)  
+> Ejecución en local:  
+> * Se debe tener arrancado el motor de MongoDB: `mongodb://localhost:27017/tpv`  
+> * Se debe arrancar el **API** en linea de comando, mediante: `> mvn clean spring-boot:run`  
+> * Se debe arrancar **Angular**, mediante:`> ng serve`. [URL](http://localhost:4200/)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.1.
 
