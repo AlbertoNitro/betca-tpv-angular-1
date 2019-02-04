@@ -1,16 +1,20 @@
 language: node_js
 node_js:
   - '8'
-before_install:
-  - npm install -g @angular/cli
-install: npm install
+addons:
+  chrome: stable
 branches:
-  only:
-    - master
-after_script:
-  - chmod +x publish-gh-pages.sh && ./publish-gh-pages.sh
+  - develop
+  - /^release-.*$/
+  - master
+notifications:
+  email:
+    recipients:
+      - j.bernal@upm.es
+# Deploy https://betca-tpv-spring.herokuapp.com/api/v0/swagger-ui.html
 deploy:
   provider: heroku
   api_key:
-    secure: generate your's using travis cli
-  app: angular-cd-demo
+    secure: $HEROKU
+  on:
+    branch: master
