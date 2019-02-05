@@ -9,11 +9,11 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 
 import {Token} from './token.model';
 import {Error} from './error.model';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class HttpService {
-
-  static API_END_POINT = 'http://localhost:8080/api/v0';
+  static API_END_POINT = environment.API;
   static UNAUTHORIZED = 401;
   static NOT_FOUND = 404;
 
