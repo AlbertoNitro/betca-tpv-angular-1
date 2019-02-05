@@ -1,7 +1,7 @@
 # Proyecto TPV - Front-end - Angular
 #### Back-end con Tecnologías de Código Abierto (SPRING)
-#### [Máster en Ingeniería Web por la U.P.M.](http://miw.etsisi.upm.es)
-
+#### [Máster en Ingeniería Web por la U.P.M.](http://miw.etsisi.upm.es)  
+[![Build Status](https://travis-ci.org/miw-upm/betca-tpv-angular.svg?branch=develop)](https://travis-ci.org/miw-upm/betca-tpv-angular)
 > Proyecto Front-end completo para el uso de la tecnología Angular-Spring.  
 > Web en acción: [https://betca-tpv-angular.herokuapp.com](https://betca-tpv-angular.herokuapp.com).  
 > El Back-end se desarrolla en Spring en el proyecto [betca-tpv-spring](https://github.com/miw-upm/betca-tpv-spring). Documentación del API [Swagger](https://betca-tpv-spring.herokuapp.com/api/v0/swagger-ui.html)  
@@ -20,6 +20,27 @@ Un **T**erminal **P**unto de **V**enta es un sistema informático que gestiona e
 Un único sistema informático permite la creación e impresión del recibo ticket o factura de venta —con los detalles de las referencias y precios— de los artículos vendidos, actualiza los cambios en el nivel de existencias de mercancías (STOCK) en la base de datos...
 ## Video explicativo
 https://youtu.be/ozgDhEO18XQ
+
+## Calidad del código
+* Código formateado y bien organizado
+   * Herramienta del IDE
+   * Líneas en blanco
+   * Ordenar métodos
+   * Repasar nombres de clases, métodos, atributos, parámetros y variables
+* Sencillez del código: **You aren’t gonna need it (YAGNI)**
+   * Simplificar el código, código simple, pocas líneas efectivas...
+   * Estructuras anidadas: <3
+   * Complejidad ciclomática: <8-12
+* Métricas
+   * Paquete: <20 clases
+   * Clases: <500-200 líneas, <20 métodos
+   * Métodos: <3-5 parámetros, <15 líneas
+* Antipatrones
+   * Copy & paste: pensar el reparto de responsabilidades
+   * Blind faith (Fe ciega): lanzar test y después de subir develop, **mirar TRAVIS-ci**
+   * Poltergeist: eliminar código muerto
+   * Blob: Una clase tiene una responsabilidad
+   * Lava flow: refactorizar, ordenar, simplificar...
 
 ## Arquitectura
 
