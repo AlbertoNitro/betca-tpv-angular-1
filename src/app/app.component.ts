@@ -8,6 +8,7 @@ import {environment} from '../environments/environment';
 })
 export class AppComponent {
   version: string = environment.VERSION;
+  apiEndPoint: string = environment.API;
   profile: string;
 
   constructor() {
