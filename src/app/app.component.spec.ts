@@ -26,6 +26,7 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Point of Sale System');
+    expect(compiled.querySelector('h1').textContent)
+      .toContain('Universidad Politécnica de Madrid. Máster en Ingeniería Web');
   });
 });
