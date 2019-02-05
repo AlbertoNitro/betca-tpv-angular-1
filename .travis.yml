@@ -13,7 +13,8 @@ notifications:
       - j.bernal@upm.es
 script:
   - ng test --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox
-# Deploy https://betca-tpv-spring.herokuapp.com/api/v0/swagger-ui.html
+
+# Deploy https://betca-tpv-angular.herokuapp.com
 deploy:
   provider: heroku
   api_key:
