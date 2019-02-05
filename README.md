@@ -37,7 +37,7 @@ https://youtu.be/ozgDhEO18XQ
    * Métodos: <3-5 parámetros, <15 líneas
 * Antipatrones
    * Copy & paste: pensar el reparto de responsabilidades
-   * Blind faith (Fe ciega): lanzar test y después de subir develop, **mirar TRAVIS-ci**
+   * Blind faith (Fe ciega): lanzar test y después de subir develop, **mirar TRAVIS-ci**[![Build Status](https://travis-ci.org/miw-upm/betca-tpv-angular.svg?branch=develop)](https://travis-ci.org/miw-upm/betca-tpv-angular)
    * Poltergeist: eliminar código muerto
    * Blob: Una clase tiene una responsabilidad
    * Lava flow: refactorizar, ordenar, simplificar...
