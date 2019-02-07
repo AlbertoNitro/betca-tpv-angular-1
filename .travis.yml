@@ -13,6 +13,7 @@ notifications:
       - j.bernal@upm.es
 script:
   - ng test --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox
+  - ng e2e --protractor-config=e2e/protractor-travis.conf.js
 
 # Deploy https://betca-tpv-angular.herokuapp.com
 deploy:

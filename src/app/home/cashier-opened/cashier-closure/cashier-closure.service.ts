@@ -6,7 +6,6 @@ import {ApiEndpoint} from '../../shared/api-endpoint.model';
 import {CashierState} from './cashier-state.model';
 import {CashierClosure} from './cashier-closure.model';
 
-
 @Injectable()
 export class CashierClosureService {
   static STATE = '/state';

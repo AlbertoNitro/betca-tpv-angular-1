@@ -7,11 +7,13 @@ import {environment} from '../environments/environment';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  version: string = environment.VERSION;
-  apiEndPoint: string = environment.API;
+  version: string;
+  apiEndPoint: string;
   profile: string;
 
   constructor() {
+    this.version = environment.VERSION;
+    this.apiEndPoint = environment.API;
     this.profile = environment.production ? 'Production' : 'Develop';
   }
 }

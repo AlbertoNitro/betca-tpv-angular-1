@@ -48,27 +48,6 @@ Importar el proyecto mediante **WebStorm**
 > Cada **historia** se dividirá en **tareas**, cada **tarea** será una **issue#**, que será el nombre de la **rama**.  
 > **Se recomienda aportaciones frecuentes a la rama `develop`** :sweat_smile:
 
-### Calidad del código
-* Código formateado y bien organizado
-   * Herramienta del IDE
-   * Líneas en blanco
-   * Ordenar métodos
-   * Repasar nombres de clases, métodos, atributos, parámetros y variables
-* Sencillez del código: **You aren’t gonna need it (YAGNI)**
-   * Simplificar el código, código simple, pocas líneas efectivas...
-   * Estructuras anidadas: <3
-   * Complejidad ciclomática: <8-12
-* Métricas
-   * Paquete: <20 clases
-   * Clases: <500-200 líneas, <20 métodos
-   * Métodos: <3-5 parámetros, <15 líneas
-* Antipatrones
-   * Copy & paste: pensar el reparto de responsabilidades
-   * Blind faith (Fe ciega): lanzar test y después de subir develop, **mirar TRAVIS-ci** [![Build Status](https://travis-ci.org/miw-upm/betca-tpv-angular.svg?branch=develop)](https://travis-ci.org/miw-upm/betca-tpv-angular)
-   * Poltergeist: eliminar código muerto
-   * Blob: una clase tiene una responsabilidad
-   * Lava flow: refactorizar, ordenar, simplificar...
-
 ### Metodología de trabajo
 :one: Organización de la **historia** y **tareas** en el proyecto de GitHub mediante **notas**. Elegir la **nota** a implementar, convertirla en **issue#** y configurarla  
 :two: Mirar el estado del proyecto [![Build Status](https://travis-ci.org/miw-upm/betca-tpv-angular.svg?branch=develop)](https://travis-ci.org/miw-upm/betca-tpv-angular) en [Travis-CI](https://travis-ci.org/miw-upm/betca-tpv-angular/builds)  
@@ -118,10 +97,15 @@ node_js:
   - '8'
 addons:
   chrome: stable
+branches:
+  - develop
+  - /^release-[0-999].[0-999]$/
+  - master
 script:
   - ng test --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox
+  - ng e2e --protractor-config=e2e/protractor-travis.conf.js
 ```
-* Actualizar el fichero `karma.conf.js` con el contenido:
+* Se ha añadido al fichero `karma.conf.js` el contenido:
 ```js
     customLaunchers: {
       ChromeHeadlessNoSandbox: {
@@ -130,7 +114,17 @@ script:
       }
     }
 ```
-
+* Se ha creado el fichero `e2e/protractor-travis.conf.js` con el contenido:
+```js
+const config = require('./protractor.conf').config;
+config.capabilities = {
+  browserName: 'chrome',
+  chromeOptions: {
+    args: ['--headless', '--no-sandbox']
+  }
+};
+exports.config = config;
+```
 ### Heroku
 Se realiza un despliegue en **Heroku** .  
 En la cuenta de **Heroku**, en la página `-> Account settings -> API Key`, se ha obtenido la `API KEY`.  
@@ -144,12 +138,12 @@ En la cuenta de **Travis-CI**, dentro del proyecto, en `-> More options -> Setti
     "start": "node server.js"
   },
   "engines": {
-    "node": "8.15.0",
-    "npm": "6.7.0"
+    "node": "~8.15.0",
+    "npm": "~6.7.0"
   }  
 }
 ```
-* En el fichero `.travis.yml`:
+* Se ha añadido al fichero `.travis.yml` el contenido:
 ```yaml
 # Deploy https://betca-tpv-angular.herokuapp.com
 deploy:
@@ -159,6 +153,8 @@ deploy:
   on:
     branch: master
 ```
+## Git Workflow
+![](https://github.com/miw-upm/betca-tpv-angular/blob/develop/docs/git-workflow.png)
 
 ## Arquitectura
 
@@ -167,11 +163,26 @@ deploy:
 
 ### Plantilla de la arquitectura de un componente
 ![](https://github.com/miw-upm/betca-tpv-angular/blob/develop/docs/app-template.png)
+
+:heavy_check_mark:
 ```typescript
-export interface LocalModel {
+export interface ArticleQuickCreation {
   code: string;
   description: string;
   retailPrice: number;
+}
+```
+:x:
+```typescript
+export interface Article {
+  code: string;
+  reference?: string;
+  description?: string;
+  retailPrice?: number;
+  stock?: number;
+  provider?: string;
+  discontinued?: boolean;
+  registrationDate?: Date;
 }
 ```
 
@@ -180,33 +191,125 @@ export interface LocalModel {
 ###### Vista (HTML)
 > Organiza la vista.  
 > No procesa cuestiones de vista, las delega en el componente.
-Como exceptión se permite un proceso muy simple, por ejemplo deshabilitar un botón por no tener valor de entrada  
+Como exceptión se permite un proceso muy simple, por ejemplo deshabilitar un botón por no tener valor de entrada.  
+
+:heavy_check_mark:
+```xml
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close tabindex="-1">Cancel</button>
+  <button mat-button (click)="create()" [disabled]="invalidArticle()">Create</button>
+</mat-dialog-actions>
+```
+```xml
+<button mat-button *ngIf="mobile" matSuffix mat-icon-button aria-label="Clear" (click)="mobile=undefined">
+  <mat-icon>close</mat-icon>
+</button>
+```
+:x:
+```xml
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close tabindex="-1">Cancel</button>
+  <button mat-button (click)="create()" [disabled]="!this.article.description || !this.article.retailPrice">Create</button>
+</mat-dialog-actions>
+```
 
 ##### Componente
 > Obtener los datos a traves del `Servicio Local`.   
 > Procesar exclusivamente para preparar la vista.   
-> NO realiza procesos de negocio NI realiza peticiones al API, lo delega en el servicio Local 
+> NO realiza procesos de negocio NI realiza peticiones al API, lo delega en el servicio Local.  
 
+:heavy_check_mark:
+```typescript
+import {Component} from '@angular/core';
+import {MatDialog, MatDialogRef} from '@angular/material';
+
+import {CashierClosureService} from './cashier-closure.service';
+import {CashierState} from './cashier-state.model';
+import {CashierClosure} from './cashier-closure.model';
+
+@Component({
+  templateUrl: 'cashier-closure-dialog.component.html',
+  styleUrls: ['cashier-closure-dialog.component.css']
+})
+export class CashierClosureDialogComponent {
+  cashierClosureFinal: CashierClosure = {finalCash: undefined, finalCard: undefined, comment: undefined};
+  cashierState: CashierState =
+    {salesTotal: undefined, totalCard: undefined, totalCash: undefined, totalVoucher: undefined};
+
+  constructor(private dialog: MatDialog, private dialogRef: MatDialogRef<CashierClosureDialogComponent>,
+              private cashierClosureService: CashierClosureService) {
+    this.cashierClosureService.readLastTotals().subscribe(
+      cashierClosureData => this.cashierState = cashierClosureData
+    );
+  }
+
+  close() {
+    this.cashierClosureService.close(this.cashierClosureFinal).subscribe(
+      () => this.dialogRef.close()
+    );
+  }
+
+  invalid() {
+    return (!this.cashierClosureFinal.finalCash && this.cashierClosureFinal.finalCash !== 0)
+      || (!this.cashierClosureFinal.finalCard && this.cashierClosureFinal.finalCard !== 0)
+      || !this.cashierClosureFinal.comment;
+  }
+
+  cashMovement() {
+    // TODO ...
+    console.log('In construction!!!');
+  }
+}
+```
 
 ##### Servicio
 > Realiza las peticiones del API a traves del `servicio Http` de Core.  
-> Si hay peticiones repetidas entre varios servicios, se delega a un servicio más genérico situado en una carpeta `shared`
+> Si hay peticiones repetidas entre varios servicios, se delega a un servicio más genérico situado en una carpeta `shared`.  
 
+:heavy_check_mark:
+```typescript
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+
+import {HttpService} from '../../../core/http.service';
+import {ApiEndpoint} from '../../shared/api-endpoint.model';
+import {CashierState} from './cashier-state.model';
+import {CashierClosure} from './cashier-closure.model';
+
+@Injectable()
+export class CashierClosureService {
+  static STATE = '/state';
+
+  constructor(private httpService: HttpService) {
+  }
+
+  close(cashierClosure: CashierClosure): Observable<any> {
+    return this.httpService.patch(ApiEndpoint.CASHIER_CLOSURES_LAST, cashierClosure);
+  }
+
+  readLastTotals(): Observable<CashierState> {
+    return this.httpService.get(
+      ApiEndpoint.CASHIER_CLOSURES_LAST + CashierClosureService.STATE);
+  }
+}
+
+```
 ### Servicios (CORE)
 ![](https://github.com/miw-upm/betca-tpv-angular/blob/develop/docs/core-module.png)
 
 ### Jerarquía de componentes y servicios
 ![](https://github.com/miw-upm/betca-tpv-angular/blob/develop/docs/app-hierarchy.png)
+![](https://github.com/miw-upm/betca-tpv-angular/blob/develop/docs/app-hierarchy-code.png)
 
 ### Vista de pantallas
 ![](https://github.com/miw-upm/betca-tpv-angular/blob/develop/docs/app-view.png)
 
 ## Autenticación
-Se plantean mediante **Basic Auth** para logearse y obtener un **API Key** o **token** de tipo **JSON Web Tokens (JWT)**. Uso del **Bearer APIkEY** para el acceso a los recursos.  
+Se plantean mediante **Basic Auth** para logearse y obtener un **API Key** o **token** de tipo **JSON Web Tokens (JWT)**. Uso del `Bearer APIKey` para el acceso a los recursos.  
 Para obtener el **API Key** se accede al recurso: `POST \users\token`, enviando por **Basic auth** las credenciales, van en la cabecera de la petición
 Para el acceso a los recursos, se envia el **token** mediante **Bearer auth**, también en la cabecera de la petición
-> Authorization = Basic "user:pass"<sub>Base64</sub>  
-> Authorization = Bearer "token"<sub>Base64</sub>  
+> Authorization = Basic \<user>:\<pass><sub>Base64</sub>  
+> Authorization = Bearer \<header><sub>Base64</sub>.\<payload><sub>Base64</sub>.\<signature><sub>Base64</sub>
 
 ```typescript
 export interface Token {
@@ -248,8 +351,59 @@ export class HttpService {
   ...
 }
 ```
-### Organización del código
+## Organización del código
 
+### `package.json`
+```json
+{
+  "name": "betca-tpv-angular",
+  "version": "1.3.0-SNAPSHOT",
+  "scripts": {
+    "ng": "ng",
+    "postinstall": "ng build --prod",
+    "start": "node server.js",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "~7.2.0",
+    "@angular/flex-layout": "^7.0.0-beta.23",
+    ...
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.12.0",
+    "@angular/cli": "~7.2.1",
+    "@angular/compiler-cli": "~7.2.0",
+    "@angular/language-service": "~7.2.0",
+    ...
+  },
+  "engines": {
+    "node": "~8.15.0",
+    "npm": "~6.7.0"
+  }
+}
+```
+    ~: versión mas cercana posible, ^: versión compatible mas alta
+### Entorno-Perfil
+`environment.ts`
+```typescript
+export const environment = {
+  production: false,
+  VERSION: require('../../package.json').version,
+  API: 'http://localhost:8080/api/v0'
+};
+```
+`environment.prod.ts`
+```typescript
+export const environment = {
+  production: true,
+  VERSION: require('../../package.json').version,
+  API: 'https://betca-tpv-spring.herokuapp.com/api/v0'
+};
+```
 ### Diálogos
 Genéricos, el _**dialog**_ devuelve los datos y se gestiona su evolución en la llamada
 ```typescript

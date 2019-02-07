@@ -2,7 +2,7 @@
 <mat-dialog-content>
   <mat-form-field>
     <input matInput type="text" placeholder="Mobile" [(ngModel)]="mobile"/>
-    <button mat-button *ngIf="mobile" matSuffix mat-icon-button aria-label="Clear" (click)="mobile=''">
+    <button mat-button *ngIf="mobile" matSuffix mat-icon-button aria-label="Clear" (click)="mobile=undefined">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>

@@ -15,6 +15,10 @@ export class ArticleQuickCreationDialogComponent {
   constructor(private shoppingCartService: ShoppingCartService, private dialogRef: MatDialogRef<ArticleQuickCreationDialogComponent>) {
   }
 
+  invalidArticle(): boolean {
+    return !this.article.description || !this.article.retailPrice;
+  }
+
   create() {
     this.shoppingCartService.createArticle(this.article).subscribe(
       () => this.dialogRef.close(true)

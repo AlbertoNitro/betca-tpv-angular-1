@@ -1,20 +1,20 @@
-<h3 mat-dialog-title>Cashier Closure (total sales: € {{cashierClosureData.salesTotal}})</h3>
+<h3 mat-dialog-title>Cashier Closure (total sales: € {{cashierState.salesTotal}})</h3>
 <mat-dialog-content>
   <mat-form-field>
-    <input matInput type="number" placeholder="Final card (€ {{cashierClosureData.totalCard}})"
-           [(ngModel)]="cashierClosure.finalCard"
+    <input matInput type="number" placeholder="Final card (€ {{cashierState.totalCard}})"
+           [(ngModel)]="cashierClosureFinal.finalCard"
            required cdkFocusInitial/>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="number" placeholder="Final cash (€ {{cashierClosureData.totalCash}})"
-           [(ngModel)]="cashierClosure.finalCash"
+    <input matInput type="number" placeholder="Final cash (€ {{cashierState.totalCash}})"
+           [(ngModel)]="cashierClosureFinal.finalCash"
            required/>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="number" placeholder="Total vouchers" [value]="cashierClosureData.totalVoucher" readonly/>
+    <input matInput type="number" placeholder="Total vouchers" [value]="cashierState.totalVoucher" readonly/>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="text" placeholder="Comment" [(ngModel)]="cashierClosure.comment" required/>
+    <input matInput type="text" placeholder="Comment" [(ngModel)]="cashierClosureFinal.comment" required/>
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
