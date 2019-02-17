@@ -29,7 +29,7 @@ Permite la creación e impresión del recibo ticket o factura de venta —con lo
 https://youtu.be/ozgDhEO18XQ
 
 ## Tecnologías necesarias
-`Angular` `Typescript` `HTML` `CSS`
+`Typescript` `Angular` `Angular-Material` `Angular-layout` `HTML` `CSS`
 
 ### Clonar el proyecto
  Clonar el repositorio en tu equipo, **mediante consola**:
@@ -68,18 +68,21 @@ Y si fuera necesario, actualizar la rama **develop** con la remota **origin/deve
 ```sh
 > git checkout issue#xx
 > git merge -m "Merge develop into issue #xx" develop
-```
+```  
+ Resolver conflictos:
+    1. Editar el fichero, y decidir el código final
+    1. Realizar el commit para terminarlo   
 :five: Programar la tarea o una parte de ella, lanzar **TODOS LOS TESTS** y asegurarse que no hay errores. Finalmente, sincronizarse con las ramas remotas:
  ```sh
 > git fetch --all
 ```
-Y si necesitamos actualizarnos, se repite el paso :four:  
+Y si necesitamos actualizarnos, se repite el paso :four:
 :six: Actualizar **develop** con nuestro cambios:
 ```sh
 > git checkout develop
 > git merge --no-ff -m "Merge issue #xx into develop" issue#xx
 ```
-:seven: Resolver los conflictos, observar el flujo de ramas, y si todo ha ido bien... subirlo 
+:seven: Observar el flujo de ramas, y si todo ha ido bien... subirlo 
 ```sh
 > git push --all
  ```
