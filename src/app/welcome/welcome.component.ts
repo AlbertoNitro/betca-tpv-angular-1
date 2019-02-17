@@ -2,9 +2,9 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
 
-import {HomeComponent} from '../home/home.component';
 import {LoginDialogComponent} from '../core/login-dialog.component';
 import {TokensService} from '../core/tokens.service';
+import {HomeComponent} from '../home/home.component';
 
 @Component({
   templateUrl: 'welcome.component.html',

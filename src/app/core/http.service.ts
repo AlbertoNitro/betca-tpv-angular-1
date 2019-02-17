@@ -7,9 +7,9 @@ import {MatSnackBar} from '@angular/material';
 
 import {JwtHelperService} from '@auth0/angular-jwt';
 
+import {environment} from '../../environments/environment';
 import {Token} from './token.model';
 import {Error} from './error.model';
-import {environment} from '../../environments/environment';
 
 @Injectable()
 export class HttpService {
@@ -17,24 +17,15 @@ export class HttpService {
   static UNAUTHORIZED = 401;
   static NOT_FOUND = 404;
 
-  private printDirectly: boolean;
   private token: Token;
-  private params: HttpParams;
   private headers: HttpHeaders;
+  private params: HttpParams;
   private responseType: string;
   private successfulNotification = undefined;
+  private printDirectly: boolean;
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar, private router: Router) {
     this.resetOptions();
-  }
-
-  getToken(): Token {
-    return this.token;
-  }
-
-  logout(): void {
-    this.token = undefined;
-    this.router.navigate(['']);
   }
 
   login(mobile: number, password: string, endPoint: string): Observable<any> {
@@ -50,24 +41,18 @@ export class HttpService {
     );
   }
 
+  logout(): void {
+    this.token = undefined;
+    this.router.navigate(['']);
+  }
+
+
+  getToken(): Token {
+    return this.token;
+  }
+
   param(key: string, value: string): HttpService {
     this.params = this.params.append(key, value); // This class is immutable
-    return this;
-  }
-
-  header(key: string, value: string): HttpService {
-    this.headers = this.headers.append(key, value); // This class is immutable
-    return this;
-  }
-
-  authBasic(mobile: number, password: string): HttpService {
-    return this.header('Authorization', 'Basic ' + btoa(mobile + ':' + password));
-  }
-
-  pdf(printDirectly = true): HttpService {
-    this.printDirectly = printDirectly;
-    this.responseType = 'blob';
-    this.header('Accept', 'application/pdf , application/json');
     return this;
   }
 
@@ -76,13 +61,11 @@ export class HttpService {
     return this;
   }
 
-  get(endpoint: string): Observable<any> {
-    return this.http.get(HttpService.API_END_POINT + endpoint, this.createOptions()).pipe(
-      map(response => this.extractData(response)
-      ), catchError(error => {
-        return this.handleError(error);
-      })
-    );
+  pdf(printDirectly = true): HttpService {
+    this.printDirectly = printDirectly;
+    this.responseType = 'blob';
+    this.header('Accept', 'application/pdf , application/json');
+    return this;
   }
 
   post(endpoint: string, body?: Object): Observable<any> {
@@ -94,8 +77,8 @@ export class HttpService {
     );
   }
 
-  delete(endpoint: string): Observable<any> {
-    return this.http.delete(HttpService.API_END_POINT + endpoint, this.createOptions()).pipe(
+  get(endpoint: string): Observable<any> {
+    return this.http.get(HttpService.API_END_POINT + endpoint, this.createOptions()).pipe(
       map(response => this.extractData(response)
       ), catchError(error => {
         return this.handleError(error);
@@ -119,6 +102,24 @@ export class HttpService {
         return this.handleError(error);
       })
     );
+  }
+
+  delete(endpoint: string): Observable<any> {
+    return this.http.delete(HttpService.API_END_POINT + endpoint, this.createOptions()).pipe(
+      map(response => this.extractData(response)
+      ), catchError(error => {
+        return this.handleError(error);
+      })
+    );
+  }
+
+  private header(key: string, value: string): HttpService {
+    this.headers = this.headers.append(key, value); // This class is immutable
+    return this;
+  }
+
+  private authBasic(mobile: number, password: string): HttpService {
+    return this.header('Authorization', 'Basic ' + btoa(mobile + ':' + password));
   }
 
   private resetOptions(): void {
