@@ -1,9 +1,7 @@
 import {Component} from '@angular/core';
-import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
 
 import {LoginDialogComponent} from '../core/login-dialog.component';
-import {TokensService} from '../core/tokens.service';
 import {HomeComponent} from '../home/home.component';
 
 @Component({
@@ -13,17 +11,13 @@ import {HomeComponent} from '../home/home.component';
 export class WelcomeComponent {
   static URL = 'welcome';
 
-  constructor(public dialog: MatDialog, private tokensService: TokensService, private router: Router) {
+  constructor(private dialog: MatDialog) {
   }
 
   login() {
-    this.dialog.open(LoginDialogComponent).afterClosed().subscribe(
-      usr => {
-        if (usr) {
-          this.tokensService.login(usr.mobile, usr.password).subscribe(
-            () => this.router.navigate([HomeComponent.URL])
-          );
-        }
+    this.dialog.open(LoginDialogComponent,
+      {
+        data: {homeUrl: HomeComponent.URL}
       }
     );
   }
