@@ -11,7 +11,7 @@ import {UserService} from './users/user.service';
 import {DbSeedDialogComponent} from './admins/db-seed-dialog.component';
 import {CashierClosedComponent} from './cashier-closed/cashier-closed.component';
 import {CashierOpenedComponent} from './cashier-opened/cashier-opened.component';
-import {CashierClosureDialogComponent} from './cashier-opened/cashier-closure/cashier-closure-dialog.component';
+import {CashierClosureDialogComponent} from './cashier-opened/cashier/cashier-closure-dialog.component';
 import {UsersComponent} from './users/users.component';
 
 @Component({

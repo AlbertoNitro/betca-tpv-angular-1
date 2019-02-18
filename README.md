@@ -226,13 +226,13 @@ Como exceptión se permite un proceso muy simple, por ejemplo deshabilitar un bo
 import {Component} from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material';
 
-import {CashierClosureService} from './cashier-closure.service';
+import {CashierClosureService} from cashier;
 import {CashierState} from './cashier-state.model';
-import {CashierClosure} from './cashier-closure.model';
+import {CashierClosure} from cashier;
 
 @Component({
-  templateUrl: 'cashier-closure-dialog.component.html',
-  styleUrls: ['cashier-closure-dialog.component.css']
+  templateUrl: cashier,
+  styleUrls: [cashier]
 })
 export class CashierClosureDialogComponent {
   cashierClosureFinal: CashierClosure = {finalCash: undefined, finalCard: undefined, comment: undefined};
@@ -277,7 +277,7 @@ import {Observable} from 'rxjs';
 import {HttpService} from '../../../core/http.service';
 import {ApiEndpoint} from '../../shared/api-endpoint.model';
 import {CashierState} from './cashier-state.model';
-import {CashierClosure} from './cashier-closure.model';
+import {CashierClosure} from cashier;
 
 @Injectable()
 export class CashierClosureService {

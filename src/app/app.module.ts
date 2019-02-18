@@ -11,7 +11,7 @@ import {CoreModule} from './core/core.module';
 import {CashierService} from './home/shared/cashier.service';
 import {AdminsService} from './home/admins/admins.service';
 import {ArticleService} from './home/shared/article.service';
-import {CashierClosureService} from './home/cashier-opened/cashier-closure/cashier-closure.service';
+import {CashierClosureService} from './home/cashier-opened/cashier/cashier-closure.service';
 import {ShoppingCartService} from './home/cashier-opened/shopping-cart/shopping-cart.service';
 import {UserService} from './home/users/user.service';
 
