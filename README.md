@@ -308,11 +308,11 @@ export class CashierClosureService {
 ![](https://github.com/miw-upm/betca-tpv-angular/blob/develop/docs/app-view.png)
 
 ## Autenticación
-Se plantean mediante **Basic Auth** para logearse y obtener un **API Key** o **token** de tipo **JSON Web Tokens (JWT)**. Uso del `Bearer APIKey` para el acceso a los recursos.  
-Para obtener el **API Key** se accede al recurso: `POST \users\token`, enviando por **Basic auth** las credenciales, van en la cabecera de la petición
+Se plantean mediante **Basic Auth** para logearse y obtener un **API Key** o **token** de tipo **JSON Web Tokens (JWT)** y **Bearer auth** para el acceso a los recursos.  
+Para obtener el **API Key** se accede al recurso: `POST \users\token`, enviando por **Basic auth** las credenciales, van en la cabecera de la petición.   
 Para el acceso a los recursos, se envia el **token** mediante **Bearer auth**, también en la cabecera de la petición
 > Authorization = Basic \<user>:\<pass><sub>Base64</sub>  
-> Authorization = Bearer \<header><sub>Base64</sub>.\<payload><sub>Base64</sub>.\<signature><sub>Base64</sub>
+> Authorization = Bearer \<header><sub>Base64</sub> .\<payload><sub>Base64</sub> .\<signature><sub>Base64</sub>
 
 ```typescript
 export interface Token {
@@ -329,7 +329,7 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 export class HttpService {
   private token: Token;
   ...
-  authBasic(mobile: number, password: string): HttpService {
+  private authBasic(mobile: number, password: string): HttpService {
     return this.header('Authorization', 'Basic ' + btoa(mobile + ':' + password));
   }
   login(mobile: number, password: string, endPoint: string): Observable<any> {
@@ -435,23 +435,48 @@ export class CancelYesDialogComponent {
 ```
 Específicos, el _**dialogo**_ se encarga de llamar al servicio
 ```typescript
-closeCashier() {
-  this.dialog.open(CashierCloseDialogComponent);
-}
+  login() {
+    this.dialog.open(LoginDialogComponent,
+      {
+        data: {homeUrl: HomeComponent.URL}
+      }
+    );
+  }
 ```
 ```html
+<h3 mat-dialog-title>Login</h3>
+<mat-dialog-content>
+  <mat-form-field>
+    <input matInput type="text" placeholder="Mobile" [(ngModel)]="mobile"/>
+    <button mat-button *ngIf="mobile" matSuffix mat-icon-button aria-label="Clear" (click)="mobile=undefined"
+            cdkFocusInitial>
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="password" placeholder="Password" [(ngModel)]="password"/>
+  </mat-form-field>
+</mat-dialog-content>
 <mat-dialog-actions>
-    <button mat-raised-button mat-dialog-close color="primary" cdkFocusInitial>Cancel</button>
-    <button mat-raised-button mat-dialog-close (click)="close()">Close Cashier</button>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close (click)="login()">Submit</button>
 </mat-dialog-actions>
 ```
 ```typescript
-export class CashierCloseDialogComponent {
-    cashierClosure: CashierClosure = { finalCash: 0, salesCard: 0, comment: '' };
-    constructor(private cashierService: CashierService) {}
-    close() {
-        this.cashierService.close(this.cashierClosure);
-    }
+export class LoginDialogComponent {
+  mobile: number;
+  password: string;
+  homeUrl: string;
+
+  constructor(@Inject(MAT_DIALOG_DATA) data: any, private tokensService: TokensService, private router: Router) {
+    this.homeUrl = data.homeUrl;
+  }
+
+  login() {
+    this.tokensService.login(this.mobile, this.password).subscribe(
+      () => this.router.navigate([this.homeUrl])
+    );
+  }
 }
 ```
 ### Observadores
