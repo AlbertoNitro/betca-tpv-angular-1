@@ -50,7 +50,7 @@ Importar el proyecto mediante **WebStorm**
 
 ### Metodología de trabajo
 :one: Organización de la **historia** y **tareas** en el proyecto de GitHub mediante **notas**. Elegir la **nota** a implementar, convertirla en **issue#** y configurarla  
-:two: Mirar el estado del proyecto [![Build Status](https://travis-ci.org/miw-upm/betca-tpv-angular.svg?branch=develop)](https://travis-ci.org/miw-upm/betca-tpv-angular) en [Travis-CI](https://travis-ci.org/miw-upm/betca-tpv-angular/builds)  
+:two: Mirar el estado del proyecto [![Build Status](https://travis-ci.org/miw-upm/betca-tpv-angular.svg?branch=develop) en Travis-CI](https://travis-ci.org/miw-upm/betca-tpv-angular)    
 :three: Sincronizarse con las ramas remotas, 
 ```sh
 > git fetch --all
@@ -69,14 +69,16 @@ Y si fuera necesario, actualizar la rama **develop** con la remota **origin/deve
 > git checkout issue#xx
 > git merge -m "Merge develop into issue #xx" develop
 ```  
- Resolver conflictos:
-    1. Editar el fichero, y decidir el código final
-    1. Realizar el commit para terminarlo   
+Resolver conflictos:   
+1. Editar el fichero, y decidir el código final   
+1. Realizar el commit para terminarlo   
+
 :five: Programar la tarea o una parte de ella, lanzar **TODOS LOS TESTS** y asegurarse que no hay errores. Finalmente, sincronizarse con las ramas remotas:
  ```sh
 > git fetch --all
 ```
 Y si necesitamos actualizarnos, se repite el paso :four:
+
 :six: Actualizar **develop** con nuestro cambios:
 ```sh
 > git checkout develop
@@ -301,6 +303,11 @@ export class CashierClosureService {
 ![](https://github.com/miw-upm/betca-tpv-angular/blob/develop/docs/core-module.png)
 
 ### Jerarquía de componentes y servicios
+#### Métricas
+* Paquete: <20 clases.
+* Clases: <500-200 líneas, <20 métodos.
+* Métodos: <3-5 parámetros, <20 líneas.
+
 ![](https://github.com/miw-upm/betca-tpv-angular/blob/develop/docs/app-hierarchy.png)
 ![](https://github.com/miw-upm/betca-tpv-angular/blob/develop/docs/app-hierarchy-code.png)
 
@@ -344,6 +351,14 @@ export class HttpService {
       })
     );
   }
+  post(endpoint: string, body?: Object): Observable<any> {
+    return this.http.post(HttpService.API_END_POINT + endpoint, body, this.createOptions()).pipe(
+      map(response => this.extractData(response)
+      ), catchError(error => {
+        return this.handleError(error);
+      })
+    );
+  }  
   ...
   private createOptions(): any {
     if (this.token !== undefined) {
@@ -521,5 +536,42 @@ Proceso intermedio de los datos
       })
     );
   }
+```
+
+### CrudComponent
+
+```html
+<!-- Default: [createAction]="true" [readAction]="true" [updateAction]="true" [deleteAction]="true"-->
+
+<app-crud [data]="data" [title]="title" [columns]="columns";
+          (create)="create()" (read)="read($event)" (update)="update($event)" (delete)=delete($event)></app-crud>
+          
+<app-crud [data]="data" [title]="title" [columns]="columns" [readAction]="false" [deleteAction]="false";
+          (create)="create()" (update)="update($event)" </app-crud>          
+```
+
+```typescript
+export class UsersComponent {
+  ...
+
+  title = 'Users management';
+  columns = ['mobile', 'username'];
+  data: User[];
+  
+  ...
+  
+  create() {
+    // TODO
+  }
+  read(user: User) {
+    // TODO
+  }
+  update(user: User) {
+    // TODO
+  }
+  delete(user: User) {
+    // TODO
+  }
+}
 ```
 
