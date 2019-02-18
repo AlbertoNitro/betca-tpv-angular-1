@@ -1,13 +1,13 @@
 import {Component} from '@angular/core';
 
-import {User} from './user.model';
 import {UserService} from './user.service';
+import {User} from './user.model';
 
 @Component({
   templateUrl: `users.component.html`
 })
 export class UsersComponent {
-  static URL = 'customers';
+  static URL = 'users';
 
   user: User;
   onlyCustomer = true;
