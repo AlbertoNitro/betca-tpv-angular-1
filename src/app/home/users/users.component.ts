@@ -34,15 +34,19 @@ export class UsersComponent {
 
 
   create() {
+    // TODO
   }
 
   read(user: User) {
+    // TODO
   }
 
   update(user: User) {
+    // TODO
   }
 
   delete(user: User) {
+    // TODO
   }
 
 }
