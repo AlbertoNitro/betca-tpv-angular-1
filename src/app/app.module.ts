@@ -14,6 +14,7 @@ import {UserService} from './home/users/user.service';
 import {AppMaterialModule} from './app-material.module';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import {AppComponent} from './app.component';
     CdkTableModule,
     CoreModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxChartsModule
   ],
   declarations: [
     AppComponent,
