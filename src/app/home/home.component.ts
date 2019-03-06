@@ -12,6 +12,7 @@ import {CashierClosedComponent} from './cashier-closed/cashier-closed.component'
 import {CashierOpenedComponent} from './cashier-opened/cashier-opened.component';
 import {CashierClosureDialogComponent} from './cashier-opened/cashier/cashier-closure-dialog.component';
 import {UsersComponent} from './users/users.component';
+import {ProvidersComponent} from './providers/providers.component';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -121,6 +122,7 @@ export class HomeComponent {
   }
 
   providers() {
+    this.router.navigate([HomeComponent.URL, ProvidersComponent.URL]);
   }
 
   tags() {
