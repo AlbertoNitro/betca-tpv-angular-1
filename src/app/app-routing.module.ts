@@ -14,6 +14,7 @@ import {CheckOutDialogComponent} from './home/cashier-opened/shopping-cart/check
 import {DbSeedDialogComponent} from './home/admins/db-seed-dialog.component';
 import {WelcomeComponent} from './welcome.component';
 import {ProvidersComponent} from './home/providers/providers.component';
+import {ProfileDialogComponent} from './home/users/profile-dialog.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
@@ -50,6 +51,7 @@ export class AppRoutingModule {
     ArticleQuickCreationDialogComponent,
     CashierClosureDialogComponent,
     CheckOutDialogComponent,
-    DbSeedDialogComponent
+    DbSeedDialogComponent,
+    ProfileDialogComponent
   ];
 }
