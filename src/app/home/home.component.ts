@@ -14,6 +14,7 @@ import {CashierClosureDialogComponent} from './cashier-opened/cashier/cashier-cl
 import {UsersComponent} from './users/users.component';
 import {ProvidersComponent} from './providers/providers.component';
 import {ProfileDialogComponent} from './users/profile-dialog.component';
+import {ArticlesFamiliesCRUDComponent} from './articles-families/articles-families.component';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -118,6 +119,7 @@ export class HomeComponent {
   }
 
   articlesFamily() {
+    this.router.navigate([HomeComponent.URL, ArticlesFamiliesCRUDComponent.URL]);
   }
 
   createFamilySizes() {

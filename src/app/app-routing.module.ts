@@ -15,6 +15,7 @@ import {DbSeedDialogComponent} from './home/admins/db-seed-dialog.component';
 import {WelcomeComponent} from './welcome.component';
 import {ProvidersComponent} from './home/providers/providers.component';
 import {ProfileDialogComponent} from './home/users/profile-dialog.component';
+import {ArticlesFamiliesCRUDComponent} from './home/articles-families/articles-families.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
@@ -22,6 +23,7 @@ const routes: Routes = [
   {
     path: HomeComponent.URL, component: HomeComponent,
     children: [
+      {path: ArticlesFamiliesCRUDComponent.URL, component: ArticlesFamiliesCRUDComponent},
       {path: CashierClosedComponent.URL, component: CashierClosedComponent},
       {path: CashierOpenedComponent.URL, component: CashierOpenedComponent},
       {path: ProvidersComponent.URL, component: ProvidersComponent},
@@ -37,6 +39,7 @@ const routes: Routes = [
 export class AppRoutingModule {
   static COMPONENTS = [
     AdvancedSearchComponent,
+    ArticlesFamiliesCRUDComponent,
     ArticlesFamilyViewComponent,
     CashierClosedComponent,
     CashierOpenedComponent,
