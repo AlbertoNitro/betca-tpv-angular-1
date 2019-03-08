@@ -13,6 +13,7 @@ import {CashierOpenedComponent} from './cashier-opened/cashier-opened.component'
 import {CashierClosureDialogComponent} from './cashier-opened/cashier/cashier-closure-dialog.component';
 import {UsersComponent} from './users/users.component';
 import {ProvidersComponent} from './providers/providers.component';
+import {ProfileDialogComponent} from './users/profile-dialog.component';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -69,6 +70,7 @@ export class HomeComponent {
 
 
   profile() {
+    this.dialog.open(ProfileDialogComponent);
   }
 
   logout() {
