@@ -1,0 +1,51 @@
+<h3>Create family sizes</h3>
+<form [formGroup]="articlesFamilySizesForm">
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Reference" formControlName="reference" required>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Description" formControlName="description" required>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Provider" formControlName="provider" required>
+    </mat-form-field>
+  </div>
+  <h5>Sizes:</h5>
+  <div>
+    <mat-radio-group formControlName="sizeType">
+      <mat-radio-button value="alfa">Alfa</mat-radio-button>
+      <mat-radio-button value="numeric">Numeric</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div>
+    <mat-form-field *ngIf="articlesFamilySizesForm.value.sizeType === 'numeric'">
+      <input matInput placeholder="Step" formControlName="step" type="number">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="From" formControlName="sizeFrom" [disabled]="!articlesFamilySizesForm.value.sizeType" required>
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let size of sizesFromArray" [value]="size">
+          {{size}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="To" formControlName="sizeTo" [disabled]="articlesFamilySizesForm.value.sizeFrom === ''" required>
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let size of sizesToArray" [value]="size">
+          {{size}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button mat-dialog-close [disabled]="articlesFamilySizesForm.invalid" (click)="create()">Create</button>
+  </mat-dialog-actions>
+</form>

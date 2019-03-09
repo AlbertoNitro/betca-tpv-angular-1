@@ -14,6 +14,7 @@ import {CashierClosureDialogComponent} from './cashier-opened/cashier/cashier-cl
 import {UsersComponent} from './users/users.component';
 import {ProvidersComponent} from './providers/providers.component';
 import {ProfileDialogComponent} from './users/profile-dialog.component';
+import {ArticlesFamilyCreationComponent} from './cashier-opened/articles-family/articles-family-creation.component';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -121,6 +122,7 @@ export class HomeComponent {
   }
 
   createFamilySizes() {
+    this.dialog.open(ArticlesFamilyCreationComponent);
   }
 
   providers() {
