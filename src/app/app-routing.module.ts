@@ -6,6 +6,7 @@ import {ArticlesFamilyCreationComponent} from './home/cashier-opened/articles-fa
 import {ArticlesFamilyViewComponent} from './home/cashier-opened/articles-family/articles-family-view.component';
 import {CashierClosedComponent} from './home/cashier-closed/cashier-closed.component';
 import {CashierOpenedComponent} from './home/cashier-opened/cashier-opened.component';
+import {CashMovementDialogComponent} from './home/cashier-opened/shared/cash-movement/cash-movement-dialog.component';
 import {HomeComponent} from './home/home.component';
 import {ShoppingCartComponent} from './home/cashier-opened/shopping-cart/shopping-cart.component';
 import {UsersComponent} from './home/users/users.component';
@@ -52,6 +53,7 @@ export class AppRoutingModule {
     ArticlesFamilyCreationComponent,
     ArticleQuickCreationDialogComponent,
     CashierClosureDialogComponent,
+    CashMovementDialogComponent,
     CheckOutDialogComponent,
     DbSeedDialogComponent,
     ProfileDialogComponent
