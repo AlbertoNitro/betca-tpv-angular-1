@@ -1,0 +1,16 @@
+<h3 mat-dialog-title>Profile User</h3>
+<mat-dialog-content>
+  <mat-form-field>
+    <input matInput type="password" placeholder="Current Password " [(ngModel)]="passwordCurrent"/>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="password" placeholder="New Password " [(ngModel)]="passwordNew"/>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="password" placeholder="Repeat New Password" [(ngModel)]="NewRepeatpassword"/>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close (click)="guardar()">Submit</button>
+</mat-dialog-actions>

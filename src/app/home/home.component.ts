@@ -11,7 +11,11 @@ import {DbSeedDialogComponent} from './admins/db-seed-dialog.component';
 import {CashierClosedComponent} from './cashier-closed/cashier-closed.component';
 import {CashierOpenedComponent} from './cashier-opened/cashier-opened.component';
 import {CashierClosureDialogComponent} from './cashier-opened/cashier/cashier-closure-dialog.component';
+import {CashMovementDialogComponent} from './cashier-opened/shared/cash-movement/cash-movement-dialog.component';
 import {UsersComponent} from './users/users.component';
+import {ProvidersComponent} from './providers/providers.component';
+import {ProfileDialogComponent} from './users/profile-dialog.component';
+import {ArticlesFamilyCreationComponent} from './cashier-opened/articles-family/articles-family-creation.component';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -68,6 +72,7 @@ export class HomeComponent {
 
 
   profile() {
+    this.dialog.open(ProfileDialogComponent);
   }
 
   logout() {
@@ -87,6 +92,7 @@ export class HomeComponent {
   }
 
   cashMovement() {
+    this.dialog.open(CashMovementDialogComponent);
   }
 
   cashierClosure() {
@@ -118,9 +124,11 @@ export class HomeComponent {
   }
 
   createFamilySizes() {
+    this.dialog.open(ArticlesFamilyCreationComponent);
   }
 
   providers() {
+    this.router.navigate([HomeComponent.URL, ProvidersComponent.URL]);
   }
 
   tags() {
