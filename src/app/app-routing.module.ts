@@ -18,6 +18,7 @@ import {WelcomeComponent} from './welcome.component';
 import {ProvidersComponent} from './home/providers/providers.component';
 import {ProfileDialogComponent} from './home/users/profile-dialog.component';
 import {ArticlesFamiliesCRUDComponent} from './home/articles-families/articles-families.component';
+import {OffersComponent} from './home/offers/offers.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
@@ -29,6 +30,7 @@ const routes: Routes = [
       {path: CashierClosedComponent.URL, component: CashierClosedComponent},
       {path: CashierOpenedComponent.URL, component: CashierOpenedComponent},
       {path: ProvidersComponent.URL, component: ProvidersComponent},
+      {path: OffersComponent.URL, component: OffersComponent},
       {path: UsersComponent.URL, component: UsersComponent}
     ]
   }
@@ -50,6 +52,7 @@ export class AppRoutingModule {
     ShoppingCartComponent,
     UsersComponent,
     WelcomeComponent,
+    OffersComponent
   ];
 
   static DIALOGS = [
