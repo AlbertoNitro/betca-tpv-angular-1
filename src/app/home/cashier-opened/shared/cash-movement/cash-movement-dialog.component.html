@@ -1,0 +1,33 @@
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-select [ngModel]="selectedValue"
+                (ngModelChange)="onChange($event)"
+                placeholder="Select an option">
+      <mat-option *ngFor="let option of cashMovementOptions" [value]="option.value">
+        {{option.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input [disabled]="fieldsDisabled"
+           matInput type="number" placeholder="Import €"
+           [(ngModel)]="cashMovement.import"
+           required/>
+  </mat-form-field>
+  <mat-form-field>
+    <input [disabled]="fieldsDisabled"
+           matInput type="text"
+           placeholder="Comment"
+           [(ngModel)]="cashMovement.comment"
+           required/>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="accent"
+          (click)="save()"
+          [disabled]="invalid()">
+    <mat-icon>send</mat-icon>
+    Submit
+  </button>
+</mat-dialog-actions>
