@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ArticleService} from '../../shared/article.service';
 
 @Component({
   selector: 'app-articles-family-creation',
@@ -9,11 +10,12 @@ export class FamilySizesCreationComponent implements OnInit {
   private ALFASIZES = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
   public startSizesArray = [];
   public finalSizesArray = [];
-  public articlesFamilySizesForm: FormGroup;
+  public familySizesForm: FormGroup;
   public sizeTypeControl: FormControl;
   public stepControl: FormControl;
   public smallestSizeControl: FormControl;
   public largestSizeControl: FormControl;
+  constructor(private articleService: ArticleService) {  }
   ngOnInit(): void {
     this.initForm();
     this.setDynamicFormControls();
@@ -21,7 +23,7 @@ export class FamilySizesCreationComponent implements OnInit {
   }
 
   private initForm() {
-    this.articlesFamilySizesForm = new FormGroup({
+    this.familySizesForm = new FormGroup({
       reference: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       provider: new FormControl('', Validators.required),
@@ -32,10 +34,10 @@ export class FamilySizesCreationComponent implements OnInit {
     });
   }
   private setDynamicFormControls() {
-    this.stepControl = this.articlesFamilySizesForm.get('step') as FormControl;
-    this.sizeTypeControl = this.articlesFamilySizesForm.get('sizeType') as FormControl;
-    this.smallestSizeControl = this.articlesFamilySizesForm.get('smallestSize') as FormControl;
-    this.largestSizeControl = this.articlesFamilySizesForm.get('largestSize') as FormControl;
+    this.stepControl = this.familySizesForm.get('step') as FormControl;
+    this.sizeTypeControl = this.familySizesForm.get('sizeType') as FormControl;
+    this.smallestSizeControl = this.familySizesForm.get('smallestSize') as FormControl;
+    this.largestSizeControl = this.familySizesForm.get('largestSize') as FormControl;
   }
   private manageDynamicFormControlsValue() {
     this.sizeTypeControl.valueChanges.subscribe(val => {
@@ -88,8 +90,7 @@ export class FamilySizesCreationComponent implements OnInit {
   private setAlfaStartSizesArray() {
     this.startSizesArray = this.ALFASIZES;
   }
-  // TODO: API connection
   public createFamilySizes() {
-    console.log('Form created! ', this.articlesFamilySizesForm.value);
+    this.articleService.createFamilySizes(this.familySizesForm);
   }
 }
