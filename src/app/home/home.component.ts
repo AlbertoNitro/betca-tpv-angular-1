@@ -12,6 +12,7 @@ import {CashierClosedComponent} from './cashier-closed/cashier-closed.component'
 import {CashierOpenedComponent} from './cashier-opened/cashier-opened.component';
 import {CashierClosureDialogComponent} from './cashier-opened/cashier/cashier-closure-dialog.component';
 import {CashMovementDialogComponent} from './cashier-opened/shared/cash-movement/cash-movement-dialog.component';
+import {ArticlesComponent} from './articles/articles.component';
 import {UsersComponent} from './users/users.component';
 import {ProvidersComponent} from './providers/providers.component';
 import {ProfileDialogComponent} from './users/profile-dialog.component';
@@ -120,6 +121,7 @@ export class HomeComponent {
   }
 
   article() {
+    this.router.navigate([HomeComponent.URL, ArticlesComponent.URL]);
   }
 
   articlesFamily() {
