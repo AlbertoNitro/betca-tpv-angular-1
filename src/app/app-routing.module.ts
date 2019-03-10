@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
 import {AdvancedSearchComponent} from './home/cashier-opened/advanced-search/advanced-search.component';
-import {ArticlesFamilyCreationComponent} from './home/cashier-opened/articles-family/articles-family-creation.component';
+import {FamilySizesCreationComponent} from './home/cashier-opened/articles-family/family-sizes-creation.component';
 import {ArticlesFamilyViewComponent} from './home/cashier-opened/articles-family/articles-family-view.component';
 import {CashierClosedComponent} from './home/cashier-closed/cashier-closed.component';
 import {CashierOpenedComponent} from './home/cashier-opened/cashier-opened.component';
@@ -58,7 +58,7 @@ export class AppRoutingModule {
   ];
 
   static DIALOGS = [
-    ArticlesFamilyCreationComponent,
+    FamilySizesCreationComponent,
     ArticleQuickCreationDialogComponent,
     CashierClosureDialogComponent,
     CashMovementDialogComponent,

@@ -16,7 +16,7 @@ import {UsersComponent} from './users/users.component';
 import {ProvidersComponent} from './providers/providers.component';
 import {ProfileDialogComponent} from './users/profile-dialog.component';
 import {ArticlesFamiliesCRUDComponent} from './articles-families/articles-families.component';
-import {ArticlesFamilyCreationComponent} from './cashier-opened/articles-family/articles-family-creation.component';
+import {FamilySizesCreationComponent} from './cashier-opened/articles-family/family-sizes-creation.component';
 import {OffersComponent} from './offers/offers.component';
 
 @Component({
@@ -127,7 +127,7 @@ export class HomeComponent {
   }
 
   createFamilySizes() {
-    this.dialog.open(ArticlesFamilyCreationComponent);
+    this.dialog.open(FamilySizesCreationComponent);
   }
 
   providers() {

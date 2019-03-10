@@ -3,20 +3,21 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-articles-family-creation',
-  templateUrl: 'articles-family-creation.component.html'
+  templateUrl: 'family-sizes-creation.component.html'
 })
-export class ArticlesFamilyCreationComponent implements OnInit {
+export class FamilySizesCreationComponent implements OnInit {
   private ALFASIZES = ['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
-  public sizesFromArray = [];
-  public sizesToArray = [];
+  public startSizesArray = [];
+  public finalSizesArray = [];
   public articlesFamilySizesForm: FormGroup;
   public sizeTypeControl: FormControl;
   public stepControl: FormControl;
-  public fromControl: FormControl;
-  public toControl: FormControl;
+  public smallestSizeControl: FormControl;
+  public largestSizeControl: FormControl;
   ngOnInit(): void {
     this.initForm();
     this.setDynamicFormControls();
+    this.manageDynamicFormControlsValue();
   }
 
   private initForm() {
@@ -26,70 +27,69 @@ export class ArticlesFamilyCreationComponent implements OnInit {
       provider: new FormControl('', Validators.required),
       sizeType: new FormControl('', Validators.required),
       step: new FormControl(1, [Validators.required, Validators.min(1), Validators.max(10)]),
-      sizeFrom: new FormControl({value: '', disabled: true}, Validators.required),
-      sizeTo: new FormControl({value: '', disabled: true}, Validators.required),
+      smallestSize: new FormControl({value: '', disabled: true}, Validators.required),
+      largestSize: new FormControl({value: '', disabled: true}, Validators.required),
     });
   }
   private setDynamicFormControls() {
     this.stepControl = this.articlesFamilySizesForm.get('step') as FormControl;
     this.sizeTypeControl = this.articlesFamilySizesForm.get('sizeType') as FormControl;
-    this.fromControl = this.articlesFamilySizesForm.get('sizeFrom') as FormControl;
-    this.toControl = this.articlesFamilySizesForm.get('sizeTo') as FormControl;
-    this.manageDynamicFormControlsValue();
+    this.smallestSizeControl = this.articlesFamilySizesForm.get('smallestSize') as FormControl;
+    this.largestSizeControl = this.articlesFamilySizesForm.get('largestSize') as FormControl;
   }
   private manageDynamicFormControlsValue() {
     this.sizeTypeControl.valueChanges.subscribe(val => {
       switch (val) {
         case 'numeric':
-          this.setNumFromArray(this.stepControl.value);
-          this.fromControl.reset({value: '', disabled: false});
+          this.setNumericStartSizesArray(this.stepControl.value);
+          this.smallestSizeControl.reset({value: '', disabled: false});
           break;
         case 'alfa':
-          this.setAlfaFromArray();
-          this.fromControl.reset({value: '', disabled: false});
+          this.setAlfaStartSizesArray();
+          this.smallestSizeControl.reset({value: '', disabled: false});
           break;
         default:
-          this.fromControl.reset({value: '', disabled: true});
+          this.smallestSizeControl.reset({value: '', disabled: true});
       }
     });
     this.stepControl.valueChanges.subscribe(val => {
-      this.setNumFromArray(val);
-      this.fromControl.reset();
+      this.setNumericStartSizesArray(val);
+      this.smallestSizeControl.reset();
     });
-    this.fromControl.valueChanges.subscribe(val => {
+    this.smallestSizeControl.valueChanges.subscribe(val => {
       if (!val || val === '') {
-        this.toControl.reset({value: '', disabled: true});
+        this.largestSizeControl.reset({value: '', disabled: true});
       } else {
         switch (this.sizeTypeControl.value) {
           case 'numeric':
-            this.sizesToArray = this.sizesFromArray.filter(el =>
+            this.finalSizesArray = this.startSizesArray.filter(el =>
               parseInt(el, 10) > parseInt(val, 10)
             );
-            this.toControl.reset({value: '', disabled: false});
+            this.largestSizeControl.reset({value: '', disabled: false});
             break;
           case 'alfa':
-            this.sizesToArray = this.sizesFromArray.filter(el =>
+            this.finalSizesArray = this.startSizesArray.filter(el =>
               this.ALFASIZES.indexOf(el) > this.ALFASIZES.indexOf(val)
             );
-            this.toControl.reset({value: '', disabled: false});
+            this.largestSizeControl.reset({value: '', disabled: false});
             break;
           default:
-            this.toControl.reset({value: '', disabled: true});
+            this.largestSizeControl.reset({value: '', disabled: true});
         }
       }
     });
   }
-  private setNumFromArray(step) {
-    this.sizesFromArray = [];
+  private setNumericStartSizesArray(step) {
+    this.startSizesArray = [];
     for (let i = 0; i <= 60; i += step) {
-      this.sizesFromArray.push(i.toString());
+      this.startSizesArray.push(i.toString());
     }
   }
-  private setAlfaFromArray() {
-    this.sizesFromArray = this.ALFASIZES;
+  private setAlfaStartSizesArray() {
+    this.startSizesArray = this.ALFASIZES;
   }
   // TODO: API connection
-  public create() {
+  public createFamilySizes() {
     console.log('Form created! ', this.articlesFamilySizesForm.value);
   }
 }
