@@ -1,5 +1,5 @@
 <h3>Create family sizes</h3>
-<form [formGroup]="articlesFamilySizesForm">
+<form [formGroup]="familySizesForm">
   <div>
     <mat-form-field>
       <input matInput placeholder="Reference" formControlName="reference" required>
@@ -46,6 +46,6 @@
 
   <mat-dialog-actions>
     <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button mat-dialog-close [disabled]="articlesFamilySizesForm.invalid" (click)="createFamilySizes()">Create</button>
+    <button mat-button mat-dialog-close [disabled]="familySizesForm.invalid" (click)="createFamilySizes()">Create</button>
   </mat-dialog-actions>
 </form>
