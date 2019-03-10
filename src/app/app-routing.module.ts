@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
 import {AdvancedSearchComponent} from './home/cashier-opened/advanced-search/advanced-search.component';
+import {ArticlesComponent} from './home/articles/articles.component';
 import {FamilySizesCreationComponent} from './home/cashier-opened/articles-family/family-sizes-creation.component';
 import {ArticlesFamilyViewComponent} from './home/cashier-opened/articles-family/articles-family-view.component';
 import {CashierClosedComponent} from './home/cashier-closed/cashier-closed.component';
@@ -27,6 +28,7 @@ const routes: Routes = [
   {
     path: HomeComponent.URL, component: HomeComponent,
     children: [
+      {path: ArticlesComponent.URL, component: ArticlesComponent},
       {path: ArticlesFamiliesCRUDComponent.URL, component: ArticlesFamiliesCRUDComponent},
       {path: CashierClosedComponent.URL, component: CashierClosedComponent},
       {path: CashierOpenedComponent.URL, component: CashierOpenedComponent},
@@ -44,6 +46,7 @@ const routes: Routes = [
 export class AppRoutingModule {
   static COMPONENTS = [
     AdvancedSearchComponent,
+    ArticlesComponent,
     ArticlesFamiliesCRUDComponent,
     ArticlesFamilyViewComponent,
     CashierClosedComponent,
