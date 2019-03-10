@@ -15,6 +15,7 @@ import {CashierClosureDialogComponent} from './home/cashier-opened/cashier/cashi
 import {CheckOutDialogComponent} from './home/cashier-opened/shopping-cart/check-out-dialog.component';
 import {DbSeedDialogComponent} from './home/admins/db-seed-dialog.component';
 import {WelcomeComponent} from './welcome.component';
+import {LineChartComponent} from './core/line-chart.component';
 import {ProvidersComponent} from './home/providers/providers.component';
 import {ProfileDialogComponent} from './home/users/profile-dialog.component';
 import {ArticlesFamiliesCRUDComponent} from './home/articles-families/articles-families.component';
@@ -48,6 +49,7 @@ export class AppRoutingModule {
     CashierClosedComponent,
     CashierOpenedComponent,
     HomeComponent,
+    LineChartComponent,
     ProvidersComponent,
     ShoppingCartComponent,
     UsersComponent,
