@@ -7,5 +7,6 @@ export class ApiEndpoint {
   public static ARTICLES = '/articles';
 
   public static TICKETS = '/tickets';
+  public static  FAMILY_SIZES = '/family-sizes';
 
 }

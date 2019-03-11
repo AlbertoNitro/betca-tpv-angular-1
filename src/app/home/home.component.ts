@@ -12,10 +12,13 @@ import {CashierClosedComponent} from './cashier-closed/cashier-closed.component'
 import {CashierOpenedComponent} from './cashier-opened/cashier-opened.component';
 import {CashierClosureDialogComponent} from './cashier-opened/cashier/cashier-closure-dialog.component';
 import {CashMovementDialogComponent} from './cashier-opened/shared/cash-movement/cash-movement-dialog.component';
+import {ArticlesComponent} from './articles/articles.component';
 import {UsersComponent} from './users/users.component';
 import {ProvidersComponent} from './providers/providers.component';
 import {ProfileDialogComponent} from './users/profile-dialog.component';
-import {ArticlesFamilyCreationComponent} from './cashier-opened/articles-family/articles-family-creation.component';
+import {ArticlesFamiliesCRUDComponent} from './articles-families/articles-families.component';
+import {FamilySizesCreationComponent} from './cashier-opened/articles-family/family-sizes-creation.component';
+import {OffersComponent} from './offers/offers.component';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -118,13 +121,15 @@ export class HomeComponent {
   }
 
   article() {
+    this.router.navigate([HomeComponent.URL, ArticlesComponent.URL]);
   }
 
   articlesFamily() {
+    this.router.navigate([HomeComponent.URL, ArticlesFamiliesCRUDComponent.URL]);
   }
 
   createFamilySizes() {
-    this.dialog.open(ArticlesFamilyCreationComponent);
+    this.dialog.open(FamilySizesCreationComponent);
   }
 
   providers() {
@@ -138,6 +143,10 @@ export class HomeComponent {
   }
 
   Orders() {
+  }
+
+  offers() {
+    this.router.navigate([HomeComponent.URL, OffersComponent.URL]);
   }
 
 }
