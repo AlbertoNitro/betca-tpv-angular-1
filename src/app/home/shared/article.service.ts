@@ -18,5 +18,10 @@ export class ArticleService {
   create(article: Article): Observable<Article> {
     return this.httpService.successful().post(ApiEndpoint.ARTICLES, article);
   }
+  // TODO: API connection
+  createFamilySizes(familySizesForm) {
+    const formData = new FormData(familySizesForm);
+    console.log('Here is the form data! ', formData);
+  }
 
 }
