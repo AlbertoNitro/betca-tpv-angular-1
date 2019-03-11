@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-
 import {AdvancedSearchComponent} from './home/cashier-opened/advanced-search/advanced-search.component';
 import {ArticlesComponent} from './home/articles/articles.component';
 import {FamilySizesCreationComponent} from './home/cashier-opened/articles-family/family-sizes-creation.component';

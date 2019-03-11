@@ -1,34 +1,52 @@
 import { Component } from '@angular/core';
 
+import {ArticleQueryModel} from '../shared/article-query.model';
+
 @Component({
   selector: 'app-articles',
   templateUrl: './articles.component.html',
   styleUrls: ['./articles.component.css']
 })
 export class ArticlesComponent {
-
   static URL = 'articles';
-  title = 'Articles management';
-  columns = ['Code', 'Description', 'Retail price', 'Stock'];
-  data: any[];
+
+  article: ArticleQueryModel;
+
+  title = 'Articles Management';
+  columns = ['code', 'description', 'retail Price', 'stock'];
+  data: ArticleQueryModel[];
 
   constructor() {
-    this.data = [{ code: '8400000000001', description: 'falda', retailPrice: '13€', stock: '123'}];
+    this.article = {description: null, stock: null, maximumPrice: null, minimumPrice: null};
+    this.data = null;
+  }
+
+  search() {
+
+  }
+
+  searchPartiallyProducts() {
+
+  }
+
+  resetSearch() {
+    this.article = {description: null, stock: null, maximumPrice: null, minimumPrice: null};
   }
 
   create() {
-    // TODO
+
   }
 
-  read($event: any) {
-    // TODO
+  read(article: ArticleQueryModel) {
+
   }
 
-  delete($event: any) {
-    // TODO
+  update(article: ArticleQueryModel) {
+
   }
 
-  update($event: any) {
-    // TODO
+  delete(article: ArticleQueryModel) {
+
   }
 }
+

@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
-
 import {TokensService} from '../core/tokens.service';
 import {CancelYesDialogComponent} from '../core/cancel-yes-dialog.component';
 import {CashierService} from './shared/cashier.service';
@@ -12,10 +11,10 @@ import {CashierClosedComponent} from './cashier-closed/cashier-closed.component'
 import {CashierOpenedComponent} from './cashier-opened/cashier-opened.component';
 import {CashierClosureDialogComponent} from './cashier-opened/cashier/cashier-closure-dialog.component';
 import {CashMovementDialogComponent} from './cashier-opened/shared/cash-movement/cash-movement-dialog.component';
-import {ArticlesComponent} from './articles/articles.component';
 import {UsersComponent} from './users/users.component';
 import {ProvidersComponent} from './providers/providers.component';
 import {ProfileDialogComponent} from './users/profile-dialog.component';
+import {ArticlesComponent} from './articles/articles.component';
 import {ArticlesFamiliesCRUDComponent} from './articles-families/articles-families.component';
 import {FamilySizesCreationComponent} from './cashier-opened/articles-family/family-sizes-creation.component';
 import {OffersComponent} from './offers/offers.component';

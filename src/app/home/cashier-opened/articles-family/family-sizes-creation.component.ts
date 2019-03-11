@@ -91,6 +91,6 @@ export class FamilySizesCreationComponent implements OnInit {
     this.startSizesArray = this.ALFASIZES;
   }
   public createFamilySizes() {
-    this.articleService.createFamilySizes(this.familySizesForm);
+    ArticleService.createFamilySizes(this.familySizesForm);
   }
 }
