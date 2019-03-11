@@ -26,7 +26,9 @@ Un **T**erminal **P**unto de **V**enta es un sistema informático que gestiona e
 Permite la creación e impresión del recibo ticket o factura de venta —con los detalles de las referencias y precios— de los artículos vendidos, actualiza los cambios en el nivel de existencias de mercancías (STOCK) en la base de datos...
 
 ## Video explicativo
-https://youtu.be/ozgDhEO18XQ
+[Interfaz de Usuario](https://youtu.be/yBZ3SHShimE)
+
+[Front-End. Angular](https://youtu.be/2ZAd1uIx_E8)
 
 ## Tecnologías necesarias
 `Typescript` `Angular` `Angular-Material` `Angular-layout` `HTML` `CSS`

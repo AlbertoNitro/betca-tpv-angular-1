@@ -4,6 +4,7 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 import {CashierClosureService} from './cashier-closure.service';
 import {CashierState} from './cashier-state.model';
 import {CashierClosure} from './cashier-closure.model';
+import {CashMovementDialogComponent} from '../shared/cash-movement/cash-movement-dialog.component';
 
 @Component({
   templateUrl: 'cashier-closure-dialog.component.html',
@@ -34,8 +35,6 @@ export class CashierClosureDialogComponent {
   }
 
   cashMovement() {
-    // TODO ...
-    console.log('In construction!!!');
+    this.dialog.open(CashMovementDialogComponent);
   }
-
 }
