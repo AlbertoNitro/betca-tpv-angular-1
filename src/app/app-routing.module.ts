@@ -21,6 +21,7 @@ import {ProfileDialogComponent} from './home/users/profile-dialog.component';
 import {ArticlesFamiliesCRUDComponent} from './home/articles-families/articles-families.component';
 import {OffersComponent} from './home/offers/offers.component';
 import {StatisticComponent} from './home/stadistics/statistic.component';
+import {VouchersUseDialogComponent} from './home/vouchers/vouchersUse-dialog.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
@@ -69,6 +70,7 @@ export class AppRoutingModule {
     CashMovementDialogComponent,
     CheckOutDialogComponent,
     DbSeedDialogComponent,
-    ProfileDialogComponent
+    ProfileDialogComponent,
+    VouchersUseDialogComponent
   ];
 }
