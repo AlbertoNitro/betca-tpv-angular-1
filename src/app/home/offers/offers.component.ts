@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { CancelYesDialogComponent } from '../../core/cancel-yes-dialog.component';
 
 @Component({
   selector: 'app-offers',
@@ -6,6 +8,51 @@ import { Component } from '@angular/core';
 })
 export class OffersComponent {
   static URL = 'offers';
-  constructor() { }
+  onlyActiveOffers = false;
+  title = 'Offers management';
+  columns = ['Id', 'Name', 'End-Date'];
+  data: object[];
+
+  constructor(private dialog: MatDialog) {
+    this.data = [
+      { 'Id': 1, 'Name': 'Prueba1', 'End-Date': '03-07-2019' },
+      { 'Id': 2, 'Name': 'Prueba2', 'End-Date': '07-05-2019' },
+      { 'Id': 3, 'Name': 'Prueba3', 'End-Date': '03-05-2019' },
+      { 'Id': 4, 'Name': 'Prueba4', 'End-Date': '03-05-2019' },
+      { 'Id': 5, 'Name': 'Prueba5', 'End-Date': '03-03-2019' },
+      { 'Id': 6, 'Name': 'Prueba6', 'End-Date': '14-04-2019' },
+      { 'Id': 7, 'Name': 'Prueba7', 'End-Date': '31-12-2019' },
+    ];
+  }
+
+  search() {
+    // TODO implement search with fields
+    console.log('Search Offer');
+  }
+
+  resetSearch() {
+    // TODO implement resetSearch
+    console.log('Reset Search');
+  }
+
+  create() {
+    // TODO: implement Add Offer in a Dialog
+    console.log('Add Offer');
+  }
+
+  read() {
+    // TODO: implement Offer Details in a Dialog
+    console.log('Offer Details');
+  }
+
+  delete() {
+    // TODO: implement Offer Delete (API connection)
+    this.dialog.open(CancelYesDialogComponent).afterClosed().subscribe(
+    result => {
+      if (result) {
+        console.log('Delete Offer');
+      }
+    });
+  }
 
 }
