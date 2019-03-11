@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
-
 import {TokensService} from '../core/tokens.service';
 import {CancelYesDialogComponent} from '../core/cancel-yes-dialog.component';
 import {CashierService} from './shared/cashier.service';
@@ -15,8 +14,10 @@ import {CashMovementDialogComponent} from './cashier-opened/shared/cash-movement
 import {UsersComponent} from './users/users.component';
 import {ProvidersComponent} from './providers/providers.component';
 import {ProfileDialogComponent} from './users/profile-dialog.component';
-import {ArticlesFamilyCreationComponent} from './cashier-opened/articles-family/articles-family-creation.component';
 import {ArticlesComponent} from './articles/articles.component';
+import {ArticlesFamiliesCRUDComponent} from './articles-families/articles-families.component';
+import {FamilySizesCreationComponent} from './cashier-opened/articles-family/family-sizes-creation.component';
+import {OffersComponent} from './offers/offers.component';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -123,10 +124,11 @@ export class HomeComponent {
   }
 
   articlesFamily() {
+    this.router.navigate([HomeComponent.URL, ArticlesFamiliesCRUDComponent.URL]);
   }
 
   createFamilySizes() {
-    this.dialog.open(ArticlesFamilyCreationComponent);
+    this.dialog.open(FamilySizesCreationComponent);
   }
 
   providers() {
@@ -140,6 +142,10 @@ export class HomeComponent {
   }
 
   Orders() {
+  }
+
+  offers() {
+    this.router.navigate([HomeComponent.URL, OffersComponent.URL]);
   }
 
 }

@@ -4,7 +4,7 @@ import {ArticleQueryModel} from '../shared/article-query.model';
 
 @Component({
   selector: 'app-articles',
-  templateUrl: 'articles.component.html',
+  templateUrl: './articles.component.html',
   styleUrls: ['./articles.component.css']
 })
 export class ArticlesComponent {
@@ -25,7 +25,7 @@ export class ArticlesComponent {
 
   }
 
-  searchPartiallyProducts(){
+  searchPartiallyProducts() {
 
   }
 
@@ -49,6 +49,4 @@ export class ArticlesComponent {
 
   }
 }
-
-
 
