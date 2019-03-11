@@ -16,6 +16,7 @@ import {UsersComponent} from './users/users.component';
 import {ProvidersComponent} from './providers/providers.component';
 import {ProfileDialogComponent} from './users/profile-dialog.component';
 import {ArticlesFamilyCreationComponent} from './cashier-opened/articles-family/articles-family-creation.component';
+import {ArticlesComponent} from './articles/articles.component';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -118,6 +119,7 @@ export class HomeComponent {
   }
 
   article() {
+    this.router.navigate([HomeComponent.URL, ArticlesComponent.URL]);
   }
 
   articlesFamily() {
