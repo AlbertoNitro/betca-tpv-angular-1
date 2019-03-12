@@ -38,7 +38,6 @@ const routes: Routes = [
       {path: CashierOpenedComponent.URL, component: CashierOpenedComponent},
       {path: ProvidersComponent.URL, component: ProvidersComponent},
       {path: StatisticComponent.URL, component: StatisticComponent},
-      {path: StockPredictionComponent.URL, component: StockPredictionComponent},
       {path: OffersComponent.URL, component: OffersComponent},
       {path: UsersComponent.URL, component: UsersComponent}
     ]

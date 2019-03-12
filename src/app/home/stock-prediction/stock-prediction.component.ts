@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
+
 @Component({
   selector: 'app-stock-prediction',
   templateUrl: './stock-prediction.component.html',
@@ -7,7 +8,6 @@ import {Component, OnInit} from '@angular/core';
 })
 export class StockPredictionComponent implements OnInit {
   static URL = 'stock-prediction';
-
   constructor() {
   }
 
