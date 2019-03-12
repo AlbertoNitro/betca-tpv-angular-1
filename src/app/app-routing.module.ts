@@ -22,6 +22,7 @@ import {ArticlesFamiliesCRUDComponent} from './home/articles-families/articles-f
 import {OffersComponent} from './home/offers/offers.component';
 import {StatisticComponent} from './home/stadistics/statistic.component';
 import {StockPredictionComponent} from './home/stock-prediction/stock-prediction.component';
+import {InvoiceUpdateComponent} from './home/invoice/invoice-update.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
@@ -55,6 +56,7 @@ export class AppRoutingModule {
     CashierClosedComponent,
     CashierOpenedComponent,
     HomeComponent,
+    InvoiceUpdateComponent,
     LineChartComponent,
     ProvidersComponent,
     ShoppingCartComponent,
