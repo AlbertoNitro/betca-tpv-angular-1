@@ -3,19 +3,17 @@ import {ArticleQueryModel} from '../../shared/article-query.model';
 
 @Component({
   selector: 'app-advanced-search',
-  templateUrl: 'advanced-search.component.html',
-  styleUrls: ['./advanced-search.component.css']
+  templateUrl: 'advanced-search.component.html'
 })
 export class AdvancedSearchComponent {
 
   article: ArticleQueryModel;
 
-  title = 'Articles Management';
+  title = 'Articles';
   columns = ['code', 'description', 'retail Price', 'stock'];
   data: ArticleQueryModel[];
 
   createButton = false;
-  readButton = false;
   editButton = false;
   deleteButton = false;
 
@@ -34,5 +32,9 @@ export class AdvancedSearchComponent {
 
   resetSearch() {
     this.article = {description: null, stock: null, maximumPrice: null, minimumPrice: null};
+  }
+
+  add(article: ArticleQueryModel) {
+
   }
 }
