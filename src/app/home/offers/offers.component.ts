@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { CancelYesDialogComponent } from '../../core/cancel-yes-dialog.component';
+import {FamilySizesCreationComponent} from '../cashier-opened/articles-family/family-sizes-creation.component';
+import {OffersDetailsDialogComponent} from './offers-details-dialog.component';
 
 @Component({
   selector: 'app-offers',
@@ -43,6 +45,7 @@ export class OffersComponent {
   read() {
     // TODO: implement Offer Details in a Dialog
     console.log('Offer Details');
+    this.dialog.open(OffersDetailsDialogComponent, { width: '60%' } );
   }
 
   delete() {
