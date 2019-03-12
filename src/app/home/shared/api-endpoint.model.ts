@@ -9,4 +9,5 @@ export class ApiEndpoint {
   public static TICKETS = '/tickets';
   public static  FAMILY_SIZES = '/family-sizes';
 
+  public static PROVIDERS = '/providers';
 }
