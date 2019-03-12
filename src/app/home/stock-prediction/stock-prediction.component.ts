@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+
 
 @Component({
   selector: 'app-stock-prediction',
@@ -7,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StockPredictionComponent implements OnInit {
   static URL = 'stock-prediction';
-
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

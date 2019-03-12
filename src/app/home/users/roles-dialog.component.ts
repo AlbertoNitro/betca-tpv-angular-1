@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-perfile',
@@ -6,13 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./users.component.css']
 })
 export class RolesDialogComponent implements OnInit {
-  manager = true ;
+  manager = true;
   admin = true;
   operator = true;
   customer = true;
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit() {
   }
-  guardar(){}
+
+  guardar() {
+  }
 }

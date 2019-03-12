@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 
 import {TicketCreation} from './ticket-creation.model';
 import {ShoppingCartService} from './shopping-cart.service';
+import {VouchersUseDialogComponent} from '../../vouchers/vouchersUse-dialog.component';
 
 @Component({
   templateUrl: 'check-out-dialog.component.html',
@@ -75,7 +76,7 @@ export class CheckOutDialogComponent {
   }
 
   consumeVoucher() {
-    // TODO consumir un vale que se entrega como parte del pago
+    this.dialog.open(VouchersUseDialogComponent);
   }
 
   invalidCheckOut(): boolean {
