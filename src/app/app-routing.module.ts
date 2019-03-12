@@ -22,6 +22,7 @@ import {ArticlesFamiliesCRUDComponent} from './home/articles-families/articles-f
 import {OffersComponent} from './home/offers/offers.component';
 import {StatisticComponent} from './home/stadistics/statistic.component';
 import {StockPredictionComponent} from './home/stock-prediction/stock-prediction.component';
+import {RolesDialogComponent} from './home/users/roles-dialog.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
@@ -72,6 +73,7 @@ export class AppRoutingModule {
     CashMovementDialogComponent,
     CheckOutDialogComponent,
     DbSeedDialogComponent,
-    ProfileDialogComponent
+    ProfileDialogComponent,
+    RolesDialogComponent
   ];
 }
