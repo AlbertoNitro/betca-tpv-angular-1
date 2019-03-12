@@ -20,6 +20,7 @@ import {ProvidersComponent} from './home/providers/providers.component';
 import {ProfileDialogComponent} from './home/users/profile-dialog.component';
 import {ArticlesFamiliesCRUDComponent} from './home/articles-families/articles-families.component';
 import {OffersComponent} from './home/offers/offers.component';
+import {OffersDetailsDialogComponent} from './home/offers/offers-details-dialog.component';
 import {StatisticComponent} from './home/stadistics/statistic.component';
 import {StockPredictionComponent} from './home/stock-prediction/stock-prediction.component';
 import {RolesDialogComponent} from './home/users/roles-dialog.component';
@@ -37,6 +38,7 @@ const routes: Routes = [
       {path: ArticlesFamiliesCRUDComponent.URL, component: ArticlesFamiliesCRUDComponent},
       {path: CashierClosedComponent.URL, component: CashierClosedComponent},
       {path: CashierOpenedComponent.URL, component: CashierOpenedComponent},
+      {path: OffersComponent.URL, component: OffersComponent},
       {path: ProvidersComponent.URL, component: ProvidersComponent},
       {path: StatisticComponent.URL, component: StatisticComponent},
       {path: OffersComponent.URL, component: OffersComponent},
@@ -62,14 +64,14 @@ export class AppRoutingModule {
     HomeComponent,
     InvoiceUpdateComponent,
     LineChartComponent,
+    OffersComponent,
     ProvidersComponent,
     ShoppingCartComponent,
     StatisticComponent,
     StockPredictionComponent,
     TicketsComponent,
     UsersComponent,
-    WelcomeComponent,
-    OffersComponent
+    WelcomeComponent
   ];
 
   static DIALOGS = [
@@ -79,6 +81,7 @@ export class AppRoutingModule {
     CashMovementDialogComponent,
     CheckOutDialogComponent,
     DbSeedDialogComponent,
+    OffersDetailsDialogComponent,
     ProfileDialogComponent,
     RolesDialogComponent,
     VouchersUseDialogComponent
