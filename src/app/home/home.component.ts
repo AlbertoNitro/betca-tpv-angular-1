@@ -19,6 +19,7 @@ import {ArticlesFamiliesCRUDComponent} from './articles-families/articles-famili
 import {FamilySizesCreationComponent} from './cashier-opened/articles-family/family-sizes-creation.component';
 import {OffersComponent} from './offers/offers.component';
 import {StockPredictionComponent} from './stock-prediction/stock-prediction.component';
+import {TicketsComponent} from './tickets/tickets.component';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -112,6 +113,7 @@ export class HomeComponent {
   }
 
   tickets() {
+    this.router.navigate([HomeComponent.URL, TicketsComponent.URL]);
   }
 
   ticketTracking() {
