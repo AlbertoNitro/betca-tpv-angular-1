@@ -121,6 +121,24 @@
     <mat-icon>attach_money</mat-icon>
     <span>Offers</span>
   </button>
+  <button mat-menu-item [matMenuTriggerFor]="stock">
+    <mat-icon>line_style</mat-icon>
+    <span>Stock</span>
+  </button>
+</mat-menu>
+<mat-menu #stock="matMenu">
+  <button mat-menu-item (click)="stockAlarm()">
+    <mat-icon>alarm</mat-icon>
+    <span>Alarm</span>
+  </button>
+  <button mat-menu-item (click)="stockManager()">
+    <mat-icon>view_quilt</mat-icon>
+    <span>Manager</span>
+  </button>
+  <button mat-menu-item (click)="stockPrediction()">
+    <mat-icon>timeline</mat-icon>
+    <span>Prediction</span>
+  </button>
 </mat-menu>
 
 <router-outlet></router-outlet>

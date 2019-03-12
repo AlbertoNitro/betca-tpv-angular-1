@@ -18,6 +18,7 @@ import {ArticlesComponent} from './articles/articles.component';
 import {ArticlesFamiliesCRUDComponent} from './articles-families/articles-families.component';
 import {FamilySizesCreationComponent} from './cashier-opened/articles-family/family-sizes-creation.component';
 import {OffersComponent} from './offers/offers.component';
+import {StockPredictionComponent} from './stock-prediction/stock-prediction.component';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -146,6 +147,16 @@ export class HomeComponent {
 
   offers() {
     this.router.navigate([HomeComponent.URL, OffersComponent.URL]);
+  }
+
+  stockAlarm() {
+  }
+
+  stockManager() {
+  }
+
+  stockPrediction() {
+    this.router.navigate([HomeComponent.URL, StockPredictionComponent.URL]);
   }
 
 }
