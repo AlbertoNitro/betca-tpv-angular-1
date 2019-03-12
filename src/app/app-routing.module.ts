@@ -21,8 +21,11 @@ import {ProfileDialogComponent} from './home/users/profile-dialog.component';
 import {ArticlesFamiliesCRUDComponent} from './home/articles-families/articles-families.component';
 import {OffersComponent} from './home/offers/offers.component';
 import {StatisticComponent} from './home/stadistics/statistic.component';
+import {StockPredictionComponent} from './home/stock-prediction/stock-prediction.component';
+import {RolesDialogComponent} from './home/users/roles-dialog.component';
+import {InvoiceUpdateComponent} from './home/invoice/invoice-update.component';
+import {AdvancedQueryComponent} from './home/shared/advanced-query.component';
 import {VouchersUseDialogComponent} from './home/vouchers/vouchersUse-dialog.component';
-
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
   {path: WelcomeComponent.URL, component: WelcomeComponent},
@@ -35,6 +38,7 @@ const routes: Routes = [
       {path: CashierOpenedComponent.URL, component: CashierOpenedComponent},
       {path: ProvidersComponent.URL, component: ProvidersComponent},
       {path: StatisticComponent.URL, component: StatisticComponent},
+      {path: StockPredictionComponent.URL, component: StockPredictionComponent},
       {path: OffersComponent.URL, component: OffersComponent},
       {path: UsersComponent.URL, component: UsersComponent}
     ]
@@ -48,16 +52,19 @@ const routes: Routes = [
 export class AppRoutingModule {
   static COMPONENTS = [
     AdvancedSearchComponent,
+    AdvancedQueryComponent,
     ArticlesComponent,
     ArticlesFamiliesCRUDComponent,
     ArticlesFamilyViewComponent,
     CashierClosedComponent,
     CashierOpenedComponent,
     HomeComponent,
+    InvoiceUpdateComponent,
     LineChartComponent,
     ProvidersComponent,
     ShoppingCartComponent,
     StatisticComponent,
+    StockPredictionComponent,
     UsersComponent,
     WelcomeComponent,
     OffersComponent
@@ -71,6 +78,7 @@ export class AppRoutingModule {
     CheckOutDialogComponent,
     DbSeedDialogComponent,
     ProfileDialogComponent,
+    RolesDialogComponent,
     VouchersUseDialogComponent
   ];
 }
