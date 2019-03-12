@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {Provider} from './provider.model';
 import {User} from '../users/user.model';
+import {ProviderService} from './provider.service';
 
 @Component({
   selector: 'app-providers',
@@ -13,7 +14,11 @@ export class ProvidersComponent{
   title = 'Provider management';
   columns = ['company', 'nif'];
 
-  constructor() { }
+  constructor(private providerService: ProviderService) {
+    this.providerService.readAll().subscribe(
+      data => this.data = data
+    );
+  }
 
   create() {
     // TODO
