@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 import {ArticleQueryModel} from '../shared/article-query.model';
 
 @Component({
   selector: 'app-articles',
-  templateUrl: './articles.component.html',
-  styleUrls: ['./articles.component.css']
+  templateUrl: './articles.component.html'
 })
 export class ArticlesComponent {
   static URL = 'articles';

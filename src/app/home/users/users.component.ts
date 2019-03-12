@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 
 import {UserService} from './user.service';
 import {User} from './user.model';
+import {MatDialog} from '@angular/material';
+import {RolesDialogComponent} from './roles-dialog.component';
 
 @Component({
   templateUrl: `users.component.html`
@@ -16,7 +18,7 @@ export class UsersComponent {
   columns = ['mobile', 'username'];
   data: User[];
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private dialog: MatDialog) {
     this.user = {mobile: null, username: null};
     this.data = null;
   }
@@ -34,7 +36,7 @@ export class UsersComponent {
 
 
   create() {
-    // TODO
+    this.dialog.open(RolesDialogComponent);
   }
 
   read(user: User) {
@@ -42,7 +44,6 @@ export class UsersComponent {
   }
 
   update(user: User) {
-    // TODO
   }
 
   delete(user: User) {
