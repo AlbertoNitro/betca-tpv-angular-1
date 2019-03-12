@@ -37,9 +37,9 @@ const routes: Routes = [
       {path: ArticlesFamiliesCRUDComponent.URL, component: ArticlesFamiliesCRUDComponent},
       {path: CashierClosedComponent.URL, component: CashierClosedComponent},
       {path: CashierOpenedComponent.URL, component: CashierOpenedComponent},
+      {path: OffersComponent.URL, component: OffersComponent},
       {path: ProvidersComponent.URL, component: ProvidersComponent},
       {path: StatisticComponent.URL, component: StatisticComponent},
-      {path: OffersComponent.URL, component: OffersComponent},
       {path: UsersComponent.URL, component: UsersComponent}
     ]
   }
@@ -61,13 +61,13 @@ export class AppRoutingModule {
     HomeComponent,
     InvoiceUpdateComponent,
     LineChartComponent,
+    OffersComponent,
     ProvidersComponent,
     ShoppingCartComponent,
     StatisticComponent,
     StockPredictionComponent,
     UsersComponent,
-    WelcomeComponent,
-    OffersComponent
+    WelcomeComponent
   ];
 
   static DIALOGS = [
