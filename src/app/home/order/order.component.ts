@@ -31,4 +31,8 @@ export class OrderComponent {
   update(user: User) {
     // TODO
   }
+
+  delete(user: User) {
+    // TODO
+  }
 }
