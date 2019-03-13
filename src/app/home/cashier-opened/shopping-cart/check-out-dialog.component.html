@@ -7,7 +7,7 @@
   <!-- <app-user-quick-crud (found)="updateUser($event)"></app-user-quick-crud> -->
   <mat-form-field>
     <input matInput type="number" placeholder="Mobile"/>
-    <button mat-button matSuffix mat-icon-button>
+    <button mat-button matSuffix mat-icon-button (click)="openQuickUserCrud()">
       <mat-icon color="warn">search</mat-icon>
     </button>
     <button mat-button matSuffix mat-icon-button>
