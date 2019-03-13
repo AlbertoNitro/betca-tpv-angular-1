@@ -10,6 +10,7 @@ export class ApiEndpoint {
   public static  FAMILY_SIZES = '/family-sizes';
 
   public static PROVIDERS = '/providers';
+  public static ACTIVES = '/actives';
 
   public static ORDERS = '/orders';
 }
