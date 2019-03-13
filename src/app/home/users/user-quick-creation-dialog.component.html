@@ -1,16 +1,13 @@
-<h2 mat-dialog-title>New user: {{totalPurchase | currency:'EUR':'symbol'}}</h2>
+<h2 mat-dialog-title>New customer: </h2>
 <mat-dialog-content>
   <mat-form-field>
     <input matInput type="number" placeholder="Mobile"/>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="number" placeholder="Username"/>
+    <input matInput type="text" placeholder="Username"/>
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button mat-dialog-close cdkFocusInitial>Cancel</button>
-  <!--<button mat-raised-button color="accent" (click)="checkOut()" [disabled]="invalidCheckOut()">Pay
-    <span class="mat-suffix" *ngIf="invalidCheckOut()">( => {{totalCommitted()}})</span>
-  </button>-->
-  <button mat-raised-button color="accent" (click)="checkOut()" [disabled]="invalidCheckOut()">Create</button>
+  <button mat-raised-button color="accent" (click)="create()">Create</button>
 </mat-dialog-actions>
