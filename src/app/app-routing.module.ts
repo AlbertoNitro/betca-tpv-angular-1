@@ -44,6 +44,7 @@ const routes: Routes = [
       {path: OffersComponent.URL, component: OffersComponent},
       {path: ProvidersComponent.URL, component: ProvidersComponent},
       {path: StatisticComponent.URL, component: StatisticComponent},
+      {path: StockPredictionComponent.URL, component: StockPredictionComponent},
       {path: OffersComponent.URL, component: OffersComponent},
       {path: TicketsComponent.URL, component: TicketsComponent},
       {path: UsersComponent.URL, component: UsersComponent},
