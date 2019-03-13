@@ -30,6 +30,7 @@ import {AdvancedQueryComponent} from './home/shared/advanced-query.component';
 import {VouchersUseDialogComponent} from './home/vouchers/vouchersUse-dialog.component';
 import {TicketsComponent} from './home/tickets/tickets.component';
 import {OrderComponent} from './home/order/order.component';
+import {UserQuickCreationDialogComponent} from './home/users/user-quick-creation-dialog.controller';
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
   {path: WelcomeComponent.URL, component: WelcomeComponent},
@@ -89,6 +90,7 @@ export class AppRoutingModule {
     OffersDetailsDialogComponent,
     ProfileDialogComponent,
     RolesDialogComponent,
+    UserQuickCreationDialogComponent,
     VouchersUseDialogComponent
   ];
 }

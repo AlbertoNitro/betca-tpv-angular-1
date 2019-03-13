@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 
 import {TicketCreation} from './ticket-creation.model';
 import {ShoppingCartService} from './shopping-cart.service';
+import {UserQuickCreationDialogComponent} from '../../users/user-quick-creation-dialog.controller';
 import {VouchersUseDialogComponent} from '../../vouchers/vouchersUse-dialog.component';
 
 @Component({
@@ -133,6 +134,10 @@ export class CheckOutDialogComponent {
   invalidInvoice(): boolean {
     // TODO pendiente de calcular. Hace falta tener al usuario totalmente completado
     return true;
+  }
+
+  openQuickUserCrud() {
+    this.dialog.open(UserQuickCreationDialogComponent);
   }
 
 }
