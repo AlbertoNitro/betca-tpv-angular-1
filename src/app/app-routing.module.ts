@@ -28,6 +28,7 @@ import {InvoiceUpdateComponent} from './home/invoice/invoice-update.component';
 import {AdvancedQueryComponent} from './home/shared/advanced-query.component';
 import {VouchersUseDialogComponent} from './home/vouchers/vouchersUse-dialog.component';
 import {TicketsComponent} from './home/tickets/tickets.component';
+import {OrderComponent} from './home/order/order.component';
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
   {path: WelcomeComponent.URL, component: WelcomeComponent},
@@ -43,7 +44,8 @@ const routes: Routes = [
       {path: StatisticComponent.URL, component: StatisticComponent},
       {path: OffersComponent.URL, component: OffersComponent},
       {path: TicketsComponent.URL, component: TicketsComponent},
-      {path: UsersComponent.URL, component: UsersComponent}
+      {path: UsersComponent.URL, component: UsersComponent},
+      {path: OrderComponent.URL, component: OrderComponent}
     ]
   }
 ];
@@ -70,6 +72,7 @@ export class AppRoutingModule {
     StatisticComponent,
     StockPredictionComponent,
     TicketsComponent,
+    OrderComponent,
     UsersComponent,
     WelcomeComponent
   ];
