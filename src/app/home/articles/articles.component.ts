@@ -20,18 +20,6 @@ export class ArticlesComponent {
     this.data = null;
   }
 
-  search() {
-
-  }
-
-  searchPartiallyProducts() {
-
-  }
-
-  resetSearch() {
-    this.article = {description: null, stock: null, maximumPrice: null, minimumPrice: null};
-  }
-
   create() {
 
   }
