@@ -17,6 +17,7 @@ import {DbSeedDialogComponent} from './home/admins/db-seed-dialog.component';
 import {WelcomeComponent} from './welcome.component';
 import {LineChartComponent} from './core/line-chart.component';
 import {ProvidersComponent} from './home/providers/providers.component';
+import {ProviderSelectComponent} from './home/providers/provider-select.component';
 import {ProfileDialogComponent} from './home/users/profile-dialog.component';
 import {ArticlesFamiliesCRUDComponent} from './home/articles-families/articles-families.component';
 import {OffersComponent} from './home/offers/offers.component';
@@ -68,6 +69,7 @@ export class AppRoutingModule {
     LineChartComponent,
     OffersComponent,
     ProvidersComponent,
+    ProviderSelectComponent,
     ShoppingCartComponent,
     StatisticComponent,
     StockPredictionComponent,

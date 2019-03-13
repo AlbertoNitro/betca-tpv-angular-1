@@ -15,4 +15,7 @@ export class ProviderService {
     return this.httpService.get(ApiEndpoint.PROVIDERS);
   }
 
+  readAllActives(): Observable<Provider[]> {
+    return this.httpService.get(ApiEndpoint.PROVIDERS + ApiEndpoint.ACTIVES);
+  }
 }
