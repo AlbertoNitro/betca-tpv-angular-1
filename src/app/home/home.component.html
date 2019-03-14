@@ -47,6 +47,10 @@
     <mat-icon>assessment</mat-icon>
     <span>Statistics</span>
   </button>
+  <button *ngIf="isManager() || isOperator()" mat-menu-item (click)="rrhh()">
+    <mat-icon>alarm</mat-icon>
+    <span>RRHH</span>
+  </button>
 </mat-menu>
 <mat-menu #settings="matMenu">
   <button mat-menu-item (click)="deleteDb()">Delete Database</button>
