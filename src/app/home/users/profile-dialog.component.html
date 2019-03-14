@@ -1,17 +1,26 @@
+<form [formGroup]="userForm" autocomplete="off" novalidate (ngSubmit)="submmit()" >
 <h3 mat-dialog-title>Profile User</h3>
 <mat-dialog-content>
   <mat-form-field>
-    <input matInput type="password" placeholder="Current Password " [(ngModel)]="passwordCurrent"/>
+    <input matInput type="password" placeholder="Current Password " [(ngModel)]="passwordCurrent" formControlName="VpasswordCurrent"/>
+    <mat-error *ngIf="hasError('VpasswordCurrent', 'required')">It is required</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="password" placeholder="New Password " [(ngModel)]="passwordNew"(focus)="closeWarningPasword()"/>
+    <input matInput type="password" placeholder="New Password " [(ngModel)]="passwordNew"
+           (focus)="closeWarningPasswordsNew();closeWarningPasswordCurrentNew()" (blur)="comparatePasswordCurrentAndNew()"
+           formControlName="VpasswordNew"/>
+    <mat-hint *ngIf="WarningPasswordCurrentNew">Password new must be different</mat-hint>
+    <mat-error *ngIf="hasError('VpasswordNew', 'required')">It is required</mat-error>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="password" placeholder="Repeat New Password" [(ngModel)]="NewRepeatpassword" (blur)="comparatePassword()" (focus)="closeWarningPasword()"/>
-    <mat-hint *ngIf="WarningPassword">Passwords do not match</mat-hint>
+    <input matInput type="password" placeholder="Repeat New Password" [(ngModel)]="NewRepeatpassword"
+           (blur)="comparatePasswordNews()" (focus)="closeWarningPasswordsNew()" formControlName="VNewRepeatpassword"/>
+    <mat-error *ngIf="hasError('VNewRepeatpassword', 'required')">It is required</mat-error>
+    <mat-hint *ngIf="WarningPasswordNews">Passwords do not match</mat-hint>
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button mat-dialog-close (click)="guardar()">Submit</button>
+  <button mat-button [disabled]="!userForm.valid">Submit</button>
 </mat-dialog-actions>
+</form>
