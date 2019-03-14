@@ -1,0 +1,28 @@
+<mat-card>
+  <mat-card-title> Create offer </mat-card-title>
+  <mat-card-content>
+    <mat-form-field>
+      <input matInput placeholder="Offer Name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="End Date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput type="text" placeholder="Article Id">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" placeholder="Percentage" min="1">
+    </mat-form-field>
+    <br>
+    <button mat-button (click)="addArticle()" color="primary">Add Article</button>
+  </mat-card-content>
+</mat-card>
+<app-crud [data]="data" [title]="title" [columns]="columns" [createAction]="false" [readAction]="false" [updateAction]="false" (delete)="delete()">
+</app-crud>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close color="accent">Cancel</button>
+  <button mat-button mat-dialog-close (click)="createOffer()" color="primary">Create</button>
+</mat-dialog-actions>
