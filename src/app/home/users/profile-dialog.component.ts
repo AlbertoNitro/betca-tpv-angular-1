@@ -9,9 +9,20 @@ export class ProfileDialogComponent implements OnInit {
   passwordCurrent: string ;
   passwordNew: string;
   NewRepeatpassword: string;
+  WarningPassword = false;
   constructor() { }
 
   ngOnInit() {
   }
-  guardar(){}
+  guardar() {}
+
+  comparatePassword() {
+    if (this.passwordNew !== this.NewRepeatpassword) {
+      this.WarningPassword = true;
+    }
+  }
+  closeWarningPasword() {
+    this.WarningPassword = false;
+  }
+
 }
