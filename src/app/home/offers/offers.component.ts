@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { CancelYesDialogComponent } from '../../core/cancel-yes-dialog.component';
-import {FamilySizesCreationComponent} from '../cashier-opened/articles-family/family-sizes-creation.component';
+import {OffersCreateDialogComponent} from './offers-create-dialog.component';
 import {OffersDetailsDialogComponent} from './offers-details-dialog.component';
 
 @Component({
@@ -40,6 +40,7 @@ export class OffersComponent {
   create() {
     // TODO: implement Add Offer in a Dialog
     console.log('Add Offer');
+    this.dialog.open(OffersCreateDialogComponent, { width: '60%' } );
   }
 
   read() {
