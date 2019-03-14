@@ -167,4 +167,7 @@ export class HomeComponent {
     this.router.navigate([HomeComponent.URL, StockPredictionComponent.URL]);
   }
 
+  rrhh() {
+  }
+
 }
