@@ -1,3 +1,49 @@
 <mat-card>
-  <mat-card-title>TICKETS VIEW!</mat-card-title>
+  <mat-card-title>
+    <mat-icon color="primary">list</mat-icon>
+    Tickets
+  </mat-card-title>
+  <mat-card-content>
+    <div class="container">
+      <form>
+        <mat-form-field>
+          <input matInput placeholder="Ticket Code" type="text" #code cdkFocusInitial>
+        </mat-form-field>
+        <button type="submit" mat-mini-fab color="primary" (click)="searchTicketById(code.value); code.value='' "
+                [disabled]="code.value === ''">
+          <mat-icon>search</mat-icon>
+        </button>
+      </form>
+    </div>
+  </mat-card-content>
 </mat-card>
+
+<mat-card>
+  <table [hidden]="ticket.code === '0'">
+    <tr>
+      <th class="left">Ticket</th>
+      <td>{{ticket.code}}</td>
+    </tr>
+    <tr>
+      <!--TODO: Implement Shopping cart table-->
+    </tr>
+    <tr>
+      <th class="left">Pay with Carts</th>
+      <td>{{ticket.cart}}</td>
+    </tr>
+    <tr>
+      <th class="left">Pay with Cash</th>
+      <td>{{ticket.cash}}</td>
+    </tr>
+    <tr>
+      <th class="left">Pay with Voucher</th>
+      <td>{{ticket.voucher}}</td>
+    </tr>
+    <tr>
+      <th class="left">Total</th>
+      <td>{{ticket.total}}</td>
+    </tr>
+  </table>
+</mat-card>
+
+
