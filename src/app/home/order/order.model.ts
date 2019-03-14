@@ -1,5 +1,8 @@
 export interface Order {
-  description: string;
-  openingDate: string;
-  closingDate: string;
+  descriptionOrders: string;
+  descriptionArticles: string;
+  requiredAmount: number;
+  finalAmount: number;
+  openingDate?: Date;
+  closingDate?: Date;
 }
