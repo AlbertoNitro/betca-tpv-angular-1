@@ -21,6 +21,7 @@ import {ProviderSelectComponent} from './home/providers/provider-select.componen
 import {ProfileDialogComponent} from './home/users/profile-dialog.component';
 import {ArticlesFamiliesCRUDComponent} from './home/articles-families/articles-families.component';
 import {OffersComponent} from './home/offers/offers.component';
+import {OffersCreateDialogComponent} from './home/offers/offers-create-dialog.component';
 import {OffersDetailsDialogComponent} from './home/offers/offers-details-dialog.component';
 import {StatisticComponent} from './home/stadistics/statistic.component';
 import {StockPredictionComponent} from './home/stock-prediction/stock-prediction.component';
@@ -88,6 +89,7 @@ export class AppRoutingModule {
     CashMovementDialogComponent,
     CheckOutDialogComponent,
     DbSeedDialogComponent,
+    OffersCreateDialogComponent,
     OffersDetailsDialogComponent,
     ProfileDialogComponent,
     RolesDialogComponent,
