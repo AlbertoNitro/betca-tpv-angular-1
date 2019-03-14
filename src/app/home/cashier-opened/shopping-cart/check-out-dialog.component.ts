@@ -1,10 +1,12 @@
 import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig} from '@angular/material';
 
 import {TicketCreation} from './ticket-creation.model';
 import {ShoppingCartService} from './shopping-cart.service';
 import {UserQuickCreationDialogComponent} from '../../users/user-quick-creation-dialog.controller';
 import {VouchersUseDialogComponent} from '../../vouchers/vouchersUse-dialog.component';
+import {User} from '../../users/user.model';
+import {UserCreateUpdateDialogComponent} from '../../users/user-create-update-dialog.component';
 
 @Component({
   templateUrl: 'check-out-dialog.component.html',
@@ -15,6 +17,8 @@ export class CheckOutDialogComponent {
   totalPurchase: number;
   requestedInvoice = false;
   ticketCreation: TicketCreation;
+  userFound: User;
+  isUserFound: boolean;
 
   constructor(@Inject(MAT_DIALOG_DATA) data: any, private dialog: MatDialog, private shoppingCartService: ShoppingCartService) {
     this.totalPurchase = data.total;
@@ -138,6 +142,20 @@ export class CheckOutDialogComponent {
 
   openQuickUserCrud() {
     this.dialog.open(UserQuickCreationDialogComponent);
+    // TODO quitar flag. Poner a true cuando el usuario se enuentra y se asocia al ticket.
+    this.isUserFound = true;
   }
 
+
+  openEditUserDialog() {
+    // TODO quitar mock de User. Enviar al dialogo el usuario encontrado.
+    this.userFound = {mobile: 123456, username: 'userMock'}
+    const dialogConfig: MatDialogConfig = {
+      data: {
+        mode: 'Update',
+        user: this.userFound
+      }
+    };
+    this.dialog.open(UserCreateUpdateDialogComponent, dialogConfig);
+  }
 }

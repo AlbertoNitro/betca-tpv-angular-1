@@ -1,19 +1,30 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
+import {User} from './user.model';
+import {RolesDialogComponent} from './roles-dialog.component';
 
 @Component({
-  templateUrl: 'user-quick-creation-dialog.component.html',
-  styleUrls: ['../../home/cashier-opened/shopping-cart/shopping-cart.component.css']
+  templateUrl: 'user-create-update-dialog.component.html',
+  styleUrls: ['users.component.css']
 })
 
-export class UserCreateUpdateDialog implements OnInit {
-  constructor() {
+export class UserCreateUpdateDialogComponent implements OnInit {
+  user: User;
+  modeDialog: string;
 
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog) {
+    this.user = data.user;
+    this.modeDialog = data.mode;
   }
 
   ngOnInit() {
   }
 
-  create() {
+  edit() {
     return null;
+  }
+
+  openEditRolesDialog() {
+    this.dialog.open(RolesDialogComponent);
   }
 }
