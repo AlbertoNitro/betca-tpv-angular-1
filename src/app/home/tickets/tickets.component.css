@@ -2,3 +2,19 @@
   display: flex;
   justify-content: flex-start;
 }
+
+.container {
+  display: flex;
+  flex-direction: row;
+  max-height: 500px;
+  min-width: 300px;
+}
+
+.mat-cell {
+  overflow: visible;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 600px;
+}
