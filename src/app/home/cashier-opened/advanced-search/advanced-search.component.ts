@@ -12,7 +12,7 @@ import {Article} from '../../shared/article.model';
 })
 export class AdvancedSearchComponent {
 
-  article: ArticleQueryModel;
+  article: Article;
 
   title = 'Articles';
   columns = ['code', 'description', 'retail Price', 'stock'];
@@ -26,14 +26,20 @@ export class AdvancedSearchComponent {
   private subscriptionDatasource: Subscription;
 
   constructor(private shoppingCartService: ShoppingCartService) {
-    this.article = {description: null, stock: null, maximumPrice: null, minimumPrice: null};
+    this.article = {code: null, description: null, retailPrice: null, stock: null};
     this.data = null;
-
     this.subscriptionDatasource = this.shoppingCartService.shoppingCartObservable().subscribe(
       data => {
         this.dataSource = new MatTableDataSource<Shopping>(data);
       }
     );
+  }
+
+  muestraDatos(datos: Article[]) {
+    console.log(datos);
+    this.data = datos;
+    console.log(this.data);
+    console.log('Datos en el advanced search: ');
   }
 
   add(article: Article) {
