@@ -19,38 +19,29 @@ export class AdvancedQueryComponent {
     this.article = {description: null, stock: null, maximumPrice: null, minimumPrice: null};
     this.data = null;
   }
-
-  /*
-    search() {
-      this.articleService.readArticlesQuery(this.article).subscribe(
-        data => {this.data = data;
-          console.log(this.data); }
-      );
-    }
-  */
-
   /*
     search() {
       this.articleService.readArticlesQuery(this.article.description).subscribe(
         data => {
           this.data = data;
-          this.emitter.emit(data);
-          console.log('Datos en el advanced query: ');
+          this.emitter.emit(this.data);
         }
       );
     }
-    */
+  */
+
+  // Mock
   search() {
     this.data = [
-      {code: '1', description: 'd1'},
-      {code: '2', description: 'd2'},
-      {code: '3', description: 'd3'}
+      {code: '1', description: 'd1', stock: 0, retailPrice: 50},
+      {code: '2', description: 'd2', stock: 20, retailPrice: 60},
+      {code: '3', description: 'd3', stock: 50, retailPrice: 23}
     ];
     console.log(this.data);
     this.emitter.emit(this.data);
   }
-
-  searchPartiallyProducts() {
+  /*
+  searchPartiallyDefined() {
     this.articleService.readPartiallyDefined().subscribe(
       data => {
         this.data = data;
@@ -58,7 +49,18 @@ export class AdvancedQueryComponent {
       }
     );
   }
+  */
 
+  // Mock
+  searchPartiallyDefined() {
+    this.data = [
+      {code: '4', description: 'd4-Partially', stock: 0, retailPrice: 50},
+      {code: '5', description: 'd5-Partially', stock: 20, retailPrice: 60},
+      {code: '6', description: 'd6-Partially', stock: 50, retailPrice: 23}
+    ];
+    console.log(this.data);
+    this.emitter.emit(this.data);
+  }
   resetSearch() {
     this.article = {description: null, stock: null, maximumPrice: null, minimumPrice: null};
   }

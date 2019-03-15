@@ -12,10 +12,10 @@ import {Article} from '../../shared/article.model';
 })
 export class AdvancedSearchComponent {
 
-  article: Article;
+  article: ArticleQueryModel;
 
   title = 'Articles';
-  columns = ['code', 'description', 'retail Price', 'stock'];
+  columns = ['code', 'description', 'retailPrice', 'stock'];
   data: Article[];
 
   createButton = false;
@@ -26,7 +26,7 @@ export class AdvancedSearchComponent {
   private subscriptionDatasource: Subscription;
 
   constructor(private shoppingCartService: ShoppingCartService) {
-    this.article = {code: null, description: null, retailPrice: null, stock: null};
+    this.article = {description: null, stock: null, maximumPrice: null, minimumPrice: null};
     this.data = null;
     this.subscriptionDatasource = this.shoppingCartService.shoppingCartObservable().subscribe(
       data => {
@@ -35,11 +35,9 @@ export class AdvancedSearchComponent {
     );
   }
 
-  muestraDatos(datos: Article[]) {
-    console.log(datos);
-    this.data = datos;
-    console.log(this.data);
-    console.log('Datos en el advanced search: ');
+  updateData(data) {
+    console.log(data);
+    this.data = data;
   }
 
   add(article: Article) {

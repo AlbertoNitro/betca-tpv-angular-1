@@ -13,7 +13,7 @@ export class ArticlesComponent {
   article: ArticleQueryModel;
 
   title = 'Articles Management';
-  columns = ['code', 'description', 'retail Price', 'stock'];
+  columns = ['code', 'description', 'retailPrice', 'stock'];
   data: Article[];
 
   constructor() {
