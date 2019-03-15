@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 
 import {ArticleQueryModel} from '../shared/article-query.model';
+import {Article} from '../shared/article.model';
 
 @Component({
   selector: 'app-articles',
@@ -12,12 +13,16 @@ export class ArticlesComponent {
   article: ArticleQueryModel;
 
   title = 'Articles Management';
-  columns = ['code', 'description', 'retail Price', 'stock'];
-  data: ArticleQueryModel[];
+  columns = ['code', 'description', 'retailPrice', 'stock'];
+  data: Article[];
 
   constructor() {
     this.article = {description: null, stock: null, maximumPrice: null, minimumPrice: null};
-    this.data = null;
+  }
+
+  updateData(data) {
+    console.log(data);
+    this.data = data;
   }
 
   create() {

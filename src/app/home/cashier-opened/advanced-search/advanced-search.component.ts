@@ -15,7 +15,7 @@ export class AdvancedSearchComponent {
   article: ArticleQueryModel;
 
   title = 'Articles';
-  columns = ['code', 'description', 'retail Price', 'stock'];
+  columns = ['code', 'description', 'retailPrice', 'stock'];
   data: Article[];
 
   createButton = false;
@@ -28,12 +28,16 @@ export class AdvancedSearchComponent {
   constructor(private shoppingCartService: ShoppingCartService) {
     this.article = {description: null, stock: null, maximumPrice: null, minimumPrice: null};
     this.data = null;
-
     this.subscriptionDatasource = this.shoppingCartService.shoppingCartObservable().subscribe(
       data => {
         this.dataSource = new MatTableDataSource<Shopping>(data);
       }
     );
+  }
+
+  updateData(data) {
+    console.log(data);
+    this.data = data;
   }
 
   add(article: Article) {
