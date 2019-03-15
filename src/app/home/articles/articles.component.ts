@@ -20,6 +20,11 @@ export class ArticlesComponent {
     this.article = {description: null, stock: null, maximumPrice: null, minimumPrice: null};
   }
 
+  updateData(data) {
+    console.log(data);
+    this.data = data;
+  }
+
   create() {
 
   }
