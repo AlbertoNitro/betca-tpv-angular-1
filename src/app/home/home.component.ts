@@ -20,6 +20,7 @@ import {FamilySizesCreationComponent} from './cashier-opened/articles-family/fam
 import {OffersComponent} from './offers/offers.component';
 import {StockPredictionComponent} from './stock-prediction/stock-prediction.component';
 import {TicketsComponent} from './tickets/tickets.component';
+import {OrderComponent} from './order/order.component';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -46,6 +47,10 @@ export class HomeComponent {
 
   isManager(): boolean {
     return this.tokensService.isManager();
+  }
+
+  isOperator(): boolean {
+    return this.tokensService.isOperator();
   }
 
   cashier() {
@@ -145,6 +150,7 @@ export class HomeComponent {
   }
 
   Orders() {
+    this.router.navigate([HomeComponent.URL, OrderComponent.URL]);
   }
 
   offers() {
@@ -159,6 +165,9 @@ export class HomeComponent {
 
   stockPrediction() {
     this.router.navigate([HomeComponent.URL, StockPredictionComponent.URL]);
+  }
+
+  rrhh() {
   }
 
 }

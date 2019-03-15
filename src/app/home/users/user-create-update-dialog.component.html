@@ -1,0 +1,29 @@
+<h2 mat-dialog-title *ngIf="modeDialog == 'Create'">New customer: </h2>
+<h2 mat-dialog-title *ngIf="modeDialog == 'Update'">Update customer: </h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <input matInput type="number" placeholder="Mobile" [(ngModel)]="user.mobile"/>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" placeholder="Username" [(ngModel)]="user.username"/>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" placeholder="DNI" [(ngModel)]="user.dni"/>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" placeholder="Address" [(ngModel)]="user.address"/>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" placeholder="Email" [(ngModel)]="user.email"/>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="date" placeholder="RegistrationDate" [(ngModel)]="user.email"/>
+  </mat-form-field>
+  <mat-checkbox>Active</mat-checkbox>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close cdkFocusInitial>Cancel</button>
+  <button mat-raised-button color="primary" *ngIf="modeDialog == 'Create'" (click)="openEditRolesDialog()">Assign Roles</button>
+  <button mat-raised-button color="primary" *ngIf="modeDialog == 'Update'" (click)="openEditRolesDialog()">Edit Roles</button>
+  <button mat-raised-button color="accent" (click)="edit()">{{modeDialog}}</button>
+</mat-dialog-actions>

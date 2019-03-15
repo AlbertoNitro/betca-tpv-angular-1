@@ -2,8 +2,8 @@ import {Component} from '@angular/core';
 
 import {UserService} from './user.service';
 import {User} from './user.model';
-import {MatDialog} from '@angular/material';
-import {RolesDialogComponent} from './roles-dialog.component';
+import {MatDialog, MatDialogConfig} from '@angular/material';
+import {UserCreateUpdateDialogComponent} from './user-create-update-dialog.component';
 
 @Component({
   templateUrl: `users.component.html`
@@ -36,7 +36,13 @@ export class UsersComponent {
 
 
   create() {
-    this.dialog.open(RolesDialogComponent);
+    const dialogConfig: MatDialogConfig = {
+      data: {
+        mode: 'Create',
+        user: this.user
+      }
+    };
+    this.dialog.open(UserCreateUpdateDialogComponent, dialogConfig);
   }
 
   read(user: User) {
@@ -44,6 +50,15 @@ export class UsersComponent {
   }
 
   update(user: User) {
+    // TODO quitar mock de User. Enviar al dialogo el usuario seleccionado.
+    const userFound = {mobile: 123456, username: 'userMock'};
+    const dialogConfig: MatDialogConfig = {
+      data: {
+        mode: 'Update',
+        user: userFound
+      }
+    };
+    this.dialog.open(UserCreateUpdateDialogComponent, dialogConfig);
   }
 
   delete(user: User) {
