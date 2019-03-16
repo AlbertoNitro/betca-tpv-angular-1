@@ -4,8 +4,8 @@ import { CancelYesDialogComponent } from '../../core/cancel-yes-dialog.component
 import { OffersCreateDialogComponent } from './offers-create-dialog.component';
 import { OffersDetailsDialogComponent } from './offers-details-dialog.component';
 
-import { OFFERS } from './offers.mock';
 import { Offer } from './offer.model';
+import { OfferService } from './offer.service';
 
 @Component({
   selector: 'app-offers',
@@ -18,8 +18,10 @@ export class OffersComponent {
   columns = ['id', 'name', 'endDate'];
   offers: Offer[];
 
-  constructor(private dialog: MatDialog) {
-    this.offers = OFFERS;
+  constructor(private offerService: OfferService, private dialog: MatDialog) {
+    this.offerService.readAll().subscribe(
+      data => this.offers = data
+    );
     console.log(this.offers, '<<<<< OFFERS');
   }
 
@@ -40,7 +42,6 @@ export class OffersComponent {
   }
 
   read(offer: Offer) {
-    // TODO: implement Offer Details in a Dialog
     console.log('Offer Details');
     const dialogConfig: MatDialogConfig = {
       data: {
@@ -61,5 +62,6 @@ export class OffersComponent {
         // TODO: implement Offer Delete (API connection)
       }
     });
+    console.log(this.offers, '<<<<<<<<< Offers');
   }
 }
