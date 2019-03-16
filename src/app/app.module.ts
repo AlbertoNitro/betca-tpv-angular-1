@@ -17,6 +17,7 @@ import {AppComponent} from './app.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {ProviderService} from './home/providers/provider.service';
 import {OrderService} from './home/order/order.service';
+import {ArticleFamilyService} from './home/articles-families/articles-families.service';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import {OrderService} from './home/order/order.service';
   entryComponents: [AppRoutingModule.DIALOGS],
   providers: [
     AdminsService,
+    ArticleFamilyService,
     ArticleService,
     CashierClosureService,
     CashierService,
