@@ -5,6 +5,7 @@ import {HttpService} from '../../core/http.service';
 import {Article} from './article.model';
 import {ApiEndpoint} from './api-endpoint.model';
 import {FormGroup} from '@angular/forms';
+import {ArticleQueryModel} from './article-query.model';
 
 @Injectable()
 export class ArticleService {
@@ -28,4 +29,15 @@ export class ArticleService {
     console.log('Here is the form data! ', formData);
   }
 
+  readPartiallyDefined(): Observable<Article[]> {
+    return this.httpService.get(ApiEndpoint.ARTICLES);
+  }
+  /*
+  readArticlesQuery(article: ArticleQueryModel): Observable<Article[]> {
+    return this.httpService.param('code', article.description).get(ApiEndpoint.ARTICLES);
+  }
+  */
+  readArticlesQuery(code: string): Observable<Article[]> {
+    return this.httpService.get(ApiEndpoint.ARTICLES + '/' + code);
+  }
 }

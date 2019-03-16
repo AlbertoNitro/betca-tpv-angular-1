@@ -1,10 +1,8 @@
 import {Component} from '@angular/core';
 import {CashMovement} from './cash-movement.model';
-
-export interface CashMovementOptions {
-  value: string;
-  viewValue: string;
-}
+import {CashMovementOptionsModel} from './cash-movement-options.model';
+import {CashMovementService} from './cash-movement.service';
+import {OptionType} from './cash-movement-option-type.model';
 
 @Component({
   templateUrl: 'cash-movement-dialog.component.html',
@@ -12,29 +10,39 @@ export interface CashMovementOptions {
 })
 export class CashMovementDialogComponent {
 
-  cashMovement: CashMovement = {import: undefined, comment: undefined};
-  cashMovementOptions: CashMovementOptions[] = [
-    {value: 'Deposit', viewValue: 'Deposit'},
-    {value: 'Withdrawal', viewValue: 'Withdrawal'}
+  cashMovement: CashMovement = {cash: undefined, comment: undefined};
+  cashMovementOptions: CashMovementOptionsModel[] = [
+    {value: OptionType.DEPOSIT, viewValue: OptionType.DEPOSIT},
+    {value: OptionType.WITHDRAWAL, viewValue: OptionType.WITHDRAWAL}
   ];
   fieldsDisabled: boolean;
   selectedValue: string;
 
-  constructor() {
-        this.fieldsDisabled = true;
-      }
+  constructor(private cashMovementService: CashMovementService) {
+    this.fieldsDisabled = true;
+  }
 
   invalid() {
-    return (!this.cashMovement.import || this.cashMovement.import <= 0
+    return (!this.cashMovement.cash || this.cashMovement.cash <= 0
       || !this.cashMovement.comment
       || this.fieldsDisabled
     );
   }
 
-  onChange($event: {}) {
+  onChange($event: string) {
     this.fieldsDisabled = false;
+    this.selectedValue = $event;
   }
 
   save() {
+    if (this.selectedValue === OptionType.WITHDRAWAL) {
+      this.cashMovementService.withdrawal(this.cashMovement).subscribe(
+        (resp) => ''
+      );
+    } else if (this.selectedValue === OptionType.DEPOSIT) {
+      this.cashMovementService.deposit(this.cashMovement).subscribe(
+        (resp) => ''
+      );
+    }
   }
 }

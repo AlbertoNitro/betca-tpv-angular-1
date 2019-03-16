@@ -21,7 +21,9 @@ import {ProviderSelectComponent} from './home/providers/provider-select.componen
 import {ProfileDialogComponent} from './home/users/profile-dialog.component';
 import {ArticlesFamiliesCRUDComponent} from './home/articles-families/articles-families.component';
 import {OffersComponent} from './home/offers/offers.component';
+import {OffersCreateDialogComponent} from './home/offers/offers-create-dialog.component';
 import {OffersDetailsDialogComponent} from './home/offers/offers-details-dialog.component';
+import {OperatorManagerComponent} from './home/operator-manager/operator-manager.component';
 import {StatisticComponent} from './home/stadistics/statistic.component';
 import {StockPredictionComponent} from './home/stock-prediction/stock-prediction.component';
 import {RolesDialogComponent} from './home/users/roles-dialog.component';
@@ -30,7 +32,9 @@ import {AdvancedQueryComponent} from './home/shared/advanced-query.component';
 import {VouchersUseDialogComponent} from './home/vouchers/vouchersUse-dialog.component';
 import {TicketsComponent} from './home/tickets/tickets.component';
 import {OrderComponent} from './home/order/order.component';
+import {UserCreateUpdateDialogComponent} from './home/users/user-create-update-dialog.component';
 import {UserQuickCreationDialogComponent} from './home/users/user-quick-creation-dialog.controller';
+import {RGPDComponent} from './home/rgpd/rgpd.component';
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
   {path: WelcomeComponent.URL, component: WelcomeComponent},
@@ -41,14 +45,15 @@ const routes: Routes = [
       {path: ArticlesFamiliesCRUDComponent.URL, component: ArticlesFamiliesCRUDComponent},
       {path: CashierClosedComponent.URL, component: CashierClosedComponent},
       {path: CashierOpenedComponent.URL, component: CashierOpenedComponent},
-      {path: OffersComponent.URL, component: OffersComponent},
+      {path: OperatorManagerComponent.URL, component: OperatorManagerComponent},
       {path: ProvidersComponent.URL, component: ProvidersComponent},
       {path: StatisticComponent.URL, component: StatisticComponent},
       {path: StockPredictionComponent.URL, component: StockPredictionComponent},
       {path: OffersComponent.URL, component: OffersComponent},
       {path: TicketsComponent.URL, component: TicketsComponent},
       {path: UsersComponent.URL, component: UsersComponent},
-      {path: OrderComponent.URL, component: OrderComponent}
+      {path: OrderComponent.URL, component: OrderComponent},
+      {path: RGPDComponent.URL, component: RGPDComponent}
     ]
   }
 ];
@@ -70,6 +75,7 @@ export class AppRoutingModule {
     InvoiceUpdateComponent,
     LineChartComponent,
     OffersComponent,
+    OperatorManagerComponent,
     ProvidersComponent,
     ProviderSelectComponent,
     ShoppingCartComponent,
@@ -78,7 +84,8 @@ export class AppRoutingModule {
     TicketsComponent,
     OrderComponent,
     UsersComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    RGPDComponent
   ];
 
   static DIALOGS = [
@@ -88,9 +95,11 @@ export class AppRoutingModule {
     CashMovementDialogComponent,
     CheckOutDialogComponent,
     DbSeedDialogComponent,
+    OffersCreateDialogComponent,
     OffersDetailsDialogComponent,
     ProfileDialogComponent,
     RolesDialogComponent,
+    UserCreateUpdateDialogComponent,
     UserQuickCreationDialogComponent,
     VouchersUseDialogComponent
   ];

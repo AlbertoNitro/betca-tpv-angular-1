@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+import {ArticleFamily} from './articles-families.model';
+import {ArticleFamilyService} from './articles-families.service';
 
 @Component({
   selector: 'app-articles-families',
@@ -7,10 +9,11 @@ import {Component} from '@angular/core';
 export class ArticlesFamiliesCRUDComponent {
   static URL = 'articles-families';
   title = 'Articles Families';
-  columns = ['Details'];
-  data: String;
+  columns = ['description'];
+  data: ArticleFamily[];
 
-  constructor() {
+  constructor(private articleFamilyService: ArticleFamilyService) {
+    articleFamilyService.readAllFamilies().subscribe(data => this.data = data);
   }
 
   create() {

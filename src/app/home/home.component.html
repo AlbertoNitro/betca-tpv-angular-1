@@ -47,6 +47,14 @@
     <mat-icon>assessment</mat-icon>
     <span>Statistics</span>
   </button>
+  <button mat-menu-item (click)="rgpd()">
+    <mat-icon>gavel</mat-icon>
+    <span>RGPD</span>
+  </button>
+  <button *ngIf="isManager() || isOperator()" mat-menu-item (click)="operatorManager()">
+    <mat-icon>schedule</mat-icon>
+    <span>HR</span>
+  </button>
 </mat-menu>
 <mat-menu #settings="matMenu">
   <button mat-menu-item (click)="deleteDb()">Delete Database</button>

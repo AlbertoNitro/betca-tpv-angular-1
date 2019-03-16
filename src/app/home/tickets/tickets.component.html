@@ -17,33 +17,88 @@
     </div>
   </mat-card-content>
 </mat-card>
+<div [hidden]="ticket.code === '0'">
+  <mat-card>
+    <table>
+      <tr>
+        <th class="left">Ticket</th>
+        <td>{{ticket.code}}</td>
+      </tr>
+    </table>
+  </mat-card>
+  <mat-card>
+    <mat-card-content>
+      <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef fxFlex="5%">#</mat-header-cell>
+          <mat-cell *matCellDef="let i = index" fxFlex="5%"> {{i + 1}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="description">
+          <mat-header-cell *matHeaderCellDef fxFlex="28%"> Description</mat-header-cell>
+          <mat-cell *matCellDef="let item" fxFlex="28%"> {{item.description}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="retailPrice">
+          <mat-header-cell *matHeaderCellDef fxFlex="11%"> Price</mat-header-cell>
+          <mat-cell *matCellDef="let item" fxFlex="28%"> {{item.retailPrice}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="amount">
+          <mat-header-cell *matHeaderCellDef fxFlex="20%"> Nº</mat-header-cell>
+          <mat-cell *matCellDef="let item" fxFlex="20%">
+            <button (click)="decreaseAmount(item)" color="accent" mat-icon-button>
+              <mat-icon>remove_circle_outline</mat-icon>
+            </button>
+            {{item.amount}}
+            <button (click)="incrementAmount(item)" color="accent" mat-icon-button>
+              <mat-icon>add_circle_outline</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="discount">
+          <mat-header-cell *matHeaderCellDef fxFlex="12%"> %</mat-header-cell>
+          <mat-cell *matCellDef="let item" fxFlex="28%"> {{item.discount}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="totalPrice">
+          <mat-header-cell *matHeaderCellDef fxFlex="12%"> Total</mat-header-cell>
+          <mat-cell *matCellDef="let item" fxFlex="28%"> {{item.totalPrice}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef fxFlex="12%"> Status</mat-header-cell>
+          <mat-cell *matCellDef="let item" fxFlex="28%">
+            <mat-form-field>
+              <mat-select placeholder="{{item.state}}">
+                <mat-option *ngFor="let state of status" [value]="state.value">
+                  {{state.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let item; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <table>
+      <tr>
+        <th class="left">Card</th>
+        <td>{{ticket.cart | currency:'EUR':'symbol'}}</td>
+      </tr>
+      <tr>
+        <th class="left">Cash</th>
+        <td>{{ticket.cash | currency:'EUR':'symbol'}}</td>
+      </tr>
+      <tr>
+        <th class="left">Voucher</th>
+        <td>{{ticket.voucher | currency:'EUR':'symbol'}}</td>
+      </tr>
+      <tr>
+        <th class="left">Total</th>
+        <td>{{ticket.total | currency:'EUR':'symbol'}}</td>
+      </tr>
+    </table>
+  </mat-card>
+</div>
 
-<mat-card>
-  <table [hidden]="ticket.code === '0'">
-    <tr>
-      <th class="left">Ticket</th>
-      <td>{{ticket.code}}</td>
-    </tr>
-    <tr>
-      <!--TODO: Implement Shopping cart table-->
-    </tr>
-    <tr>
-      <th class="left">Pay with Carts</th>
-      <td>{{ticket.cart}}</td>
-    </tr>
-    <tr>
-      <th class="left">Pay with Cash</th>
-      <td>{{ticket.cash}}</td>
-    </tr>
-    <tr>
-      <th class="left">Pay with Voucher</th>
-      <td>{{ticket.voucher}}</td>
-    </tr>
-    <tr>
-      <th class="left">Total</th>
-      <td>{{ticket.total}}</td>
-    </tr>
-  </table>
-</mat-card>
 
 
