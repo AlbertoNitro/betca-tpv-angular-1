@@ -28,8 +28,9 @@ export class CashMovementDialogComponent {
     );
   }
 
-  onChange($event: {}) {
+  onChange($event: string) {
     this.fieldsDisabled = false;
+    this.selectedValue = $event;
   }
 
   save() {
