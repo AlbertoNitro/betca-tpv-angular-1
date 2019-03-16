@@ -9,7 +9,7 @@ import {OptionType} from './cash-movement-option-type.model';
 })
 export class CashMovementDialogComponent {
 
-  cashMovement: CashMovement = {import: undefined, comment: undefined};
+  cashMovement: CashMovement = {cash: undefined, comment: undefined};
   cashMovementOptions: CashMovementOptionsModel[] = [
     {value: OptionType.DEPOSIT, viewValue: OptionType.DEPOSIT},
     {value: OptionType.WITHDRAWAL, viewValue: OptionType.WITHDRAWAL}
@@ -22,7 +22,7 @@ export class CashMovementDialogComponent {
   }
 
   invalid() {
-    return (!this.cashMovement.import || this.cashMovement.import <= 0
+    return (!this.cashMovement.cash || this.cashMovement.cash <= 0
       || !this.cashMovement.comment
       || this.fieldsDisabled
     );
