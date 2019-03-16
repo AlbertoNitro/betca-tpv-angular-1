@@ -12,5 +12,6 @@ export class ArticleFamilyService {
 
   readAllFamilies(): ArticleFamily[] {
     return this.data;
+
   }
 }
