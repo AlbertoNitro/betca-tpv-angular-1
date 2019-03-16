@@ -5,9 +5,9 @@
       <input matInput placeholder="Offer Name">
     </mat-form-field>
     <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="End Date">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+      <input matInput [matDatepicker]="picker" placeholder="End Date" disabled>
+      <mat-datepicker-toggle matSuffix [for]="picker" disabled></mat-datepicker-toggle>
+      <mat-datepicker #picker disabled="false"></mat-datepicker>
     </mat-form-field>
     <br>
     <mat-form-field>

@@ -1,10 +1,10 @@
 <mat-card>
   <mat-card-title>Offer Details</mat-card-title>
-  <span>{{ data.offer.Id }}</span><span> - </span>
-  <span>{{ data.offer.Name }}</span><span> - </span>
-  <span>{{ data.offer.EndDate }}</span>
+  <span>{{ offer.id }}</span><span> - </span>
+  <span>{{ offer.name }}</span><span> - </span>
+  <span>{{ offer.endDate }}</span>
 </mat-card>
-<app-crud [data]="data.offer.Articles" [title]="title" [columns]="columns" [createAction]="false" [readAction]="false" [updateAction]="false" [deleteAction]="false">
+<app-crud [data]="offer.articleLine" [title]="title" [columns]="columns" [createAction]="false" [readAction]="false" [updateAction]="false" [deleteAction]="false">
 </app-crud>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close color="accent">Cancel</button>
