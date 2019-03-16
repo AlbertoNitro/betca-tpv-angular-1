@@ -6,7 +6,6 @@ import {ApiEndpoint} from '../shared/api-endpoint.model';
 
 @Injectable()
 export class ArticleFamilyService {
-  data: ArticleFamily[] = [{description: 'Games', familyType: 'ARTICLES'}, {description: 'Books', familyType: 'ARTICLES'}];
 
   constructor(private httpService: HttpService) {
   }
