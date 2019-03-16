@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Offer} from './offer.model';
 
 @Component({
   selector: 'app-offers-create-dialog',
@@ -8,6 +9,7 @@ export class OffersCreateDialogComponent {
   title = 'Articles list';
   columns = ['Id', 'Percentage'];
   data: object[];
+  offer: Offer;
 
   constructor() {
     this.data = [
