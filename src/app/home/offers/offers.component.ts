@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 import { CancelYesDialogComponent } from '../../core/cancel-yes-dialog.component';
-import {OffersCreateDialogComponent} from './offers-create-dialog.component';
-import {OffersDetailsDialogComponent} from './offers-details-dialog.component';
+import { OffersCreateDialogComponent } from './offers-create-dialog.component';
+import { OffersDetailsDialogComponent } from './offers-details-dialog.component';
+
+import { OFFERS } from './offers.mock';
+import { Offer } from './offer.model';
 
 @Component({
   selector: 'app-offers',
@@ -12,19 +15,11 @@ export class OffersComponent {
   static URL = 'offers';
   onlyActiveOffers = false;
   title = 'Offers management';
-  columns = ['Id', 'Name', 'End-Date'];
-  data: object[];
+  columns = ['id', 'name', 'endDate'];
+  offers: Offer[];
 
   constructor(private dialog: MatDialog) {
-    this.data = [
-      { 'Id': 1, 'Name': 'Prueba1', 'End-Date': '03-07-2019' },
-      { 'Id': 2, 'Name': 'Prueba2', 'End-Date': '07-05-2019' },
-      { 'Id': 3, 'Name': 'Prueba3', 'End-Date': '03-05-2019' },
-      { 'Id': 4, 'Name': 'Prueba4', 'End-Date': '03-05-2019' },
-      { 'Id': 5, 'Name': 'Prueba5', 'End-Date': '03-03-2019' },
-      { 'Id': 6, 'Name': 'Prueba6', 'End-Date': '14-04-2019' },
-      { 'Id': 7, 'Name': 'Prueba7', 'End-Date': '31-12-2019' },
-    ];
+    this.offers = OFFERS;
   }
 
   search() {
@@ -40,16 +35,25 @@ export class OffersComponent {
   create() {
     // TODO: implement Add Offer in a Dialog
     console.log('Add Offer');
-    this.dialog.open(OffersCreateDialogComponent, { width: '60%' } );
+    this.dialog.open(OffersCreateDialogComponent, { width: '60%', height: '90%' } );
   }
 
-  read() {
+  read(offer: Offer) {
     // TODO: implement Offer Details in a Dialog
     console.log('Offer Details');
-    this.dialog.open(OffersDetailsDialogComponent, { width: '60%' } );
+    const dialogConfig: MatDialogConfig = {
+      data: {
+        mode: 'Read',
+        offer: offer
+      },
+      width: '60%',
+      height: '90%'
+    };
+    this.dialog.open(OffersDetailsDialogComponent, dialogConfig);
   }
 
-  delete() {
+  delete(offer: Offer) {
+    console.log(offer, '>>>>>>> Offer to Delete');
     // TODO: implement Offer Delete (API connection)
     this.dialog.open(CancelYesDialogComponent).afterClosed().subscribe(
     result => {
