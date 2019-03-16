@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {ArticleFamily} from './articles-families';
 
 @Component({
   selector: 'app-articles-families',
@@ -7,8 +8,8 @@ import {Component} from '@angular/core';
 export class ArticlesFamiliesCRUDComponent {
   static URL = 'articles-families';
   title = 'Articles Families';
-  columns = ['Details'];
-  data: String;
+  columns = ['description'];
+  data: ArticleFamily[] = [{description: 'Games'}, {description: 'Books'}];
 
   constructor() {
   }
@@ -23,5 +24,8 @@ export class ArticlesFamiliesCRUDComponent {
 
   update($event: any) {
     // TODO
+  }
+
+  search() {
   }
 }
