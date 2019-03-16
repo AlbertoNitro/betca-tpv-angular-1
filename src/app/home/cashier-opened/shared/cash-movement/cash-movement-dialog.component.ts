@@ -1,10 +1,7 @@
 import {Component} from '@angular/core';
 import {CashMovement} from './cash-movement.model';
-
-export interface CashMovementOptions {
-  value: string;
-  viewValue: string;
-}
+import {CashMovementOptionsModel} from './cash-movement-options.model';
+import {OptionType} from './cash-movement-option-type.model';
 
 @Component({
   templateUrl: 'cash-movement-dialog.component.html',
@@ -13,16 +10,16 @@ export interface CashMovementOptions {
 export class CashMovementDialogComponent {
 
   cashMovement: CashMovement = {import: undefined, comment: undefined};
-  cashMovementOptions: CashMovementOptions[] = [
-    {value: 'Deposit', viewValue: 'Deposit'},
-    {value: 'Withdrawal', viewValue: 'Withdrawal'}
+  cashMovementOptions: CashMovementOptionsModel[] = [
+    {value: OptionType.DEPOSIT, viewValue: OptionType.DEPOSIT},
+    {value: OptionType.WITHDRAWAL, viewValue: OptionType.WITHDRAWAL}
   ];
   fieldsDisabled: boolean;
   selectedValue: string;
 
   constructor() {
-        this.fieldsDisabled = true;
-      }
+    this.fieldsDisabled = true;
+  }
 
   invalid() {
     return (!this.cashMovement.import || this.cashMovement.import <= 0
