@@ -23,6 +23,7 @@ import {ArticlesFamiliesCRUDComponent} from './home/articles-families/articles-f
 import {OffersComponent} from './home/offers/offers.component';
 import {OffersCreateDialogComponent} from './home/offers/offers-create-dialog.component';
 import {OffersDetailsDialogComponent} from './home/offers/offers-details-dialog.component';
+import {OperatorManagerComponent} from './home/operator-manager/operator-manager.component';
 import {StatisticComponent} from './home/stadistics/statistic.component';
 import {StockPredictionComponent} from './home/stock-prediction/stock-prediction.component';
 import {RolesDialogComponent} from './home/users/roles-dialog.component';
@@ -44,6 +45,7 @@ const routes: Routes = [
       {path: CashierClosedComponent.URL, component: CashierClosedComponent},
       {path: CashierOpenedComponent.URL, component: CashierOpenedComponent},
       {path: OffersComponent.URL, component: OffersComponent},
+      {path: OperatorManagerComponent.URL, component: OperatorManagerComponent},
       {path: ProvidersComponent.URL, component: ProvidersComponent},
       {path: StatisticComponent.URL, component: StatisticComponent},
       {path: StockPredictionComponent.URL, component: StockPredictionComponent},
@@ -72,6 +74,7 @@ export class AppRoutingModule {
     InvoiceUpdateComponent,
     LineChartComponent,
     OffersComponent,
+    OperatorManagerComponent,
     ProvidersComponent,
     ProviderSelectComponent,
     ShoppingCartComponent,
