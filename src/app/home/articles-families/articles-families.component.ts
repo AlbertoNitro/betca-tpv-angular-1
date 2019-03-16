@@ -13,7 +13,7 @@ export class ArticlesFamiliesCRUDComponent {
   data: ArticleFamily[];
 
   constructor(private articleFamilyService: ArticleFamilyService) {
-    this.data = articleFamilyService.readAllFamilies();
+    articleFamilyService.readAllFamilies().subscribe(data => this.data = data);
   }
 
   create() {
@@ -26,8 +26,5 @@ export class ArticlesFamiliesCRUDComponent {
 
   update($event: any) {
     // TODO
-  }
-
-  search() {
   }
 }

@@ -5,9 +5,10 @@ export class ApiEndpoint {
   public static USERS = '/users';
 
   public static ARTICLES = '/articles';
+  public static ARTICLES_FAMILY = '/articles-family';
 
   public static TICKETS = '/tickets';
-  public static  FAMILY_SIZES = '/family-sizes';
+  public static FAMILY_SIZES = '/family-sizes';
 
   public static PROVIDERS = '/providers';
   public static ACTIVES = '/actives';
