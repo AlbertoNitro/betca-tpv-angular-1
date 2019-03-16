@@ -17,6 +17,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {ProviderService} from './home/providers/provider.service';
+import {OfferService} from './home/offers/offer.service';
 import {OrderService} from './home/order/order.service';
 import {ArticleFamilyService} from './home/articles-families/articles-families.service';
 
@@ -48,6 +49,7 @@ import {ArticleFamilyService} from './home/articles-families/articles-families.s
     ShoppingCartService,
     ProviderService,
     UserService,
+    OfferService,
     OrderService
   ],
   bootstrap: [AppComponent]
