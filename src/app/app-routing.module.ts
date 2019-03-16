@@ -34,6 +34,7 @@ import {TicketsComponent} from './home/tickets/tickets.component';
 import {OrderComponent} from './home/order/order.component';
 import {UserCreateUpdateDialogComponent} from './home/users/user-create-update-dialog.component';
 import {UserQuickCreationDialogComponent} from './home/users/user-quick-creation-dialog.controller';
+import {RGPDComponent} from './home/rgpd/rgpd.component';
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
   {path: WelcomeComponent.URL, component: WelcomeComponent},
@@ -52,7 +53,8 @@ const routes: Routes = [
       {path: OffersComponent.URL, component: OffersComponent},
       {path: TicketsComponent.URL, component: TicketsComponent},
       {path: UsersComponent.URL, component: UsersComponent},
-      {path: OrderComponent.URL, component: OrderComponent}
+      {path: OrderComponent.URL, component: OrderComponent},
+      {path: RGPDComponent.URL, component: RGPDComponent}
     ]
   }
 ];
@@ -83,7 +85,8 @@ export class AppRoutingModule {
     TicketsComponent,
     OrderComponent,
     UsersComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    RGPDComponent
   ];
 
   static DIALOGS = [
