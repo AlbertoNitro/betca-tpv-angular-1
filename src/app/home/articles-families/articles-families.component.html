@@ -1,5 +1,3 @@
-<button (click)="search()" color="primary" mat-mini-fab>
-  <mat-icon>search</mat-icon>
-</button><!-- Default: [createAction]="true" [readAction]="true" [updateAction]="true" [deleteAction]="true"-->
+<!-- Default: [createAction]="true" [readAction]="true" [updateAction]="true" [deleteAction]="true"-->
 <app-crud [data]="data" [title]="title" [columns]="columns" [readAction]="false"
           (create)="create()" (update)="update($event)" (delete)=delete($event)></app-crud>
