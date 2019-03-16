@@ -8,6 +8,7 @@ import {CoreModule} from './core/core.module';
 import {CashierService} from './home/shared/cashier.service';
 import {ArticleService} from './home/shared/article.service';
 import {CashierClosureService} from './home/cashier-opened/cashier/cashier-closure.service';
+import {CashMovementService} from './home/cashier-opened/shared/cash-movement/cash-movement.service';
 import {ShoppingCartService} from './home/cashier-opened/shopping-cart/shopping-cart.service';
 import {AdminsService} from './home/admins/admins.service';
 import {UserService} from './home/users/user.service';
@@ -44,6 +45,7 @@ import {ArticleFamilyService} from './home/articles-families/articles-families.s
     ArticleService,
     CashierClosureService,
     CashierService,
+    CashMovementService,
     ShoppingCartService,
     ProviderService,
     UserService,
