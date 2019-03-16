@@ -13,5 +13,6 @@ export class ApiEndpoint {
   public static PROVIDERS = '/providers';
   public static ACTIVES = '/actives';
 
+  public static OFFERS = '/offers';
   public static ORDERS = '/orders';
 }
