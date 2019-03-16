@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material';
+import { Offer } from './offer.model';
 
 @Component({
   selector: 'app-offers-details-dialog',
@@ -6,19 +8,10 @@ import { Component } from '@angular/core';
 })
 export class OffersDetailsDialogComponent {
   title = 'Articles list';
-  columns = ['Id', 'Description', 'Percentage'];
-  data: object[];
+  columns = ['idArticle', 'percentage'];
+  offer: Offer;
 
-  constructor() {
-    this.data = [
-      { 'Id': 1, 'Description': 'Description Article1', 'Percentage': '5' },
-      { 'Id': 2, 'Description': 'Description Article2', 'Percentage': '7' },
-      { 'Id': 3, 'Description': 'Description Article3', 'Percentage': '3' },
-      { 'Id': 4, 'Description': 'Description Article4', 'Percentage': '5' },
-      { 'Id': 5, 'Description': 'Description Article5', 'Percentage': '3' },
-      { 'Id': 6, 'Description': 'Description Article6', 'Percentage': '14' },
-      { 'Id': 7, 'Description': 'Description Article7', 'Percentage': '31' },
-    ];
+  constructor(@Inject(MAT_DIALOG_DATA) data: object) {
+    this.offer = data['offer'];
   }
-
 }
