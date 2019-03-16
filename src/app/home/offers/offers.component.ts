@@ -54,18 +54,12 @@ export class OffersComponent {
   }
 
   delete(offer: Offer) {
-    console.log(offer, '>>>>>>> Offer to Delete');
-    // TODO: implement Offer Delete (API connection)
     this.dialog.open(CancelYesDialogComponent).afterClosed().subscribe(
     result => {
       if (result) {
-        const index = this.offers.indexOf(offer);
-        console.log(index);
-        if (index > -1) {
-          this.offers.splice(index, 1);
-        }
+        this.offers = this.offers.filter(h => h !== offer);
+        // TODO: implement Offer Delete (API connection)
       }
     });
-    console.log(this.offers, '<<<<<<<<< Offers');
   }
 }
