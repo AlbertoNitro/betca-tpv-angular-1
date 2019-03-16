@@ -66,8 +66,8 @@ export const OFFERS: Offer[] = [
     ]
   },
   {
-    id: '4',
-    name: 'Prueba4',
+    id: '5',
+    name: 'Prueba5',
     endDate: '29-04-2019',
     articleLine: [
       {

@@ -20,6 +20,7 @@ export class OffersComponent {
 
   constructor(private dialog: MatDialog) {
     this.offers = OFFERS;
+    console.log(this.offers, '<<<<< OFFERS');
   }
 
   search() {
@@ -58,9 +59,13 @@ export class OffersComponent {
     this.dialog.open(CancelYesDialogComponent).afterClosed().subscribe(
     result => {
       if (result) {
-        console.log('Delete Offer');
+        const index = this.offers.indexOf(offer);
+        console.log(index);
+        if (index > -1) {
+          this.offers.splice(index, 1);
+        }
       }
     });
+    console.log(this.offers, '<<<<<<<<< Offers');
   }
-
 }
