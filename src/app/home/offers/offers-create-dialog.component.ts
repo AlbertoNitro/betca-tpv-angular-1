@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {Offer} from './offer.model';
+import { Offer } from './offer.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-offers-create-dialog',
@@ -10,6 +11,11 @@ export class OffersCreateDialogComponent {
   columns = ['Id', 'Percentage'];
   data: object[];
   offer: Offer;
+
+  formCreateOffer = new FormGroup({
+    offername: new FormControl('',
+      []),
+  });
 
   constructor() {
     this.data = [
@@ -33,9 +39,15 @@ export class OffersCreateDialogComponent {
     console.log('Remove Article');
   }
 
-  createOffer() {
+  createOffer(formSubmited: FormGroup) {
     // TODO implement createOffer
-    console.log('Create Offer');
+    console.log('<<<<<<<< ENTRA >>>>>>>');
+    console.log(formSubmited, '<<<<<<<< FORM FIELDS');
+  }
+
+  onSubmit(formSubmited: FormGroup) {
+    console.log('<<<<<<<< ENTRA >>>>>>>');
+    console.log(formSubmited, '<<<<<<<< FORM FIELDS');
   }
 
 }

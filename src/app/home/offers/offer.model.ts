@@ -1,6 +1,6 @@
 export interface Offer {
   id: string;
-  name: string;
+  offername: string;
   endDate: string;
   articleLine: ArticleLine[];
 }

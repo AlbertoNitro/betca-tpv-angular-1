@@ -3,7 +3,7 @@ import { Offer } from './offer.model';
 export const OFFERSMOCK: Offer[] = [
   {
     id: '1',
-    name: 'Prueba1',
+    offername: 'Prueba1',
     endDate: '03-07-2019',
     articleLine: [
       {
@@ -22,7 +22,7 @@ export const OFFERSMOCK: Offer[] = [
   },
   {
     id: '2',
-    name: 'Prueba2',
+    offername: 'Prueba2',
     endDate: '03-12-2019',
     articleLine: [
       {
@@ -37,7 +37,7 @@ export const OFFERSMOCK: Offer[] = [
   },
   {
     id: '3',
-    name: 'Prueba3',
+    offername: 'Prueba3',
     endDate: '12-07-2020',
     articleLine: [
       {
@@ -56,7 +56,7 @@ export const OFFERSMOCK: Offer[] = [
   },
   {
     id: '4',
-    name: 'Prueba4',
+    offername: 'Prueba4',
     endDate: '30-11-2019',
     articleLine: [
       {
@@ -67,7 +67,7 @@ export const OFFERSMOCK: Offer[] = [
   },
   {
     id: '5',
-    name: 'Prueba5',
+    offername: 'Prueba5',
     endDate: '29-04-2019',
     articleLine: [
       {
