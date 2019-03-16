@@ -20,4 +20,4 @@
   </mat-card-content>
 </mat-card>
 <app-crud [data]="data" [title]="title" [columns]="columns" [updateAction]="false"
-          (create)="create()" (read)="read()" (delete)="delete()"></app-crud>
+          (create)="create()" (read)="read($event)" (delete)="delete($event)"></app-crud>
