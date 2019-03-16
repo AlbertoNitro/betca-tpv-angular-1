@@ -157,6 +157,8 @@ export class HomeComponent {
     this.router.navigate([HomeComponent.URL, OffersComponent.URL]);
   }
 
+  operatorManager() {
+  }
   stockAlarm() {
   }
 
@@ -167,7 +169,6 @@ export class HomeComponent {
     this.router.navigate([HomeComponent.URL, StockPredictionComponent.URL]);
   }
 
-  rrhh() {
-  }
+
 
 }
