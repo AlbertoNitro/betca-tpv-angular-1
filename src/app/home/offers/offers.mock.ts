@@ -1,6 +1,6 @@
 import { Offer } from './offer.model';
 
-export const OFFERS: Offer[] = [
+export const OFFERSMOCK: Offer[] = [
   {
     id: '1',
     name: 'Prueba1',

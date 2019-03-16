@@ -20,7 +20,7 @@ export class OffersComponent {
 
   constructor(private offerService: OfferService, private dialog: MatDialog) {
     this.offerService.readAll().subscribe(
-      data => this.offers = data
+      offers => this.offers = offers
     );
     console.log(this.offers, '<<<<< OFFERS');
   }
@@ -59,9 +59,8 @@ export class OffersComponent {
     result => {
       if (result) {
         this.offers = this.offers.filter(h => h !== offer);
-        // TODO: implement Offer Delete (API connection)
+        // this.offerService.delete(offer).subscribe();
       }
     });
-    console.log(this.offers, '<<<<<<<<< Offers');
   }
 }

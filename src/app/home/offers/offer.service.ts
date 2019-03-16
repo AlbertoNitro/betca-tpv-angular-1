@@ -1,10 +1,11 @@
-import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 
-import {HttpService} from '../../core/http.service';
-import {ApiEndpoint} from '../shared/api-endpoint.model';
+import { HttpService } from '../../core/http.service';
+import { ApiEndpoint } from '../shared/api-endpoint.model';
+
 import { Offer } from './offer.model';
-import { OFFERS } from './offers.mock';
+import { OFFERSMOCK } from './offers.mock';
 
 @Injectable()
 export class OfferService {
@@ -13,7 +14,15 @@ export class OfferService {
   }
 
   readAll(): Observable<Offer[]> {
-    return of(OFFERS);
+    // TODO: change MOCK implement for API request (GET /offers)
+    // return this.httpService.get(ApiEndpoint.OFFERS);
+    return of(OFFERSMOCK);
   }
+
+  /*delete(offer: Offer): Observable<Offer> {
+    // TODO: implement Offer Delete (API connection)
+    console.log(offer, '<<<<<<<<< Deleted Offer');
+    return offer;
+  }*/
 
 }
