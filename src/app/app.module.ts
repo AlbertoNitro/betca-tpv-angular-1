@@ -34,6 +34,7 @@ import {VoucherService} from './home/vouchers/voucher.service';
     FormsModule,
     ReactiveFormsModule,
     NgxChartsModule
+
   ],
   declarations: [
     AppComponent,
