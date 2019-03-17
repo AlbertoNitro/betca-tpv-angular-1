@@ -127,7 +127,11 @@ export class ShoppingCartService {
   }
 
   createBudget(): void {
-    console.log(this.shoppingCart);
+    // TODO: Uncomment this code & delete alone reset
+    /*this.httpService.pdf().post(ApiEndpoint.BUDGETS, this.shoppingCart).pipe(
+      map(() => this.reset())
+    );*/
+    this.reset();
   }
 
   isEmpty(): boolean {
