@@ -2,8 +2,9 @@ export class ApiEndpoint {
   public static CASHIER_CLOSURES = '/cashier-closures';
   public static CASHIER_CLOSURES_LAST = ApiEndpoint.CASHIER_CLOSURES + '/last';
 
-  public static DEPOSIT = ApiEndpoint.CASHIER_CLOSURES + '/deposit';
-  public static WITHDRAWAL = ApiEndpoint.CASHIER_CLOSURES + '/withdrawal';
+  public static CASH_MOVEMENTS = '/cash-movements';
+  public static DEPOSIT = ApiEndpoint.CASH_MOVEMENTS + '/deposit';
+  public static WITHDRAWAL = ApiEndpoint.CASH_MOVEMENTS + '/withdrawal';
 
   public static USERS = '/users';
 
