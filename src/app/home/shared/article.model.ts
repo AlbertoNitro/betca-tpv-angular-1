@@ -5,7 +5,7 @@ export interface Article {
   retailPrice?: number;
   stock?: number;
   provider?: string;
-  tax?: string,
+  tax?: string;
   discontinued?: boolean;
   registrationDate?: Date;
 }

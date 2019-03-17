@@ -1,4 +1,5 @@
-<h2 mat-dialog-title>New article: </h2>
+<h2 mat-dialog-title *ngIf="modeDialog == 'Create'">New article: </h2>
+<h2 mat-dialog-title *ngIf="modeDialog == 'Update'">Update article: </h2>
 <mat-dialog-content>
   <mat-form-field>
     <input matInput type="number" placeholder="Code" [(ngModel)]="article.code"/>
@@ -29,5 +30,6 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button mat-dialog-close cdkFocusInitial>Cancel</button>
-  <button mat-raised-button (click)="create()">Create</button>
+  <button mat-raised-button color="primary" *ngIf="modeDialog == 'Create'" (click)="create()">Create</button>
+  <button mat-raised-button color="primary" *ngIf="modeDialog == 'Update'" (click)="update()">Update</button>
 </mat-dialog-actions>
