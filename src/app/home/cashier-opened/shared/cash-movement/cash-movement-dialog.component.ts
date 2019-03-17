@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {CashMovement} from './cash-movement.model';
 import {CashMovementOptionsModel} from './cash-movement-options.model';
+import {CashMovementService} from './cash-movement.service';
 import {OptionType} from './cash-movement-option-type.model';
 
 @Component({
@@ -17,7 +18,7 @@ export class CashMovementDialogComponent {
   fieldsDisabled: boolean;
   selectedValue: string;
 
-  constructor() {
+  constructor(private cashMovementService: CashMovementService) {
     this.fieldsDisabled = true;
   }
 
@@ -34,5 +35,14 @@ export class CashMovementDialogComponent {
   }
 
   save() {
+    if (this.selectedValue === OptionType.WITHDRAWAL) {
+      this.cashMovementService.withdrawal(this.cashMovement).subscribe(
+        (resp) => ''
+      );
+    } else if (this.selectedValue === OptionType.DEPOSIT) {
+      this.cashMovementService.deposit(this.cashMovement).subscribe(
+        (resp) => ''
+      );
+    }
   }
 }
