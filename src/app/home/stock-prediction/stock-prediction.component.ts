@@ -1,34 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-
-export enum PeriodicityType {
-  WEEKLY = 'Weekly',
-  MONTHLY = 'Monthly',
-  YEARLY = 'Annual'
-}
-
-export enum PeriodType {
-  WEEK = 'Week',
-  MONTH = 'Month',
-  YEAR = 'Year'
-}
-
-export interface ArticleWithCodeAndDescriptionDto {
-  code: string;
-  description: string;
-}
-
-export interface StockPredictionInputDto {
-  articleCode: string;
-  periodicityType: PeriodicityType;
-  periodsNumber: number;
-}
-
-export interface StockPredictionOutputDto {
-  period: PeriodType;
-  periodNumber: number;
-  stock: number;
-}
+import {ArticleWithCodeAndDescriptionDto} from './model/article-with-code-and-description-dto.model';
+import {StockPredictionService} from './stock-prediction.service';
+import {PeriodicityType} from './model/periodicity-type.enum';
+import {StockPredictionOutputDto} from './model/stock-prediction-output-dto.model';
+import {StockPredictionInputDto} from './model/stock-prediction-input-dto.model';
 
 @Component({
   selector: 'app-stock-prediction',
@@ -37,30 +13,6 @@ export interface StockPredictionOutputDto {
 })
 export class StockPredictionComponent implements OnInit {
   static URL = 'stock-prediction';
-  static DUMMY_ARTICLE_LIST: ArticleWithCodeAndDescriptionDto[] = [
-    {
-      code: '8400000000017',
-      description: 'Zarzuela - Falda T2'
-    },
-    {
-      code: '8400000000024',
-      description: 'Zarzuela - Falda T4'
-    },
-    {
-      code: '8400000000031',
-      description: 'descrip-a3'
-    },
-    {
-      code: '8400000000048',
-      description: 'descrip-a4'
-    }
-  ];
-  static DUMMY_STOCK_PREDICTION_TABLE_DATA: StockPredictionOutputDto[] = [
-    {period: PeriodType.WEEK, periodNumber: 1, stock: 1028},
-    {period: PeriodType.WEEK, periodNumber: 2, stock: 964},
-    {period: PeriodType.WEEK, periodNumber: 3, stock: 900},
-    {period: PeriodType.WEEK, periodNumber: 4, stock: 837}
-  ];
   stockPredictionForm: FormGroup;
   periodicityTypeList: PeriodicityType[] = [PeriodicityType.WEEKLY, PeriodicityType.MONTHLY, PeriodicityType.YEARLY];
   periodsNumberList: number[] = this.weeklyPeriodsNumberList();
@@ -69,7 +21,7 @@ export class StockPredictionComponent implements OnInit {
   stockPredictionTableColumns: string[] = ['period', 'periodNumber', 'stock'];
   stockPredictionTableData: StockPredictionOutputDto[];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private stockPredictionService: StockPredictionService) {
   }
 
   get articleFormControl() {
@@ -85,7 +37,6 @@ export class StockPredictionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.articleList = StockPredictionComponent.DUMMY_ARTICLE_LIST;
     this.stockPredictionForm = this.formBuilder.group({
         articleFormControl: ['', [Validators.required]],
         periodicityTypeFormControl: ['', [Validators.required]],
@@ -94,6 +45,9 @@ export class StockPredictionComponent implements OnInit {
     );
     this.periodicityTypeFormControl.setValue(PeriodicityType.WEEKLY);
     this.periodsNumberFormControl.setValue(1);
+    this.stockPredictionService.readAllArticleWithCodeAndDescriptionDto().subscribe(
+      articleList => this.articleList = articleList
+    );
   }
 
   onSubmit() {
@@ -104,7 +58,9 @@ export class StockPredictionComponent implements OnInit {
     };
     console.log(`onSubmit values`);
     console.dir(stockPredictionInputDto);
-    this.stockPredictionTableData = StockPredictionComponent.DUMMY_STOCK_PREDICTION_TABLE_DATA;
+    this.stockPredictionService.calculate(stockPredictionInputDto).subscribe(
+      stockPredictionOutputArray => this.stockPredictionTableData = stockPredictionOutputArray
+    );
   }
 
   onChangePeriodicityType() {
