@@ -5,6 +5,8 @@ import {Component} from '@angular/core';
   templateUrl: './articles-families-create-dialog.component.html'
 })
 export class ArticlesFamiliesCreateDialogComponent {
+  familyType = ['ARTICLE', 'SIZES', 'ARTICLES'];
+
   constructor() {
   }
 }
