@@ -3,6 +3,7 @@ import {ArticleFamily} from './articles-families.model';
 import {ArticleFamilyService} from './articles-families.service';
 import {CancelYesDialogComponent} from '../../core/cancel-yes-dialog.component';
 import {MatDialog} from '@angular/material';
+import {ArticlesFamiliesCreateDialogComponent} from './articles-families-create-dialog.component';
 
 @Component({
   selector: 'app-articles-families',
@@ -20,6 +21,7 @@ export class ArticlesFamiliesCRUDComponent {
 
   create() {
     // TODO
+    this.dialog.open(ArticlesFamiliesCreateDialogComponent, {width: '60%', height: '90%'});
   }
 
   delete(articleFamily: ArticleFamily) {
