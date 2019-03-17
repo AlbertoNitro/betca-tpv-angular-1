@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Offer} from '../offers/offer.model';
 import {Clock} from './clock';
 
 import {CLOCKS} from './clock-mock';
+import {DatesValidator} from './dates-validator';
 
 @Component({
   selector: 'app-operator-manager',
@@ -17,8 +17,11 @@ export class OperatorManagerComponent implements OnInit {
   dateUp: Date;
   employeeMobile: number;
   title = 'Operator, Manager Clock in/out';
-  columns = ['employee', 'date', 'clock in', 'clock out', 'total'];
+  columns = ['employee', 'date', 'in', 'out', 'total'];
   clocks: Clock[];
+  public hasError = (controlName: string, errorName: string) => {
+    return this.operatorManagerForm.controls[controlName].hasError(errorName);
+  };
 
   constructor(private fb: FormBuilder) {
     this.clocks = CLOCKS;
@@ -26,8 +29,8 @@ export class OperatorManagerComponent implements OnInit {
 
   ngOnInit() {
     this.operatorManagerForm = this.fb.group({
-      dateFrom: [],
-      dateUp: [],
+      dateFrom: ['', DatesValidator.validEndDate],
+      dateUp: ['', DatesValidator.validEndDate],
       employeeMobile: ['', Validators.maxLength(9)]
     });
   }

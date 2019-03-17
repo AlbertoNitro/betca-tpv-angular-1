@@ -4,25 +4,28 @@
     Clock Search
   </mat-card-title>
   <mat-card-content>
-    <form [formGroup]="operatorManagerForm">
+    <form [formGroup]="operatorManagerForm" (ngSubmit)="search(operatorManagerForm)">
       <mat-form-field color="accent">
         <input matInput [matDatepicker]="dateFromDatePicker"
                formControlName="dateFrom" placeholder="From"
                (change)="dateFromChange($event)">
         <mat-datepicker-toggle matSuffix [for]="dateFromDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #dateFromDatePicker></mat-datepicker>
+        <mat-error *ngIf="hasError('dateFrom', 'validEndDate')">Date From can not be greater than the current date</mat-error>
       </mat-form-field>
       <mat-form-field color="accent">
         <input matInput [matDatepicker]="dateUpDatePicker"
-               formControlName="dateUp" placeholder="Up"
+               formControlName="dateUp" placeholder="To"
                (change)="dateUpChange($event)">
         <mat-datepicker-toggle matSuffix [for]="dateUpDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #dateUpDatePicker></mat-datepicker>
+        <mat-error *ngIf="hasError('dateUp', 'validEndDate')">Date To can not be greater than the current date</mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput formControlName="employeeMobile" placeholder="Employee Mobile">
+        <input matInput formControlName="employeeMobile" placeholder="Employee Mobile" id="employeeMobile">
+        <mat-error *ngIf="hasError('employeeMobile', 'maxlength')">Mobile has more than 9 digits</mat-error>
       </mat-form-field>
-      <button (click)="search()" tcolor="primary" mat-mini-fab>
+      <button type="submit" color="primary" mat-mini-fab>
         <mat-icon>search</mat-icon>
       </button>
       <button type="reset" color="primary" mat-mini-fab>
