@@ -4,8 +4,8 @@
     <form>
       <mat-form-field>
         <mat-select placeholder="Family Type">
-          <mat-option *ngFor="let family of familyType" [value]="family">
-            {{family}}
+          <mat-option *ngFor="let selected of familyType" [value]="selected">
+            {{selected}}
           </mat-option>
         </mat-select>
       </mat-form-field>
