@@ -1,4 +1,4 @@
 <app-advanced-query (emitter)="updateData($event)"></app-advanced-query>
-<app-crud [data]="data" [title]="title" [columns]="columns"
-          (create)="create()" (read)="read($event)" (update)="update($event)" (delete)="delete($event)">
+<app-crud [data]="data" [title]="title" [columns]="columns" [readAction]="false"
+          (create)="create()" (update)="update($event)" (delete)="delete($event)">
 </app-crud>

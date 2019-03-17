@@ -11,6 +11,7 @@ import {CashMovementDialogComponent} from './home/cashier-opened/shared/cash-mov
 import {HomeComponent} from './home/home.component';
 import {ShoppingCartComponent} from './home/cashier-opened/shopping-cart/shopping-cart.component';
 import {UsersComponent} from './home/users/users.component';
+import {ArticleCreateUpdateDialogComponent} from './home/articles/article-create-update-dialog/article-create-update-dialog.component';
 import {ArticleQuickCreationDialogComponent} from './home/cashier-opened/shopping-cart/article-quick-creation-dialog.component';
 import {CashierClosureDialogComponent} from './home/cashier-opened/cashier/cashier-closure-dialog.component';
 import {CheckOutDialogComponent} from './home/cashier-opened/shopping-cart/check-out-dialog.component';
@@ -37,6 +38,7 @@ import {UserCreateUpdateDialogComponent} from './home/users/user-create-update-d
 import {UserQuickCreationDialogComponent} from './home/users/user-quick-creation-dialog.controller';
 import {RGPDComponent} from './home/rgpd/rgpd.component';
 import {ArticlesFamiliesCreateDialogComponent} from './home/articles-families/articles-families-create-dialog.component';
+
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
   {path: WelcomeComponent.URL, component: WelcomeComponent},
@@ -93,6 +95,7 @@ export class AppRoutingModule {
   ];
 
   static DIALOGS = [
+    ArticleCreateUpdateDialogComponent,
     FamilySizesCreationComponent,
     ArticlesFamiliesCreateDialogComponent,
     ArticleQuickCreationDialogComponent,
