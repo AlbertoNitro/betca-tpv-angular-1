@@ -2,6 +2,9 @@ import {Component} from '@angular/core';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {FormControl, FormGroup} from '@angular/forms';
+import {StatisticsService} from '../shared/statistics.service';
+import {Statistic} from '../shared/statistic.model';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-statistic',
@@ -16,20 +19,19 @@ import {FormControl, FormGroup} from '@angular/forms';
 export class StatisticComponent {
 
   static URL = 'statistics';
-  data: any[];
-  endDate: Date;
+  data: Statistic[];
+  dateTo: Date;
   statisticSelect: string;
   statistics = [
-    {value: 'estadistica-1', viewValue: 'Estadistica 1'},
-    {value: 'estadistica-2', viewValue: 'Estadistica 2'}
+    {value: 'totalSalesPerDay', viewValue: 'Total sales per day'},
+    {value: 'averageDailyExpense', viewValue: 'Average daily expense'}
   ];
   form: FormGroup;
-  initDate: Date;
-  xAxisLabel = 'x label';
-  yAxisLabel = 'y label';
+  dateFrom: Date;
+  xAxisLabel = 'Date';
+  yAxisLabel = 'Value';
 
-  constructor() {
-    this.data = [];
+  constructor(private snackBar: MatSnackBar, private statisticsService: StatisticsService) {
     this.form = new FormGroup({
       initDate: new FormControl(),
       endDate: new FormControl(),
@@ -38,15 +40,28 @@ export class StatisticComponent {
   }
 
   dateEndChange(date) {
-    this.endDate = date.value;
+    this.dateTo = date.value;
   }
 
   dateInitChange(date) {
-    this.initDate = date.value;
+    this.dateFrom = date.value;
   }
 
   isLoadedData() {
     return this.data && this.data.length > 0;
+  }
+
+  search() {
+    this.statisticsService.getDataStatistic(this.statisticSelect, this.dateFrom.toISOString(), this.dateTo.toISOString()).subscribe(
+      resp => {
+        this.data = [new Statistic(this.statisticSelect, resp)];
+      },
+      error => {
+        this.snackBar.open('Error when searching data.', '', {
+          duration: 2000
+        });
+      }
+    );
   }
 
   statisticSelected(statisticSelect) {

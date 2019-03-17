@@ -18,6 +18,7 @@ import {ArticlesComponent} from './articles/articles.component';
 import {ArticlesFamiliesCRUDComponent} from './articles-families/articles-families.component';
 import {FamilySizesCreationComponent} from './cashier-opened/articles-family/family-sizes-creation.component';
 import {OffersComponent} from './offers/offers.component';
+import {StatisticComponent} from './stadistics/statistic.component';
 import {StockPredictionComponent} from './stock-prediction/stock-prediction.component';
 import {TicketsComponent} from './tickets/tickets.component';
 import {OrderComponent} from './order/order.component';
@@ -117,6 +118,7 @@ export class HomeComponent {
   }
 
   statistics() {
+    this.router.navigate([HomeComponent.URL, StatisticComponent.URL]);
   }
 
   tickets() {

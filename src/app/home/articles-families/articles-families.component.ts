@@ -1,6 +1,9 @@
 import {Component} from '@angular/core';
 import {ArticleFamily} from './articles-families.model';
 import {ArticleFamilyService} from './articles-families.service';
+import {CancelYesDialogComponent} from '../../core/cancel-yes-dialog.component';
+import {MatDialog} from '@angular/material';
+import {ArticlesFamiliesCreateDialogComponent} from './articles-families-create-dialog.component';
 
 @Component({
   selector: 'app-articles-families',
@@ -12,19 +15,27 @@ export class ArticlesFamiliesCRUDComponent {
   columns = ['description'];
   data: ArticleFamily[];
 
-  constructor(private articleFamilyService: ArticleFamilyService) {
+  constructor(private articleFamilyService: ArticleFamilyService, private dialog: MatDialog) {
     articleFamilyService.readAllFamilies().subscribe(data => this.data = data);
   }
 
   create() {
     // TODO
+    this.dialog.open(ArticlesFamiliesCreateDialogComponent, {width: '60%', height: '90%'});
   }
 
-  delete($event: any) {
-    // TODO
+  delete(articleFamily: ArticleFamily) {
+    this.dialog.open(CancelYesDialogComponent).afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.articleFamilyService.deleteFamilyArticle(articleFamily.description).subscribe(
+            () => this.data = this.data.filter(item => item !== articleFamily)
+          );
+        }
+      });
   }
 
-  update($event: any) {
+  update(articleFamily: ArticleFamily) {
     // TODO
   }
 }

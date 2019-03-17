@@ -15,7 +15,7 @@ export class OffersComponent {
   static URL = 'offers';
   onlyActiveOffers = false;
   title = 'Offers management';
-  columns = ['id', 'name', 'endDate'];
+  columns = ['id', 'offername', 'endDate'];
   offers: Offer[];
 
   constructor(private offerService: OfferService, private dialog: MatDialog) {

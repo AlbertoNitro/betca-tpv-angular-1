@@ -35,6 +35,7 @@ import {OrderComponent} from './home/order/order.component';
 import {UserCreateUpdateDialogComponent} from './home/users/user-create-update-dialog.component';
 import {UserQuickCreationDialogComponent} from './home/users/user-quick-creation-dialog.controller';
 import {RGPDComponent} from './home/rgpd/rgpd.component';
+import {ArticlesFamiliesCreateDialogComponent} from './home/articles-families/articles-families-create-dialog.component';
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
   {path: WelcomeComponent.URL, component: WelcomeComponent},
@@ -90,6 +91,7 @@ export class AppRoutingModule {
 
   static DIALOGS = [
     FamilySizesCreationComponent,
+    ArticlesFamiliesCreateDialogComponent,
     ArticleQuickCreationDialogComponent,
     CashierClosureDialogComponent,
     CashMovementDialogComponent,
