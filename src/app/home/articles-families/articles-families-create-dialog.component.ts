@@ -24,4 +24,12 @@ export class ArticlesFamiliesCreateDialogComponent {
   constructor(private articleFamilyService: ArticleFamilyService) {
     articleFamilyService.readAllFamilies().subscribe(data => this.families = data);
   }
+
+  isValid(): boolean {
+    return this.familySelected != null && this.familyTypeSelected != null && (
+      this.formCreateFamily.valid || this.formCreateSize.valid);
+  }
+
+  create() {
+  }
 }
