@@ -13,6 +13,7 @@ export class ArticlesFamiliesCreateDialogComponent {
   families: ArticleFamily[];
   familySelected: ArticleFamily;
 
+
   constructor(private articleFamilyService: ArticleFamilyService) {
     articleFamilyService.readAllFamilies().subscribe(data => this.families = data);
   }
