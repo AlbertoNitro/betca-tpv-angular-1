@@ -22,6 +22,7 @@ import {StockPredictionComponent} from './stock-prediction/stock-prediction.comp
 import {TicketsComponent} from './tickets/tickets.component';
 import {OrderComponent} from './order/order.component';
 import {OperatorManagerComponent} from './operator-manager/operator-manager.component';
+import {RGPDComponent} from './rgpd/rgpd.component';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -171,6 +172,8 @@ export class HomeComponent {
     this.router.navigate([HomeComponent.URL, StockPredictionComponent.URL]);
   }
 
-
+  rgpd() {
+    this.router.navigate([HomeComponent.URL, RGPDComponent.URL]);
+  }
 
 }
