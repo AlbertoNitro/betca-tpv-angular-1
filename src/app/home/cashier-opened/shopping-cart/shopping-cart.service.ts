@@ -126,6 +126,10 @@ export class ShoppingCartService {
     );
   }
 
+  createBudget(): void {
+    console.log(this.shoppingCart);
+  }
+
   isEmpty(): boolean {
     return (!this.shoppingCart || this.shoppingCart.length === 0);
   }
