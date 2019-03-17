@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Offer } from './offer.model';
 import { ArticleIdentificatorsMock } from './articleIdentificators.mock';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {MatTableDataSource} from '@angular/material';
+import {ShoppingCart} from '../tickets/tickets.component';
 
 @Component({
   selector: 'app-offers-create-dialog',
@@ -9,8 +11,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class OffersCreateDialogComponent {
   title = 'Articles list';
-  columns = ['id', 'percentage'];
-  articleLine: object[] = [];
+  // columns = ['id', 'percentage'];
+  dataSource: MatTableDataSource<object>;
+  displayedColumns = ['id', 'percentage', 'action'];
   offer: Offer;
 
   formCreateOffer = new FormGroup({
@@ -21,35 +24,28 @@ export class OffersCreateDialogComponent {
   });
 
   constructor() {
-    console.log(this.articleLine, '<<<<<< Init articleLine');
-    /*this.articleLine = [
-      { id: '1', percentage: 5 },
-      { id: '2', percentage: 7 },
-      { id: '3', percentage: 3 },
-      { id: '4', percentage: 5 },
-      { id: '5', percentage: 3 },
-      { id: '6', percentage: 14 }
-    ];*/
+    console.log(this.dataSource.data, '<<<<<< Init articleLine');
+    this.dataSource = new MatTableDataSource<object>();
   }
 
   addArticle() {
     // TODO implement addArticle
     console.log('Add Article');
-    console.log(this.articleLine, '<<<<<< BEFORE Add item to articleLine');
-    const article: object = { id: '7', percentage: 3 };
-    this.articleLine.push(article);
-    console.log(this.articleLine, '<<<<<< AFTER Add item to articleLine');
+    const article: object = { id: '7', percentage: 3 }; // TODO Replace this hardcore data for data inputs
+    this.dataSource.data.push(article);
+    this.dataSource = new MatTableDataSource(this.dataSource.data);
   }
 
   delete(article: object) {
     // TODO implement deleteArticle in list
     console.log('Remove Article');
+    console.log(article, '<<<<<< Removed article');
   }
 
   createOffer(formSubmited: FormGroup) {
     // TODO implement createOffer
     console.log('<<<<<<<< ENTRA >>>>>>>');
-    console.log(this.articleLine, '<<<<<< Add item to articleLine');
+    console.log(this.dataSource.data, '<<<<<< ArticleLine');
     console.log(formSubmited, '<<<<<<<< FORM FIELDS');
   }
 }

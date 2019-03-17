@@ -31,15 +31,28 @@
     </form>
   </mat-card-content>
 </mat-card>
-<ul>
-  <li *ngFor="let article of articleLine">
-    <span> ID: {{ article.id }}</span>
-    <span> PERCENTAGE: {{ article.percentage }}</span>
-  </li>
-</ul>
-<!-- <app-crud [data]="articleLine" [title]="title" [columns]="columns" [createAction]="false" [readAction]="false" [updateAction]="false" (delete)="delete($event)">
-</app-crud> -->
-
+<mat-card>
+  <mat-card-content>
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef fxFlex="30%"> Id </mat-header-cell>
+        <mat-cell *matCellDef="let articleLine" fxFlex="30%"> {{articleLine.id}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="percentage">
+        <mat-header-cell *matHeaderCellDef fxFlex="30%"> Percentage </mat-header-cell>
+        <mat-cell *matCellDef="let articleLine" fxFlex="30%"> {{articleLine.percentage}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef fxFlex="5%"> Action </mat-header-cell>
+        <mat-cell *matCellDef="let articleLine" fxFlex="5%" >
+          <mat-icon class="mat-icon mat-warn material-icons" color="warn" role="img" (click)="delete(articleLine)">close</mat-icon>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let articleLine; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </mat-card-content>
+</mat-card>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close color="accent">Cancel</button>
   <button mat-button [disabled]="formCreateOffer.invalid" (click)="createOffer(formCreateOffer)" color="primary">Create</button>
