@@ -20,6 +20,8 @@
         <mat-datepicker #picker disabled="false"></mat-datepicker>
       </mat-form-field>
       <hr>
+    </form>
+    <form >
       <mat-form-field>
         <input matInput type="text" placeholder="Article Id">
       </mat-form-field>
@@ -45,7 +47,7 @@
       <ng-container matColumnDef="action">
         <mat-header-cell *matHeaderCellDef fxFlex="5%"> Action </mat-header-cell>
         <mat-cell *matCellDef="let articleLine" fxFlex="5%" >
-          <mat-icon class="mat-icon mat-warn material-icons" color="warn" role="img" (click)="delete(articleLine)">close</mat-icon>
+          <mat-icon class="mat-icon mat-warn material-icons" color="warn" role="button" (click)="delete(articleLine)">close</mat-icon>
         </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

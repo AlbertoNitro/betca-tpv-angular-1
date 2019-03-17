@@ -24,7 +24,6 @@ export class OffersCreateDialogComponent {
   });
 
   constructor() {
-    console.log(this.dataSource.data, '<<<<<< Init articleLine');
     this.dataSource = new MatTableDataSource<object>();
   }
 
@@ -37,9 +36,7 @@ export class OffersCreateDialogComponent {
   }
 
   delete(article: object) {
-    // TODO implement deleteArticle in list
-    console.log('Remove Article');
-    console.log(article, '<<<<<< Removed article');
+    this.dataSource.data = this.dataSource.data.filter(h => h !== article);
   }
 
   createOffer(formSubmited: FormGroup) {
