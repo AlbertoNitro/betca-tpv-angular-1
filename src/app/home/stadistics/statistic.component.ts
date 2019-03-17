@@ -19,17 +19,17 @@ import {MatSnackBar} from '@angular/material';
 export class StatisticComponent {
 
   static URL = 'statistics';
-  data: any[];
-  endDate: Date;
+  data: Statistic[];
+  dateTo: Date;
   statisticSelect: string;
   statistics = [
-    {value: 'estadistica-1', viewValue: 'Estadistica 1'},
-    {value: 'estadistica-2', viewValue: 'Estadistica 2'}
+    {value: 'totalSalesPerDay', viewValue: 'Total sales per day'},
+    {value: 'averageDailyExpense', viewValue: 'Average daily expense'}
   ];
   form: FormGroup;
-  initDate: Date;
-  xAxisLabel = 'x label';
-  yAxisLabel = 'y label';
+  dateFrom: Date;
+  xAxisLabel = 'Date';
+  yAxisLabel = 'Value';
 
   constructor(private snackBar: MatSnackBar, private statisticsService: StatisticsService) {
     this.form = new FormGroup({
@@ -40,11 +40,11 @@ export class StatisticComponent {
   }
 
   dateEndChange(date) {
-    this.endDate = date.value;
+    this.dateTo = date.value;
   }
 
   dateInitChange(date) {
-    this.initDate = date.value;
+    this.dateFrom = date.value;
   }
 
   isLoadedData() {
