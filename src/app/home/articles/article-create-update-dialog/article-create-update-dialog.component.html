@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>New article: </h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <input matInput type="number" placeholder="Code" [(ngModel)]="article.code"/>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" placeholder="Description" [(ngModel)]="article.description"/>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="number" placeholder="Real price" [(ngModel)]="article.retailPrice"/>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" placeholder="Reference" [(ngModel)]="article.reference"/>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" placeholder="Provider" [(ngModel)]="article.provider"/>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="number" placeholder="Stock" [(ngModel)]="article.stock"/>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Tax">
+      <mat-option *ngFor="let tax of taxes" [value]="article.tax">
+        {{tax.label}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-checkbox>Discontinued</mat-checkbox>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close cdkFocusInitial>Cancel</button>
+  <button mat-raised-button (click)="create()">Create</button>
+</mat-dialog-actions>
