@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
 
-export enum PeriodicallyType {
+export enum PeriodicityType {
   WEEKLY = 'Weekly',
   MONTHLY = 'Monthly',
   YEARLY = 'Annual'
@@ -15,10 +13,15 @@ export enum PeriodType {
   YEAR = 'Year'
 }
 
-export interface ArticleWithIdAndNameDto {
-  id: string;
-  name: string;
-  picture: string;
+export interface ArticleWithCodeAndDescriptionDto {
+  code: string;
+  description: string;
+}
+
+export interface StockPredictionInputDto {
+  articleCode: string;
+  periodicityType: PeriodicityType;
+  periodsNumber: number;
 }
 
 export interface StockPredictionOutputDto {
@@ -34,26 +37,22 @@ export interface StockPredictionOutputDto {
 })
 export class StockPredictionComponent implements OnInit {
   static URL = 'stock-prediction';
-  static DUMMY_ARTICLE_LIST: ArticleWithIdAndNameDto[] = [
+  static DUMMY_ARTICLE_LIST: ArticleWithCodeAndDescriptionDto[] = [
     {
-      id: '0',
-      name: 'Arkansas',
-      picture: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/picture_of_Arkansas.svg'
+      code: '8400000000017',
+      description: 'Zarzuela - Falda T2'
     },
     {
-      id: '1',
-      name: 'California',
-      picture: 'https://upload.wikimedia.org/wikipedia/commons/0/01/picture_of_California.svg'
+      code: '8400000000024',
+      description: 'Zarzuela - Falda T4'
     },
     {
-      id: '2',
-      name: 'Florida',
-      picture: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/picture_of_Florida.svg'
+      code: '8400000000031',
+      description: 'descrip-a3'
     },
     {
-      id: '3',
-      name: 'Texas',
-      picture: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/picture_of_Texas.svg'
+      code: '8400000000048',
+      description: 'descrip-a4'
     }
   ];
   static DUMMY_STOCK_PREDICTION_TABLE_DATA: StockPredictionOutputDto[] = [
@@ -63,12 +62,11 @@ export class StockPredictionComponent implements OnInit {
     {period: PeriodType.WEEK, periodNumber: 4, stock: 837}
   ];
   stockPredictionForm: FormGroup;
-  periodTypeList: PeriodicallyType[] = [PeriodicallyType.WEEKLY, PeriodicallyType.MONTHLY, PeriodicallyType.YEARLY];
+  periodicityTypeList: PeriodicityType[] = [PeriodicityType.WEEKLY, PeriodicityType.MONTHLY, PeriodicityType.YEARLY];
   periodsNumberList: number[] = this.weeklyPeriodsNumberList();
-  filteredArticles: Observable<ArticleWithIdAndNameDto[]>;
-  articleList: ArticleWithIdAndNameDto[];
+  articleList: ArticleWithCodeAndDescriptionDto[];
   stockPredictionTableTitle = 'Stock Prediction';
-  stockPredictionTableColumns: string[] = ['Period Type', 'Period Number', 'Stock Prediction'];
+  stockPredictionTableColumns: string[] = ['period', 'periodNumber', 'stock'];
   stockPredictionTableData: StockPredictionOutputDto[];
 
   constructor(private formBuilder: FormBuilder) {
@@ -78,8 +76,8 @@ export class StockPredictionComponent implements OnInit {
     return this.stockPredictionForm.get('articleFormControl');
   }
 
-  get periodTypeFormControl() {
-    return this.stockPredictionForm.get('periodTypeFormControl');
+  get periodicityTypeFormControl() {
+    return this.stockPredictionForm.get('periodicityTypeFormControl');
   }
 
   get periodsNumberFormControl() {
@@ -90,50 +88,38 @@ export class StockPredictionComponent implements OnInit {
     this.articleList = StockPredictionComponent.DUMMY_ARTICLE_LIST;
     this.stockPredictionForm = this.formBuilder.group({
         articleFormControl: ['', [Validators.required]],
-        periodTypeFormControl: ['', [Validators.required]],
+        periodicityTypeFormControl: ['', [Validators.required]],
         periodsNumberFormControl: ['', [Validators.required]]
       }
     );
-    this.periodTypeFormControl.setValue(PeriodicallyType.WEEKLY);
+    this.periodicityTypeFormControl.setValue(PeriodicityType.WEEKLY);
     this.periodsNumberFormControl.setValue(1);
-    this.filteredArticles = this.articleFormControl.valueChanges
-      .pipe(
-        startWith<string | ArticleWithIdAndNameDto>(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this.filterArticlesByName(name) : this.articleList.slice())
-      );
   }
 
   onSubmit() {
-    const articleId = this.articleFormControl.value;
-    const periodType = this.periodTypeFormControl.value;
-    const periodsNumber = this.periodsNumberFormControl.value;
-    console.log(`onSubmit values: { articleId: ${articleId}, periodType: ${periodType}, periodsNumber: ${periodsNumber} }`);
+    const stockPredictionInputDto: StockPredictionInputDto = {
+      articleCode: this.articleFormControl.value,
+      periodicityType: this.periodicityTypeFormControl.value,
+      periodsNumber: this.periodsNumberFormControl.value
+    };
+    console.log(`onSubmit values`);
+    console.dir(stockPredictionInputDto);
     this.stockPredictionTableData = StockPredictionComponent.DUMMY_STOCK_PREDICTION_TABLE_DATA;
   }
 
-  onChangePeriodType() {
-    const periodType = this.periodTypeFormControl.value;
-    console.log('onChangePeriodType -> value: ' + periodType);
-    if (PeriodicallyType.WEEKLY === periodType) {
+  onChangePeriodicityType() {
+    const periodicityType = this.periodicityTypeFormControl.value;
+    console.log('onChangePeriodicityType -> value: ' + periodicityType);
+    if (PeriodicityType.WEEKLY === periodicityType) {
       this.periodsNumberList = this.weeklyPeriodsNumberList();
-    } else if (PeriodicallyType.MONTHLY === periodType) {
+    } else if (PeriodicityType.MONTHLY === periodicityType) {
       this.periodsNumberList = this.monthlyPeriodsNumberList();
-    } else if (PeriodicallyType.YEARLY === periodType) {
+    } else if (PeriodicityType.YEARLY === periodicityType) {
       this.periodsNumberList = this.annualPeriodsNumberList();
     } else {
-      console.log('No Action for PeriodicallyType: ' + periodType);
+      console.log('No Action for PeriodicityType: ' + periodicityType);
     }
     this.periodsNumberFormControl.setValue(1);
-  }
-
-  displayArticleName(article?: ArticleWithIdAndNameDto): string | undefined {
-    return article ? article.name : undefined;
-  }
-
-  private filterArticlesByName(articleName: string): ArticleWithIdAndNameDto[] {
-    const filterValue = articleName.toLowerCase();
-    return this.articleList.filter(article => article.name.toLowerCase().indexOf(filterValue) === 0);
   }
 
   private weeklyPeriodsNumberList(): number[] {
