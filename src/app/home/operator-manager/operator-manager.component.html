@@ -4,7 +4,7 @@
     Clock Search
   </mat-card-title>
   <mat-card-content>
-    <form [formGroup]="operatorManagerForm" (ngSubmit)="search(operatorManagerForm)">
+    <form [formGroup]="operatorManagerForm">
       <mat-form-field color="accent">
         <input matInput [matDatepicker]="dateFromDatePicker"
                formControlName="dateFrom" placeholder="From"
