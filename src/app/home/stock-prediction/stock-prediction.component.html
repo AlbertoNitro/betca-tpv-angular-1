@@ -8,7 +8,7 @@
       <form [formGroup]="stockPredictionForm" (ngSubmit)="onSubmit()">
         <mat-form-field>
           <mat-select placeholder="Article" matInput formControlName="articleFormControl">
-            <mat-option *ngFor="let article of articleList" [value]="article">
+            <mat-option *ngFor="let article of articleList" [value]="article.code">
               {{article.description}}
             </mat-option>
           </mat-select>
