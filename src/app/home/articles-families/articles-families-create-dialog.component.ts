@@ -6,6 +6,7 @@ import {Component} from '@angular/core';
 })
 export class ArticlesFamiliesCreateDialogComponent {
   familyType = ['ARTICLE', 'SIZES', 'ARTICLES'];
+  familySelected: string;
 
   constructor() {
   }
