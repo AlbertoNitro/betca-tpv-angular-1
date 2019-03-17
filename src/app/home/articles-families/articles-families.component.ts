@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {ArticleFamily} from './articles-families.model';
 import {ArticleFamilyService} from './articles-families.service';
+import {CancelYesDialogComponent} from '../../core/cancel-yes-dialog.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-articles-families',
@@ -12,7 +14,7 @@ export class ArticlesFamiliesCRUDComponent {
   columns = ['description'];
   data: ArticleFamily[];
 
-  constructor(private articleFamilyService: ArticleFamilyService) {
+  constructor(private articleFamilyService: ArticleFamilyService, private dialog: MatDialog) {
     articleFamilyService.readAllFamilies().subscribe(data => this.data = data);
   }
 
@@ -21,21 +23,14 @@ export class ArticlesFamiliesCRUDComponent {
   }
 
   delete(articleFamily: ArticleFamily) {
-    /*console.log($event.valueOf());
-    console.log(this.data.toString());
-    //Esto no se refleja aunque si que borra
-    this.data.splice(1, 1);
-    console.log(this.data.toString());
-    //Esto tampoco se ve reflejado
-    let data2 = this.data;
-    data2.splice(0, 1);
-    this.data = data2;
-    console.log(this.data.toString());
-    //Sin embargo esto si que se ve reflejado:
-    this.data = [{description: 'Games', familyType: 'ARTICLES'}, {description: 'Books', familyType: 'ARTICLES'}];*/
-    this.articleFamilyService.deleteFamilyArticle(articleFamily.description).subscribe(
-      () => this.articleFamilyService.readAllFamilies().subscribe(data => this.data = data)
-    );
+    this.dialog.open(CancelYesDialogComponent).afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.articleFamilyService.deleteFamilyArticle(articleFamily.description).subscribe(
+            () => this.data = this.data.filter(item => item !== articleFamily)
+          );
+        }
+      });
   }
 
   update(articleFamily: ArticleFamily) {
