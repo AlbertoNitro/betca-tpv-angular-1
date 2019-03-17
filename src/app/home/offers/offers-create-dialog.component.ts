@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Offer } from './offer.model';
+import { ArticleIdentificatorsMock } from './articleIdentificators.mock';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -9,7 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class OffersCreateDialogComponent {
   title = 'Articles list';
   columns = ['Id', 'Percentage'];
-  data: object[];
+  articleLine: object[];
   offer: Offer;
 
   formCreateOffer = new FormGroup({
@@ -20,7 +21,9 @@ export class OffersCreateDialogComponent {
   });
 
   constructor() {
-    this.data = [
+    this.articleLine = null;
+    console.log(this.articleLine, '<<<<<< Init articleLine');
+    /*this.articleLine = [
       { 'Id': 1, 'Percentage': '5' },
       { 'Id': 2, 'Percentage': '7' },
       { 'Id': 3, 'Percentage': '3' },
@@ -28,12 +31,13 @@ export class OffersCreateDialogComponent {
       { 'Id': 5, 'Percentage': '3' },
       { 'Id': 6, 'Percentage': '14' },
       { 'Id': 7, 'Percentage': '31' },
-    ];
+    ];*/
   }
 
   addArticle() {
     // TODO implement addArticle
     console.log('Add Article');
+    console.log(this.articleLine, '<<<<<< Add item to articleLine');
   }
 
   delete() {
@@ -46,10 +50,4 @@ export class OffersCreateDialogComponent {
     console.log('<<<<<<<< ENTRA >>>>>>>');
     console.log(formSubmited, '<<<<<<<< FORM FIELDS');
   }
-
-  onSubmit(formSubmited: FormGroup) {
-    console.log('<<<<<<<< ENTRA >>>>>>>');
-    console.log(formSubmited, '<<<<<<<< FORM FIELDS');
-  }
-
 }
