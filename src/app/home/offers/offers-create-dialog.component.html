@@ -31,8 +31,14 @@
     </form>
   </mat-card-content>
 </mat-card>
-<app-crud [data]="articleLine" [title]="title" [columns]="columns" [createAction]="false" [readAction]="false" [updateAction]="false" (delete)="delete()">
-</app-crud>
+<ul>
+  <li *ngFor="let article of articleLine">
+    <span> ID: {{ article.id }}</span>
+    <span> PERCENTAGE: {{ article.percentage }}</span>
+  </li>
+</ul>
+<!-- <app-crud [data]="articleLine" [title]="title" [columns]="columns" [createAction]="false" [readAction]="false" [updateAction]="false" (delete)="delete($event)">
+</app-crud> -->
 
 <mat-dialog-actions>
   <button mat-button mat-dialog-close color="accent">Cancel</button>

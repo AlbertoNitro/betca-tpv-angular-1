@@ -9,8 +9,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class OffersCreateDialogComponent {
   title = 'Articles list';
-  columns = ['Id', 'Percentage'];
-  articleLine: object[];
+  columns = ['id', 'percentage'];
+  articleLine: object[] = [];
   offer: Offer;
 
   formCreateOffer = new FormGroup({
@@ -21,26 +21,27 @@ export class OffersCreateDialogComponent {
   });
 
   constructor() {
-    this.articleLine = null;
     console.log(this.articleLine, '<<<<<< Init articleLine');
     /*this.articleLine = [
-      { 'Id': 1, 'Percentage': '5' },
-      { 'Id': 2, 'Percentage': '7' },
-      { 'Id': 3, 'Percentage': '3' },
-      { 'Id': 4, 'Percentage': '5' },
-      { 'Id': 5, 'Percentage': '3' },
-      { 'Id': 6, 'Percentage': '14' },
-      { 'Id': 7, 'Percentage': '31' },
+      { id: '1', percentage: 5 },
+      { id: '2', percentage: 7 },
+      { id: '3', percentage: 3 },
+      { id: '4', percentage: 5 },
+      { id: '5', percentage: 3 },
+      { id: '6', percentage: 14 }
     ];*/
   }
 
   addArticle() {
     // TODO implement addArticle
     console.log('Add Article');
-    console.log(this.articleLine, '<<<<<< Add item to articleLine');
+    console.log(this.articleLine, '<<<<<< BEFORE Add item to articleLine');
+    const article: object = { id: '7', percentage: 3 };
+    this.articleLine.push(article);
+    console.log(this.articleLine, '<<<<<< AFTER Add item to articleLine');
   }
 
-  delete() {
+  delete(article: object) {
     // TODO implement deleteArticle in list
     console.log('Remove Article');
   }
@@ -48,6 +49,7 @@ export class OffersCreateDialogComponent {
   createOffer(formSubmited: FormGroup) {
     // TODO implement createOffer
     console.log('<<<<<<<< ENTRA >>>>>>>');
+    console.log(this.articleLine, '<<<<<< Add item to articleLine');
     console.log(formSubmited, '<<<<<<<< FORM FIELDS');
   }
 }
