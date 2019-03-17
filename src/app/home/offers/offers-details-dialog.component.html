@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-title>Offer Details</mat-card-title>
   <span>Id: {{ offer.id }}</span><span> - </span>
-  <span>Name: {{ offer.name }}</span><span> - </span>
+  <span>Name: {{ offer.offername }}</span><span> - </span>
   <span>End Date: {{ offer.endDate }}</span>
 </mat-card>
 <app-crud [data]="offer.articleLine" [title]="title" [columns]="columns" [createAction]="false" [readAction]="false" [updateAction]="false" [deleteAction]="false">
