@@ -52,7 +52,8 @@ export class HomeComponent {
   }
 
   isOperator(): boolean {
-    return this.tokensService.isOperator();
+    // TODO fix this error!
+    return false; // this.tokensService.isOperator();
   }
 
   cashier() {
@@ -163,6 +164,7 @@ export class HomeComponent {
     this.router.navigate([HomeComponent.URL, OperatorManagerComponent.URL]);
   }
   stockAlarm() {
+    // this.router.navigate([HomeComponent.URL, AlarmsComponent.URL]);
   }
 
   stockManager() {
