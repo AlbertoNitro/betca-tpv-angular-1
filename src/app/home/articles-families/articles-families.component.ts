@@ -20,11 +20,25 @@ export class ArticlesFamiliesCRUDComponent {
     // TODO
   }
 
-  delete($event: any) {
-    // TODO
+  delete(articleFamily: ArticleFamily) {
+    /*console.log($event.valueOf());
+    console.log(this.data.toString());
+    //Esto no se refleja aunque si que borra
+    this.data.splice(1, 1);
+    console.log(this.data.toString());
+    //Esto tampoco se ve reflejado
+    let data2 = this.data;
+    data2.splice(0, 1);
+    this.data = data2;
+    console.log(this.data.toString());
+    //Sin embargo esto si que se ve reflejado:
+    this.data = [{description: 'Games', familyType: 'ARTICLES'}, {description: 'Books', familyType: 'ARTICLES'}];*/
+    this.articleFamilyService.deleteFamilyArticle(articleFamily.description).subscribe(
+      () => this.articleFamilyService.readAllFamilies().subscribe(data => this.data = data)
+    );
   }
 
-  update($event: any) {
+  update(articleFamily: ArticleFamily) {
     // TODO
   }
 }
