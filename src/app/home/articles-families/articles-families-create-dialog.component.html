@@ -3,24 +3,24 @@
   <mat-card-content>
     <form>
       <mat-form-field>
-        <mat-select placeholder="Family Type" [(ngModel)]="familySelected" name="types">
-          <mat-option *ngFor="let selected of familyType" [value]="selected">
-            {{selected}}
+        <mat-select placeholder="Family Type" [(ngModel)]="familyTypeSelected" name="types">
+          <mat-option *ngFor="let selected of familyTypes" [value]="selected">
+            {{selected.label}}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </form>
-    <!--<form> Falta hacer esto
+    <form>
       <mat-form-field>
-        <mat-select placeholder="For which family">
-          <mat-option *ngFor="let selected of familyType" [value]="selected">
-            {{selected}}
+        <mat-select placeholder="For which family" [(ngModel)]="familySelected" name="families">
+          <mat-option *ngFor="let selected of families" [value]="selected">
+            {{selected.description}}
           </mat-option>
         </mat-select>
       </mat-form-field>
-    </form>-->
-    <form *ngIf="familySelected==familyType[0]">
-      <mat-card-title>Size Creation</mat-card-title>
+    </form>
+    <form *ngIf="familyTypeSelected==familyTypes[0]">
+      <mat-card-title>Article Linking</mat-card-title>
       <mat-form-field>
         <input
           matInput
@@ -30,7 +30,7 @@
         />
       </mat-form-field>
     </form>
-    <form *ngIf="familySelected==familyType[1]">
+    <form *ngIf="familyTypeSelected==familyTypes[1]">
       <mat-card-title>Size Creation</mat-card-title>
       <mat-form-field>
         <input
@@ -41,7 +41,7 @@
         />
       </mat-form-field>
     </form>
-    <form *ngIf="familySelected==familyType[2]">
+    <form *ngIf="familyTypeSelected==familyTypes[2]">
       <mat-card-title>Family Creation</mat-card-title>
       <mat-form-field>
         <input
