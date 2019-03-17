@@ -7,16 +7,22 @@
     <mat-card-content>
       <form [formGroup]="stockPredictionForm" (ngSubmit)="onSubmit()">
         <mat-form-field>
-          <mat-select placeholder="Type of period" formControlName="periodType"
-                      (selectionChange)="onChangePeriodType()">
-            <mat-option *ngFor="let periodType of periodTypeList" [value]="periodType">
-              {{periodType}}
+          <mat-select placeholder="Article" matInput formControlName="articleFormControl">
+            <mat-option *ngFor="let article of articleList" [value]="article">
+              {{article.description}}
             </mat-option>
           </mat-select>
         </mat-form-field>
-
         <mat-form-field>
-          <mat-select placeholder="Number of periods" formControlName="periodsNumber">
+          <mat-select placeholder="Type of period" formControlName="periodicityTypeFormControl"
+                      (selectionChange)="onChangePeriodicityType()">
+            <mat-option *ngFor="let periodicityType of periodicityTypeList" [value]="periodicityType">
+              {{periodicityType}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Number of periods" formControlName="periodsNumberFormControl">
             <mat-option *ngFor="let periodsNumber of periodsNumberList" [value]="periodsNumber">
               {{periodsNumber}}
             </mat-option>
@@ -26,6 +32,8 @@
       </form>
     </mat-card-content>
   </mat-card>
+  <app-crud [title]="stockPredictionTableTitle" [columns]="stockPredictionTableColumns"
+            [data]="stockPredictionTableData"></app-crud>
 </div>
 
 
