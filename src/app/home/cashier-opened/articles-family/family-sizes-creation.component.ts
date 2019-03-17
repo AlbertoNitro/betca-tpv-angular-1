@@ -73,8 +73,13 @@ export class FamilySizesCreationComponent implements OnInit {
 
   private manageStepControlValue() {
     this.stepControl.valueChanges.subscribe(val => {
-      this.setNumericStartSizesArray(val);
-      this.smallestSizeControl.reset();
+      if (val < 1) {
+        this.stepControl.setValue(1);
+      } else if (val > 10) { this.stepControl.setValue(10);
+      } else {
+        this.setNumericStartSizesArray(val);
+        this.smallestSizeControl.reset();
+      }
     });
   }
 
