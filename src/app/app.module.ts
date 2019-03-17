@@ -21,6 +21,7 @@ import {ProviderService} from './home/providers/provider.service';
 import {OfferService} from './home/offers/offer.service';
 import {OrderService} from './home/order/order.service';
 import {ArticleFamilyService} from './home/articles-families/articles-families.service';
+import {VoucherService} from './home/vouchers/voucher.service';
 
 @NgModule({
   imports: [
@@ -53,7 +54,8 @@ import {ArticleFamilyService} from './home/articles-families/articles-families.s
     ProviderService,
     UserService,
     OfferService,
-    OrderService
+    OrderService,
+    VoucherService
   ],
   bootstrap: [AppComponent]
 })

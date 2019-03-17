@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {ArticleFamilyService} from './articles-families.service';
 import {ArticleFamily} from './articles-families.model';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-articles-families-create-dialog',
@@ -12,8 +13,23 @@ export class ArticlesFamiliesCreateDialogComponent {
   familyTypeSelected: object;
   families: ArticleFamily[];
   familySelected: ArticleFamily;
+  formCreateSize = new FormGroup({
+    description: new FormControl('', [Validators.required])
+  });
+  formCreateFamily = new FormGroup({
+    description: new FormControl('', [Validators.required]),
+    reference: new FormControl('', [Validators.required])
+  });
 
   constructor(private articleFamilyService: ArticleFamilyService) {
     articleFamilyService.readAllFamilies().subscribe(data => this.families = data);
+  }
+
+  isValid(): boolean {
+    return this.familySelected != null && this.familyTypeSelected != null && (
+      this.formCreateFamily.valid || this.formCreateSize.valid);
+  }
+
+  create() {
   }
 }

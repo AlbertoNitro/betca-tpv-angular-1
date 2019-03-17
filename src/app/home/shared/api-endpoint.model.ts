@@ -20,4 +20,6 @@ export class ApiEndpoint {
 
   public static OFFERS = '/offers';
   public static ORDERS = '/orders';
+
+  public static VOUCHERS = '/vouchers';
 }
