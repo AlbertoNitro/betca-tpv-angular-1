@@ -20,6 +20,7 @@ export class ArticlesFamiliesCRUDComponent {
 
   create() {
     // TODO
+
   }
 
   delete(articleFamily: ArticleFamily) {
