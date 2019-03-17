@@ -15,7 +15,7 @@ export class OffersCreateDialogComponent {
   formCreateOffer = new FormGroup({
     offername: new FormControl('',
       [Validators.required]),
-    endDate: new FormControl('',
+    endDate: new FormControl(  '',
       [Validators.required]),
   });
 
