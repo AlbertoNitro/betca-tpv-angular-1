@@ -2,6 +2,9 @@ import {Component} from '@angular/core';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {FormControl, FormGroup} from '@angular/forms';
+import {StatisticsService} from '../shared/statistics.service';
+import {Statistic} from '../shared/statistic.model';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-statistic',
@@ -28,8 +31,7 @@ export class StatisticComponent {
   xAxisLabel = 'x label';
   yAxisLabel = 'y label';
 
-  constructor() {
-    this.data = [];
+  constructor(private snackBar: MatSnackBar, private statisticsService: StatisticsService) {
     this.form = new FormGroup({
       initDate: new FormControl(),
       endDate: new FormControl(),
@@ -47,6 +49,19 @@ export class StatisticComponent {
 
   isLoadedData() {
     return this.data && this.data.length > 0;
+  }
+
+  search() {
+    this.statisticsService.getDataStatistic(this.statisticSelect, this.dateFrom.toISOString(), this.dateTo.toISOString()).subscribe(
+      resp => {
+        this.data = [new Statistic(this.statisticSelect, resp)];
+      },
+      error => {
+        this.snackBar.open('Error when searching data.', '', {
+          duration: 2000
+        });
+      }
+    );
   }
 
   statisticSelected(statisticSelect) {
