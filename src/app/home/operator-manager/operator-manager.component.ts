@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Offer} from '../offers/offer.model';
 import {Clock} from './clock';
-import {OFFERS} from '../offers/offers.mock';
+
 import {CLOCKS} from './clock-mock';
 
 @Component({
