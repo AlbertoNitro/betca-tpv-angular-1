@@ -10,8 +10,8 @@
   </mat-form-field>
   <mat-form-field>
     <input [disabled]="fieldsDisabled"
-           matInput type="number" placeholder="Import €"
-           [(ngModel)]="cashMovement.import"
+           matInput type="number" placeholder="Cash €"
+           [(ngModel)]="cashMovement.cash"
            required/>
   </mat-form-field>
   <mat-form-field>
@@ -24,7 +24,7 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button color="accent"
+  <button mat-raised-button mat-dialog-close color="accent"
           (click)="save()"
           [disabled]="invalid()">
     <mat-icon>send</mat-icon>

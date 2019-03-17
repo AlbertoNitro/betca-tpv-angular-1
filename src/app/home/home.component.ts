@@ -18,6 +18,11 @@ import {ArticlesComponent} from './articles/articles.component';
 import {ArticlesFamiliesCRUDComponent} from './articles-families/articles-families.component';
 import {FamilySizesCreationComponent} from './cashier-opened/articles-family/family-sizes-creation.component';
 import {OffersComponent} from './offers/offers.component';
+import {StockPredictionComponent} from './stock-prediction/stock-prediction.component';
+import {TicketsComponent} from './tickets/tickets.component';
+import {OrderComponent} from './order/order.component';
+import {OperatorManagerComponent} from './operator-manager/operator-manager.component';
+import {RGPDComponent} from './rgpd/rgpd.component';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -44,6 +49,10 @@ export class HomeComponent {
 
   isManager(): boolean {
     return this.tokensService.isManager();
+  }
+
+  isOperator(): boolean {
+    return this.tokensService.isOperator();
   }
 
   cashier() {
@@ -111,6 +120,7 @@ export class HomeComponent {
   }
 
   tickets() {
+    this.router.navigate([HomeComponent.URL, TicketsComponent.URL]);
   }
 
   ticketTracking() {
@@ -142,10 +152,28 @@ export class HomeComponent {
   }
 
   Orders() {
+    this.router.navigate([HomeComponent.URL, OrderComponent.URL]);
   }
 
   offers() {
     this.router.navigate([HomeComponent.URL, OffersComponent.URL]);
+  }
+
+  operatorManager() {
+    this.router.navigate([HomeComponent.URL, OperatorManagerComponent.URL]);
+  }
+  stockAlarm() {
+  }
+
+  stockManager() {
+  }
+
+  stockPrediction() {
+    this.router.navigate([HomeComponent.URL, StockPredictionComponent.URL]);
+  }
+
+  rgpd() {
+    this.router.navigate([HomeComponent.URL, RGPDComponent.URL]);
   }
 
 }

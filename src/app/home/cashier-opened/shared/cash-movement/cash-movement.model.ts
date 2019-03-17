@@ -1,4 +1,4 @@
 export interface CashMovement {
-  import: number;
+  cash: number;
   comment: string;
 }

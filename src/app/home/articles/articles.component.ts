@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 import {ArticleQueryModel} from '../shared/article-query.model';
+import {ArticleDetailModel} from './article-detail-model';
 
 @Component({
   selector: 'app-articles',
-  templateUrl: './articles.component.html',
-  styleUrls: ['./articles.component.css']
+  templateUrl: './articles.component.html'
 })
 export class ArticlesComponent {
   static URL = 'articles';
@@ -13,24 +13,16 @@ export class ArticlesComponent {
   article: ArticleQueryModel;
 
   title = 'Articles Management';
-  columns = ['code', 'description', 'retail Price', 'stock'];
-  data: ArticleQueryModel[];
+  columns = ['code', 'description', 'retailPrice', 'stock'];
+  data: ArticleDetailModel[];
 
   constructor() {
     this.article = {description: null, stock: null, maximumPrice: null, minimumPrice: null};
-    this.data = null;
   }
 
-  search() {
-
-  }
-
-  searchPartiallyProducts() {
-
-  }
-
-  resetSearch() {
-    this.article = {description: null, stock: null, maximumPrice: null, minimumPrice: null};
+  updateData(data) {
+    console.log(data);
+    this.data = data;
   }
 
   create() {
