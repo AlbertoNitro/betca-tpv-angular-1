@@ -11,35 +11,50 @@ export class FamilySizesCreationComponent implements OnInit {
   public startSizesArray = [];
   public finalSizesArray = [];
   public familySizesForm: FormGroup;
+  public sizesArrayDefinitionForm: FormGroup;
   public sizeTypeControl: FormControl;
   public stepControl: FormControl;
   public smallestSizeControl: FormControl;
   public largestSizeControl: FormControl;
-  constructor(private articleService: ArticleService) {  }
-  ngOnInit(): void {
-    this.initForm();
-    this.setDynamicFormControls();
-    this.manageDynamicFormControlsValue();
+
+  constructor(private articleService: ArticleService) {
   }
 
-  private initForm() {
+  ngOnInit(): void {
+    this.initFamilySizesForm();
+    this.initSizesArrayDefinitionForm();
+    this.setDynamicFormControls();
+  }
+
+  private initFamilySizesForm() {
     this.familySizesForm = new FormGroup({
       reference: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       provider: new FormControl('', Validators.required),
+      sizesArray: new FormControl([])
+    });
+  }
+
+  private initSizesArrayDefinitionForm() {
+    this.sizesArrayDefinitionForm = new FormGroup({
       sizeType: new FormControl('', Validators.required),
       step: new FormControl(1, [Validators.required, Validators.min(1), Validators.max(10)]),
       smallestSize: new FormControl({value: '', disabled: true}, Validators.required),
       largestSize: new FormControl({value: '', disabled: true}, Validators.required),
     });
   }
+
   private setDynamicFormControls() {
-    this.stepControl = this.familySizesForm.get('step') as FormControl;
-    this.sizeTypeControl = this.familySizesForm.get('sizeType') as FormControl;
-    this.smallestSizeControl = this.familySizesForm.get('smallestSize') as FormControl;
-    this.largestSizeControl = this.familySizesForm.get('largestSize') as FormControl;
+    this.sizeTypeControl = this.sizesArrayDefinitionForm.get('sizeType') as FormControl;
+    this.stepControl = this.sizesArrayDefinitionForm.get('step') as FormControl;
+    this.smallestSizeControl = this.sizesArrayDefinitionForm.get('smallestSize') as FormControl;
+    this.largestSizeControl = this.sizesArrayDefinitionForm.get('largestSize') as FormControl;
+    this.manageSizeTypeControlValue();
+    this.manageStepControlValue();
+    this.manageSmallestSizeControlValue();
   }
-  private manageDynamicFormControlsValue() {
+
+  private manageSizeTypeControlValue() {
     this.sizeTypeControl.valueChanges.subscribe(val => {
       switch (val) {
         case 'numeric':
@@ -54,10 +69,21 @@ export class FamilySizesCreationComponent implements OnInit {
           this.smallestSizeControl.reset({value: '', disabled: true});
       }
     });
+  }
+
+  private manageStepControlValue() {
     this.stepControl.valueChanges.subscribe(val => {
-      this.setNumericStartSizesArray(val);
-      this.smallestSizeControl.reset();
+      if (val < 1) {
+        this.stepControl.setValue(1);
+      } else if (val > 10) { this.stepControl.setValue(10);
+      } else {
+        this.setNumericStartSizesArray(val);
+        this.smallestSizeControl.reset();
+      }
     });
+  }
+
+  private manageSmallestSizeControlValue() {
     this.smallestSizeControl.valueChanges.subscribe(val => {
       if (!val || val === '') {
         this.largestSizeControl.reset({value: '', disabled: true});
@@ -81,16 +107,26 @@ export class FamilySizesCreationComponent implements OnInit {
       }
     });
   }
+
   private setNumericStartSizesArray(step) {
     this.startSizesArray = [];
     for (let i = 0; i <= 60; i += step) {
       this.startSizesArray.push(i.toString());
     }
   }
+
   private setAlfaStartSizesArray() {
     this.startSizesArray = this.ALFASIZES;
   }
+
+  private defineSizesArray() {
+    const firstSize = this.startSizesArray.indexOf(this.smallestSizeControl.value);
+    const lastSize = this.startSizesArray.indexOf(this.largestSizeControl.value) + 1;
+    return this.startSizesArray.slice(firstSize, lastSize);
+  }
+
   public createFamilySizes() {
-    ArticleService.createFamilySizes(this.familySizesForm);
+    this.familySizesForm.controls.sizesArray.setValue(this.defineSizesArray());
+    this.articleService.createFamilySizes(this.familySizesForm);
   }
 }

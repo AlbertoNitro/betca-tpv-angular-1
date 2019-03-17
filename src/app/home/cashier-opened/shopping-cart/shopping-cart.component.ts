@@ -155,7 +155,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   }
 
   createBudget() {
-    // TODO crear un presupuesto
+    this.shoppingCartService.createBudget();
   }
 
   ngOnDestroy(): void {

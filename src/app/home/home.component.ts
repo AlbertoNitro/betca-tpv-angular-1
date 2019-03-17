@@ -24,6 +24,7 @@ import {TicketsComponent} from './tickets/tickets.component';
 import {OrderComponent} from './order/order.component';
 import {OperatorManagerComponent} from './operator-manager/operator-manager.component';
 import {RGPDComponent} from './rgpd/rgpd.component';
+import {VouchersComponent} from './vouchers/vouchers.component';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -115,6 +116,7 @@ export class HomeComponent {
   }
 
   vouchers() {
+    this.router.navigate([HomeComponent.URL, VouchersComponent.URL]);
   }
 
   statistics() {

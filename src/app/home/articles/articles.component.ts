@@ -1,7 +1,10 @@
 import {Component} from '@angular/core';
 
-import {ArticleQueryModel} from '../shared/article-query.model';
 import {ArticleDetailModel} from './article-detail-model';
+import {ArticleQueryModel} from '../shared/article-query.model';
+import {ArticleCreateUpdateDialogComponent} from './article-create-update-dialog/article-create-update-dialog.component';
+import {CancelYesDialogComponent} from '../../core/cancel-yes-dialog.component';
+import {MatDialog, MatDialogConfig} from '@angular/material';
 
 @Component({
   selector: 'app-articles',
@@ -14,10 +17,10 @@ export class ArticlesComponent {
 
   title = 'Articles Management';
   columns = ['code', 'description', 'retailPrice', 'stock'];
-  data: ArticleDetailModel[];
+  data: Array<ArticleDetailModel>;
 
-  constructor() {
-    this.article = {description: null, stock: null, maximumPrice: null, minimumPrice: null};
+  constructor(private dialog: MatDialog) {
+    this.data = [{code: '8400000000001', description: 'Falda', retailPrice: 23, stock: 43}];
   }
 
   updateData(data) {
@@ -26,19 +29,38 @@ export class ArticlesComponent {
   }
 
   create() {
+    const dialogConfig: MatDialogConfig = {
+      data: {
+        mode: 'Create',
+        article: {}
+      }
+    };
 
+    this.dialog.open(ArticleCreateUpdateDialogComponent, dialogConfig);
   }
 
   read(article: ArticleQueryModel) {
 
   }
 
-  update(article: ArticleQueryModel) {
+  update(article: ArticleDetailModel) {
+    const dialogConfig: MatDialogConfig = {
+      data: {
+        mode: 'Update',
+        article: {code: article.code}
+      }
+    };
 
+    this.dialog.open(ArticleCreateUpdateDialogComponent, dialogConfig);
   }
 
-  delete(article: ArticleQueryModel) {
-
+  delete(article: ArticleDetailModel) {
+    this.dialog.open(CancelYesDialogComponent).afterClosed().subscribe(
+      result => {
+        if (result) {
+          console.log('Delete article');
+        }
+      });
   }
 }
 
