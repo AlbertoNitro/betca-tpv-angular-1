@@ -21,7 +21,7 @@ export class ArticlesFamiliesCRUDComponent {
 
   create() {
     // TODO
-    this.dialog.open(ArticlesFamiliesCreateDialogComponent, {width: '60%', height: '90%'});
+    this.dialog.open(ArticlesFamiliesCreateDialogComponent, {width: '30%', height: '55%'});
   }
 
   delete(articleFamily: ArticleFamily) {
