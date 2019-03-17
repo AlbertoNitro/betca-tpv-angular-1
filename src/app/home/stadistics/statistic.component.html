@@ -32,7 +32,7 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-raised-button [disabled]="!form.valid" color="primary">Buscar</button>
+  <button mat-raised-button [disabled]="!form.valid" color="primary" (click)="search()">Search</button>
 </form>
 <app-line-chart
   *ngIf="isLoadedData()"
