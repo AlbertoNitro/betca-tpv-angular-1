@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 import {UserService} from './user.service';
 import {User} from './user.model';
 import {MatDialog, MatDialogConfig} from '@angular/material';
-import {UserCreateUpdateDialogComponent} from './user-create-update-dialog.component';
+import {UserCreateUpdateDialogComponent} from './user-create-update-dialog/user-create-update-dialog.component';
 
 @Component({
   templateUrl: `users.component.html`
