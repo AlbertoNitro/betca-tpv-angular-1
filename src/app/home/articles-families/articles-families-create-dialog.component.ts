@@ -5,6 +5,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ArticleMinimum} from '../shared/article-minimum.model';
 import {FamilyTypes} from './family-types.model';
 import {FamilyType} from './family-type.model';
+import {ArticleService} from '../shared/article.service';
 
 @Component({
   selector: 'app-articles-families-create-dialog',
@@ -12,6 +13,7 @@ import {FamilyType} from './family-type.model';
 })
 export class ArticlesFamiliesCreateDialogComponent {
   articlesMinimum: ArticleMinimum[];
+  articleMinimumSelected: ArticleMinimum;
   familyTypes: FamilyTypes = new FamilyTypes();
   familyTypeSelected: FamilyType;
   families: ArticleFamily[];
@@ -24,7 +26,7 @@ export class ArticlesFamiliesCreateDialogComponent {
     reference: new FormControl('', [Validators.required])
   });
 
-  constructor(private articleFamilyService: ArticleFamilyService) {
+  constructor(private articleFamilyService: ArticleFamilyService, private articleService: ArticleService) {
     articleFamilyService.readAllFamilies().subscribe(data => this.families = data);
   }
 
@@ -38,7 +40,7 @@ export class ArticlesFamiliesCreateDialogComponent {
 
   whenArticleSelected() {
     if (this.familyTypeSelected === this.familyTypes.families[0]) {
-      console.log('Articulo');
+      this.articleService.readAllArticleMinimum().subscribe(data => this.articlesMinimum = data);
     }
   }
 }

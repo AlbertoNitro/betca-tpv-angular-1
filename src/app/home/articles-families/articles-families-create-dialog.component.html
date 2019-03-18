@@ -23,12 +23,11 @@
     <form *ngIf="familyTypeSelected==familyTypes.families[0]">
       <mat-card-title>Article Linking</mat-card-title>
       <mat-form-field>
-        <input
-          matInput
-          name="id"
-          placeholder="Article id"
-          type="text"
-        />
+        <mat-select placeholder="Select an article" [(ngModel)]="articleMinimumSelected" name="articles">
+          <mat-option *ngFor="let article of articlesMinimum" [value]="article">
+            {{article.description}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </form>
     <form *ngIf="familyTypeSelected==familyTypes.families[1]" [formGroup]="formCreateSize">
