@@ -37,9 +37,8 @@ export class ArticlesFamiliesCreateDialogComponent {
   }
 
   whenArticleSelected() {
-    console.log(this.familyTypeSelected.familyType);
-    /*if (this.familyTypeSelected === this.familyTypes[0]) {
+    if (this.familyTypeSelected === this.familyTypes.families[0]) {
       console.log('Articulo');
-    }*/
+    }
   }
 }

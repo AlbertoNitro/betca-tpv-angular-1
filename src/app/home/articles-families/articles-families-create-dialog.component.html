@@ -19,8 +19,8 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      </form>
-    <!--<form *ngIf="familyTypeSelected==familyTypes[0]">
+    </form>
+    <form *ngIf="familyTypeSelected==familyTypes.families[0]">
       <mat-card-title>Article Linking</mat-card-title>
       <mat-form-field>
         <input
@@ -31,7 +31,7 @@
         />
       </mat-form-field>
     </form>
-    <form *ngIf="familyTypeSelected==familyTypes[1]" [formGroup]="formCreateSize">
+    <form *ngIf="familyTypeSelected==familyTypes.families[1]" [formGroup]="formCreateSize">
       <mat-card-title>Size Creation</mat-card-title>
       <mat-form-field>
         <input
@@ -43,7 +43,7 @@
         />
       </mat-form-field>
     </form>
-    <form *ngIf="familyTypeSelected==familyTypes[2]" [formGroup]="formCreateFamily">
+    <form *ngIf="familyTypeSelected==familyTypes.families[2]" [formGroup]="formCreateFamily">
       <mat-card-title>Family Creation</mat-card-title>
       <mat-form-field>
         <input
@@ -63,7 +63,7 @@
           type="text"
         />
       </mat-form-field>
-    </form>-->
+    </form>
   </mat-card-content>
 </mat-card>
 <mat-dialog-actions>
