@@ -3,9 +3,10 @@
   <mat-card-content>
     <form>
       <mat-form-field>
-        <mat-select placeholder="Family Type" [(ngModel)]="familyTypeSelected" name="typeSelection">
-          <mat-option *ngFor="let selected of familyTypes" [value]="selected">
-            {{selected.label}}
+        <mat-select placeholder="Family Type" [(ngModel)]="familyTypeSelected" name="typeSelection"
+                    (selectionChange)="whenArticleSelected()">
+          <mat-option *ngFor="let family of familyTypes.families" [value]="family">
+            {{family.label}}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -18,8 +19,8 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-    </form>
-    <form *ngIf="familyTypeSelected==familyTypes[0]">
+      </form>
+    <!--<form *ngIf="familyTypeSelected==familyTypes[0]">
       <mat-card-title>Article Linking</mat-card-title>
       <mat-form-field>
         <input
@@ -62,7 +63,7 @@
           type="text"
         />
       </mat-form-field>
-    </form>
+    </form>-->
   </mat-card-content>
 </mat-card>
 <mat-dialog-actions>
