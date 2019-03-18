@@ -1,0 +1,47 @@
+<h2 mat-dialog-title *ngIf="modeDialog == 'Create'">New customer: </h2>
+<h2 mat-dialog-title *ngIf="modeDialog == 'Update'">Update customer: </h2>
+<form [formGroup]="userForm">
+  <mat-dialog-content>
+    <div class="form-group">
+      <mat-form-field>
+        <input matInput type="number" placeholder="Mobile" formControlName="mobile" required/>
+      </mat-form-field>
+      <mat-error class="error-message" *ngIf="userForm.controls.mobile.errors?.required">Mobile is required</mat-error>
+    </div>
+    <div class="form-group">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Username" formControlName="username" required/>
+      </mat-form-field>
+      <mat-error class="error-message" *ngIf="userForm.controls.username.errors?.required">Username is required</mat-error>
+    </div>
+    <div class="form-group">
+      <mat-form-field>
+        <input matInput type="text" placeholder="DNI" formControlName="dni"/>
+      </mat-form-field>
+      <mat-error class="error-message" *ngIf="userForm.controls.dni.errors?.pattern">DNI has wrong format</mat-error>
+    </div>
+    <div class="form-group">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Address" formControlName="address"/>
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Email" formControlName="email"/>
+      </mat-form-field>
+      <mat-error class="error-message" *ngIf="userForm.controls.email.errors?.pattern">Email has wrong format</mat-error>
+    </div>
+    <div class="form-group">
+      <mat-form-field>
+        <input matInput type="date" placeholder="RegistrationDate" formControlName="registrationDate"/>
+      </mat-form-field>
+    </div>
+    <mat-checkbox formControlName="active">Active</mat-checkbox>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close cdkFocusInitial>Cancel</button>
+    <button mat-raised-button color="primary" *ngIf="modeDialog == 'Create'" (click)="openEditRolesDialog()">Assign Roles</button>
+    <button mat-raised-button color="primary" *ngIf="modeDialog == 'Update'" (click)="openEditRolesDialog()">Edit Roles</button>
+    <button mat-raised-button color="accent" [disabled]="userForm.invalid" (click)="saveUser()">{{modeDialog}}</button>
+  </mat-dialog-actions>
+</form>

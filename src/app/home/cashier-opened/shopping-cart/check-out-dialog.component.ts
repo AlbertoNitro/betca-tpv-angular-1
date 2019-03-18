@@ -3,10 +3,10 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig} from '@angular/material';
 
 import {TicketCreation} from './ticket-creation.model';
 import {ShoppingCartService} from './shopping-cart.service';
-import {UserQuickCreationDialogComponent} from '../../users/user-quick-creation-dialog.controller';
+import {UserQuickCreationDialogComponent} from '../../users/user-quick-creation-dialog/user-quick-creation-dialog.controller';
 import {VouchersUseDialogComponent} from '../../vouchers/vouchersUse-dialog.component';
 import {User} from '../../users/user.model';
-import {UserCreateUpdateDialogComponent} from '../../users/user-create-update-dialog.component';
+import {UserCreateUpdateDialogComponent} from '../../users/user-create-update-dialog/user-create-update-dialog.component';
 
 @Component({
   templateUrl: 'check-out-dialog.component.html',
@@ -149,7 +149,7 @@ export class CheckOutDialogComponent {
 
   openEditUserDialog() {
     // TODO quitar mock de User. Enviar al dialogo el usuario encontrado.
-    this.userFound = {mobile: 123456, username: 'userMock'}
+    this.userFound = {mobile: 123456, username: 'userMock'};
     const dialogConfig: MatDialogConfig = {
       data: {
         mode: 'Update',
