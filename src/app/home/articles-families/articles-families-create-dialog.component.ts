@@ -2,12 +2,14 @@ import {Component} from '@angular/core';
 import {ArticleFamilyService} from './articles-families.service';
 import {ArticleFamily} from './articles-families.model';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ArticleMinimum} from '../shared/article-minimum.model';
 
 @Component({
   selector: 'app-articles-families-create-dialog',
   templateUrl: './articles-families-create-dialog.component.html'
 })
 export class ArticlesFamiliesCreateDialogComponent {
+  articlesMinimum: ArticleMinimum[];
   familyTypes = [{familyType: 'ARTICLE', label: 'Article'},
     {familyType: 'SIZES', label: 'Size'}, {familyType: 'ARTICLES', label: 'Family'}];
   familyTypeSelected: object;
