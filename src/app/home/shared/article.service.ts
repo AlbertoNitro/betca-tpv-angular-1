@@ -44,7 +44,7 @@ export class ArticleService {
     return this.httpService.get(ApiEndpoint.ARTICLES + '/' + code);
   }
 
-  readAllArticleMinimum(): Observable<ArticleMinimum> {
+  readAllArticleMinimum(): Observable<ArticleMinimum[]> {
     return this.httpService.get(ApiEndpoint.ARTICLES + ApiEndpoint.MINIMUM);
   }
 }

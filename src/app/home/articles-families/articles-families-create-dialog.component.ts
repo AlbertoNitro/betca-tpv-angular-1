@@ -2,15 +2,20 @@ import {Component} from '@angular/core';
 import {ArticleFamilyService} from './articles-families.service';
 import {ArticleFamily} from './articles-families.model';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ArticleMinimum} from '../shared/article-minimum.model';
+import {FamilyTypes} from './family-types.model';
+import {FamilyType} from './family-type.model';
+import {ArticleService} from '../shared/article.service';
 
 @Component({
   selector: 'app-articles-families-create-dialog',
   templateUrl: './articles-families-create-dialog.component.html'
 })
 export class ArticlesFamiliesCreateDialogComponent {
-  familyTypes = [{familyType: 'ARTICLE', label: 'Article'},
-    {familyType: 'SIZES', label: 'Size'}, {familyType: 'ARTICLES', label: 'Family'}];
-  familyTypeSelected: object;
+  articlesMinimum: ArticleMinimum[];
+  articleMinimumSelected: ArticleMinimum;
+  familyTypes: FamilyTypes = new FamilyTypes();
+  familyTypeSelected: FamilyType;
   families: ArticleFamily[];
   familySelected: ArticleFamily;
   formCreateSize = new FormGroup({
@@ -21,7 +26,7 @@ export class ArticlesFamiliesCreateDialogComponent {
     reference: new FormControl('', [Validators.required])
   });
 
-  constructor(private articleFamilyService: ArticleFamilyService) {
+  constructor(private articleFamilyService: ArticleFamilyService, private articleService: ArticleService) {
     articleFamilyService.readAllFamilies().subscribe(data => this.families = data);
   }
 
@@ -31,5 +36,11 @@ export class ArticlesFamiliesCreateDialogComponent {
   }
 
   create() {
+  }
+
+  whenArticleSelected() {
+    if (this.familyTypeSelected === this.familyTypes.families[0]) {
+      this.articleService.readAllArticleMinimum().subscribe(data => this.articlesMinimum = data);
+    }
   }
 }
