@@ -4,22 +4,22 @@
     Clock Search
   </mat-card-title>
   <mat-card-content>
-    <form [formGroup]="operatorManagerForm">
+    <form [formGroup]="operatorManagerForm" (ngSubmit)="doSearch()">
       <mat-form-field color="accent">
         <input matInput [matDatepicker]="dateFromDatePicker"
-               formControlName="dateFrom" placeholder="From"
-               (change)="dateFromChange($event)">
+               formControlName="dateFrom" placeholder="From">
         <mat-datepicker-toggle matSuffix [for]="dateFromDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #dateFromDatePicker></mat-datepicker>
-        <mat-error *ngIf="hasError('dateFrom', 'validEndDate')">Date From can not be greater than the current date</mat-error>
+        <mat-error *ngIf="hasError('dateFrom', 'validEndDate')">Date From can not be greater than the current date
+        </mat-error>
       </mat-form-field>
       <mat-form-field color="accent">
-        <input matInput [matDatepicker]="dateUpDatePicker"
-               formControlName="dateUp" placeholder="To"
-               (change)="dateUpChange($event)">
-        <mat-datepicker-toggle matSuffix [for]="dateUpDatePicker"></mat-datepicker-toggle>
-        <mat-datepicker #dateUpDatePicker></mat-datepicker>
-        <mat-error *ngIf="hasError('dateUp', 'validEndDate')">Date To can not be greater than the current date</mat-error>
+        <input matInput [matDatepicker]="dateToDatePicker"
+               formControlName="dateTo" placeholder="To">
+        <mat-datepicker-toggle matSuffix [for]="dateToDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #dateToDatePicker></mat-datepicker>
+        <mat-error *ngIf="hasError('dateTo', 'validEndDate')">Date To can not be greater than the current date
+        </mat-error>
       </mat-form-field>
       <mat-form-field>
         <input matInput formControlName="employeeMobile" placeholder="Employee Mobile" id="employeeMobile">
@@ -34,5 +34,6 @@
     </form>
   </mat-card-content>
 </mat-card>
-<app-crud [data]="clocks" [title]="title" [columns]="columns" [updateAction]="false" [createAction]="false"
+<app-crud [data]="clocksData" [title]="title" [columns]="columns"
+          [updateAction]="false" [createAction]="false"
           [readAction]="false" [deleteAction]="false"></app-crud>
