@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { Offer } from './offer.model';
-import { ArticleIdentificatorsMock } from './articleIdentificators.mock';
+import {ArticleLine, CreateOffer} from './offer.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {MatTableDataSource} from '@angular/material';
 import {ArticleService} from '../shared/article.service';
-import {Article} from '../shared/article.model';
 
 @Component({
   selector: 'app-offers-create-dialog',
@@ -12,9 +10,9 @@ import {Article} from '../shared/article.model';
 })
 export class OffersCreateDialogComponent {
   title = 'Articles list';
-  dataSource: MatTableDataSource<object>;
+  dataSource: MatTableDataSource<ArticleLine>;
   displayedColumns = ['id', 'percentage', 'action'];
-  offer: Offer;
+  offer: CreateOffer;
 
   formCreateOffer = new FormGroup({
     offername: new FormControl('',
@@ -31,14 +29,14 @@ export class OffersCreateDialogComponent {
   });
 
   constructor(private articleService: ArticleService) {
-    this.dataSource = new MatTableDataSource<object>();
+    this.dataSource = new MatTableDataSource<ArticleLine>();
   }
 
-  addArticle(formAddArticle: FormGroup) {
+  addArticle(formSubmitted: FormGroup) {
     // TODO implement addArticle
     console.log('Add Article');
-    const articleId = formAddArticle.controls.articleId.value;
-    const percentage = formAddArticle.controls.percentage.value;
+    const articleId = formSubmitted.controls.articleId.value;
+    const percentage = formSubmitted.controls.percentage.value;
     this.articleService.readOne(articleId).subscribe((result) => {
         console.log(result, '<<<<<<<<< ARTICLE FOUNDED');
         this.dataSource.data.push({ id: articleId, percentage: percentage });
@@ -54,12 +52,18 @@ export class OffersCreateDialogComponent {
     this.dataSource.data = this.dataSource.data.filter(h => h !== article);
   }
 
-  createOffer(formCreateOffer: FormGroup) {
+  createOffer(formSubmitted: FormGroup) {
     // TODO implement createOffer
-    this.offer.offername = formCreateOffer.controls.offername.value;
-    this.offer.endDate = formCreateOffer.controls.endDate.value;
+    console.log(formSubmitted.controls.offername.value, '<<<<<< offername - FORM CREATE OFFER CONTROLS');
+    console.log(formSubmitted.controls.endDate.value, '<<<<<< endDate - FORM CREATE OFFER CONTROLS');
+    console.log(this.offer, '<<<<<<<< OFFER');
     console.log(this.dataSource.data, '<<<<<< dataSourceData');
-    console.log(this.offer.articleLine, '<<<<<< ArticleLine');
+    this.offer = {
+      offername: formSubmitted.controls.offername.value,
+      endDate: formSubmitted.controls.endDate.value,
+      articleLine: undefined
+    };
+    this.offer.articleLine = this.dataSource.data;
     console.log(this.offer, '<<<<<<<< OFFER');
   }
 }
