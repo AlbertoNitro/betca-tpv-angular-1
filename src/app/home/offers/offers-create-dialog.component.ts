@@ -23,17 +23,25 @@ export class OffersCreateDialogComponent {
       [Validators.required]),
   });
 
+  formAddArticle = new FormGroup({
+    articleId: new FormControl('',
+      [Validators.required]),
+    percentage: new FormControl(  '',
+      [Validators.required]),
+  });
+
   constructor(private articleService: ArticleService) {
     this.dataSource = new MatTableDataSource<object>();
   }
 
-  addArticle() {
+  addArticle(formAddArticle: FormGroup) {
     // TODO implement addArticle
     console.log('Add Article');
-    const article: object = { id: '7', percentage: 3 }; // TODO Replace this hardcore data for data inputs
-    this.articleService.readOne(article.id).subscribe((result) => {
+    const articleId = formAddArticle.controls.articleId.value;
+    const percentage = formAddArticle.controls.percentage.value;
+    this.articleService.readOne(articleId).subscribe((result) => {
         console.log(result, '<<<<<<<<< ARTICLE FOUNDED');
-        this.dataSource.data.push(article);
+        this.dataSource.data.push({ id: articleId, percentage: percentage });
         this.dataSource = new MatTableDataSource(this.dataSource.data);
       },
       (error) => {
@@ -46,10 +54,12 @@ export class OffersCreateDialogComponent {
     this.dataSource.data = this.dataSource.data.filter(h => h !== article);
   }
 
-  createOffer(formSubmited: FormGroup) {
+  createOffer(formCreateOffer: FormGroup) {
     // TODO implement createOffer
-    console.log('<<<<<<<< ENTRA >>>>>>>');
-    console.log(this.dataSource.data, '<<<<<< ArticleLine');
-    console.log(formSubmited, '<<<<<<<< FORM FIELDS');
+    this.offer.offername = formCreateOffer.controls.offername.value;
+    this.offer.endDate = formCreateOffer.controls.endDate.value;
+    console.log(this.dataSource.data, '<<<<<< dataSourceData');
+    console.log(this.offer.articleLine, '<<<<<< ArticleLine');
+    console.log(this.offer, '<<<<<<<< OFFER');
   }
 }
