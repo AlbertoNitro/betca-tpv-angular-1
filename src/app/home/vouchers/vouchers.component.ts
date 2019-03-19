@@ -6,6 +6,7 @@ import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-mome
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {VoucherNewDialogComponent} from './voucherNew-dialog.component';
+import {VoucherConsumedDialogComponent} from './voucherConsumed-dialog.component';
 
 
 @Component({
@@ -55,6 +56,17 @@ export class VouchersComponent {
     this.initDate = date.value;
   }
 
+  update(voucher: Voucher) {
+    // TODO quitar mock de Voucher.
+    const voucherFound = {id: 1, value: 10, dateOfUse: null};
+    const dialogConfig: MatDialogConfig = {
+      data: {
+        mode: 'Update',
+        voucher: voucherFound
+      }
+    };
+    this.dialog.open(VoucherConsumedDialogComponent, dialogConfig);
+  }
   create() {
     const dialogConfig: MatDialogConfig = {
       data: {
