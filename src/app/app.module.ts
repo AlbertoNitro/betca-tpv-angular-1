@@ -7,6 +7,7 @@ import {CdkTableModule} from '@angular/cdk/table';
 import {CoreModule} from './core/core.module';
 import {CashierService} from './home/shared/cashier.service';
 import {ArticleService} from './home/shared/article.service';
+import {BudgetService} from './home/budgets/budget.service';
 import {CashierClosureService} from './home/cashier-opened/cashier/cashier-closure.service';
 import {CashMovementService} from './home/cashier-opened/shared/cash-movement/cash-movement.service';
 import {ShoppingCartService} from './home/cashier-opened/shopping-cart/shopping-cart.service';
@@ -46,6 +47,7 @@ import {VoucherService} from './home/vouchers/voucher.service';
     AdminsService,
     ArticleFamilyService,
     ArticleService,
+    BudgetService,
     CashierClosureService,
     CashierService,
     CashMovementService,

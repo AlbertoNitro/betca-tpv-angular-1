@@ -4,6 +4,7 @@ import {AdvancedSearchComponent} from './home/cashier-opened/advanced-search/adv
 import {ArticlesComponent} from './home/articles/articles.component';
 import {FamilySizesCreationComponent} from './home/cashier-opened/articles-family/family-sizes-creation.component';
 import {ArticlesFamilyViewComponent} from './home/cashier-opened/articles-family/articles-family-view.component';
+import {BudgetsComponent} from './home/budgets/budgets.component';
 import {CashierClosedComponent} from './home/cashier-closed/cashier-closed.component';
 import {CashierOpenedComponent} from './home/cashier-opened/cashier-opened.component';
 import {CashMovementDialogComponent} from './home/cashier-opened/shared/cash-movement/cash-movement-dialog.component';
@@ -47,6 +48,7 @@ const routes: Routes = [
     children: [
       {path: ArticlesComponent.URL, component: ArticlesComponent},
       {path: ArticlesFamiliesCRUDComponent.URL, component: ArticlesFamiliesCRUDComponent},
+      {path: BudgetsComponent.URL, component: BudgetsComponent},
       {path: CashierClosedComponent.URL, component: CashierClosedComponent},
       {path: CashierOpenedComponent.URL, component: CashierOpenedComponent},
       {path: OperatorManagerComponent.URL, component: OperatorManagerComponent},
@@ -74,6 +76,7 @@ export class AppRoutingModule {
     ArticlesComponent,
     ArticlesFamiliesCRUDComponent,
     ArticlesFamilyViewComponent,
+    BudgetsComponent,
     CashierClosedComponent,
     CashierOpenedComponent,
     HomeComponent,
