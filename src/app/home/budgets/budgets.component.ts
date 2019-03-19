@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 
 import {Budget} from './budgets.model';
+import {BudgetService} from './budget.service';
 
 @Component({
   templateUrl: 'budgets.component.html'
@@ -14,12 +15,15 @@ export class BudgetsComponent {
   title = 'Budget management';
   columns = ['code'];
 
-  constructor() {
+  constructor(private budgetService: BudgetService) {
     this.budget = {code: null};
   }
 
   search() {
     // TODO implement real search
+    /*this.budgetService.readAll().subscribe(
+      data => this.data = data
+    );*/
     this.data = [
       {'code': '11111111', 'shoppingCart': []}, {'code': '22222222', 'shoppingCart': []},
       {'code': '33333333', 'shoppingCart': []}, {'code': '44444444', 'shoppingCart': []}
