@@ -1,9 +1,6 @@
 <h2 mat-dialog-title>voucher: </h2>
 <mat-dialog-content>
-  <mat-form-field>
-    <input matInput type="text" [(ngModel)]="data.id" placeholder="Id"/>
-  </mat-form-field>
-  <mat-slide-toggle (change)="onChange($event)" [(ngModel)]="data.dateOfUse">Consumed</mat-slide-toggle>
+  <mat-slide-toggle (change)="onChange($event)">Consumed</mat-slide-toggle>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button mat-dialog-close cdkFocusInitial>Cancel</button>
