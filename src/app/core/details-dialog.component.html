@@ -1,0 +1,11 @@
+<h3 mat-dialog-title>{{title}}</h3>
+<mat-dialog-content>
+  <table>
+  <ng-container  *ngFor="let property of properties">
+    <tr>
+      <td class="properties-cell">{{property}}</td>
+      <td>{{object[property]}}</td>
+    </tr>
+  </ng-container>
+</table>
+</mat-dialog-content>
