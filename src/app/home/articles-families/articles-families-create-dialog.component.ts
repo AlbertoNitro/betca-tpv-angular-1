@@ -32,7 +32,7 @@ export class ArticlesFamiliesCreateDialogComponent {
 
   isValid(): boolean {
     return this.familySelected != null && this.familyTypeSelected != null && (
-      this.formCreateFamily.valid || this.formCreateSize.valid);
+      this.formCreateFamily.valid || this.formCreateSize.valid || this.articleMinimumSelected != null);
   }
 
   create() {

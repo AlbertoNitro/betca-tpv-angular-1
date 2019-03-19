@@ -15,4 +15,8 @@ export class UserService {
     return this.httpService.get(ApiEndpoint.USERS);
   }
 
+  findByMobile(mobile: number): Observable<User> {
+    return this.httpService.get(ApiEndpoint.USERS + '/' + mobile);
+  }
+
 }

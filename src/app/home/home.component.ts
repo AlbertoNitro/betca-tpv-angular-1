@@ -7,6 +7,7 @@ import {CashierService} from './shared/cashier.service';
 import {AdminsService} from './admins/admins.service';
 import {UserService} from './users/user.service';
 import {DbSeedDialogComponent} from './admins/db-seed-dialog.component';
+import {BudgetsComponent} from './budgets/budgets.component';
 import {CashierClosedComponent} from './cashier-closed/cashier-closed.component';
 import {CashierOpenedComponent} from './cashier-opened/cashier-opened.component';
 import {CashierClosureDialogComponent} from './cashier-opened/cashier/cashier-closure-dialog.component';
@@ -153,6 +154,7 @@ export class HomeComponent {
   }
 
   budgets() {
+    this.router.navigate([HomeComponent.URL, BudgetsComponent.URL]);
   }
 
   Orders() {
