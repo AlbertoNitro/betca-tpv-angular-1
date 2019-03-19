@@ -7,6 +7,7 @@ import {UserQuickCreationDialogComponent} from '../../users/user-quick-creation-
 import {VouchersUseDialogComponent} from '../../vouchers/vouchersUse-dialog.component';
 import {User} from '../../users/user.model';
 import {UserCreateUpdateDialogComponent} from '../../users/user-create-update-dialog/user-create-update-dialog.component';
+import {UserService} from '../../users/user.service';
 
 @Component({
   templateUrl: 'check-out-dialog.component.html',
@@ -18,11 +19,13 @@ export class CheckOutDialogComponent {
   requestedInvoice = false;
   ticketCreation: TicketCreation;
   userFound: User;
-  isUserFound: boolean;
+  userMobile: number;
 
-  constructor(@Inject(MAT_DIALOG_DATA) data: any, private dialog: MatDialog, private shoppingCartService: ShoppingCartService) {
+  constructor(@Inject(MAT_DIALOG_DATA) data: any, private dialog: MatDialog, private shoppingCartService: ShoppingCartService,
+              private userService: UserService) {
     this.totalPurchase = data.total;
     this.ticketCreation = data.ticketCreation;
+    this.userService = userService;
   }
 
   static format(value: number): number {
@@ -140,16 +143,21 @@ export class CheckOutDialogComponent {
     return true;
   }
 
+  findUserByMobile() {
+    this.userService.findByMobile(this.userMobile).subscribe(response => {
+      this.userFound = response;
+      this.ticketCreation.userMobile = this.userFound.mobile;
+    }, () => {
+      this.openQuickUserCrud();
+    });
+  }
+
   openQuickUserCrud() {
     this.dialog.open(UserQuickCreationDialogComponent);
-    // TODO quitar flag. Poner a true cuando el usuario se enuentra y se asocia al ticket.
-    this.isUserFound = true;
   }
 
 
   openEditUserDialog() {
-    // TODO quitar mock de User. Enviar al dialogo el usuario encontrado.
-    this.userFound = {mobile: 123456, username: 'userMock'};
     const dialogConfig: MatDialogConfig = {
       data: {
         mode: 'Update',
@@ -157,5 +165,11 @@ export class CheckOutDialogComponent {
       }
     };
     this.dialog.open(UserCreateUpdateDialogComponent, dialogConfig);
+  }
+
+  unassignUser() {
+    this.ticketCreation.userMobile = null;
+    this.userMobile = null;
+    this.userFound = null;
   }
 }
