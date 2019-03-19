@@ -4,6 +4,9 @@ import {Voucher} from './voucher.model';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MatDialog, MatDialogConfig} from '@angular/material';
+import {VoucherNewDialogComponent} from './voucherNew-dialog.component';
+import {VoucherConsumedDialogComponent} from './voucherConsumed-dialog.component';
 
 
 @Component({
@@ -24,8 +27,11 @@ export class VouchersComponent {
   form: FormGroup;
   initDate: Date;
   endDate: Date;
+  title = 'Vouchers management';
+  columns = ['id', 'value'];
+  data: Voucher[];
 
-  constructor(fb: FormBuilder, private voucherService: VoucherService) {
+  constructor(fb: FormBuilder, private voucherService: VoucherService, private dialog: MatDialog) {
     this.form = new FormGroup({
       initDate: new FormControl(),
       endDate: new FormControl()
@@ -35,6 +41,11 @@ export class VouchersComponent {
 
   search() {
     // TODO implement search with fields
+    this.data = [
+      {id: '1', value: 20, creationDate: new Date(), dateOfUse: null},
+      {id: '2', value: 40, creationDate: new Date(), dateOfUse: null},
+      {id: '3', value: 5, creationDate: new Date(), dateOfUse: null},
+    ];
   }
 
   dateEndChange(date) {
@@ -43,5 +54,31 @@ export class VouchersComponent {
 
   dateInitChange(date) {
     this.initDate = date.value;
+  }
+
+  update(voucher: Voucher) {
+    // TODO quitar mock de Voucher.
+    const voucherFound = {id: 1, value: 10, dateOfUse: null};
+    const dialogConfig: MatDialogConfig = {
+      data: {
+        mode: 'Update',
+        voucher: voucherFound
+      }
+    };
+    this.dialog.open(VoucherConsumedDialogComponent, dialogConfig);
+  }
+  create() {
+    const dialogConfig: MatDialogConfig = {
+      data: {
+        mode: 'Create',
+        voucher: this.voucher
+      }
+    };
+    this.dialog.open(VoucherNewDialogComponent, dialogConfig);
+  }
+
+  updateData(data) {
+    console.log(data);
+    this.data = data;
   }
 }
