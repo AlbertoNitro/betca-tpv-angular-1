@@ -3,7 +3,8 @@ import { Offer } from './offer.model';
 import { ArticleIdentificatorsMock } from './articleIdentificators.mock';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {MatTableDataSource} from '@angular/material';
-import {ShoppingCart} from '../tickets/tickets.component';
+import {ArticleService} from '../shared/article.service';
+import {Article} from '../shared/article.model';
 
 @Component({
   selector: 'app-offers-create-dialog',
@@ -11,7 +12,6 @@ import {ShoppingCart} from '../tickets/tickets.component';
 })
 export class OffersCreateDialogComponent {
   title = 'Articles list';
-  // columns = ['id', 'percentage'];
   dataSource: MatTableDataSource<object>;
   displayedColumns = ['id', 'percentage', 'action'];
   offer: Offer;
@@ -23,7 +23,7 @@ export class OffersCreateDialogComponent {
       [Validators.required]),
   });
 
-  constructor() {
+  constructor(private articleService: ArticleService) {
     this.dataSource = new MatTableDataSource<object>();
   }
 
@@ -31,8 +31,15 @@ export class OffersCreateDialogComponent {
     // TODO implement addArticle
     console.log('Add Article');
     const article: object = { id: '7', percentage: 3 }; // TODO Replace this hardcore data for data inputs
-    this.dataSource.data.push(article);
-    this.dataSource = new MatTableDataSource(this.dataSource.data);
+    this.articleService.readOne(article.id).subscribe((result) => {
+        console.log(result, '<<<<<<<<< ARTICLE FOUNDED');
+        this.dataSource.data.push(article);
+        this.dataSource = new MatTableDataSource(this.dataSource.data);
+      },
+      (error) => {
+        console.log(error, '<<<<<<<<< ERROR: Article Id not found');
+      }
+    );
   }
 
   delete(article: object) {
