@@ -33,3 +33,6 @@
     </button>
   </mat-card-content>
 </mat-card>
+<app-advanced-query (emitter)="updateData($event)"></app-advanced-query>
+<app-crud [data]="data" [title]="title" [columns]="columns"
+          (create)="create()" (update)="update($event)"></app-crud>
