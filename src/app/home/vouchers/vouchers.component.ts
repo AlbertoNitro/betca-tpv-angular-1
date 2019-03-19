@@ -4,6 +4,8 @@ import {Voucher} from './voucher.model';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MatDialog, MatDialogConfig} from '@angular/material';
+import {VoucherNewDialogComponent} from './voucherNew-dialog.component';
 
 
 @Component({
@@ -27,7 +29,8 @@ export class VouchersComponent {
   title = 'Vouchers management';
   columns = ['id', 'value'];
   data: Voucher[];
-  constructor(fb: FormBuilder, private voucherService: VoucherService) {
+
+  constructor(fb: FormBuilder, private voucherService: VoucherService, private dialog: MatDialog) {
     this.form = new FormGroup({
       initDate: new FormControl(),
       endDate: new FormControl()
@@ -53,6 +56,13 @@ export class VouchersComponent {
   }
 
   create() {
+    const dialogConfig: MatDialogConfig = {
+      data: {
+        mode: 'Create',
+        voucher: this.voucher
+      }
+    };
+    this.dialog.open(VoucherNewDialogComponent, dialogConfig);
   }
 
   updateData(data) {

@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>New voucher: </h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <input matInput type="text" placeholder="Value"/>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close cdkFocusInitial>Cancel</button>
+  <button mat-raised-button mat-dialog-close color="accent" (click)="create()">Create</button>
+</mat-dialog-actions>
