@@ -5,7 +5,13 @@ export interface Offer {
   articleLine: ArticleLine[];
 }
 
+export interface CreateOffer {
+  offername: string;
+  endDate: string;
+  articleLine: ArticleLine[];
+}
+
 export interface ArticleLine {
-  idArticle: string;
+  id: string;
   percentage: number;
 }

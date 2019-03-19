@@ -1,48 +1,69 @@
-import { Component } from '@angular/core';
-import { Offer } from './offer.model';
-import { ArticleIdentificatorsMock } from './articleIdentificators.mock';
+import {Component, OnInit} from '@angular/core';
+import {ArticleLine, CreateOffer} from './offer.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {MatTableDataSource} from '@angular/material';
-import {ShoppingCart} from '../tickets/tickets.component';
+import {ArticleService} from '../shared/article.service';
+import {OfferService} from './offer.service';
 
 @Component({
   selector: 'app-offers-create-dialog',
   templateUrl: './offers-create-dialog.component.html'
 })
-export class OffersCreateDialogComponent {
+export class OffersCreateDialogComponent implements OnInit {
   title = 'Articles list';
-  // columns = ['id', 'percentage'];
-  dataSource: MatTableDataSource<object>;
+  dataSource: MatTableDataSource<ArticleLine>;
   displayedColumns = ['id', 'percentage', 'action'];
-  offer: Offer;
+  offer: CreateOffer;
 
-  formCreateOffer = new FormGroup({
-    offername: new FormControl('',
-      [Validators.required]),
-    endDate: new FormControl(  '',
-      [Validators.required]),
-  });
+  public formCreateOffer: FormGroup;
+  public formAddArticle: FormGroup;
 
-  constructor() {
-    this.dataSource = new MatTableDataSource<object>();
+  ngOnInit() {
+    this.formCreateOffer = new FormGroup({
+      offername: new FormControl('',
+        [Validators.required]),
+      endDate: new FormControl(  '',
+        [Validators.required]),
+    });
+
+    this.formAddArticle = new FormGroup({
+      articleId: new FormControl('',
+        [Validators.required]),
+      percentage: new FormControl(  '',
+        [Validators.required, Validators.min(1), Validators.max(100)] ),
+    });
   }
 
-  addArticle() {
-    // TODO implement addArticle
-    console.log('Add Article');
-    const article: object = { id: '7', percentage: 3 }; // TODO Replace this hardcore data for data inputs
-    this.dataSource.data.push(article);
-    this.dataSource = new MatTableDataSource(this.dataSource.data);
+  constructor(private offerService: OfferService, private articleService: ArticleService) {
+    this.dataSource = new MatTableDataSource<ArticleLine>();
+  }
+
+  addArticle(formSubmitted: FormGroup) {
+    const articleId = formSubmitted.controls.articleId.value;
+    const percentage = formSubmitted.controls.percentage.value;
+    this.articleService.readOne(articleId).subscribe((result) => {
+        const articleRepeated = this.dataSource.data.find(article => article.id === articleId) !== undefined;
+        if (!articleRepeated) {
+          this.dataSource.data.push({ id: articleId, percentage: percentage });
+          this.dataSource = new MatTableDataSource(this.dataSource.data);
+        }
+      },
+      (error) => {
+        console.log(error, '<<<<<<<<< ERROR: Article Id not found');
+      }
+    );
   }
 
   delete(article: object) {
     this.dataSource.data = this.dataSource.data.filter(h => h !== article);
   }
 
-  createOffer(formSubmited: FormGroup) {
-    // TODO implement createOffer
-    console.log('<<<<<<<< ENTRA >>>>>>>');
-    console.log(this.dataSource.data, '<<<<<< ArticleLine');
-    console.log(formSubmited, '<<<<<<<< FORM FIELDS');
+  createOffer(formSubmitted: FormGroup) {
+    this.offer = {
+      offername: formSubmitted.controls.offername.value,
+      endDate: formSubmitted.controls.endDate.value,
+      articleLine: this.dataSource.data
+    };
+    this.offerService.create(this.offer).subscribe();
   }
 }
