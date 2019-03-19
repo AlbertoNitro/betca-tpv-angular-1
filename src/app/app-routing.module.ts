@@ -39,6 +39,7 @@ import {UserQuickCreationDialogComponent} from './home/users/user-quick-creation
 import {RGPDComponent} from './home/rgpd/rgpd.component';
 import {ArticlesFamiliesCreateDialogComponent} from './home/articles-families/articles-families-create-dialog.component';
 import {VouchersComponent} from './home/vouchers/vouchers.component';
+import {VoucherNewDialogComponent} from './home/vouchers/voucherNew-dialog.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
@@ -112,6 +113,7 @@ export class AppRoutingModule {
     RolesDialogComponent,
     UserCreateUpdateDialogComponent,
     UserQuickCreationDialogComponent,
-    VouchersUseDialogComponent
+    VouchersUseDialogComponent,
+    VoucherNewDialogComponent
   ];
 }
