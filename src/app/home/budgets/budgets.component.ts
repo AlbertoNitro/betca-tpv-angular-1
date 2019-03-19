@@ -12,14 +12,18 @@ export class BudgetsComponent {
 
   data: Budget[];
   title = 'Budget management';
-  columns = ['Code'];
+  columns = ['code'];
 
   constructor() {
     this.budget = {code: null};
   }
 
   search() {
-    // TODO implement search
+    // TODO implement real search
+    this.data = [
+      {'code': '11111111', 'shoppingCart': []}, {'code': '22222222', 'shoppingCart': []},
+      {'code': '33333333', 'shoppingCart': []}, {'code': '44444444', 'shoppingCart': []}
+    ];
   }
 
   resetSearch() {
