@@ -15,7 +15,6 @@ export class VoucherConsumedDialogComponent implements OnInit {
   ngOnInit() {
   }
 
-  onchange(val) {
-    console.log(val);
+  consumed() {
   }
 }
