@@ -4,13 +4,10 @@ import {FormControl} from '@angular/forms';
 @Injectable()
 export class DatesValidator {
 
-
-  statis;
-
   constructor() {
   }
 
-  static validDate(control: FormControl) {
+  static validStartDate(control: FormControl) {
     let valid: any;
     valid = null;
     let diff: any;

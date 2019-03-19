@@ -18,4 +18,8 @@ export class ProviderService {
   readAllActives(): Observable<Provider[]> {
     return this.httpService.get(ApiEndpoint.PROVIDERS + ApiEndpoint.ACTIVES);
   }
+
+  read(id: string): Observable<Provider> {
+    return this.httpService.get(ApiEndpoint.PROVIDERS + '\\' + id );
+  }
 }

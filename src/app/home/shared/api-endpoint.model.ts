@@ -10,6 +10,7 @@ export class ApiEndpoint {
   public static USERS = '/users';
 
   public static ARTICLES = '/articles';
+  public static ARTICLES_MINIMUM = ApiEndpoint.ARTICLES + '/minimum';
   public static ARTICLES_FAMILY = '/articles-family';
 
   public static TICKETS = '/tickets';
@@ -20,4 +21,6 @@ export class ApiEndpoint {
 
   public static OFFERS = '/offers';
   public static ORDERS = '/orders';
+
+  public static VOUCHERS = '/vouchers';
 }
