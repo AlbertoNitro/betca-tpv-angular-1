@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ArticleLine, CreateOffer} from './offer.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {MatTableDataSource} from '@angular/material';
@@ -8,25 +8,30 @@ import {ArticleService} from '../shared/article.service';
   selector: 'app-offers-create-dialog',
   templateUrl: './offers-create-dialog.component.html'
 })
-export class OffersCreateDialogComponent {
+export class OffersCreateDialogComponent implements OnInit {
   title = 'Articles list';
   dataSource: MatTableDataSource<ArticleLine>;
   displayedColumns = ['id', 'percentage', 'action'];
   offer: CreateOffer;
 
-  formCreateOffer = new FormGroup({
-    offername: new FormControl('',
-      [Validators.required]),
-    endDate: new FormControl(  '',
-      [Validators.required]),
-  });
+  public formCreateOffer: FormGroup;
+  public formAddArticle: FormGroup;
 
-  formAddArticle = new FormGroup({
-    articleId: new FormControl('',
-      [Validators.required]),
-    percentage: new FormControl(  '',
-      [Validators.required]),
-  });
+  ngOnInit() {
+    this.formCreateOffer = new FormGroup({
+      offername: new FormControl('',
+        [Validators.required]),
+      endDate: new FormControl(  '',
+        [Validators.required]),
+    });
+
+    this.formAddArticle = new FormGroup({
+      articleId: new FormControl('',
+        [Validators.required]),
+      percentage: new FormControl(  '',
+        [Validators.required, Validators.min(1), Validators.max(100)] ),
+    });
+  }
 
   constructor(private articleService: ArticleService) {
     this.dataSource = new MatTableDataSource<ArticleLine>();
@@ -38,9 +43,12 @@ export class OffersCreateDialogComponent {
     const articleId = formSubmitted.controls.articleId.value;
     const percentage = formSubmitted.controls.percentage.value;
     this.articleService.readOne(articleId).subscribe((result) => {
-        console.log(result, '<<<<<<<<< ARTICLE FOUNDED');
-        this.dataSource.data.push({ id: articleId, percentage: percentage });
-        this.dataSource = new MatTableDataSource(this.dataSource.data);
+        const articleRepeated = this.dataSource.data.find(article => article.id === articleId) !== undefined;
+        if (!articleRepeated) {
+          this.dataSource.data.push({ id: articleId, percentage: percentage });
+          this.dataSource = new MatTableDataSource(this.dataSource.data);
+        }
+        console.log('<<<<<<<<< ERROR: Article Repeated  >>>>>>>>>');
       },
       (error) => {
         console.log(error, '<<<<<<<<< ERROR: Article Id not found');
@@ -53,17 +61,11 @@ export class OffersCreateDialogComponent {
   }
 
   createOffer(formSubmitted: FormGroup) {
-    // TODO implement createOffer
-    console.log(formSubmitted.controls.offername.value, '<<<<<< offername - FORM CREATE OFFER CONTROLS');
-    console.log(formSubmitted.controls.endDate.value, '<<<<<< endDate - FORM CREATE OFFER CONTROLS');
-    console.log(this.offer, '<<<<<<<< OFFER');
-    console.log(this.dataSource.data, '<<<<<< dataSourceData');
     this.offer = {
       offername: formSubmitted.controls.offername.value,
       endDate: formSubmitted.controls.endDate.value,
-      articleLine: undefined
+      articleLine: this.dataSource.data
     };
-    this.offer.articleLine = this.dataSource.data;
     console.log(this.offer, '<<<<<<<< OFFER');
   }
 }
