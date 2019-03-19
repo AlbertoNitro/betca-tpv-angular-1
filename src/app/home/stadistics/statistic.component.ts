@@ -5,6 +5,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {StatisticsService} from '../shared/statistics.service';
 import {Statistic} from '../shared/statistic.model';
 import {MatSnackBar} from '@angular/material';
+import {Moment} from 'moment';
 
 @Component({
   selector: 'app-statistic',
@@ -20,14 +21,14 @@ export class StatisticComponent {
 
   static URL = 'statistics';
   data: Statistic[];
-  dateTo: Date;
+  dateTo: Moment;
   statisticSelect: string;
   statistics = [
     {value: 'totalSalesPerDay', viewValue: 'Total sales per day'},
     {value: 'averageDailyExpense', viewValue: 'Average daily expense'}
   ];
   form: FormGroup;
-  dateFrom: Date;
+  dateFrom: Moment;
   xAxisLabel = 'Date';
   yAxisLabel = 'Value';
 
@@ -52,7 +53,12 @@ export class StatisticComponent {
   }
 
   search() {
-    this.statisticsService.getDataStatistic(this.statisticSelect, this.dateFrom.toISOString(), this.dateTo.toISOString()).subscribe(
+    this.statisticsService
+      .getDataStatistic(
+        this.statisticSelect,
+        this.dateFrom.format('YYYY-MM-DD') + 'T00:00:00',
+        this.dateTo.format('YYYY-MM-DD') + 'T23:59:59')
+      .subscribe(
       resp => {
         this.data = [new Statistic(this.statisticSelect, resp)];
       },
