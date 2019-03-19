@@ -3,6 +3,7 @@ import {ArticleLine, CreateOffer} from './offer.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {MatTableDataSource} from '@angular/material';
 import {ArticleService} from '../shared/article.service';
+import {OfferService} from './offer.service';
 
 @Component({
   selector: 'app-offers-create-dialog',
@@ -33,13 +34,11 @@ export class OffersCreateDialogComponent implements OnInit {
     });
   }
 
-  constructor(private articleService: ArticleService) {
+  constructor(private offerService: OfferService, private articleService: ArticleService) {
     this.dataSource = new MatTableDataSource<ArticleLine>();
   }
 
   addArticle(formSubmitted: FormGroup) {
-    // TODO implement addArticle
-    console.log('Add Article');
     const articleId = formSubmitted.controls.articleId.value;
     const percentage = formSubmitted.controls.percentage.value;
     this.articleService.readOne(articleId).subscribe((result) => {
@@ -48,7 +47,6 @@ export class OffersCreateDialogComponent implements OnInit {
           this.dataSource.data.push({ id: articleId, percentage: percentage });
           this.dataSource = new MatTableDataSource(this.dataSource.data);
         }
-        console.log('<<<<<<<<< ERROR: Article Repeated  >>>>>>>>>');
       },
       (error) => {
         console.log(error, '<<<<<<<<< ERROR: Article Id not found');
@@ -66,6 +64,6 @@ export class OffersCreateDialogComponent implements OnInit {
       endDate: formSubmitted.controls.endDate.value,
       articleLine: this.dataSource.data
     };
-    console.log(this.offer, '<<<<<<<< OFFER');
+    this.offerService.create(this.offer).subscribe();
   }
 }

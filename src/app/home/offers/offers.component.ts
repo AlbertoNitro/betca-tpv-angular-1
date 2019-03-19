@@ -36,13 +36,10 @@ export class OffersComponent {
   }
 
   create() {
-    // TODO: implement Add Offer in a Dialog
-    console.log('Add Offer');
     this.dialog.open(OffersCreateDialogComponent, { width: '60%', height: '90%' } );
   }
 
   read(offer: Offer) {
-    console.log('Offer Details');
     const dialogConfig: MatDialogConfig = {
       data: {
         mode: 'Read',
@@ -59,7 +56,7 @@ export class OffersComponent {
     result => {
       if (result) {
         this.offers = this.offers.filter(h => h !== offer);
-        // this.offerService.delete(offer).subscribe();
+        this.offerService.delete(offer).subscribe();
       }
     });
   }
