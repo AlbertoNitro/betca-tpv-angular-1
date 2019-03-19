@@ -24,7 +24,9 @@ export class VouchersComponent {
   form: FormGroup;
   initDate: Date;
   endDate: Date;
-
+  title = 'Vouchers management';
+  columns = ['id', 'value'];
+  data: Voucher[];
   constructor(fb: FormBuilder, private voucherService: VoucherService) {
     this.form = new FormGroup({
       initDate: new FormControl(),
@@ -35,6 +37,11 @@ export class VouchersComponent {
 
   search() {
     // TODO implement search with fields
+    this.data = [
+      {id: '1', value: 20, creationDate: new Date(), dateOfUse: null},
+      {id: '2', value: 40, creationDate: new Date(), dateOfUse: null},
+      {id: '3', value: 5, creationDate: new Date(), dateOfUse: null},
+    ];
   }
 
   dateEndChange(date) {
@@ -43,5 +50,13 @@ export class VouchersComponent {
 
   dateInitChange(date) {
     this.initDate = date.value;
+  }
+
+  create() {
+  }
+
+  updateData(data) {
+    console.log(data);
+    this.data = data;
   }
 }
