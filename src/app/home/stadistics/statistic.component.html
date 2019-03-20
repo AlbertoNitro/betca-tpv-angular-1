@@ -26,18 +26,35 @@
     <mat-datepicker #dpEnd></mat-datepicker>
   </mat-form-field>
   <mat-form-field>
-    <mat-select placeholder="Statistics" (selectionChange)="statisticSelected($event)" formControlName="statisticSelected" required>
-      <mat-option *ngFor="let statistic of statistics" [value]="statistic.value">
-        {{statistic.viewValue}}
+    <mat-select
+      placeholder="Statistics"
+      (selectionChange)="statisticSelected($event)"
+      formControlName="statisticSelected"
+      required
+    >
+      <mat-option
+        *ngFor="let statistic of statistics"
+        [value]="statistic.value"
+      >
+        {{ statistic.viewValue }}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-raised-button [disabled]="!form.valid" color="primary" (click)="search()">Search</button>
+  <button
+    mat-raised-button
+    [disabled]="!form.valid"
+    color="primary"
+    (click)="search()"
+  >
+    Search
+  </button>
 </form>
-<app-line-chart
-  *ngIf="isLoadedData()"
-  [data]="data"
-  [xAxisLabel]="xAxisLabel"
-  [yAxisLabel]="yAxisLabel"
->
-</app-line-chart>
+<div class="content-statistic">
+  <app-line-chart
+    *ngIf="isLoadedData()"
+    [data]="data"
+    [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel"
+  >
+  </app-line-chart>
+</div>
