@@ -6,6 +6,7 @@ import {StatisticsService} from '../shared/statistics.service';
 import {Statistic} from '../shared/statistic.model';
 import {MatSnackBar} from '@angular/material';
 import {Moment} from 'moment';
+import {StatisticSelectModel} from '../shared/statistic-select.model';
 
 @Component({
   selector: 'app-statistic',
@@ -22,10 +23,10 @@ export class StatisticComponent {
   static URL = 'statistics';
   data: Statistic[];
   dateTo: Moment;
-  statisticSelect: string;
-  statistics = [
-    {value: 'totalSalesPerDay', viewValue: 'Total sales per day'},
-    {value: 'averageDailyExpense', viewValue: 'Average daily expense'}
+  statisticSelect: StatisticSelectModel;
+  statistics: StatisticSelectModel[] = [
+    {value: 'total-sales-per-day', viewValue: 'Total sales per day'},
+    {value: 'average-daily-expense', viewValue: 'Average daily expense'}
   ];
   form: FormGroup;
   dateFrom: Moment;
@@ -52,25 +53,37 @@ export class StatisticComponent {
     return this.data && this.data.length > 0;
   }
 
+  showMessage(message: string) {
+    this.snackBar.open(message, '', {
+      duration: 5000
+    });
+  }
+
   search() {
     this.statisticsService
       .getDataStatistic(
-        this.statisticSelect,
+        this.statisticSelect.value,
         this.dateFrom.format('YYYY-MM-DD') + 'T00:00:00',
         this.dateTo.format('YYYY-MM-DD') + 'T23:59:59')
       .subscribe(
       resp => {
-        this.data = [new Statistic(this.statisticSelect, resp)];
+        if (resp.length > 0) {
+          this.data = [new Statistic(this.statisticSelect.viewValue, resp)];
+        } else {
+          this.data = [];
+          this.showMessage('No data between those dates');
+        }
       },
       error => {
-        this.snackBar.open('Error when searching data.', '', {
-          duration: 2000
-        });
+        this.showMessage('Error when searching data.');
       }
     );
   }
 
   statisticSelected(statisticSelect) {
-    this.statisticSelect = statisticSelect.value;
+    this.statisticSelect = {
+      value: statisticSelect.value,
+      viewValue: statisticSelect.source.selected._element.nativeElement.innerText.trim()
+    };
   }
 }

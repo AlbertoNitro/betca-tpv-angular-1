@@ -17,7 +17,7 @@ export class LineChartComponent {
   @Input() showXAxisLabel = true;
   @Input() showYAxis = true;
   @Input() showYAxisLabel = true;
-  @Input() view: any[] = [700, 400];
+  @Input() view: undefined;
   @Input() xAxisLabel: string;
   @Input() yAxisLabel: string;
 
