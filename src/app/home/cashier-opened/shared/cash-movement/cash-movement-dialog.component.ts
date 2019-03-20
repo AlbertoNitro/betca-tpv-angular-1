@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {CashMovement} from './cash-movement.model';
 import {CashMovementOptionsModel} from './cash-movement-options.model';
 import {CashMovementService} from './cash-movement.service';
+import {MatSnackBar} from '@angular/material';
 import {OptionType} from './cash-movement-option-type.model';
 
 @Component({
@@ -18,7 +19,10 @@ export class CashMovementDialogComponent {
   fieldsDisabled: boolean;
   selectedValue: string;
 
-  constructor(private cashMovementService: CashMovementService) {
+  constructor(
+    private cashMovementService: CashMovementService,
+    private snackBar: MatSnackBar
+  ) {
     this.fieldsDisabled = true;
   }
 
@@ -37,11 +41,29 @@ export class CashMovementDialogComponent {
   save() {
     if (this.selectedValue === OptionType.WITHDRAWAL) {
       this.cashMovementService.withdrawal(this.cashMovement).subscribe(
-        (resp) => ''
+        response => {
+          this.snackBar.open('Successful operation', '', {
+            duration: 2000
+          });
+        },
+        err => {
+          this.snackBar.open('Error in operation', 'Error', {
+            duration: 2000
+          });
+        }
       );
     } else if (this.selectedValue === OptionType.DEPOSIT) {
       this.cashMovementService.deposit(this.cashMovement).subscribe(
-        (resp) => ''
+        response => {
+          this.snackBar.open('Successful operation', '', {
+            duration: 2000
+          });
+        },
+        err => {
+          this.snackBar.open('Error in operation', 'Error', {
+            duration: 2000
+          });
+        }
       );
     }
   }
