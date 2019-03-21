@@ -13,6 +13,7 @@ export class ApiEndpoint {
   public static ARTICLES_MINIMUM = ApiEndpoint.ARTICLES + '/minimum';
   public static ARTICLES_FAMILY = '/articles-family';
 
+
   public static TICKETS = '/tickets';
   public static FAMILY_SIZES = '/family-sizes';
 
