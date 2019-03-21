@@ -28,7 +28,7 @@ export class ArticlesFamiliesCRUDComponent {
     this.dialog.open(CancelYesDialogComponent).afterClosed().subscribe(
       result => {
         if (result) {
-          this.articleFamilyService.deleteFamilyArticle(articleFamily.description).subscribe(
+          this.articleFamilyService.deleteFamilyComposite(articleFamily.description).subscribe(
             () => this.data = this.data.filter(item => item !== articleFamily)
           );
         }
