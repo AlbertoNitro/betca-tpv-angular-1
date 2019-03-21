@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ArticleFamily} from './articles-families.model';
+import {ArticleFamilyMinimum} from './articles-families-minimum.model';
 import {ArticleFamilyService} from './articles-families.service';
 import {CancelYesDialogComponent} from '../../core/cancel-yes-dialog.component';
 import {MatDialog} from '@angular/material';
@@ -13,7 +13,7 @@ export class ArticlesFamiliesCRUDComponent {
   static URL = 'articles-families';
   title = 'Articles Families';
   columns = ['description'];
-  data: ArticleFamily[];
+  data: ArticleFamilyMinimum[];
 
   constructor(private articleFamilyService: ArticleFamilyService, private dialog: MatDialog) {
     articleFamilyService.readAllFamilies().subscribe(data => this.data = data);
@@ -21,10 +21,13 @@ export class ArticlesFamiliesCRUDComponent {
 
   create() {
     // TODO
-    this.dialog.open(ArticlesFamiliesCreateDialogComponent, {width: '30%', height: '55%'});
+    this.dialog.open(ArticlesFamiliesCreateDialogComponent, {width: '30%', height: '55%'}).afterClosed().subscribe(
+      () => this.articleFamilyService.readAllFamilies().subscribe(data => this.data = data)
+  )
+    ;
   }
 
-  delete(articleFamily: ArticleFamily) {
+  delete(articleFamily: ArticleFamilyMinimum) {
     this.dialog.open(CancelYesDialogComponent).afterClosed().subscribe(
       result => {
         if (result) {
@@ -35,7 +38,7 @@ export class ArticlesFamiliesCRUDComponent {
       });
   }
 
-  update(articleFamily: ArticleFamily) {
+  update(articleFamily: ArticleFamilyMinimum) {
     // TODO
   }
 }
