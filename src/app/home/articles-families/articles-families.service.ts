@@ -11,11 +11,11 @@ export class ArticleFamilyService {
   constructor(private httpService: HttpService) {
   }
 
-  createFamilyArticle(description: string, articleMinimumDto: ArticleMinimum) {
+  createFamilyArticle(description: string, articleMinimumDto: ArticleMinimum): Observable<ArticleMinimum> {
     return this.httpService.param('description', description).post(ApiEndpoint.ARTICLE_FAMILY_ARTICLE, articleMinimumDto);
   }
 
-  createFamilyComposite(description: string, familyCompositeDto: ArticleFamily) {
+  createFamilyComposite(description: string, familyCompositeDto: ArticleFamily): Observable<ArticleFamily> {
     return this.httpService.param('description', description).post(ApiEndpoint.ARTICLE_FAMILY_COMPOSITE, familyCompositeDto);
   }
 
