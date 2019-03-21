@@ -145,15 +145,24 @@ export class CheckOutDialogComponent {
 
   findUserByMobile() {
     this.userService.findByMobile(this.userMobile).subscribe(response => {
-      this.userFound = response;
-      this.ticketCreation.userMobile = this.userFound.mobile;
+      this.assignUserToTicket(response);
     }, () => {
-      this.openQuickUserCrud();
+      const dialogConfig: MatDialogConfig = {
+        data: {
+          mobile: this.userMobile
+        }
+      };
+      this.openQuickUserCrud(dialogConfig);
     });
   }
 
-  openQuickUserCrud() {
-    this.dialog.open(UserQuickCreationDialogComponent);
+  openQuickUserCrud(dialogConfig: MatDialogConfig) {
+    const quickUserCrudDialog = this.dialog.open(UserQuickCreationDialogComponent, dialogConfig);
+    quickUserCrudDialog.afterClosed().subscribe(userCreated => {
+      if (userCreated != null) {
+        this.assignUserToTicket(userCreated);
+      }
+    });
   }
 
 
@@ -167,7 +176,13 @@ export class CheckOutDialogComponent {
     this.dialog.open(UserCreateUpdateDialogComponent, dialogConfig);
   }
 
-  unassignUser() {
+  assignUserToTicket(userCreated) {
+    this.ticketCreation.userMobile = userCreated.mobile;
+    this.userMobile = userCreated.mobile;
+    this.userFound = userCreated;
+  }
+
+  unassignUserToTicket() {
     this.ticketCreation.userMobile = null;
     this.userMobile = null;
     this.userFound = null;
