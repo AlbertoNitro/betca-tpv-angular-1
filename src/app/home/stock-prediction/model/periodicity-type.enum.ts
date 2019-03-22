@@ -1,5 +1,5 @@
 export enum PeriodicityType {
-  WEEKLY = 'Weekly',
-  MONTHLY = 'Monthly',
-  YEARLY = 'Annual'
+  WEEKLY = 'WEEKLY',
+  MONTHLY = 'MONTHLY',
+  YEARLY = 'YEARLY'
 }

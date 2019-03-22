@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ArticleWithCodeAndDescriptionDto} from './model/article-with-code-and-description-dto.model';
 import {StockPredictionService} from './stock-prediction.service';
 import {PeriodicityType} from './model/periodicity-type.enum';
 import {StockPredictionOutputDto} from './model/stock-prediction-output-dto.model';
 import {StockPredictionInputDto} from './model/stock-prediction-input-dto.model';
+import {ArticleMinimum} from '../shared/article-minimum.model';
+import {ArticleService} from '../shared/article.service';
 
 @Component({
   selector: 'app-stock-prediction',
@@ -16,12 +17,12 @@ export class StockPredictionComponent implements OnInit {
   stockPredictionForm: FormGroup;
   periodicityTypeList: PeriodicityType[] = [PeriodicityType.WEEKLY, PeriodicityType.MONTHLY, PeriodicityType.YEARLY];
   periodsNumberList: number[] = this.weeklyPeriodsNumberList();
-  articleList: ArticleWithCodeAndDescriptionDto[];
+  articleList: ArticleMinimum[];
   stockPredictionTableTitle = 'Stock Prediction';
-  stockPredictionTableColumns: string[] = ['period', 'periodNumber', 'stock'];
+  stockPredictionTableColumns = ['period', 'periodNumber', 'stock'];
   stockPredictionTableData: StockPredictionOutputDto[];
 
-  constructor(private formBuilder: FormBuilder, private stockPredictionService: StockPredictionService) {
+  constructor(private formBuilder: FormBuilder, private stockPredictionService: StockPredictionService, private articleService: ArticleService) {
   }
 
   get articleFormControl() {
@@ -45,7 +46,7 @@ export class StockPredictionComponent implements OnInit {
     );
     this.periodicityTypeFormControl.setValue(PeriodicityType.WEEKLY);
     this.periodsNumberFormControl.setValue(1);
-    this.stockPredictionService.readAllArticleWithCodeAndDescriptionDto().subscribe(
+    this.articleService.readAllArticleMinimum().subscribe(
       articleList => this.articleList = articleList
     );
   }
@@ -56,8 +57,6 @@ export class StockPredictionComponent implements OnInit {
       periodicityType: this.periodicityTypeFormControl.value,
       periodsNumber: this.periodsNumberFormControl.value
     };
-    console.log(`onSubmit values`);
-    console.dir(stockPredictionInputDto);
     this.stockPredictionService.calculate(stockPredictionInputDto).subscribe(
       stockPredictionOutputArray => this.stockPredictionTableData = stockPredictionOutputArray
     );
@@ -65,7 +64,6 @@ export class StockPredictionComponent implements OnInit {
 
   onChangePeriodicityType() {
     const periodicityType = this.periodicityTypeFormControl.value;
-    console.log('onChangePeriodicityType -> value: ' + periodicityType);
     if (PeriodicityType.WEEKLY === periodicityType) {
       this.periodsNumberList = this.weeklyPeriodsNumberList();
     } else if (PeriodicityType.MONTHLY === periodicityType) {
