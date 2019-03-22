@@ -26,4 +26,8 @@ export class ProviderService {
   update(provider: Provider): Observable<Provider> {
     return this.httpService.put(ApiEndpoint.PROVIDERS + '\\' + provider.id, provider );
   }
+
+  create(provider: Provider): Observable<Provider> {
+    return this.httpService.post(ApiEndpoint.PROVIDERS, provider );
+  }
 }
