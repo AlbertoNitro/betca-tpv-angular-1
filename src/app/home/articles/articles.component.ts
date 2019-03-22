@@ -1,26 +1,32 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {ArticleDetailModel} from './article-detail-model';
 import {ArticleQueryModel} from '../shared/article-query.model';
 import {ArticleCreateUpdateDialogComponent} from './article-create-update-dialog/article-create-update-dialog.component';
 import {CancelYesDialogComponent} from '../../core/cancel-yes-dialog.component';
 import {MatDialog, MatDialogConfig} from '@angular/material';
+import {ArticleService} from '../shared/article.service';
 
 @Component({
   selector: 'app-articles',
   templateUrl: './articles.component.html'
 })
-export class ArticlesComponent {
+export class ArticlesComponent implements OnInit {
   static URL = 'articles';
 
   article: ArticleQueryModel;
 
   title = 'Articles Management';
   columns = ['code', 'description', 'retailPrice', 'stock'];
-  data: Array<ArticleDetailModel>;
+  data: ArticleDetailModel[];
 
-  constructor(private dialog: MatDialog) {
-    this.data = [{code: '8400000000001', description: 'Falda', retailPrice: 23, stock: 43}];
+  constructor(private dialog: MatDialog, private articleService: ArticleService) {
+  }
+
+  ngOnInit(): void {
+    this.articleService.readAll().subscribe(
+      articleList => this.data = articleList
+    );
   }
 
   updateData(data) {

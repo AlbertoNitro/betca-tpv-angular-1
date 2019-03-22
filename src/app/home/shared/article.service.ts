@@ -5,8 +5,8 @@ import {HttpService} from '../../core/http.service';
 import {Article} from './article.model';
 import {ApiEndpoint} from './api-endpoint.model';
 import {FormGroup} from '@angular/forms';
-import {ArticleQueryModel} from './article-query.model';
 import {ArticleMinimum} from './article-minimum.model';
+import {ArticleDetailModel} from './article-detail-model';
 
 @Injectable()
 export class ArticleService {
@@ -21,8 +21,20 @@ export class ArticleService {
     return this.httpService.get(ApiEndpoint.ARTICLES + '/' + code);
   }
 
+  readAll(): Observable<ArticleDetailModel[]> {
+    return this.httpService.get(ApiEndpoint.ARTICLES);
+  }
+
   create(article: Article): Observable<Article> {
-    return this.httpService.successful().post(ApiEndpoint.ARTICLES, article);
+    return this.httpService.post(ApiEndpoint.ARTICLES, article);
+  }
+
+  update(code: String, article: Article): Observable<Article> {
+    return this.httpService.put(ApiEndpoint.ARTICLES + '/' + code, article);
+  }
+
+  delete(code: String): Observable<Article> {
+    return this.httpService.delete(ApiEndpoint.ARTICLES + '/' + code);
   }
 
   // TODO: API connection
