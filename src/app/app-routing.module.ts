@@ -20,6 +20,7 @@ import {WelcomeComponent} from './welcome.component';
 import {LineChartComponent} from './core/line-chart.component';
 import {ProvidersComponent} from './home/providers/providers.component';
 import {ProviderSelectComponent} from './home/providers/provider-select.component';
+import {ProvidersUpdateDialogComponent} from './home/providers/providers-update-dialog.component';
 import {ProfileDialogComponent} from './home/users/profile-dialog.component';
 import {ArticlesFamiliesCRUDComponent} from './home/articles-families/articles-families.component';
 import {OffersComponent} from './home/offers/offers.component';
@@ -111,6 +112,7 @@ export class AppRoutingModule {
     OffersCreateDialogComponent,
     OffersDetailsDialogComponent,
     ProfileDialogComponent,
+    ProvidersUpdateDialogComponent,
     RolesDialogComponent,
     UserCreateUpdateDialogComponent,
     UserQuickCreationDialogComponent,
