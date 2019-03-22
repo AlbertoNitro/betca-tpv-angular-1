@@ -4,6 +4,7 @@ import {User} from '../users/user.model';
 import {ProviderService} from './provider.service';
 import {MatDialog} from '@angular/material';
 import {DetailsDialogComponent} from '../../core/details-dialog.component';
+import {ProvidersUpdateDialogComponent} from './providers-update-dialog.component';
 
 @Component({
   selector: 'app-providers',
@@ -39,7 +40,14 @@ export class ProvidersComponent{
     );
   }
 
-  update(user: User) {
-    // TODO
+  update(id: string) {
+    this.providerService.read(id).subscribe(
+      provider =>
+        this.dialog.open(ProvidersUpdateDialogComponent,
+          {data: {
+              provider: provider}
+          }
+        )
+    );
   }
 }
