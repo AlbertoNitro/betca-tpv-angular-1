@@ -1,10 +1,9 @@
 import {Component} from '@angular/core';
 import {Provider} from './provider.model';
-import {User} from '../users/user.model';
 import {ProviderService} from './provider.service';
 import {MatDialog} from '@angular/material';
 import {DetailsDialogComponent} from '../../core/details-dialog.component';
-import {ProvidersUpdateDialogComponent} from './providers-update-dialog.component';
+import {ProvidersSaveDialogComponent} from './providers-save-dialog.component';
 
 @Component({
   selector: 'app-providers',
@@ -24,7 +23,11 @@ export class ProvidersComponent{
   }
 
   create() {
-    // TODO
+        this.dialog.open(ProvidersSaveDialogComponent,
+          {data: {
+              mode: 'create'}
+          }
+        );
   }
 
   read(id: string) {
@@ -43,9 +46,10 @@ export class ProvidersComponent{
   update(id: string) {
     this.providerService.read(id).subscribe(
       provider =>
-        this.dialog.open(ProvidersUpdateDialogComponent,
+        this.dialog.open(ProvidersSaveDialogComponent,
           {data: {
-              provider: provider}
+            mode: 'update',
+            provider: provider}
           }
         )
     );
