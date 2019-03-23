@@ -24,6 +24,10 @@ export class ArticleFamilyService {
     return this.httpService.param('description', description).delete(ApiEndpoint.ARTICLES_FAMILY);
   }
 
+  readAllComponentsInAFamily(description: string): Observable<ArticleFamily[]> {
+    return this.httpService.get(ApiEndpoint.ARTICLES_FAMILY + '/' + description);
+  }
+
   readAllFamilies(): Observable<ArticleFamilyMinimum[]> {
     return this.httpService.param('familyType', 'ARTICLES').get(ApiEndpoint.ARTICLES_FAMILY);
   }
