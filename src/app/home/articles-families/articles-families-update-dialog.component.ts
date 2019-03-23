@@ -48,6 +48,6 @@ export class ArticlesFamiliesUpdateDialogComponent {
 
   }
 
-  delete($event: any) {
+  delete(articleFamily: ArticleFamily) {
   }
 }
