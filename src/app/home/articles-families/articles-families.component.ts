@@ -39,6 +39,6 @@ export class ArticlesFamiliesCRUDComponent {
   }
 
   update(articleFamily: ArticleFamilyMinimum) {
-    this.dialog.open(ArticlesFamiliesUpdateDialogComponent, {width: '30%', height: '55%'});
+    this.dialog.open(ArticlesFamiliesUpdateDialogComponent, {width: '40%', height: '80%', data: articleFamily});
   }
 }
