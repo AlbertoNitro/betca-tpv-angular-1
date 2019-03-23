@@ -4,6 +4,7 @@ import {CashMovementOptionsModel} from './cash-movement-options.model';
 import {CashMovementService} from './cash-movement.service';
 import {MatSnackBar} from '@angular/material';
 import {OptionType} from './cash-movement-option-type.model';
+import {TokensService} from '../../../../core/tokens.service';
 
 @Component({
   templateUrl: 'cash-movement-dialog.component.html',
@@ -18,12 +19,15 @@ export class CashMovementDialogComponent {
   ];
   fieldsDisabled: boolean;
   selectedValue: string;
+  username: string;
 
   constructor(
     private cashMovementService: CashMovementService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private tokensService: TokensService
   ) {
     this.fieldsDisabled = true;
+    this.username = tokensService.getName();
   }
 
   invalid() {
@@ -53,6 +57,7 @@ export class CashMovementDialogComponent {
         }
       );
     } else if (this.selectedValue === OptionType.DEPOSIT) {
+      this.cashMovement.comment = this.username + '-' + this.cashMovement.comment;
       this.cashMovementService.deposit(this.cashMovement).subscribe(
         response => {
           this.snackBar.open('Successful operation', '', {
