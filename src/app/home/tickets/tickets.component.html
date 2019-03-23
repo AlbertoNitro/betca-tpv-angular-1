@@ -61,12 +61,12 @@
           <mat-header-cell *matHeaderCellDef fxFlex="12%"> Total</mat-header-cell>
           <mat-cell *matCellDef="let item" fxFlex="28%"> {{item.totalPrice}}</mat-cell>
         </ng-container>
-        <ng-container matColumnDef="status">
-          <mat-header-cell *matHeaderCellDef fxFlex="12%"> Status</mat-header-cell>
+        <ng-container matColumnDef="shoppingState">
+          <mat-header-cell *matHeaderCellDef fxFlex="12%"> State</mat-header-cell>
           <mat-cell *matCellDef="let item" fxFlex="28%">
             <mat-form-field>
-              <mat-select placeholder="{{item.state}}">
-                <mat-option *ngFor="let state of status" [value]="state.value">
+              <mat-select placeholder="{{item.shoppingState}}">
+                <mat-option *ngFor="let state of matSelectStates" [value]="state.value">
                   {{state.viewValue}}
                 </mat-option>
               </mat-select>
@@ -80,18 +80,6 @@
   </mat-card>
   <mat-card>
     <table>
-      <tr>
-        <th class="left">Card</th>
-        <td>{{ticket.cart | currency:'EUR':'symbol'}}</td>
-      </tr>
-      <tr>
-        <th class="left">Cash</th>
-        <td>{{ticket.cash | currency:'EUR':'symbol'}}</td>
-      </tr>
-      <tr>
-        <th class="left">Voucher</th>
-        <td>{{ticket.voucher | currency:'EUR':'symbol'}}</td>
-      </tr>
       <tr>
         <th class="left">Total</th>
         <td>{{ticket.total | currency:'EUR':'symbol'}}</td>
