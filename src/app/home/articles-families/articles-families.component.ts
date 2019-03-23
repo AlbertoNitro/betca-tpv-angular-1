@@ -23,8 +23,7 @@ export class ArticlesFamiliesCRUDComponent {
   create() {
     this.dialog.open(ArticlesFamiliesCreateDialogComponent, {width: '30%', height: '55%'}).afterClosed().subscribe(
       () => this.articleFamilyService.readAllFamilies().subscribe(data => this.data = data)
-    )
-    ;
+    );
   }
 
   delete(articleFamily: ArticleFamilyMinimum) {
@@ -39,6 +38,6 @@ export class ArticlesFamiliesCRUDComponent {
   }
 
   update(articleFamily: ArticleFamilyMinimum) {
-    this.dialog.open(ArticlesFamiliesUpdateDialogComponent, {width: '40%', height: '80%', data: articleFamily});
+    this.dialog.open(ArticlesFamiliesUpdateDialogComponent, {width: '40%', height: '60%', data: articleFamily});
   }
 }
