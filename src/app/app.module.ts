@@ -18,6 +18,7 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {ProviderService} from './home/providers/provider.service';
 import {OrderService} from './home/order/order.service';
 import {ArticleFamilyService} from './home/articles-families/articles-families.service';
+import {ModalComponent} from "./home/order/modal/modal.component";
 
 @NgModule({
   imports: [
@@ -34,9 +35,10 @@ import {ArticleFamilyService} from './home/articles-families/articles-families.s
   declarations: [
     AppComponent,
     AppRoutingModule.COMPONENTS,
-    AppRoutingModule.DIALOGS
+    AppRoutingModule.DIALOGS,
+    ModalComponent
   ],
-  entryComponents: [AppRoutingModule.DIALOGS],
+  entryComponents: [AppRoutingModule.DIALOGS, ModalComponent],
   providers: [
     AdminsService,
     ArticleFamilyService,
