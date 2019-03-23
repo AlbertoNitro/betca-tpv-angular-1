@@ -3,6 +3,7 @@ import {Order} from './order.model';
 import {User} from '../users/user.model';
 import {OrderService} from './order.service';
 import {MatDialog} from '@angular/material';
+import { ModalComponent } from './modal/modal.component';
 
 @Component({
   selector: 'app-order',
@@ -46,5 +47,16 @@ export class OrderComponent {
 
   delete(user: User) {
     // TODO
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '700px',
+      data: {order: this.order}
+    });
+
+    /*dialogRef.afterClosed().subscribe(result => {
+      this.order = result;
+    });*/
   }
 }
