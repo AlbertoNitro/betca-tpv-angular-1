@@ -6,7 +6,7 @@ import {StatisticsService} from '../shared/statistics.service';
 import {Statistic} from '../shared/statistic.model';
 import {MatSnackBar} from '@angular/material';
 import {Moment} from 'moment';
-import {StatisticSelectModel} from '../shared/statistic-select.model';
+import {GenericMatSelect} from '../shared/generic-mat-select.model';
 
 @Component({
   selector: 'app-statistic',
@@ -23,8 +23,8 @@ export class StatisticComponent {
   static URL = 'statistics';
   data: Statistic[];
   dateTo: Moment;
-  statisticSelect: StatisticSelectModel;
-  statistics: StatisticSelectModel[] = [
+  statisticSelect: GenericMatSelect;
+  statistics: GenericMatSelect[] = [
     {value: 'total-sales-per-day', viewValue: 'Total sales per day'},
     {value: 'average-daily-expense', viewValue: 'Average daily expense'}
   ];
