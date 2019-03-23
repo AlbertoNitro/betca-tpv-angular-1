@@ -51,6 +51,11 @@ export class TicketsComponent {
     this.searchTicketById(this.ticket.code);
   }
 
+  save() {
+    // TODO: Create API Call
+    console.log('Saving a new Ticket!');
+  }
+
   // TODO: Review if is necessary increment amount or not
   incrementAmount(shoppingTicket: ShoppingTicket) {
     shoppingTicket.amount++;
