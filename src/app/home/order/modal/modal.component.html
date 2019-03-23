@@ -1,0 +1,25 @@
+<div>
+  <p>Confirm close Order</p>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Article</th>
+      <th scope="col">Required Amount</th>
+      <th scope="col">Final Amount</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><input [(ngModel)]="data.descriptionArticles"></td>
+      <td><input [(ngModel)]="data.descriptionArticles"></td>
+      <td><input [(ngModel)]="data.requiredAmount"></td>
+      <td><input [(ngModel)]="data.finalAmount"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div>
+  <button (click)="onNoClick()">No Thanks</button>
+  <button [mat-dialog-close]="data" cdkFocusInitial>Close Order</button>
+</div>

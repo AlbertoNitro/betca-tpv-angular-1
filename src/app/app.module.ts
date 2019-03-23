@@ -23,6 +23,7 @@ import {OfferService} from './home/offers/offer.service';
 import {OrderService} from './home/order/order.service';
 import {ArticleFamilyService} from './home/articles-families/articles-families.service';
 import {VoucherService} from './home/vouchers/voucher.service';
+import {ModalComponent} from "./home/order/modal/modal.component";
 
 @NgModule({
   imports: [
@@ -40,9 +41,10 @@ import {VoucherService} from './home/vouchers/voucher.service';
   declarations: [
     AppComponent,
     AppRoutingModule.COMPONENTS,
-    AppRoutingModule.DIALOGS
+    AppRoutingModule.DIALOGS,
+    ModalComponent
   ],
-  entryComponents: [AppRoutingModule.DIALOGS],
+  entryComponents: [AppRoutingModule.DIALOGS, ModalComponent],
   providers: [
     AdminsService,
     ArticleFamilyService,
