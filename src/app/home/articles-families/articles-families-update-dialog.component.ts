@@ -1,9 +1,10 @@
 import {Component, Inject} from '@angular/core';
 import {ArticleFamilyService} from './articles-families.service';
 import {ArticleFamilyMinimum} from './articles-families-minimum.model';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {ArticleFamily} from './articles-families.model';
 import {FamilyTypes} from './family-types.model';
+import {CancelYesDialogComponent} from '../../core/cancel-yes-dialog.component';
 
 @Component({
   selector: 'app-articles-families-update-dialog',
@@ -15,7 +16,8 @@ export class ArticlesFamiliesUpdateDialogComponent {
   columns = ['description', 'familyType'];
   familyTypes: FamilyTypes = new FamilyTypes();
 
-  constructor(private articleFamilyService: ArticleFamilyService, @Inject(MAT_DIALOG_DATA) private parentFamily: ArticleFamilyMinimum) {
+  constructor(private articleFamilyService: ArticleFamilyService, @Inject(MAT_DIALOG_DATA) private parentFamily: ArticleFamilyMinimum,
+              private dialog: MatDialog) {
     articleFamilyService.readAllComponentsInAFamily(parentFamily.description).subscribe(data => {
       this.data = data;
       this.changeFamilyTypeToLabel();
@@ -49,5 +51,14 @@ export class ArticlesFamiliesUpdateDialogComponent {
   }
 
   delete(articleFamily: ArticleFamily) {
+    this.dialog.open(CancelYesDialogComponent).afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.articleFamilyService.deleteComponentFromFamily(this.parentFamily.description, articleFamily.description).subscribe(
+            () => this.data = this.data.filter(item => item !== articleFamily)
+          );
+        }
+      });
+
   }
 }

@@ -20,7 +20,11 @@ export class ArticleFamilyService {
     return this.httpService.param('description', description).post(ApiEndpoint.ARTICLE_FAMILY_COMPOSITE, familyCompositeDto);
   }
 
-  deleteFamilyComposite(description: string): Observable<ArticleFamilyMinimum> {
+  deleteComponentFromFamily(description: string, childDescription: string): Observable<null> {
+    return this.httpService.param('childDescription', childDescription).delete(ApiEndpoint.ARTICLES_FAMILY + '/' + description);
+  }
+
+  deleteFamilyComposite(description: string): Observable<null> {
     return this.httpService.param('description', description).delete(ApiEndpoint.ARTICLES_FAMILY);
   }
 
