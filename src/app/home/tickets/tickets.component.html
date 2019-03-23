@@ -79,12 +79,20 @@
     </mat-card-content>
   </mat-card>
   <mat-card>
-    <table>
-      <tr>
-        <th class="left">Total</th>
-        <td>{{ticket.total | currency:'EUR':'symbol'}}</td>
-      </tr>
-    </table>
+    <mat-card-content>
+      <table>
+        <tr>
+          <th class="left">Total</th>
+          <td>{{ticket.total | currency:'EUR':'symbol'}}</td>
+        </tr>
+      </table>
+    </mat-card-content>
+    <mat-card-content>
+      <button mat-raised-button color="primary" (click)="reset()">
+        <mat-icon>settings_backup_restore</mat-icon>
+        Reset
+      </button>
+    </mat-card-content>
   </mat-card>
 </div>
 

@@ -47,6 +47,10 @@ export class TicketsComponent {
     this.ticket.code = code;
   }
 
+  reset() {
+    this.searchTicketById(this.ticket.code);
+  }
+
   // TODO: Review if is necessary increment amount or not
   incrementAmount(shoppingTicket: ShoppingTicket) {
     shoppingTicket.amount++;
