@@ -42,6 +42,7 @@ import {ArticlesFamiliesCreateDialogComponent} from './home/articles-families/ar
 import {VouchersComponent} from './home/vouchers/vouchers.component';
 import {VoucherNewDialogComponent} from './home/vouchers/voucherNew-dialog.component';
 import {VoucherConsumedDialogComponent} from './home/vouchers/voucherConsumed-dialog.component';
+import {ArticlesFamiliesUpdateDialogComponent} from './home/articles-families/articles-families-update-dialog.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
@@ -104,6 +105,7 @@ export class AppRoutingModule {
     ArticleCreateUpdateDialogComponent,
     FamilySizesCreationComponent,
     ArticlesFamiliesCreateDialogComponent,
+    ArticlesFamiliesUpdateDialogComponent,
     ArticleQuickCreationDialogComponent,
     CashierClosureDialogComponent,
     CashMovementDialogComponent,
