@@ -31,7 +31,7 @@ export class ArticlesFamiliesCreateDialogComponent {
 
   constructor(private articleFamilyService: ArticleFamilyService, private articleService: ArticleService, private snackbar: MatSnackBar,
               public dialogRef: MatDialogRef<ArticlesFamiliesCreateDialogComponent>) {
-    articleFamilyService.readAllFamilies().subscribe(data => this.families = data);
+    articleFamilyService.readAllFamilyComposites(this.familyTypes.families[2].familyType).subscribe(data => this.families = data);
   }
 
   create() {
