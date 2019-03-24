@@ -39,7 +39,7 @@ export class UsersComponent {
     const dialogConfig: MatDialogConfig = {
       data: {
         mode: 'Create',
-        user: this.user
+        user: {mobile: null, username: null}
       }
     };
     this.dialog.open(UserCreateUpdateDialogComponent, dialogConfig);
@@ -50,15 +50,17 @@ export class UsersComponent {
   }
 
   update(user: User) {
-    // TODO quitar mock de User. Enviar al dialogo el usuario seleccionado.
-    const userFound = {mobile: 123456, username: 'userMock'};
-    const dialogConfig: MatDialogConfig = {
-      data: {
-        mode: 'Update',
-        user: userFound
-      }
-    };
-    this.dialog.open(UserCreateUpdateDialogComponent, dialogConfig);
+    this.userService.findByMobile(user.mobile).subscribe(response => {
+      const dialogConfig: MatDialogConfig = {
+        data: {
+          mode: 'Update',
+          user: response
+        }
+      };
+      this.dialog.open(UserCreateUpdateDialogComponent, dialogConfig);
+    }, error => {
+      console.log(error);
+    });
   }
 
   delete(user: User) {
