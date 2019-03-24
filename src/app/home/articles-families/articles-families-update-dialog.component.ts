@@ -5,6 +5,7 @@ import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {ArticleFamily} from './articles-families.model';
 import {FamilyTypes} from './family-types.model';
 import {CancelYesDialogComponent} from '../../core/cancel-yes-dialog.component';
+import {ArticlesFamiliesAttachDialogComponent} from './articles-families-attach-dialog.component';
 
 @Component({
   selector: 'app-articles-families-update-dialog',
@@ -47,7 +48,7 @@ export class ArticlesFamiliesUpdateDialogComponent {
   }
 
   create() {
-
+    this.dialog.open(ArticlesFamiliesAttachDialogComponent, {width: '40%', height: '60%', data: this.parentFamily});
   }
 
   delete(articleFamily: ArticleFamily) {
