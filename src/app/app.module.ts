@@ -24,6 +24,7 @@ import {OrderService} from './home/order/order.service';
 import {ArticleFamilyService} from './home/articles-families/articles-families.service';
 import {VoucherService} from './home/vouchers/voucher.service';
 import {ModalComponent} from "./home/order/modal/modal.component";
+import {TicketsService} from './home/tickets/tickets.service';
 
 @NgModule({
   imports: [
@@ -57,6 +58,7 @@ import {ModalComponent} from "./home/order/modal/modal.component";
     StatisticsService,
     UserService,
     ProviderService,
+    TicketsService,
     UserService,
     OfferService,
     OrderService,
