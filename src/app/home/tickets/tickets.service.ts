@@ -23,6 +23,14 @@ export class TicketsService {
         retailPrice: 20,
         shoppingState: ShoppingState.InStock,
         totalPrice: 100,
+      },
+      {
+        description: 'Hat',
+        amount: 2,
+        discount: 0,
+        retailPrice: 3,
+        shoppingState: ShoppingState.NotCommited,
+        totalPrice: 6,
       }
     ] ;
      this.ticketMock = {

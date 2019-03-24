@@ -62,8 +62,10 @@
           <mat-header-cell *matHeaderCellDef fxFlex="12%"> State</mat-header-cell>
           <mat-cell *matCellDef="let item" fxFlex="28%">
             <mat-form-field>
-              <mat-select placeholder="{{item.shoppingState}}">
-                <mat-option *ngFor="let state of matSelectStates" [value]="state.value">
+              <mat-select placeholder="{{item.shoppingState}}" (selectionChange)="manageMatSelectOptions($event, item)">
+                <mat-option
+                  *ngFor="initializeCustomizedMatSelectStates(item.shoppingState); let state of customizedMatSelectStates"
+                  [value]="state.value">
                   {{state.viewValue}}
                 </mat-option>
               </mat-select>

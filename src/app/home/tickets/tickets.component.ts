@@ -30,8 +30,22 @@ export class TicketsComponent {
     {value: ShoppingState.Sending, viewValue: 'Sending'},
     {value: ShoppingState.Commited, viewValue: 'Commited'}
   ];
+  customizedMatSelectStates: GenericMatSelect[];
   dataSource: MatTableDataSource<ShoppingTicket>;
   displayedColumns = ['id', 'description', 'retailPrice', 'amount', 'discount', 'totalPrice', 'shoppingState'];
+
+  choosePossibleStates = (selectedState => {
+    switch ( selectedState ) {
+      case ShoppingState.NotCommited:
+        return this.matSelectStates.filter(status => status.value !== ShoppingState.NotCommited);
+      case ShoppingState.InStock:
+        return this.matSelectStates.filter(status =>
+          (status.value === ShoppingState.Sending || status.value === ShoppingState.Commited));
+      case ShoppingState.Sending:
+      case ShoppingState.Commited:
+        return this.matSelectStates.filter(status => status.value === ShoppingState.Commited);
+    }
+  });
 
   static updateTotal(shoppingTicket: ShoppingTicket): void {
     const value = shoppingTicket.retailPrice * shoppingTicket.amount * (1 - shoppingTicket.discount / 100);
@@ -73,6 +87,17 @@ export class TicketsComponent {
     }
     this.ticketTotal = Math.round(total * 100) / 100;
     this.ticket.total = this.ticketTotal;
+  }
+
+  initializeCustomizedMatSelectStates(state) {
+   this.customizedMatSelectStates = this.choosePossibleStates(state);
+  }
+
+  manageMatSelectOptions (actualState, shoppingTicket) {
+    shoppingTicket.shoppingState = actualState.value;
+    this.customizedMatSelectStates = this.choosePossibleStates(actualState.value);
+    console.log('Ticket: ', this.ticket);
+    console.log('Shopping Ticket: ', shoppingTicket);
   }
 }
 
