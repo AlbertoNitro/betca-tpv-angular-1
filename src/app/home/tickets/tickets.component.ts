@@ -13,6 +13,12 @@ import {TicketsService} from './tickets.service';
 })
 
 export class TicketsComponent {
+
+  constructor(private ticketsService: TicketsService) {
+    this.isTicketFound = false;
+    this.ticketCode = '0';
+    this.ticketTotal = 0;
+  }
   static URL = 'tickets';
   ticket: Ticket;
   isTicketFound: boolean;
@@ -27,10 +33,9 @@ export class TicketsComponent {
   dataSource: MatTableDataSource<ShoppingTicket>;
   displayedColumns = ['id', 'description', 'retailPrice', 'amount', 'discount', 'totalPrice', 'shoppingState'];
 
-  constructor(private ticketsService: TicketsService) {
-    this.isTicketFound = false;
-    this.ticketCode = '0';
-    this.ticketTotal = 0;
+  static updateTotal(shoppingTicket: ShoppingTicket): void {
+    const value = shoppingTicket.retailPrice * shoppingTicket.amount * (1 - shoppingTicket.discount / 100);
+    shoppingTicket.totalPrice = Math.round(value * 100) / 100;
   }
 
   searchTicketById(code: string) {
@@ -53,15 +58,21 @@ export class TicketsComponent {
     this.ticketsService.createNewTicket(this.ticket);
   }
 
-  // TODO: Review if is necessary increment amount or not
-  incrementAmount(shoppingTicket: ShoppingTicket) {
-    shoppingTicket.amount++;
-  }
-
   decreaseAmount(shoppingTicket: ShoppingTicket) {
     if (shoppingTicket.amount > 0) {
       shoppingTicket.amount--;
     }
+    TicketsComponent.updateTotal(shoppingTicket);
+    this.synchronizeTicketTotal();
+  }
+
+  synchronizeTicketTotal(): void {
+    let total = 0;
+    for (const shopping of this.ticket.shoppingTicket) {
+      total = total + shopping.totalPrice;
+    }
+    this.ticketTotal = Math.round(total * 100) / 100;
+    this.ticket.total = this.ticketTotal;
   }
 }
 

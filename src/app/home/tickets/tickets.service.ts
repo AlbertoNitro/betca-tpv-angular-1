@@ -22,14 +22,14 @@ export class TicketsService {
         discount: 0,
         retailPrice: 20,
         shoppingState: ShoppingState.InStock,
-        totalPrice: 0,
+        totalPrice: 100,
       }
     ] ;
      this.ticketMock = {
       code: code,
       date: '05/03/2019 17:15:55',
       shoppingTicket: this.shoppingTicketMock ,
-      total: 0
+      total: 100
     };
      return this.ticketMock;
     // TODO: API CALL and returning an Observable<Ticket>
