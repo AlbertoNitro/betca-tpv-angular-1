@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
-import { Ticket } from './model/ticket.model';
-import {ShoppingTicket} from './model/shopping-ticket.model';
-import {ShoppingState} from './model/shopping-state.enum';
+import {ShoppingTicket} from './models/shopping-ticket.model';
+import {ShoppingState} from './models/shopping-state.enum';
 import {GenericMatSelect} from '../shared/generic-mat-select.model';
+import {Ticket} from './models/ticket.model';
+import {TicketsService} from './tickets.service';
 
 @Component({
   selector: 'app-tickets',
@@ -13,22 +14,10 @@ import {GenericMatSelect} from '../shared/generic-mat-select.model';
 
 export class TicketsComponent {
   static URL = 'tickets';
-  shoppingTicket: ShoppingTicket[] = [
-    {
-      description: 'Blue Jeans',
-      amount: 0,
-      discount: 0,
-      retailPrice: 0,
-      shoppingState: ShoppingState.InStock,
-      totalPrice: 0,
-    }
-  ] ;
-  ticket: Ticket = {
-    code: '0',
-    date: '05/03/2019 17:15:55',
-    shoppingTicket: this.shoppingTicket ,
-    total: 0
-  };
+  ticket: Ticket;
+  isTicketFound: boolean;
+  ticketCode: string;
+  ticketTotal: number;
   matSelectStates: GenericMatSelect[] = [
     {value: ShoppingState.NotCommited, viewValue: 'Not Commited'},
     {value: ShoppingState.InStock, viewValue: 'In Stock'},
@@ -38,13 +27,22 @@ export class TicketsComponent {
   dataSource: MatTableDataSource<ShoppingTicket>;
   displayedColumns = ['id', 'description', 'retailPrice', 'amount', 'discount', 'totalPrice', 'shoppingState'];
 
-  constructor() {
-    this.dataSource = new MatTableDataSource<ShoppingTicket>(this.shoppingTicket);
+  constructor(private ticketsService: TicketsService) {
+    this.isTicketFound = false;
+    this.ticketCode = '0';
+    this.ticketTotal = 0;
   }
+
   searchTicketById(code: string) {
-    // TODO: Create API Call
-    console.log('Searching Ticket with id: ', code);
-    this.ticket.code = code;
+    this.ticket = this.ticketsService.readOne(code);
+    this.fillData();
+  }
+
+  fillData() {
+    this.dataSource = new MatTableDataSource<ShoppingTicket>(this.ticket.shoppingTicket);
+    this.isTicketFound = true;
+    this.ticketCode = this.ticket.code;
+    this.ticketTotal = this.ticket.total;
   }
 
   reset() {
@@ -52,8 +50,7 @@ export class TicketsComponent {
   }
 
   save() {
-    // TODO: Create API Call
-    console.log('Saving a new Ticket!');
+    this.ticketsService.createNewTicket(this.ticket);
   }
 
   // TODO: Review if is necessary increment amount or not
