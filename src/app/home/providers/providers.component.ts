@@ -15,6 +15,7 @@ export class ProvidersComponent{
   data: Provider[];
   title = 'Provider management';
   columns = ['company', 'nif'];
+  provider: Provider = {'active' : true};
 
   constructor(private providerService: ProviderService, private dialog: MatDialog) {
     this.providerService.readAll().subscribe(
@@ -52,6 +53,19 @@ export class ProvidersComponent{
             provider: provider}
           }
         )
+    );
+  }
+
+  search() {
+    this.providerService.search(this.provider).subscribe(
+      providers => this.data = providers
+    );
+  }
+
+  resetSearch() {
+    this.provider = {'active' : true};
+    this.providerService.readAll().subscribe(
+      data => this.data = data
     );
   }
 }

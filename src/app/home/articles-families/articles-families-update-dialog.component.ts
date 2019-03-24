@@ -48,7 +48,13 @@ export class ArticlesFamiliesUpdateDialogComponent {
   }
 
   create() {
-    this.dialog.open(ArticlesFamiliesAttachDialogComponent, {width: '40%', height: '60%', data: this.parentFamily});
+    this.dialog.open(ArticlesFamiliesAttachDialogComponent, {width: '30%', height: '50%', data: this.parentFamily}).afterClosed()
+      .subscribe(() => {
+        this.articleFamilyService.readAllComponentsInAFamily(this.parentFamily.description).subscribe(data => {
+          this.data = data;
+          this.changeFamilyTypeToLabel();
+        });
+      });
   }
 
   delete(articleFamily: ArticleFamily) {

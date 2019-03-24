@@ -12,6 +12,10 @@ export class ArticleFamilyService {
   constructor(private httpService: HttpService) {
   }
 
+  attachToFamily(description: string, articleFamily: ArticleFamily): Observable<ArticleFamily> {
+    return this.httpService.post(ApiEndpoint.ARTICLES_FAMILY + '/' + description, articleFamily);
+  }
+
   createFamilyArticle(description: string, articleMinimumDto: ArticleMinimum): Observable<ArticleMinimum> {
     return this.httpService.param('description', description).post(ApiEndpoint.ARTICLE_FAMILY_ARTICLE, articleMinimumDto);
   }
