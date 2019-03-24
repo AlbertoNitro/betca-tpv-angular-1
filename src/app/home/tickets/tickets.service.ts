@@ -34,8 +34,6 @@ export class TicketsService {
       }
     ] ;
      this.ticketMock = {
-      code: code,
-      date: '05/03/2019 17:15:55',
       shoppingTicket: this.shoppingTicketMock ,
       total: 106
     };
