@@ -15,6 +15,7 @@ export class ArticlesFamiliesAttachDialogComponent {
   articleMinimumSelected: ArticleMinimum;
   familyTypes: FamilyTypes = new FamilyTypes();
   familyTypeSelected: FamilyType;
+
   constructor(private articleFamilyService: ArticleFamilyService, @Inject(MAT_DIALOG_DATA) private parentFamily: ArticleFamilyMinimum) {
   }
 
