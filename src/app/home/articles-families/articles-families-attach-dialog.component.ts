@@ -6,6 +6,7 @@ import {FamilyTypes} from './family-types.model';
 import {FamilyType} from './family-type.model';
 import {ArticleMinimum} from '../shared/article-minimum.model';
 import {ArticleService} from '../shared/article.service';
+import {ArticleFamily} from './articles-families.model';
 
 @Component({
   selector: 'app-articles-families-attach-dialog',
@@ -24,7 +25,13 @@ export class ArticlesFamiliesAttachDialogComponent {
   }
 
   create() {
-
+    if (this.familyTypeSelected === this.familyTypes.families[0]) {
+      this.articleFamilyService.attachToFamily(this.parentFamily.description,
+        new ArticleFamily().setArticleMinimum(this.articleMinimumSelected)).subscribe();
+    } else {
+      this.articleFamilyService.attachToFamily(this.parentFamily.description,
+        new ArticleFamily().setArticleFamilyMinimum(this.articleFamilySelected)).subscribe();
+    }
   }
 
   isValid() {
