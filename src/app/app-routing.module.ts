@@ -43,6 +43,7 @@ import {VouchersComponent} from './home/vouchers/vouchers.component';
 import {VoucherNewDialogComponent} from './home/vouchers/voucherNew-dialog.component';
 import {VoucherConsumedDialogComponent} from './home/vouchers/voucherConsumed-dialog.component';
 import {ArticlesFamiliesUpdateDialogComponent} from './home/articles-families/articles-families-update-dialog.component';
+import {ArticlesFamiliesAttachDialogComponent} from './home/articles-families/articles-families-attach-dialog.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
@@ -104,6 +105,7 @@ export class AppRoutingModule {
   static DIALOGS = [
     ArticleCreateUpdateDialogComponent,
     FamilySizesCreationComponent,
+    ArticlesFamiliesAttachDialogComponent,
     ArticlesFamiliesCreateDialogComponent,
     ArticlesFamiliesUpdateDialogComponent,
     ArticleQuickCreationDialogComponent,
