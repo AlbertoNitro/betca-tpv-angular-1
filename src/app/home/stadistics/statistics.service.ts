@@ -1,8 +1,8 @@
-import {ApiEndpoint} from './api-endpoint.model';
+import {ApiEndpoint} from '../shared/api-endpoint.model';
 import {HttpService} from '../../core/http.service';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {Serie} from './serie.model';
+import {Serie} from './models/serie.model';
 
 @Injectable()
 export class StatisticsService {
