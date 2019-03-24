@@ -2,13 +2,13 @@
 <h2 mat-dialog-title *ngIf="modeDialog == 'Update'">Update article: </h2>
 <mat-dialog-content>
   <mat-form-field>
-    <input matInput type="number" placeholder="Code" [(ngModel)]="article.code"/>
+    <input matInput type="text" placeholder="Code" [(ngModel)]="article.code"/>
   </mat-form-field>
   <mat-form-field>
     <input matInput type="text" placeholder="Description" [(ngModel)]="article.description"/>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="number" placeholder="Real price" [(ngModel)]="article.retailPrice"/>
+    <input matInput type="number" min="0" placeholder="Real price" [(ngModel)]="article.retailPrice"/>
   </mat-form-field>
   <mat-form-field>
     <input matInput type="text" placeholder="Reference" [(ngModel)]="article.reference"/>
@@ -17,7 +17,7 @@
     <input matInput type="text" placeholder="Provider" [(ngModel)]="article.provider"/>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="number" placeholder="Stock" [(ngModel)]="article.stock"/>
+    <input matInput type="number" min="0" placeholder="Stock" [(ngModel)]="article.stock"/>
   </mat-form-field>
   <mat-form-field>
     <mat-select placeholder="Tax">

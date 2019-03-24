@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 
-import {ArticleDetailModel} from './article-detail-model';
-import {ArticleQueryModel} from '../shared/article-query.model';
+import {ArticleDetailModel} from '../shared/article-detail-model';
 import {ArticleCreateUpdateDialogComponent} from './article-create-update-dialog/article-create-update-dialog.component';
+import {ArticleQueryModel} from '../shared/article-query.model';
+import {ArticleService} from '../shared/article.service';
 import {CancelYesDialogComponent} from '../../core/cancel-yes-dialog.component';
 import {MatDialog, MatDialogConfig} from '@angular/material';
-import {ArticleService} from '../shared/article.service';
 
 @Component({
   selector: 'app-articles',
@@ -49,24 +49,36 @@ export class ArticlesComponent implements OnInit {
 
   }
 
-  update(article: ArticleDetailModel) {
-    const dialogConfig: MatDialogConfig = {
-      data: {
-        mode: 'Update',
-        article: {code: article.code}
-      }
-    };
+  update(articleDetailModel: ArticleDetailModel) {
 
-    this.dialog.open(ArticleCreateUpdateDialogComponent, dialogConfig);
+    let dialogConfig: MatDialogConfig = null;
+
+    this.articleService.readOne(articleDetailModel.code).subscribe(
+      article => {
+        dialogConfig = {
+          data: {
+            mode: 'Update',
+            article: article
+          }
+        };
+
+        this.dialog.open(ArticleCreateUpdateDialogComponent, dialogConfig);
+      }
+    );
+
   }
 
   delete(article: ArticleDetailModel) {
     this.dialog.open(CancelYesDialogComponent).afterClosed().subscribe(
       result => {
         if (result) {
-          console.log('Delete article');
+          this.articleService.delete(article.code).subscribe();
+          this.articleService.readAll().subscribe(
+            articleList => this.data = articleList
+          );
         }
-      });
+      }
+    );
   }
 }
 
