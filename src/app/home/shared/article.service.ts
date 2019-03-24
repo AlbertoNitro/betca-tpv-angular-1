@@ -26,15 +26,15 @@ export class ArticleService {
   }
 
   create(article: Article): Observable<Article> {
-    return this.httpService.post(ApiEndpoint.ARTICLES, article);
+    return this.httpService.successful('The article was created').post(ApiEndpoint.ARTICLES, article);
   }
 
   update(code: String, article: Article): Observable<Article> {
-    return this.httpService.put(ApiEndpoint.ARTICLES + '/' + code, article);
+    return this.httpService.successful('The article was updated').put(ApiEndpoint.ARTICLES + '/' + code, article);
   }
 
   delete(code: String): Observable<Article> {
-    return this.httpService.delete(ApiEndpoint.ARTICLES + '/' + code);
+    return this.httpService.successful('The article was deleted').delete(ApiEndpoint.ARTICLES + '/' + code);
   }
 
   // TODO: API connection
