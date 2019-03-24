@@ -27,7 +27,7 @@
           matInput
           name="articleId"
           placeholder="Article Id"
-          formControlName="articleId"
+          formControlName="idArticle"
           type="text">
       </mat-form-field>
       <mat-form-field>
@@ -50,7 +50,7 @@
     <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef fxFlex="30%"> Id </mat-header-cell>
-        <mat-cell *matCellDef="let articleLine" fxFlex="30%"> {{articleLine.id}}</mat-cell>
+        <mat-cell *matCellDef="let articleLine" fxFlex="30%"> {{articleLine.idArticle}}</mat-cell>
       </ng-container>
       <ng-container matColumnDef="percentage">
         <mat-header-cell *matHeaderCellDef fxFlex="30%"> Percentage </mat-header-cell>

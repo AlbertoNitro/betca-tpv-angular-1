@@ -12,7 +12,7 @@ import {OfferService} from './offer.service';
 export class OffersCreateDialogComponent implements OnInit {
   title = 'Articles list';
   dataSource: MatTableDataSource<ArticleLine>;
-  displayedColumns = ['id', 'percentage', 'action'];
+  displayedColumns = ['idArticle', 'percentage', 'action'];
   offer: CreateOffer;
 
   public formCreateOffer: FormGroup;
@@ -27,7 +27,7 @@ export class OffersCreateDialogComponent implements OnInit {
     });
 
     this.formAddArticle = new FormGroup({
-      articleId: new FormControl('',
+      idArticle: new FormControl('',
         [Validators.required]),
       percentage: new FormControl(  '',
         [Validators.required, Validators.min(1), Validators.max(100)] ),
@@ -39,12 +39,12 @@ export class OffersCreateDialogComponent implements OnInit {
   }
 
   addArticle(formSubmitted: FormGroup) {
-    const articleId = formSubmitted.controls.articleId.value;
+    const idArticle = formSubmitted.controls.idArticle.value;
     const percentage = formSubmitted.controls.percentage.value;
-    this.articleService.readOne(articleId).subscribe((result) => {
-        const articleRepeated = this.dataSource.data.find(article => article.id === articleId) !== undefined;
+    this.articleService.readOne(idArticle).subscribe((result) => {
+        const articleRepeated = this.dataSource.data.find(article => article.idArticle === idArticle) !== undefined;
         if (!articleRepeated) {
-          this.dataSource.data.push({ id: articleId, percentage: percentage });
+          this.dataSource.data.push({ idArticle: idArticle, percentage: percentage });
           this.dataSource = new MatTableDataSource(this.dataSource.data);
         }
       },

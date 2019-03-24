@@ -6,7 +6,6 @@ import { ApiEndpoint } from '../shared/api-endpoint.model';
 
 import { CreateOffer } from './offer.model';
 import { Offer } from './offer.model';
-import { OFFERSMOCK } from './offers.mock';
 
 @Injectable()
 export class OfferService {
@@ -15,9 +14,7 @@ export class OfferService {
   }
 
   readAll(): Observable<Offer[]> {
-    // TODO: implement Offer GetAll (API connection - GET /offers)
-    // return this.httpService.get(ApiEndpoint.OFFERS);
-    return of(OFFERSMOCK);
+    return this.httpService.get(ApiEndpoint.OFFERS);
   }
 
   create(offer: CreateOffer): Observable<any> {
@@ -29,9 +26,7 @@ export class OfferService {
 
   delete(offer: Offer): Observable<any> {
     console.log(offer, '<<<<<<<<< OFFER DELETED - Service');
-    return of(offer);
-    // TODO: implement Offer Delete (API connection - DELETE /offers)
-    // return this.httpService.delete(ApiEndpoint.OFFERS, offer);
+    return this.httpService.delete(ApiEndpoint.OFFERS + '/' + offer.id);
   }
 
 }
