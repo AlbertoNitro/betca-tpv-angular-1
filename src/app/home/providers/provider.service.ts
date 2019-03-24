@@ -30,4 +30,8 @@ export class ProviderService {
   create(provider: Provider): Observable<Provider> {
     return this.httpService.post(ApiEndpoint.PROVIDERS, provider );
   }
+
+  search(provider: Provider): Observable<Provider[]> {
+    return this.httpService.post(ApiEndpoint.PROVIDERS + ApiEndpoint.SEARCH, provider);
+  }
 }
