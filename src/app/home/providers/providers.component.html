@@ -1,3 +1,27 @@
+<mat-card>
+  <mat-card-title>Search</mat-card-title>
+  <mat-card-content>
+    <mat-form-field>
+      <input [(ngModel)]="provider.company" matInput placeholder="Company">
+    </mat-form-field>
+    <mat-form-field>
+      <input [(ngModel)]="provider.nif" matInput placeholder="Nif">
+    </mat-form-field>
+    <mat-form-field>
+      <input [(ngModel)]="provider.email" matInput placeholder="Email">
+    </mat-form-field>
+    <mat-form-field>
+      <input [(ngModel)]="provider.phone" matInput placeholder="Phone">
+    </mat-form-field>
+    <mat-checkbox [(ngModel)]="provider.active">Active</mat-checkbox>
+    <button (click)="search()" color="primary" mat-mini-fab>
+      <mat-icon>search</mat-icon>
+    </button>
+    <button (click)="resetSearch()" color="primary" mat-mini-fab>
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-card-content>
+</mat-card>
 <!-- Default: [createAction]="true" [readAction]="true" [updateAction]="true" [deleteAction]="true"-->
 <app-crud (create)="create()" (read)="read($event.id)" (update)="update($event.id)" [columns]="columns"
           [data]="data" [deleteAction]="false" [title]="title"></app-crud>
