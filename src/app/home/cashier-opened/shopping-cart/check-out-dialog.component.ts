@@ -159,7 +159,7 @@ export class CheckOutDialogComponent {
   openQuickUserCrud(dialogConfig: MatDialogConfig) {
     const quickUserCrudDialog = this.dialog.open(UserQuickCreationDialogComponent, dialogConfig);
     quickUserCrudDialog.afterClosed().subscribe(userCreated => {
-      if (userCreated != null) {
+      if (userCreated !== '') {
         this.assignUserToTicket(userCreated);
       }
     });
@@ -173,13 +173,18 @@ export class CheckOutDialogComponent {
         user: this.userFound
       }
     };
-    this.dialog.open(UserCreateUpdateDialogComponent, dialogConfig);
+    const editUserDialog = this.dialog.open(UserCreateUpdateDialogComponent, dialogConfig);
+    editUserDialog.afterClosed().subscribe(userUpdated => {
+      if (userUpdated !== '') {
+        this.assignUserToTicket(userUpdated);
+      }
+    });
   }
 
-  assignUserToTicket(userCreated) {
-    this.ticketCreation.userMobile = userCreated.mobile;
-    this.userMobile = userCreated.mobile;
-    this.userFound = userCreated;
+  assignUserToTicket(user) {
+    this.ticketCreation.userMobile = user.mobile;
+    this.userMobile = user.mobile;
+    this.userFound = user;
   }
 
   unassignUserToTicket() {

@@ -24,4 +24,8 @@ export class UserService {
     return this.httpService.post(ApiEndpoint.USERS, user);
   }
 
+  updateUser(user: User): Observable<User> {
+    return this.httpService.put(ApiEndpoint.USERS, user);
+  }
+
 }
