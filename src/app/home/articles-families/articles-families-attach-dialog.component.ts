@@ -23,20 +23,19 @@ export class ArticlesFamiliesAttachDialogComponent {
               private articleService: ArticleService) {
   }
 
+  create() {
+
+  }
+
+  isValid() {
+    return this.familyTypeSelected != null && (this.articleFamilySelected != null || this.articleMinimumSelected != null);
+  }
+
   whenSelected() {
     if (this.familyTypeSelected === this.familyTypes.families[0]) {
       this.articleService.readAllArticleMinimum().subscribe(data => this.articlesMinimum = data);
     } else {
       this.articleFamilyService.readAllFamilyComposites(this.familyTypeSelected.familyType).subscribe(data => this.articlesFamily = data);
     }
-  }
-
-  isValid() {
-    return false;
-  }
-
-  create() {
-
-
   }
 }
