@@ -57,18 +57,18 @@ export class TicketsComponent {
 
   searchTicketById(code: string) {
     this.ticket = this.ticketsService.readOne(code);
-    this.fillData();
+    this.fillData(code);
   }
 
-  fillData() {
+  fillData(code: string) {
+    this.ticketCode = code;
     this.dataSource = new MatTableDataSource<ShoppingTicket>(this.ticket.shoppingTicket);
     this.isTicketFound = true;
-    this.ticketCode = this.ticket.code;
     this.ticketTotal = this.ticket.total;
   }
 
   reset() {
-    this.searchTicketById(this.ticket.code);
+    this.searchTicketById(this.ticketCode);
   }
 
   save() {
