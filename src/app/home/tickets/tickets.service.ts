@@ -37,7 +37,7 @@ export class TicketsService {
       code: code,
       date: '05/03/2019 17:15:55',
       shoppingTicket: this.shoppingTicketMock ,
-      total: 100
+      total: 106
     };
      return this.ticketMock;
     // TODO: API CALL and returning an Observable<Ticket>

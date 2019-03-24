@@ -14,25 +14,28 @@ import {TicketsService} from './tickets.service';
 
 export class TicketsComponent {
 
-  constructor(private ticketsService: TicketsService) {
-    this.isTicketFound = false;
-    this.ticketCode = '0';
-    this.ticketTotal = 0;
-  }
   static URL = 'tickets';
   ticket: Ticket;
   isTicketFound: boolean;
   ticketCode: string;
   ticketTotal: number;
-  matSelectStates: GenericMatSelect[] = [
-    {value: ShoppingState.NotCommited, viewValue: 'Not Commited'},
-    {value: ShoppingState.InStock, viewValue: 'In Stock'},
-    {value: ShoppingState.Sending, viewValue: 'Sending'},
-    {value: ShoppingState.Commited, viewValue: 'Commited'}
-  ];
+  matSelectStates: GenericMatSelect[];
   customizedMatSelectStates: GenericMatSelect[];
   dataSource: MatTableDataSource<ShoppingTicket>;
   displayedColumns = ['id', 'description', 'retailPrice', 'amount', 'discount', 'totalPrice', 'shoppingState'];
+
+  constructor(private ticketsService: TicketsService) {
+    this.isTicketFound = false;
+    this.ticketCode = '0';
+    this.ticketTotal = 0;
+    this.matSelectStates = [
+      {value: ShoppingState.NotCommited, viewValue: 'Not Commited'},
+      {value: ShoppingState.InStock, viewValue: 'In Stock'},
+      {value: ShoppingState.Sending, viewValue: 'Sending'},
+      {value: ShoppingState.Commited, viewValue: 'Commited'}
+    ];
+    this.customizedMatSelectStates = this.matSelectStates;
+  }
 
   choosePossibleStates = (selectedState => {
     switch ( selectedState ) {
@@ -96,8 +99,6 @@ export class TicketsComponent {
   manageMatSelectOptions (actualState, shoppingTicket) {
     shoppingTicket.shoppingState = actualState.value;
     this.customizedMatSelectStates = this.choosePossibleStates(actualState.value);
-    console.log('Ticket: ', this.ticket);
-    console.log('Shopping Ticket: ', shoppingTicket);
   }
 }
 
