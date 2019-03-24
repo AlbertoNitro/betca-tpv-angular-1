@@ -1,5 +1,5 @@
 import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {ArticleFamilyMinimum} from './articles-families-minimum.model';
 import {ArticleFamilyService} from './articles-families.service';
 import {FamilyTypes} from './family-types.model';
@@ -21,16 +21,16 @@ export class ArticlesFamiliesAttachDialogComponent {
   familyTypeSelected: FamilyType;
 
   constructor(private articleFamilyService: ArticleFamilyService, @Inject(MAT_DIALOG_DATA) private parentFamily: ArticleFamilyMinimum,
-              private articleService: ArticleService) {
+              private articleService: ArticleService, public dialogRef: MatDialogRef<ArticlesFamiliesAttachDialogComponent>) {
   }
 
   create() {
     if (this.familyTypeSelected === this.familyTypes.families[0]) {
       this.articleFamilyService.attachToFamily(this.parentFamily.description,
-        new ArticleFamily().setArticleMinimum(this.articleMinimumSelected)).subscribe();
+        new ArticleFamily().setArticleMinimum(this.articleMinimumSelected)).subscribe(() => this.dialogRef.close());
     } else {
       this.articleFamilyService.attachToFamily(this.parentFamily.description,
-        new ArticleFamily().setArticleFamilyMinimum(this.articleFamilySelected)).subscribe();
+        new ArticleFamily().setArticleFamilyMinimum(this.articleFamilySelected)).subscribe(() => this.dialogRef.close());
     }
   }
 
