@@ -25,7 +25,6 @@ export class OffersComponent implements OnInit{
     this.offerService.readAll().subscribe(
       offers => this.offers = offers
     );
-    console.log(this.offers, '<<<<< OFFERS');
   }
 
   search() {

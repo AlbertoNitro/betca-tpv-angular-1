@@ -64,6 +64,13 @@ export class OffersCreateDialogComponent implements OnInit {
       endDate: formSubmitted.controls.endDate.value,
       articleLine: this.dataSource.data
     };
-    this.offerService.create(this.offer).subscribe();
+    this.offerService.create(this.offer).subscribe(
+      result => {
+        console.log(result, '<<<<< RESULT');
+      },
+      error => {
+        console.log(error, '<<<<< ERROR');
+      }
+    );
   }
 }

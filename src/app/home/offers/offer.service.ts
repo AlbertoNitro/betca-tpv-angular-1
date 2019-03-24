@@ -17,15 +17,11 @@ export class OfferService {
     return this.httpService.get(ApiEndpoint.OFFERS);
   }
 
-  create(offer: CreateOffer): Observable<any> {
-    console.log(offer, '<<<<< OFFER CREATED - Service');
-    return of(offer);
-    // TODO: implement Offer Create (API connection - POST /offers)
+  create(offer: CreateOffer): Observable<Offer> {
     return this.httpService.post(ApiEndpoint.OFFERS, offer);
   }
 
   delete(offer: Offer): Observable<any> {
-    console.log(offer, '<<<<<<<<< OFFER DELETED - Service');
     return this.httpService.delete(ApiEndpoint.OFFERS + '/' + offer.id);
   }
 

@@ -25,7 +25,7 @@
       <mat-form-field>
         <input
           matInput
-          name="articleId"
+          name="idArticle"
           placeholder="Article Id"
           formControlName="idArticle"
           type="text">
@@ -48,7 +48,7 @@
 <mat-card>
   <mat-card-content>
     <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-      <ng-container matColumnDef="id">
+      <ng-container matColumnDef="idArticle">
         <mat-header-cell *matHeaderCellDef fxFlex="30%"> Id </mat-header-cell>
         <mat-cell *matCellDef="let articleLine" fxFlex="30%"> {{articleLine.idArticle}}</mat-cell>
       </ng-container>
