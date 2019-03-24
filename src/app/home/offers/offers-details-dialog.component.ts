@@ -8,7 +8,7 @@ import { Offer } from './offer.model';
 })
 export class OffersDetailsDialogComponent {
   title = 'Articles list';
-  columns = ['id', 'percentage'];
+  columns = ['idArticle', 'percentage'];
   offer: Offer;
 
   constructor(@Inject(MAT_DIALOG_DATA) data: object) {

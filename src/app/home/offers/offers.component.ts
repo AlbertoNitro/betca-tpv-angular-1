@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { CancelYesDialogComponent } from '../../core/cancel-yes-dialog.component';
 import { OffersCreateDialogComponent } from './offers-create-dialog.component';
@@ -11,7 +11,7 @@ import { OfferService } from './offer.service';
   selector: 'app-offers',
   templateUrl: './offers.component.html'
 })
-export class OffersComponent {
+export class OffersComponent implements OnInit{
   static URL = 'offers';
   onlyActiveOffers = false;
   title = 'Offers management';
@@ -19,10 +19,12 @@ export class OffersComponent {
   offers: Offer[];
 
   constructor(private offerService: OfferService, private dialog: MatDialog) {
+  }
+
+  ngOnInit(): void {
     this.offerService.readAll().subscribe(
       offers => this.offers = offers
     );
-    console.log(this.offers, '<<<<< OFFERS');
   }
 
   search() {

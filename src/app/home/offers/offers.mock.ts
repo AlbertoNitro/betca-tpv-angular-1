@@ -7,15 +7,15 @@ export const OFFERSMOCK: Offer[] = [
     endDate: '03-07-2019',
     articleLine: [
       {
-        id: '1',
+        idArticle: '1',
         percentage: 12
       },
       {
-        id: '2',
+        idArticle: '2',
         percentage: 34
       },
       {
-        id: '3',
+        idArticle: '3',
         percentage: 2
       }
     ]
@@ -26,11 +26,11 @@ export const OFFERSMOCK: Offer[] = [
     endDate: '03-12-2019',
     articleLine: [
       {
-        id: '1',
+        idArticle: '1',
         percentage: 12
       },
       {
-        id: '3',
+        idArticle: '3',
         percentage: 2
       }
     ]
@@ -41,15 +41,15 @@ export const OFFERSMOCK: Offer[] = [
     endDate: '12-07-2020',
     articleLine: [
       {
-        id: '5',
+        idArticle: '5',
         percentage: 2
       },
       {
-        id: '2',
+        idArticle: '2',
         percentage: 34
       },
       {
-        id: '3',
+        idArticle: '3',
         percentage: 26
       }
     ]
@@ -60,7 +60,7 @@ export const OFFERSMOCK: Offer[] = [
     endDate: '30-11-2019',
     articleLine: [
       {
-        id: '5',
+        idArticle: '5',
         percentage: 2
       }
     ]
@@ -71,23 +71,23 @@ export const OFFERSMOCK: Offer[] = [
     endDate: '29-04-2019',
     articleLine: [
       {
-        id: '5',
+        idArticle: '5',
         percentage: 2
       },
       {
-        id: '2',
+        idArticle: '2',
         percentage: 34
       },
       {
-        id: '3',
+        idArticle: '3',
         percentage: 26
       },
       {
-        id: '15',
+        idArticle: '15',
         percentage: 4
       },
       {
-        id: '1',
+        idArticle: '1',
         percentage: 12
       }
     ]

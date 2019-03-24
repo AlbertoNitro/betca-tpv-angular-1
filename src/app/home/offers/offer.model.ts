@@ -12,6 +12,6 @@ export interface CreateOffer {
 }
 
 export interface ArticleLine {
-  id: string;
+  idArticle: string;
   percentage: number;
 }
