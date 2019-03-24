@@ -14,24 +14,41 @@ import {TicketsService} from './tickets.service';
 
 export class TicketsComponent {
 
-  constructor(private ticketsService: TicketsService) {
-    this.isTicketFound = false;
-    this.ticketCode = '0';
-    this.ticketTotal = 0;
-  }
   static URL = 'tickets';
   ticket: Ticket;
   isTicketFound: boolean;
   ticketCode: string;
   ticketTotal: number;
-  matSelectStates: GenericMatSelect[] = [
-    {value: ShoppingState.NotCommited, viewValue: 'Not Commited'},
-    {value: ShoppingState.InStock, viewValue: 'In Stock'},
-    {value: ShoppingState.Sending, viewValue: 'Sending'},
-    {value: ShoppingState.Commited, viewValue: 'Commited'}
-  ];
+  matSelectStates: GenericMatSelect[];
+  customizedMatSelectStates: GenericMatSelect[];
   dataSource: MatTableDataSource<ShoppingTicket>;
   displayedColumns = ['id', 'description', 'retailPrice', 'amount', 'discount', 'totalPrice', 'shoppingState'];
+
+  constructor(private ticketsService: TicketsService) {
+    this.isTicketFound = false;
+    this.ticketCode = '0';
+    this.ticketTotal = 0;
+    this.matSelectStates = [
+      {value: ShoppingState.NotCommited, viewValue: 'Not Commited'},
+      {value: ShoppingState.InStock, viewValue: 'In Stock'},
+      {value: ShoppingState.Sending, viewValue: 'Sending'},
+      {value: ShoppingState.Commited, viewValue: 'Commited'}
+    ];
+    this.customizedMatSelectStates = this.matSelectStates;
+  }
+
+  choosePossibleStates = (selectedState => {
+    switch ( selectedState ) {
+      case ShoppingState.NotCommited:
+        return this.matSelectStates.filter(status => status.value !== ShoppingState.NotCommited);
+      case ShoppingState.InStock:
+        return this.matSelectStates.filter(status =>
+          (status.value === ShoppingState.Sending || status.value === ShoppingState.Commited));
+      case ShoppingState.Sending:
+      case ShoppingState.Commited:
+        return this.matSelectStates.filter(status => status.value === ShoppingState.Commited);
+    }
+  });
 
   static updateTotal(shoppingTicket: ShoppingTicket): void {
     const value = shoppingTicket.retailPrice * shoppingTicket.amount * (1 - shoppingTicket.discount / 100);
@@ -73,6 +90,15 @@ export class TicketsComponent {
     }
     this.ticketTotal = Math.round(total * 100) / 100;
     this.ticket.total = this.ticketTotal;
+  }
+
+  initializeCustomizedMatSelectStates(state) {
+   this.customizedMatSelectStates = this.choosePossibleStates(state);
+  }
+
+  manageMatSelectOptions (actualState, shoppingTicket) {
+    shoppingTicket.shoppingState = actualState.value;
+    this.customizedMatSelectStates = this.choosePossibleStates(actualState.value);
   }
 }
 
