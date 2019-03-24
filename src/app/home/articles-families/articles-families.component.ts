@@ -5,6 +5,7 @@ import {CancelYesDialogComponent} from '../../core/cancel-yes-dialog.component';
 import {MatDialog} from '@angular/material';
 import {ArticlesFamiliesCreateDialogComponent} from './articles-families-create-dialog.component';
 import {ArticlesFamiliesUpdateDialogComponent} from './articles-families-update-dialog.component';
+import {FamilyTypes} from './family-types.model';
 
 @Component({
   selector: 'app-articles-families',
@@ -15,14 +16,15 @@ export class ArticlesFamiliesCRUDComponent {
   title = 'Articles Families';
   columns = ['description'];
   data: ArticleFamilyMinimum[];
+  familyTypes: FamilyTypes = new FamilyTypes();
 
   constructor(private articleFamilyService: ArticleFamilyService, private dialog: MatDialog) {
-    articleFamilyService.readAllFamilies().subscribe(data => this.data = data);
+    articleFamilyService.readAllFamilyComposites(this.familyTypes.families[2].familyType).subscribe(data => this.data = data);
   }
 
   create() {
     this.dialog.open(ArticlesFamiliesCreateDialogComponent, {width: '30%', height: '55%'}).afterClosed().subscribe(
-      () => this.articleFamilyService.readAllFamilies().subscribe(data => this.data = data)
+      () => this.articleFamilyService.readAllFamilyComposites(this.familyTypes.families[2].familyType).subscribe(data => this.data = data)
     );
   }
 

@@ -32,7 +32,7 @@ export class ArticleFamilyService {
     return this.httpService.get(ApiEndpoint.ARTICLES_FAMILY + '/' + description);
   }
 
-  readAllFamilies(): Observable<ArticleFamilyMinimum[]> {
-    return this.httpService.param('familyType', 'ARTICLES').get(ApiEndpoint.ARTICLES_FAMILY);
+  readAllFamilyComposites(familyType: string): Observable<ArticleFamilyMinimum[]> {
+    return this.httpService.param('familyType', familyType).get(ApiEndpoint.ARTICLES_FAMILY);
   }
 }
