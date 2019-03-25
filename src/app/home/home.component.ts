@@ -1,24 +1,31 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
-
 import {TokensService} from '../core/tokens.service';
 import {CancelYesDialogComponent} from '../core/cancel-yes-dialog.component';
 import {CashierService} from './shared/cashier.service';
 import {AdminsService} from './admins/admins.service';
 import {UserService} from './users/user.service';
 import {DbSeedDialogComponent} from './admins/db-seed-dialog.component';
+import {BudgetsComponent} from './budgets/budgets.component';
 import {CashierClosedComponent} from './cashier-closed/cashier-closed.component';
 import {CashierOpenedComponent} from './cashier-opened/cashier-opened.component';
 import {CashierClosureDialogComponent} from './cashier-opened/cashier/cashier-closure-dialog.component';
 import {CashMovementDialogComponent} from './cashier-opened/shared/cash-movement/cash-movement-dialog.component';
-import {ArticlesComponent} from './articles/articles.component';
 import {UsersComponent} from './users/users.component';
 import {ProvidersComponent} from './providers/providers.component';
 import {ProfileDialogComponent} from './users/profile-dialog.component';
+import {ArticlesComponent} from './articles/articles.component';
 import {ArticlesFamiliesCRUDComponent} from './articles-families/articles-families.component';
 import {FamilySizesCreationComponent} from './cashier-opened/articles-family/family-sizes-creation.component';
 import {OffersComponent} from './offers/offers.component';
+import {StatisticComponent} from './stadistics/statistic.component';
+import {StockPredictionComponent} from './stock-prediction/stock-prediction.component';
+import {TicketsComponent} from './tickets/tickets.component';
+import {OrderComponent} from './order/order.component';
+import {OperatorManagerComponent} from './operator-manager/operator-manager.component';
+import {RGPDComponent} from './rgpd/rgpd.component';
+import {VouchersComponent} from './vouchers/vouchers.component';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -45,6 +52,10 @@ export class HomeComponent {
 
   isManager(): boolean {
     return this.tokensService.isManager();
+  }
+
+  isOperator(): boolean {
+    return this.tokensService.isOperator();
   }
 
   cashier() {
@@ -106,12 +117,15 @@ export class HomeComponent {
   }
 
   vouchers() {
+    this.router.navigate([HomeComponent.URL, VouchersComponent.URL]);
   }
 
   statistics() {
+    this.router.navigate([HomeComponent.URL, StatisticComponent.URL]);
   }
 
   tickets() {
+    this.router.navigate([HomeComponent.URL, TicketsComponent.URL]);
   }
 
   ticketTracking() {
@@ -140,13 +154,32 @@ export class HomeComponent {
   }
 
   budgets() {
+    this.router.navigate([HomeComponent.URL, BudgetsComponent.URL]);
   }
 
   Orders() {
+    this.router.navigate([HomeComponent.URL, OrderComponent.URL]);
   }
 
   offers() {
     this.router.navigate([HomeComponent.URL, OffersComponent.URL]);
+  }
+
+  operatorManager() {
+    this.router.navigate([HomeComponent.URL, OperatorManagerComponent.URL]);
+  }
+  stockAlarm() {
+  }
+
+  stockManager() {
+  }
+
+  stockPrediction() {
+    this.router.navigate([HomeComponent.URL, StockPredictionComponent.URL]);
+  }
+
+  rgpd() {
+    this.router.navigate([HomeComponent.URL, RGPDComponent.URL]);
   }
 
 }

@@ -1,1 +1,4 @@
-<h1>Advance search</h1>
+<app-advanced-query (emitter)="updateData($event)"></app-advanced-query>
+<app-crud [data]="data" [title]="title" [columns]="columns" createAction="createButton" updateAction="editButton"
+          deleteAction="deleteButton" (read)="add($event)">
+</app-crud>

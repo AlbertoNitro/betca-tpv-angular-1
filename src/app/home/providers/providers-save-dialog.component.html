@@ -1,0 +1,29 @@
+<h3 mat-dialog-title>{{mode}} provider</h3>
+  <mat-dialog-content>
+    <mat-form-field *ngIf="mode === 'update'">
+      <input matInput placeholder="id" [(ngModel)]="provider.id"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="company" [(ngModel)]="provider.company"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="nif" [(ngModel)]="provider.nif"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="email" [(ngModel)]="provider.email"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="address" [(ngModel)]="provider.address"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="phone" [(ngModel)]="provider.phone"/>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="note" [(ngModel)]="provider.note"/>
+    </mat-form-field>
+    <mat-checkbox [(ngModel)]="provider.active">Active</mat-checkbox>
+  </mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close (click)="onclick()">Submit</button>
+</mat-dialog-actions>

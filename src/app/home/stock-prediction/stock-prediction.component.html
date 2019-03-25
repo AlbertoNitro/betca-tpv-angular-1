@@ -1,0 +1,43 @@
+<div fxLayoutAlign="space-around center">
+  <mat-card>
+    <mat-card-title>
+      <mat-icon>timeline</mat-icon>
+      Stock Prediction
+    </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="stockPredictionForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+          <mat-select placeholder="Article" matInput formControlName="articleFormControl">
+            <mat-option *ngFor="let article of articleList" [value]="article.code">
+              {{article.description}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Type of period" formControlName="periodicityTypeFormControl"
+                      (selectionChange)="onChangePeriodicityType()">
+            <mat-option *ngFor="let periodicityType of periodicityTypeList" [value]="periodicityType">
+              {{periodicityType}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Number of periods" formControlName="periodsNumberFormControl">
+            <mat-option *ngFor="let periodsNumber of periodsNumberList" [value]="periodsNumber">
+              {{periodsNumber}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button [disabled]="!stockPredictionForm.valid">Predict</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <app-crud [title]="stockPredictionTableTitle"
+            [columns]="stockPredictionTableColumns"
+            [data]="stockPredictionTableData"
+            [updateAction]="false"
+            [createAction]="false"
+            [readAction]="false"
+            [deleteAction]="false">
+  </app-crud>
+</div>

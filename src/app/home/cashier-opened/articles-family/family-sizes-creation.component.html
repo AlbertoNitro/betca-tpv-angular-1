@@ -15,6 +15,8 @@
       <input matInput placeholder="Provider" formControlName="provider" required>
     </mat-form-field>
   </div>
+</form>
+<form [formGroup]="sizesArrayDefinitionForm">
   <h5>Sizes:</h5>
   <div>
     <mat-radio-group formControlName="sizeType">
@@ -46,6 +48,6 @@
 
   <mat-dialog-actions>
     <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-button mat-dialog-close [disabled]="familySizesForm.invalid" (click)="createFamilySizes()">Create</button>
+    <button mat-button mat-dialog-close [disabled]="familySizesForm.invalid || sizesArrayDefinitionForm.invalid" (click)="createFamilySizes()">Create</button>
   </mat-dialog-actions>
 </form>

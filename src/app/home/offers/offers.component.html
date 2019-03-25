@@ -1,3 +1,23 @@
-<h2>
-  Offers Works!
-</h2>
+<mat-card>
+  <mat-card-title>Search</mat-card-title>
+  <mat-card-content>
+    <mat-form-field>
+      <input matInput placeholder="Offer Id">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Offer Name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Article Id">
+    </mat-form-field>
+    <mat-checkbox [(ngModel)]="onlyActiveOffers">Only active offers</mat-checkbox>
+    <button (click)="search()" color="primary" mat-mini-fab>
+      <mat-icon>search</mat-icon>
+    </button>
+    <button (click)="resetSearch()" color="primary" mat-mini-fab>
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-card-content>
+</mat-card>
+<app-crud [data]="offers" [title]="title" [columns]="columns" [updateAction]="false"
+          (create)="create()" (read)="read($event)" (delete)="delete($event)"></app-crud>

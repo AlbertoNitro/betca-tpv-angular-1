@@ -1,0 +1,38 @@
+<mat-card>
+  <mat-card-title>Search Vouchers</mat-card-title>
+  <mat-card-content>
+    <mat-form-field color="accent">
+      <input
+        matInput
+        [matDatepicker]="dpInit"
+        placeholder="From"
+        (dateChange)="dateInitChange($event)"
+        formControlName="initDate"
+        required
+      />
+      <mat-datepicker-toggle matSuffix [for]="dpInit"></mat-datepicker-toggle>
+      <mat-datepicker #dpInit></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field color="accent">
+      <input
+        matInput
+        [matDatepicker]="dpEnd"
+        placeholder="To"
+        [min]="initDate"
+        (dateChange)="dateEndChange($event)"
+        formControlName="endDate"
+        required
+      />
+
+      <mat-datepicker-toggle matSuffix [for]="dpEnd"></mat-datepicker-toggle>
+      <mat-datepicker #dpEnd></mat-datepicker>
+    </mat-form-field>
+    <mat-checkbox [(ngModel)]="onlyConsumed">Comsumed Voucher</mat-checkbox>
+    <button (click)="search()" color="primary" mat-mini-fab>
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-card-content>
+</mat-card>
+<app-advanced-query (emitter)="updateData($event)"></app-advanced-query>
+<app-crud [data]="data" [title]="title" [columns]="columns" [deleteAction]="false" [readAction]="false"
+          (create)="create()" (update)="update($event)"></app-crud>

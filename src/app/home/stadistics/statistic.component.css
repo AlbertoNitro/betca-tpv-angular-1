@@ -1,0 +1,6 @@
+.content-statistic {
+  width: 75%;
+  height: 400px;
+  display: grid; overflow: hidden;
+  margin: 0 auto;
+}

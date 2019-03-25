@@ -20,7 +20,7 @@ import {DateComponent} from './date.component';
 import {LoginDialogComponent} from './login-dialog.component';
 import {CancelYesDialogComponent} from './cancel-yes-dialog.component';
 import {CrudComponent} from './crud.component';
-
+import {DetailsDialogComponent} from './details-dialog.component';
 
 @NgModule({
   imports: [
@@ -38,18 +38,21 @@ import {CrudComponent} from './crud.component';
   declarations: [
     CancelYesDialogComponent,
     CrudComponent,
+    DetailsDialogComponent,
     DateComponent,
     LoginDialogComponent
   ],
   exports: [
     CancelYesDialogComponent,
     CrudComponent,
+    DetailsDialogComponent,
     DateComponent,
     LoginDialogComponent,
 
   ],
   entryComponents: [
     CancelYesDialogComponent,
+    DetailsDialogComponent,
     LoginDialogComponent
   ],
   providers: [

@@ -1,0 +1,78 @@
+<mat-card>
+  <mat-card-title> Create offer </mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="formCreateOffer">
+      <mat-form-field>
+        <input matInput
+               name="offername"
+               placeholder="Offer Name"
+               formControlName="offername"
+               type="text" />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput
+               name="endDate"
+               placeholder="End Date"
+               formControlName="endDate"
+               [matDatepicker]="picker"
+               />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker disabled="false"></mat-datepicker>
+      </mat-form-field>
+      <hr>
+    </form>
+    <form [formGroup]="formAddArticle">
+      <mat-form-field>
+        <input
+          matInput
+          name="idArticle"
+          placeholder="Article Id"
+          formControlName="idArticle"
+          type="text">
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          name="percentage"
+          placeholder="Percentage"
+          formControlName="percentage"
+          type="number"
+          min="1"
+          max="100">
+      </mat-form-field>
+      <br>
+      <button mat-button [disabled]="formAddArticle.invalid" (click)="addArticle(formAddArticle)" color="primary">Add Article</button>
+    </form>
+  </mat-card-content>
+</mat-card>
+<mat-card>
+  <mat-card-content>
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="idArticle">
+        <mat-header-cell *matHeaderCellDef fxFlex="30%"> Id </mat-header-cell>
+        <mat-cell *matCellDef="let articleLine" fxFlex="30%"> {{articleLine.idArticle}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="percentage">
+        <mat-header-cell *matHeaderCellDef fxFlex="30%"> Percentage </mat-header-cell>
+        <mat-cell *matCellDef="let articleLine" fxFlex="30%"> {{articleLine.percentage}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef fxFlex="5%"> Action </mat-header-cell>
+        <mat-cell *matCellDef="let articleLine" fxFlex="5%" >
+          <mat-icon class="mat-icon mat-warn material-icons" color="warn" role="button" (click)="delete(articleLine)">close</mat-icon>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let articleLine; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </mat-card-content>
+</mat-card>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close color="accent">Cancel</button>
+  <button
+    mat-button
+    [disabled]="formCreateOffer.invalid
+    && formAddArticle.invalid"
+    (click)="createOffer(formCreateOffer)"
+    color="primary">Create</button>
+</mat-dialog-actions>

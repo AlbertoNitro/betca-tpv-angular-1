@@ -1,0 +1,105 @@
+<mat-card>
+  <mat-card-title>
+    <mat-icon color="primary">list</mat-icon>
+    Tickets
+  </mat-card-title>
+  <mat-card-content>
+    <div class="container">
+      <form>
+        <mat-form-field>
+          <input matInput placeholder="Ticket Code" type="text" #code cdkFocusInitial>
+        </mat-form-field>
+        <button type="submit" mat-mini-fab color="primary" (click)="searchTicketById(code.value); code.value='' "
+                [disabled]="code.value === ''">
+          <mat-icon>search</mat-icon>
+        </button>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>
+<div [hidden]="!isTicketFound">
+  <mat-card>
+    <table>
+      <tr>
+        <th class="left">Ticket</th>
+        <td>{{ticketCode}}</td>
+      </tr>
+    </table>
+  </mat-card>
+  <mat-card>
+    <mat-card-content>
+      <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef fxFlex="5%">#</mat-header-cell>
+          <mat-cell *matCellDef="let i = index" fxFlex="5%"> {{i + 1}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="description">
+          <mat-header-cell *matHeaderCellDef fxFlex="28%"> Description</mat-header-cell>
+          <mat-cell *matCellDef="let item" fxFlex="28%"> {{item.description}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="retailPrice">
+          <mat-header-cell *matHeaderCellDef fxFlex="11%"> Price</mat-header-cell>
+          <mat-cell *matCellDef="let item" fxFlex="28%"> {{item.retailPrice}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="amount">
+          <mat-header-cell *matHeaderCellDef fxFlex="20%"> Nº</mat-header-cell>
+          <mat-cell *matCellDef="let item" fxFlex="20%">
+            <button (click)="decreaseAmount(item)" color="accent" mat-icon-button>
+              <mat-icon>remove_circle_outline</mat-icon>
+            </button>
+            {{item.amount}}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="discount">
+          <mat-header-cell *matHeaderCellDef fxFlex="12%"> %</mat-header-cell>
+          <mat-cell *matCellDef="let item" fxFlex="28%"> {{item.discount}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="totalPrice">
+          <mat-header-cell *matHeaderCellDef fxFlex="12%"> Total</mat-header-cell>
+          <mat-cell *matCellDef="let item" fxFlex="28%"> {{item.totalPrice}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="shoppingState">
+          <mat-header-cell *matHeaderCellDef fxFlex="12%"> State</mat-header-cell>
+          <mat-cell *matCellDef="let item" fxFlex="28%">
+            <mat-form-field>
+              <mat-select placeholder="{{item.shoppingState}}"
+                          (openedChange)="initializeCustomizedMatSelectStates(item.shoppingState)"
+                          (selectionChange)="manageMatSelectOptions($event, item)">
+                <mat-option
+                  *ngFor="let state of customizedMatSelectStates"
+                  [value]="state.value">
+                  {{state.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let item; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-content>
+      <table>
+        <tr>
+          <th class="left">Total</th>
+          <td>{{ticketTotal | currency:'EUR':'symbol'}}</td>
+        </tr>
+      </table>
+    </mat-card-content>
+    <mat-card-content>
+      <button mat-raised-button color="accent" (click)="save()">
+        <mat-icon>save</mat-icon>
+        Save
+      </button>
+      <button mat-raised-button color="primary" (click)="reset()">
+        <mat-icon>settings_backup_restore</mat-icon>
+        Reset
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+

@@ -1,0 +1,13 @@
+<h1 mat-dialog-title >Apply Voucher</h1>
+<div mat-dialog-content>
+  <p>Insert code Voucher</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="codeVoucher">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button  mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close (click)="save()" cdkFocusInitial>Ok</button>
+</div>
+
+

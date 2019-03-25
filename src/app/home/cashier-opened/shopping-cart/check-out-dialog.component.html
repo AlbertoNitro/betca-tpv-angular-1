@@ -4,16 +4,15 @@
 <mat-dialog-content>
     <span *ngIf="warning()">
         <mat-icon color="warn">report_problem</mat-icon> Uncommit articles & phone not registered</span>
-  <!-- <app-user-quick-crud (found)="updateUser($event)"></app-user-quick-crud> -->
   <mat-form-field>
-    <input matInput type="number" placeholder="Mobile"/>
-    <button mat-button matSuffix mat-icon-button>
+    <input [disabled]="userFound" matInput type="number" placeholder="Mobile" [(ngModel)]="userMobile"/>
+    <button *ngIf="!userFound" mat-button matSuffix mat-icon-button (click)="findUserByMobile()">
       <mat-icon color="warn">search</mat-icon>
     </button>
-    <button mat-button matSuffix mat-icon-button>
+    <button *ngIf="userFound" (click)="openEditUserDialog()" mat-button matSuffix mat-icon-button>
       <mat-icon color="warn">mode_edit</mat-icon>
     </button>
-    <button mat-button matSuffix mat-icon-button>
+    <button *ngIf="userFound" (click)="unassignUserToTicket()" mat-button matSuffix mat-icon-button>
       <mat-icon color="warn">close</mat-icon>
     </button>
   </mat-form-field>

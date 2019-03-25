@@ -1,0 +1,71 @@
+<mat-card>
+  <mat-card-title>Create Article Family</mat-card-title>
+  <mat-card-content>
+    <form>
+      <mat-form-field>
+        <mat-select placeholder="Family Type" [(ngModel)]="familyTypeSelected" name="typeSelection"
+                    (selectionChange)="whenArticleSelected()">
+          <mat-option *ngFor="let family of familyTypes.families" [value]="family">
+            {{family.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+    <form>
+      <mat-form-field>
+        <mat-select placeholder="For which family" [(ngModel)]="familySelected" name="families">
+          <mat-option *ngFor="let selected of families" [value]="selected">
+            {{selected.description}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+    <form *ngIf="familyTypeSelected==familyTypes.families[0]">
+      <mat-card-title>Article Linking</mat-card-title>
+      <mat-form-field>
+        <mat-select placeholder="Select an article" [(ngModel)]="articleMinimumSelected" name="articles">
+          <mat-option *ngFor="let article of articlesMinimum" [value]="article">
+            {{article.description}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+    <form *ngIf="familyTypeSelected==familyTypes.families[1]" [formGroup]="formCreateSize">
+      <mat-card-title>Size Creation</mat-card-title>
+      <mat-form-field>
+        <input
+          matInput
+          name="description"
+          placeholder="Size"
+          formControlName="description"
+          type="text"
+        />
+      </mat-form-field>
+    </form>
+    <form *ngIf="familyTypeSelected==familyTypes.families[2]" [formGroup]="formCreateFamily">
+      <mat-card-title>Family Creation</mat-card-title>
+      <mat-form-field>
+        <input
+          matInput
+          name="description"
+          placeholder="Description"
+          formControlName="description"
+          type="text"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          name="reference"
+          placeholder="Reference"
+          formControlName="reference"
+          type="text"
+        />
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+</mat-card>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close color="accent">Cancel</button>
+  <button mat-button color="primary" [disabled]="!isValid()" (click)="create()">Create</button>
+</mat-dialog-actions>

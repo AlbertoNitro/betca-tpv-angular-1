@@ -1,34 +1,84 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+
+import {ArticleDetailModel} from '../shared/article-detail-model';
+import {ArticleCreateUpdateDialogComponent} from './article-create-update-dialog/article-create-update-dialog.component';
+import {ArticleQueryModel} from '../shared/article-query.model';
+import {ArticleService} from '../shared/article.service';
+import {CancelYesDialogComponent} from '../../core/cancel-yes-dialog.component';
+import {MatDialog, MatDialogConfig} from '@angular/material';
 
 @Component({
   selector: 'app-articles',
-  templateUrl: './articles.component.html',
-  styleUrls: ['./articles.component.css']
+  templateUrl: './articles.component.html'
 })
-export class ArticlesComponent {
-
+export class ArticlesComponent implements OnInit {
   static URL = 'articles';
-  title = 'Articles management';
-  columns = ['Code', 'Description', 'Retail price', 'Stock'];
-  data: any[];
 
-  constructor() {
-    this.data = [{ code: '8400000000001', description: 'falda', retailPrice: '13€', stock: '123'}];
+  article: ArticleQueryModel;
+
+  title = 'Articles Management';
+  columns = ['code', 'description', 'retailPrice', 'stock'];
+  data: ArticleDetailModel[];
+
+  constructor(private dialog: MatDialog, private articleService: ArticleService) {
+  }
+
+  ngOnInit(): void {
+    this.articleService.readAll().subscribe(
+      articleList => this.data = articleList
+    );
+  }
+
+  updateData(data) {
+    console.log(data);
+    this.data = data;
   }
 
   create() {
-    // TODO
+    const dialogConfig: MatDialogConfig = {
+      data: {
+        mode: 'Create',
+        article: {}
+      }
+    };
+
+    this.dialog.open(ArticleCreateUpdateDialogComponent, dialogConfig);
   }
 
-  read($event: any) {
-    // TODO
+  read(article: ArticleQueryModel) {
+
   }
 
-  delete($event: any) {
-    // TODO
+  update(articleDetailModel: ArticleDetailModel) {
+
+    let dialogConfig: MatDialogConfig = null;
+
+    this.articleService.readOne(articleDetailModel.code).subscribe(
+      article => {
+        dialogConfig = {
+          data: {
+            mode: 'Update',
+            article: article
+          }
+        };
+
+        this.dialog.open(ArticleCreateUpdateDialogComponent, dialogConfig);
+      }
+    );
+
   }
 
-  update($event: any) {
-    // TODO
+  delete(article: ArticleDetailModel) {
+    this.dialog.open(CancelYesDialogComponent).afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.articleService.delete(article.code).subscribe();
+          this.articleService.readAll().subscribe(
+            articleList => this.data = articleList
+          );
+        }
+      }
+    );
   }
 }
+

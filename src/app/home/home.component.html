@@ -43,9 +43,17 @@
     <mat-icon>account_circle</mat-icon>
     <span>Users</span>
   </button>
-  <button mat-menu-item (click)="statistics()">
+  <button mat-menu-item *ngIf="isAdmin()||isManager()" (click)="statistics()">
     <mat-icon>assessment</mat-icon>
     <span>Statistics</span>
+  </button>
+  <button mat-menu-item (click)="rgpd()">
+    <mat-icon>gavel</mat-icon>
+    <span>RGPD</span>
+  </button>
+  <button *ngIf="isManager() || isOperator()" mat-menu-item (click)="operatorManager()">
+    <mat-icon>schedule</mat-icon>
+    <span>HR</span>
   </button>
 </mat-menu>
 <mat-menu #settings="matMenu">
@@ -120,6 +128,24 @@
   <button mat-menu-item (click)="offers()">
     <mat-icon>attach_money</mat-icon>
     <span>Offers</span>
+  </button>
+  <button mat-menu-item [matMenuTriggerFor]="stock">
+    <mat-icon>line_style</mat-icon>
+    <span>Stock</span>
+  </button>
+</mat-menu>
+<mat-menu #stock="matMenu">
+  <button mat-menu-item (click)="stockAlarm()">
+    <mat-icon>alarm</mat-icon>
+    <span>Alarm</span>
+  </button>
+  <button mat-menu-item (click)="stockManager()">
+    <mat-icon>view_quilt</mat-icon>
+    <span>Manager</span>
+  </button>
+  <button mat-menu-item (click)="stockPrediction()">
+    <mat-icon>timeline</mat-icon>
+    <span>Prediction</span>
   </button>
 </mat-menu>
 

@@ -1,8 +1,13 @@
 import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig} from '@angular/material';
 
 import {TicketCreation} from './ticket-creation.model';
 import {ShoppingCartService} from './shopping-cart.service';
+import {UserQuickCreationDialogComponent} from '../../users/user-quick-creation-dialog/user-quick-creation-dialog.controller';
+import {VouchersUseDialogComponent} from '../../vouchers/vouchersUse-dialog.component';
+import {User} from '../../users/user.model';
+import {UserCreateUpdateDialogComponent} from '../../users/user-create-update-dialog/user-create-update-dialog.component';
+import {UserService} from '../../users/user.service';
 
 @Component({
   templateUrl: 'check-out-dialog.component.html',
@@ -13,10 +18,14 @@ export class CheckOutDialogComponent {
   totalPurchase: number;
   requestedInvoice = false;
   ticketCreation: TicketCreation;
+  userFound: User;
+  userMobile: number;
 
-  constructor(@Inject(MAT_DIALOG_DATA) data: any, private dialog: MatDialog, private shoppingCartService: ShoppingCartService) {
+  constructor(@Inject(MAT_DIALOG_DATA) data: any, private dialog: MatDialog, private shoppingCartService: ShoppingCartService,
+              private userService: UserService) {
     this.totalPurchase = data.total;
     this.ticketCreation = data.ticketCreation;
+    this.userService = userService;
   }
 
   static format(value: number): number {
@@ -75,7 +84,7 @@ export class CheckOutDialogComponent {
   }
 
   consumeVoucher() {
-    // TODO consumir un vale que se entrega como parte del pago
+    this.dialog.open(VouchersUseDialogComponent);
   }
 
   invalidCheckOut(): boolean {
@@ -134,4 +143,53 @@ export class CheckOutDialogComponent {
     return true;
   }
 
+  findUserByMobile() {
+    this.userService.findByMobile(this.userMobile).subscribe(response => {
+      this.assignUserToTicket(response);
+    }, () => {
+      const dialogConfig: MatDialogConfig = {
+        data: {
+          mobile: this.userMobile
+        }
+      };
+      this.openQuickUserCrud(dialogConfig);
+    });
+  }
+
+  openQuickUserCrud(dialogConfig: MatDialogConfig) {
+    const quickUserCrudDialog = this.dialog.open(UserQuickCreationDialogComponent, dialogConfig);
+    quickUserCrudDialog.afterClosed().subscribe(userCreated => {
+      if (userCreated !== '') {
+        this.assignUserToTicket(userCreated);
+      }
+    });
+  }
+
+
+  openEditUserDialog() {
+    const dialogConfig: MatDialogConfig = {
+      data: {
+        mode: 'Update',
+        user: this.userFound
+      }
+    };
+    const editUserDialog = this.dialog.open(UserCreateUpdateDialogComponent, dialogConfig);
+    editUserDialog.afterClosed().subscribe(userUpdated => {
+      if (userUpdated !== '') {
+        this.assignUserToTicket(userUpdated);
+      }
+    });
+  }
+
+  assignUserToTicket(user) {
+    this.ticketCreation.userMobile = user.mobile;
+    this.userMobile = user.mobile;
+    this.userFound = user;
+  }
+
+  unassignUserToTicket() {
+    this.ticketCreation.userMobile = null;
+    this.userMobile = null;
+    this.userFound = null;
+  }
 }

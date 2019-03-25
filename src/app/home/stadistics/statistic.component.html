@@ -1,0 +1,60 @@
+<h1>Statistic</h1>
+<form [formGroup]="form">
+  <mat-form-field color="accent">
+    <input
+      matInput
+      [matDatepicker]="dpInit"
+      placeholder="From"
+      (dateChange)="dateInitChange($event)"
+      formControlName="initDate"
+      required
+    />
+    <mat-datepicker-toggle matSuffix [for]="dpInit"></mat-datepicker-toggle>
+    <mat-datepicker #dpInit></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field color="accent">
+    <input
+      matInput
+      [matDatepicker]="dpEnd"
+      placeholder="To"
+      [min]="dateFrom"
+      (dateChange)="dateEndChange($event)"
+      formControlName="endDate"
+      required
+    />
+    <mat-datepicker-toggle matSuffix [for]="dpEnd"></mat-datepicker-toggle>
+    <mat-datepicker #dpEnd></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select
+      placeholder="Statistics"
+      (selectionChange)="statisticSelected($event)"
+      formControlName="statisticSelected"
+      required
+    >
+      <mat-option
+        *ngFor="let statistic of statistics"
+        [value]="statistic.value"
+      >
+        {{ statistic.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button
+    mat-raised-button
+    [disabled]="!form.valid"
+    color="primary"
+    (click)="search()"
+  >
+    Search
+  </button>
+</form>
+<div class="content-statistic">
+  <app-line-chart
+    *ngIf="isLoadedData()"
+    [data]="data"
+    [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel"
+  >
+  </app-line-chart>
+</div>
