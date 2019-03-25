@@ -38,7 +38,7 @@ import {OrderComponent} from './home/order/order.component';
 import {UserCreateUpdateDialogComponent} from './home/users/user-create-update-dialog/user-create-update-dialog.component';
 import {UserQuickCreationDialogComponent} from './home/users/user-quick-creation-dialog/user-quick-creation-dialog.controller';
 import {RGPDComponent} from './home/rgpd/rgpd.component';
-import {ArticlesFamiliesCreateDialogComponent} from './home/articles-families/articles-families-create-dialog.component';
+import {ArticlesFamiliesCreateDialogComponent} from './home/articles-families/create-dialog/articles-families-create-dialog.component';
 import {VouchersComponent} from './home/vouchers/vouchers.component';
 import {VoucherNewDialogComponent} from './home/vouchers/voucherNew-dialog.component';
 import {VoucherConsumedDialogComponent} from './home/vouchers/voucherConsumed-dialog.component';

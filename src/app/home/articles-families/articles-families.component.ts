@@ -3,7 +3,7 @@ import {ArticleFamilyMinimum} from './articles-families-minimum.model';
 import {ArticleFamilyService} from './articles-families.service';
 import {CancelYesDialogComponent} from '../../core/cancel-yes-dialog.component';
 import {MatDialog} from '@angular/material';
-import {ArticlesFamiliesCreateDialogComponent} from './articles-families-create-dialog.component';
+import {ArticlesFamiliesCreateDialogComponent} from './create-dialog/articles-families-create-dialog.component';
 import {ArticlesFamiliesUpdateDialogComponent} from './articles-families-update-dialog.component';
 import {FamilyTypes} from './family-types.model';
 
