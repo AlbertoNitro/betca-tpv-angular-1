@@ -7,6 +7,7 @@ import {ApiEndpoint} from './api-endpoint.model';
 import {FormGroup} from '@angular/forms';
 import {ArticleMinimum} from './article-minimum.model';
 import {ArticleDetailModel} from './article-detail-model';
+import {ArticleQueryModel} from './article-query.model';
 
 @Injectable()
 export class ArticleService {
@@ -43,19 +44,20 @@ export class ArticleService {
     console.log('Here is the form data! ', formData);
   }
 
-  readPartiallyDefined(): Observable<Article[]> {
-    return this.httpService.get(ApiEndpoint.ARTICLES);
+  readPartiallyDefined(): Observable<ArticleDetailModel[]> {
+    return this.httpService.post(ApiEndpoint.ARTICLES_SEARCH + ApiEndpoint.PARTIALLY_DEFINED);
+  }
+
+
+  readArticlesQuery(article: ArticleQueryModel): Observable<ArticleDetailModel[]> {
+    return this.httpService.post(ApiEndpoint.ARTICLES_SEARCH, article);
   }
 
   /*
-  readArticlesQuery(article: ArticleQueryModel): Observable<Article[]> {
-    return this.httpService.param('code', article.description).get(ApiEndpoint.ARTICLES);
-  }
-  */
   readArticlesQuery(code: string): Observable<Article[]> {
     return this.httpService.get(ApiEndpoint.ARTICLES + '/' + code);
   }
-
+*/
   readAllArticleMinimum(): Observable<ArticleMinimum[]> {
     return this.httpService.get(ApiEndpoint.ARTICLES_MINIMUM);
   }

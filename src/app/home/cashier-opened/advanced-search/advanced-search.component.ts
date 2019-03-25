@@ -26,7 +26,7 @@ export class AdvancedSearchComponent {
   private subscriptionDatasource: Subscription;
 
   constructor(private shoppingCartService: ShoppingCartService) {
-    this.article = {description: null, stock: null, maximumPrice: null, minimumPrice: null};
+    this.article = {description: null, stock: null, maxPrice: null, minPrice: null};
     this.data = null;
     this.subscriptionDatasource = this.shoppingCartService.shoppingCartObservable().subscribe(
       data => {

@@ -3,6 +3,7 @@ import {Component, EventEmitter, Output} from '@angular/core';
 import {ArticleQueryModel} from './article-query.model';
 import {ArticleService} from './article.service';
 import {Article} from './article.model';
+import {ArticleDetailModel} from './article-detail-model';
 
 @Component({
   selector: 'app-advanced-query',
@@ -12,25 +13,26 @@ import {Article} from './article.model';
 export class AdvancedQueryComponent {
 
   article: ArticleQueryModel;
-  data: Article[];
+  data: ArticleDetailModel[];
   @Output() emitter = new EventEmitter<Article[]>();
 
   constructor(private articleService: ArticleService) {
-    this.article = {description: null, stock: null, maximumPrice: null, minimumPrice: null};
+    this.article = {description: null, stock: null, maxPrice: null, minPrice: null};
     this.data = null;
   }
-  /*
-    search() {
-      this.articleService.readArticlesQuery(this.article.description).subscribe(
-        data => {
-          this.data = data;
-          this.emitter.emit(this.data);
+
+  search() {
+    this.articleService.readArticlesQuery(this.article).subscribe(
+      data => {
+        this.data = data;
+        console.log(this.data);
+        this.emitter.emit(this.data);
         }
-      );
-    }
-  */
+    );
+  }
 
   // Mock
+  /*
   search() {
     this.data = [
       {code: '1', description: 'd1', stock: 0, retailPrice: 50},
@@ -40,18 +42,20 @@ export class AdvancedQueryComponent {
     console.log(this.data);
     this.emitter.emit(this.data);
   }
-  /*
+  */
+
   searchPartiallyDefined() {
     this.articleService.readPartiallyDefined().subscribe(
       data => {
         this.data = data;
         console.log(this.data);
+        this.emitter.emit(this.data);
       }
     );
   }
-  */
 
   // Mock
+  /*
   searchPartiallyDefined() {
     this.data = [
       {code: '4', description: 'd4-Partially', stock: 0, retailPrice: 50},
@@ -61,7 +65,8 @@ export class AdvancedQueryComponent {
     console.log(this.data);
     this.emitter.emit(this.data);
   }
+  */
   resetSearch() {
-    this.article = {description: null, stock: null, maximumPrice: null, minimumPrice: null};
+    this.article = {description: null, stock: null, maxPrice: null, minPrice: null};
   }
 }

@@ -20,7 +20,7 @@ export class ApiEndpoint {
 
   public static PROVIDERS = '/providers';
   public static ACTIVES = '/actives';
-  public static SEARCH = '/search'
+  public static SEARCH = '/search';
 
   public static OFFERS = '/offers';
   public static ORDERS = '/orders';
@@ -29,4 +29,7 @@ export class ApiEndpoint {
 
   public static VOUCHERS = '/vouchers';
 
+  public static PARTIALLY_DEFINED = '/partially-defined';
+
+  public static ARTICLES_SEARCH = ApiEndpoint.ARTICLES + ApiEndpoint.SEARCH;
 }
