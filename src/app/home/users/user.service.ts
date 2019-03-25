@@ -25,7 +25,7 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<User> {
-    return this.httpService.put(ApiEndpoint.USERS, user);
+    return this.httpService.put(ApiEndpoint.USERS + '/' + user.mobile, user);
   }
 
 }
