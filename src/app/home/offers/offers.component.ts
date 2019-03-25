@@ -43,12 +43,7 @@ export class OffersComponent implements OnInit {
     const idArticle = formSubmitted.controls.idArticle.value;
     const activeOffers = formSubmitted.controls.activeOffers.value;
     this.offerService.search({id, offername, idArticle, activeOffers}).subscribe(
-      result => {
-        console.log(result);
-      },
-      error => {
-        console.log(error, '<<< ERROR');
-      }
+      offers => this.offers = offers
     );
   }
 
