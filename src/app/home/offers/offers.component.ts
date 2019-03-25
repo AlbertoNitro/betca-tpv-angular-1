@@ -12,9 +12,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   selector: 'app-offers',
   templateUrl: './offers.component.html'
 })
-export class OffersComponent implements OnInit{
+export class OffersComponent implements OnInit {
   static URL = 'offers';
-  onlyActiveOffers = false;
   title = 'Offers management';
   columns = ['id', 'offername', 'endDate'];
   offers: Offer[];
@@ -26,14 +25,10 @@ export class OffersComponent implements OnInit{
 
   ngOnInit(): void {
     this.formSearchOffers = new FormGroup({
-      id: new FormControl('',
-        [Validators.required]),
-      offername: new FormControl('',
-        [Validators.required]),
-      idArticle: new FormControl(  '',
-        [Validators.required]),
-      activeOffers: new FormControl(  false,
-        [Validators.required]),
+      id: new FormControl(null),
+      offername: new FormControl(null),
+      idArticle: new FormControl(  null),
+      activeOffers: new FormControl(  false),
     });
 
     this.offerService.readAll().subscribe(
@@ -42,21 +37,19 @@ export class OffersComponent implements OnInit{
   }
 
   search(formSubmitted: FormGroup) {
-    // TODO implement search with fields
     console.log('Search Offer');
     const id = formSubmitted.controls.id.value;
     const offername = formSubmitted.controls.offername.value;
     const idArticle = formSubmitted.controls.idArticle.value;
     const activeOffers = formSubmitted.controls.activeOffers.value;
-    console.log(id, '<<<<< Id Offer');
-    console.log(offername, '<<<<< Name Offer');
-    console.log(idArticle, '<<<<< Id Article');
-    console.log(activeOffers, '<<<<< Active Offer?');
-  }
-
-  resetSearch() {
-    // TODO implement resetSearch
-    console.log('Reset Search');
+    this.offerService.search({id, offername, idArticle, activeOffers}).subscribe(
+      result => {
+        console.log(result);
+      },
+      error => {
+        console.log(error, '<<< ERROR');
+      }
+    );
   }
 
   create() {
