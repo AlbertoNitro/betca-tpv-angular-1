@@ -25,4 +25,7 @@ export class OfferService {
     return this.httpService.delete(ApiEndpoint.OFFERS + '/' + offer.id);
   }
 
+  search(params: any): Observable<Offer[]> {
+    return this.httpService.get(ApiEndpoint.OFFERS + ApiEndpoint.SEARCH + '?' + params);
+  }
 }

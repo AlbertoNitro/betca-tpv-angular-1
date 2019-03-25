@@ -1,20 +1,41 @@
 <mat-card>
   <mat-card-title>Search</mat-card-title>
   <mat-card-content>
-    <mat-form-field>
-      <input matInput placeholder="Offer Id">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Offer Name">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Article Id">
-    </mat-form-field>
-    <mat-checkbox [(ngModel)]="onlyActiveOffers">Only active offers</mat-checkbox>
-    <button (click)="search()" color="primary" mat-mini-fab>
+    <form [formGroup]="formSearchOffers">
+      <mat-form-field>
+        <input matInput
+               name="id"
+               placeholder="Offer Id"
+               formControlName="id"
+               type="text" />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput
+               name="offername"
+               placeholder="Offer Name"
+               formControlName="offername"
+               type="text" />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput
+               name="idArticle"
+               placeholder="Article Id"
+               formControlName="idArticle"
+               type="text">
+      </mat-form-field>
+      <mat-checkbox name="activeOffers"
+                    formControlName="activeOffers"
+                    type="checkbox" >
+        Only active offers
+      </mat-checkbox>
+    </form>
+    <button
+        (click)="search(formSearchOffers)"
+        color="primary"
+        mat-mini-fab>
       <mat-icon>search</mat-icon>
     </button>
-    <button (click)="resetSearch()" color="primary" mat-mini-fab>
+    <button (click)="formSearchOffers.reset()" color="primary" mat-mini-fab>
       <mat-icon>close</mat-icon>
     </button>
   </mat-card-content>
