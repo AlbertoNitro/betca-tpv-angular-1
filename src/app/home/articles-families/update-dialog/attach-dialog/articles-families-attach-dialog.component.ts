@@ -1,12 +1,12 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {ArticleFamilyMinimum} from './articles-families-minimum.model';
-import {ArticleFamilyService} from './articles-families.service';
-import {FamilyTypes} from './family-types.model';
-import {FamilyType} from './family-type.model';
-import {ArticleMinimum} from '../shared/article-minimum.model';
-import {ArticleService} from '../shared/article.service';
-import {ArticleFamily} from './articles-families.model';
+import {ArticleFamilyMinimum} from '../../shared/articles-families-minimum.model';
+import {ArticleFamilyService} from '../../shared/articles-families.service';
+import {FamilyTypes} from '../../shared/family-types.model';
+import {FamilyType} from '../../shared/family-type.model';
+import {ArticleMinimum} from '../../../shared/article-minimum.model';
+import {ArticleService} from '../../../shared/article.service';
+import {ArticleFamily} from '../../shared/articles-families.model';
 
 @Component({
   selector: 'app-articles-families-attach-dialog',
