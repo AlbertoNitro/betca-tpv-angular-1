@@ -25,4 +25,12 @@ export class OfferService {
     return this.httpService.delete(ApiEndpoint.OFFERS + '/' + offer.id);
   }
 
+  search(params: object): Observable<Offer[]> {
+    let pathParams = 'status=' + params.activeOffers;
+    pathParams = params.id !== null ? pathParams + '&id=' + params.id : pathParams;
+    pathParams = params.offername !== null ? pathParams + '&offername=' + params.offername : pathParams;
+    pathParams = params.idArticle !== null ? pathParams + '&idArticle=' + params.idArticle : pathParams;
+    console.log(ApiEndpoint.OFFERS + ApiEndpoint.SEARCH + '?' + pathParams, '<<<<< ROUTE');
+    return this.httpService.get(ApiEndpoint.OFFERS + ApiEndpoint.SEARCH + '?' + pathParams);
+  }
 }
