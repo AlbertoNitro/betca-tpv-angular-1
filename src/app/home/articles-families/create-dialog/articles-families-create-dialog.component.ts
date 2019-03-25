@@ -37,9 +37,9 @@ export class ArticlesFamiliesCreateDialogComponent {
   create() {
     switch (this.familyTypeSelected) {
       case this.familyTypes.families[0]: {
-        this.articleFamilyService.createFamilyArticle(this.familySelected.description, this.articleMinimumSelected)
-          .subscribe(data => this.snackbar.open('Article attached with description of: ' + data.description,
-            'Created', {duration: 4000}));
+        this.articleFamilyService.attachToFamily(this.familySelected.description, new ArticleFamily()
+          .setArticleMinimum(this.articleMinimumSelected)).subscribe(data =>
+          this.snackbar.open('Article attached with description of: ' + data.description, 'Created', {duration: 4000}));
         this.dialogRef.close();
         break;
       }
