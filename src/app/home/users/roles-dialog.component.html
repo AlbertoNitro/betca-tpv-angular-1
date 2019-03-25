@@ -2,10 +2,11 @@
   <h3 mat-dialog-title>Update Roles</h3>
   <mat-dialog-content >
     <mat-checkbox  *ngIf="adminIs">Administrador</mat-checkbox>
-    <mat-checkbox >Manager</mat-checkbox>
+    <mat-checkbox  >Manager</mat-checkbox>
     <mat-checkbox >Operator</mat-checkbox>
     <mat-checkbox >Customer</mat-checkbox>
   </mat-dialog-content>
+
   <mat-dialog-actions>
     <button mat-button mat-dialog-close>Cancel</button>
     <button mat-button mat-dialog-close (click)="guardar()">Submit</button>
