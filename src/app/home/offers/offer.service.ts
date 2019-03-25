@@ -25,7 +25,7 @@ export class OfferService {
     return this.httpService.delete(ApiEndpoint.OFFERS + '/' + offer.id);
   }
 
-  search(params: object): Observable<Offer[]> {
+  search(params): Observable<Offer[]> {
     let pathParams = 'status=' + params.activeOffers;
     pathParams = params.id !== null ? pathParams + '&id=' + params.id : pathParams;
     pathParams = params.offername !== null ? pathParams + '&offername=' + params.offername : pathParams;
