@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpService} from '../../core/http.service';
+import {HttpService} from '../../../core/http.service';
 import {Observable} from 'rxjs';
 import {ArticleFamilyMinimum} from './articles-families-minimum.model';
-import {ApiEndpoint} from '../shared/api-endpoint.model';
-import {ArticleMinimum} from '../shared/article-minimum.model';
+import {ApiEndpoint} from '../../shared/api-endpoint.model';
+import {ArticleMinimum} from '../../shared/article-minimum.model';
 import {ArticleFamily} from './articles-families.model';
 
 @Injectable()

@@ -42,8 +42,8 @@ import {ArticlesFamiliesCreateDialogComponent} from './home/articles-families/cr
 import {VouchersComponent} from './home/vouchers/vouchers.component';
 import {VoucherNewDialogComponent} from './home/vouchers/voucherNew-dialog.component';
 import {VoucherConsumedDialogComponent} from './home/vouchers/voucherConsumed-dialog.component';
-import {ArticlesFamiliesUpdateDialogComponent} from './home/articles-families/articles-families-update-dialog.component';
-import {ArticlesFamiliesAttachDialogComponent} from './home/articles-families/articles-families-attach-dialog.component';
+import {ArticlesFamiliesUpdateDialogComponent} from './home/articles-families/update-dialog/articles-families-update-dialog.component';
+import {ArticlesFamiliesAttachDialogComponent} from './home/articles-families/update-dialog/attach-dialog/articles-families-attach-dialog.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},

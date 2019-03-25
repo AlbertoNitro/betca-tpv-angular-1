@@ -1,11 +1,11 @@
 import {Component, Inject} from '@angular/core';
-import {ArticleFamilyService} from './articles-families.service';
-import {ArticleFamilyMinimum} from './articles-families-minimum.model';
+import {ArticleFamilyService} from '../shared/articles-families.service';
+import {ArticleFamilyMinimum} from '../shared/articles-families-minimum.model';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
-import {ArticleFamily} from './articles-families.model';
-import {FamilyTypes} from './family-types.model';
-import {CancelYesDialogComponent} from '../../core/cancel-yes-dialog.component';
-import {ArticlesFamiliesAttachDialogComponent} from './articles-families-attach-dialog.component';
+import {ArticleFamily} from '../shared/articles-families.model';
+import {FamilyTypes} from '../shared/family-types.model';
+import {CancelYesDialogComponent} from '../../../core/cancel-yes-dialog.component';
+import {ArticlesFamiliesAttachDialogComponent} from './attach-dialog/articles-families-attach-dialog.component';
 
 @Component({
   selector: 'app-articles-families-update-dialog',

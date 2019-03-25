@@ -1,12 +1,12 @@
 import {Component} from '@angular/core';
-import {ArticleFamilyService} from '../articles-families.service';
-import {ArticleFamilyMinimum} from '../articles-families-minimum.model';
+import {ArticleFamilyService} from '../shared/articles-families.service';
+import {ArticleFamilyMinimum} from '../shared/articles-families-minimum.model';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ArticleMinimum} from '../../shared/article-minimum.model';
-import {FamilyTypes} from '../family-types.model';
-import {FamilyType} from '../family-type.model';
+import {FamilyTypes} from '../shared/family-types.model';
+import {FamilyType} from '../shared/family-type.model';
 import {ArticleService} from '../../shared/article.service';
-import {ArticleFamily} from '../articles-families.model';
+import {ArticleFamily} from '../shared/articles-families.model';
 import {MatDialogRef, MatSnackBar} from '@angular/material';
 
 @Component({
