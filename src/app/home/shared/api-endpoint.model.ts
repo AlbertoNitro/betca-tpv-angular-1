@@ -8,6 +8,7 @@ export class ApiEndpoint {
   public static WITHDRAWAL = ApiEndpoint.CASH_MOVEMENTS + '/withdrawal';
 
   public static USERS = '/users';
+  public static ROLES = '/roles';
 
   public static ARTICLES = '/articles';
   public static ARTICLES_MINIMUM = ApiEndpoint.ARTICLES + '/minimum';
