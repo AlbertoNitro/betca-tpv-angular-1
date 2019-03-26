@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material';
 import {User} from '../user.model';
 import {RolesDialogComponent} from '../roles-dialog.component';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -45,6 +45,16 @@ export class UserCreateUpdateDialogComponent implements OnInit {
   }
 
   openEditRolesDialog() {
-    this.dialog.open(RolesDialogComponent);
-  }
+    this.userService.findByMobile(this.user.mobile).subscribe(response => {
+        const dialogConfig: MatDialogConfig = {
+          data: {
+            mode: 'Update',
+            user: response
+          }
+        };
+        this.dialog.open(RolesDialogComponent, dialogConfig);
+      }, error => {
+        console.log(error);
+      });
+    }
 }
