@@ -24,9 +24,9 @@ export class UserQuickCreationDialogComponent implements OnInit {
     });
   }
 
-  saveUser() {
+  saveMinimumUser() {
     // TODO refactor and delete console.log
-    this.userService.saveUser(this.userQuickForm.value).subscribe(response => {
+    this.userService.saveMinimumUser(this.userQuickForm.value).subscribe(response => {
       this.dialogRef.close(response);
     }
     , (error) => {

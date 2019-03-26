@@ -38,7 +38,7 @@ export class UsersComponent {
     const dialogConfig: MatDialogConfig = {
       data: {
         mode: 'Create',
-        user: {mobile: null, username: null}
+        user: {}
       }
     };
     this.dialog.open(UserCreateUpdateDialogComponent, dialogConfig);

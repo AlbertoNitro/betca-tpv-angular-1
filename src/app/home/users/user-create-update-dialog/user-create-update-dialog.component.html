@@ -42,7 +42,6 @@
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-raised-button mat-dialog-close cdkFocusInitial>Cancel</button>
-    <button mat-raised-button color="primary" *ngIf="modeDialog == 'Create'" (click)="openEditRolesDialog()">Assign Roles</button>
     <button mat-raised-button color="primary" *ngIf="modeDialog == 'Update'" (click)="openEditRolesDialog()">Edit Roles</button>
     <button mat-raised-button color="accent" [disabled]="userForm.invalid" (click)="createUpdateUser()">{{modeDialog}}</button>
   </mat-dialog-actions>

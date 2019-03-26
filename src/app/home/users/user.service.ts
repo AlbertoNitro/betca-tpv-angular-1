@@ -23,13 +23,18 @@ export class UserService {
     return this.httpService.get(ApiEndpoint.USERS + '/' + mobile);
   }
 
-  saveUser(user: UserMinimum): Observable<UserMinimum> {
+  saveMinimumUser(user: UserMinimum): Observable<UserMinimum> {
+    return this.httpService.post(ApiEndpoint.USERS + '/minimum', user);
+  }
+
+  saveUser(user: User): Observable<User> {
     return this.httpService.post(ApiEndpoint.USERS, user);
   }
 
   updateUser(user: User): Observable<User> {
-    return this.httpService.put(ApiEndpoint.USERS, user);
+    return this.httpService.put(ApiEndpoint.USERS + '/' + user.mobile, user);
   }
+
   updateRoles(user: UserRolesModel): Observable<UserRolesModel> {
     console.log(ApiEndpoint.USERS + ApiEndpoint.ROLES + '/' + user.mobile);
     return this.httpService.put(ApiEndpoint.USERS + ApiEndpoint.ROLES + '/' + user.mobile, user );

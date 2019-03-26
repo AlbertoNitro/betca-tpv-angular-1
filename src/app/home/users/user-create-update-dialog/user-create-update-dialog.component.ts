@@ -41,6 +41,12 @@ export class UserCreateUpdateDialogComponent implements OnInit {
       }, error => {
         console.log('ERROR:', error);
       });
+    } else {
+        this.userService.saveUser(this.userForm.value).subscribe(response => {
+          this.dialogRef.close();
+        }, error => {
+          console.log('ERROR:', error);
+        });
     }
   }
 
