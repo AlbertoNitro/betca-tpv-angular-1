@@ -6,35 +6,45 @@ import { OffersDetailsDialogComponent } from './offers-details-dialog.component'
 
 import { Offer } from './offer.model';
 import { OfferService } from './offer.service';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-offers',
   templateUrl: './offers.component.html'
 })
-export class OffersComponent implements OnInit{
+export class OffersComponent implements OnInit {
   static URL = 'offers';
-  onlyActiveOffers = false;
   title = 'Offers management';
   columns = ['id', 'offername', 'endDate'];
   offers: Offer[];
+
+  public formSearchOffers: FormGroup;
 
   constructor(private offerService: OfferService, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
+    this.formSearchOffers = new FormGroup({
+      id: new FormControl(null),
+      offername: new FormControl(null),
+      idArticle: new FormControl(  null),
+      activeOffers: new FormControl(  false),
+    });
+
     this.offerService.readAll().subscribe(
       offers => this.offers = offers
     );
   }
 
-  search() {
-    // TODO implement search with fields
+  search(formSubmitted: FormGroup) {
     console.log('Search Offer');
-  }
-
-  resetSearch() {
-    // TODO implement resetSearch
-    console.log('Reset Search');
+    const id = formSubmitted.controls.id.value;
+    const offername = formSubmitted.controls.offername.value;
+    const idArticle = formSubmitted.controls.idArticle.value;
+    const activeOffers = formSubmitted.controls.activeOffers.value;
+    this.offerService.search({id, offername, idArticle, activeOffers}).subscribe(
+      offers => this.offers = offers
+    );
   }
 
   create() {

@@ -1,4 +1,4 @@
-import {ArticleMinimum} from '../shared/article-minimum.model';
+import {ArticleMinimum} from '../../shared/article-minimum.model';
 import {ArticleFamilyMinimum} from './articles-families-minimum.model';
 
 export class ArticleFamily {
