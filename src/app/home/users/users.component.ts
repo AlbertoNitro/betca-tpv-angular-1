@@ -24,7 +24,6 @@ export class UsersComponent {
     this.userSearch = {mobile: null, username: null, dni: null, address: null, onlyCustomer: true };
   }
   search() {
-    // TODO implement search with fields
     this.userService.readSearch(this.userSearch).subscribe(
       users => this.data = users
     );
