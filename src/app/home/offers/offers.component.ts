@@ -58,7 +58,12 @@ export class OffersComponent implements OnInit {
   }
 
   create() {
-    this.dialog.open(OffersCreateDialogComponent, { width: '60%', height: '90%' } );
+    this.dialog.open(OffersCreateDialogComponent, { width: '60%', height: '90%' } ).afterClosed().subscribe(
+      result => {
+        this.offerService.readAll().subscribe(
+          offers => this.offers = offers
+        );
+      });
   }
 
   read(offer: Offer) {
