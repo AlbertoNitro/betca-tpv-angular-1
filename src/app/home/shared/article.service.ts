@@ -22,10 +22,6 @@ export class ArticleService {
     return this.httpService.get(ApiEndpoint.ARTICLES + '/' + code);
   }
 
-  readAll(): Observable<ArticleDetailModel[]> {
-    return this.httpService.get(ApiEndpoint.ARTICLES);
-  }
-
   create(article: Article): Observable<Article> {
     return this.httpService.successful('The article was created').post(ApiEndpoint.ARTICLES, article);
   }
@@ -48,16 +44,10 @@ export class ArticleService {
     return this.httpService.post(ApiEndpoint.ARTICLES_SEARCH + ApiEndpoint.PARTIALLY_DEFINED);
   }
 
-
   readArticlesQuery(article: ArticleQueryModel): Observable<ArticleDetailModel[]> {
     return this.httpService.post(ApiEndpoint.ARTICLES_SEARCH, article);
   }
 
-  /*
-  readArticlesQuery(code: string): Observable<Article[]> {
-    return this.httpService.get(ApiEndpoint.ARTICLES + '/' + code);
-  }
-*/
   readAllArticleMinimum(): Observable<ArticleMinimum[]> {
     return this.httpService.get(ApiEndpoint.ARTICLES_MINIMUM);
   }
