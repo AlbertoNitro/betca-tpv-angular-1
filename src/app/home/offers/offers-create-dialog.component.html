@@ -73,6 +73,6 @@
     mat-button
     [disabled]="formCreateOffer.invalid
     && formAddArticle.invalid"
-    (click)="createOffer(formCreateOffer)"
+    (click)="createOffer(formCreateOffer, formAddArticle)"
     color="primary">Create</button>
 </mat-dialog-actions>

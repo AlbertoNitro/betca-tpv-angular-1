@@ -58,15 +58,27 @@ export class OffersCreateDialogComponent implements OnInit {
     this.dataSource.data = this.dataSource.data.filter(h => h !== article);
   }
 
-  createOffer(formSubmitted: FormGroup) {
+  createOffer(formCreateOffer: FormGroup, formAddArticle: FormGroup) {
     this.offer = {
-      offername: formSubmitted.controls.offername.value,
-      endDate: formSubmitted.controls.endDate.value,
+      offername: formCreateOffer.controls.offername.value,
+      endDate: formCreateOffer.controls.endDate.value,
       articleLine: this.dataSource.data
     };
     this.offerService.create(this.offer).subscribe(
       result => {
         console.log(result, '<<<<< RESULT');
+        formCreateOffer.controls.offername.setValue('');
+        formCreateOffer.controls.endDate.setValue('');
+        formAddArticle.controls.idArticle.setValue('');
+        formAddArticle.controls.percentage.setValue('');
+        console.log(this.offer, '<<<<< OFFER TO CREATE');
+        this.offer = {
+          offername: null,
+          endDate: null,
+          articleLine: null
+        };
+        this.dataSource = new MatTableDataSource<ArticleLine>();
+        console.log(this.offer, '<<<<< OFFER TO CREATE AFTER SET NULL');
       },
       error => {
         console.log(error, '<<<<< ERROR');
