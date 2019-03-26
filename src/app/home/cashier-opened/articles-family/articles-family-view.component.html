@@ -1,1 +1,11 @@
-<h1>Articles family view</h1>
+<mat-card>
+  <mat-card-title>Articles Family View</mat-card-title>
+  <mat-card-subtitle>
+    <a class="" href="{{route_family_element}}">{{family_description}}</a>
+  </mat-card-subtitle>
+  <div class="align-cards">
+    <app-family-article-view (click)="familyArticle()"></app-family-article-view>
+    <app-family-composite-view (click)="familyComposite()"></app-family-composite-view>
+    <app-family-sizes-view (click)="familySize()"></app-family-sizes-view>
+  </div>
+</mat-card>

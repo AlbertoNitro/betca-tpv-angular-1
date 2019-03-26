@@ -1,0 +1,30 @@
+.p-left-title-articles-family-view{
+  margin-left: 16px;
+}
+.align-cards{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.element-articles-family-card{
+  width: 250px;
+  height: 100px;
+  margin: 5px 5px 8px;
+  border: 2px solid;
+  cursor: pointer;
+}
+
+.family-article-card{
+  border-color: cornflowerblue;
+}
+
+.family-articles-card{
+  border-color: darksalmon;
+}
+
+.family-sizes-card{
+  border-color: darkgrey;
+}
+
+

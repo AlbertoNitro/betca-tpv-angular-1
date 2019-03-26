@@ -9,6 +9,7 @@ export class ApiEndpoint {
 
   public static USERS = '/users';
   public static ROLES = '/roles';
+  public static QUERY = '/query';
 
   public static ARTICLES = '/articles';
   public static ARTICLES_MINIMUM = ApiEndpoint.ARTICLES + '/minimum';
@@ -29,4 +30,7 @@ export class ApiEndpoint {
 
   public static VOUCHERS = '/vouchers';
 
+  public static PARTIALLY_DEFINED = '/partially-defined';
+
+  public static ARTICLES_SEARCH = ApiEndpoint.ARTICLES + ApiEndpoint.SEARCH;
 }
