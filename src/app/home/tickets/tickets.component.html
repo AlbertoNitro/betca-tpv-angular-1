@@ -15,8 +15,54 @@
         </button>
       </form>
     </div>
+    <div>
+      <form id="advancedTicketQuery">
+        <mat-form-field>
+          <input [(ngModel)]="ticketQueryInput.userMobile" name="userMobile" matInput placeholder="User Mobile">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [(ngModel)]="ticketQueryInput.dateStart" [matDatepicker]="dateStart" name="dateStart" placeholder="Date Start">
+          <mat-datepicker-toggle matSuffix [for]="dateStart"></mat-datepicker-toggle>
+          <mat-datepicker #dateStart></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [(ngModel)]="ticketQueryInput.dateEnd" [matDatepicker]="dateEnd" name="dateEnd" placeholder="Date End">
+          <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
+          <mat-datepicker #dateEnd></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <input [(ngModel)]="ticketQueryInput.totalMin" name="totalMin" matInput placeholder="Total Min">
+        </mat-form-field>
+        <mat-form-field>
+          <input [(ngModel)]="ticketQueryInput.totalMax" name="totalMax" matInput placeholder="Total Max">
+        </mat-form-field>
+        <mat-checkbox [(ngModel)]="advancedTicketQueryPending" name="pending">Pendiente de Entrega</mat-checkbox>
+        <button (click)="advancedTicketQueryNormal(this.AdvancedQuery, this.ticketQueryInput)" color="primary" mat-mini-fab>
+          <mat-icon>search</mat-icon>
+        </button>
+        <button (click)="resetAdvancedSearch()" color="primary" mat-mini-fab>
+          <mat-icon>close</mat-icon>
+        </button>
+      </form>
+    </div>
+    <div>
+      <form id="advancedTicketQueryOrderById">
+        <mat-form-field>
+          <input [(ngModel)]="ticketQueryInput.orderId" name="orderId" matInput placeholder="Order Id" required>
+        </mat-form-field>
+        <mat-checkbox [(ngModel)]="advancedTicketQueryOrderIdPending" name="orderIdPending">Pendiente de Entrega</mat-checkbox>
+        <button (click)="advancedTicketQueryOrderId(this.AdvancedQuery+this.AdvancedQueryByOrderId, this.ticketQueryInput)"
+                color="primary" mat-mini-fab>
+          <mat-icon>search</mat-icon>
+        </button>
+        <button (click)="resetAdvancedSearch()" color="primary" mat-mini-fab>
+          <mat-icon>close</mat-icon>
+        </button>
+      </form>
+    </div>
   </mat-card-content>
 </mat-card>
+
 <div [hidden]="!isTicketFound">
   <mat-card>
     <table>

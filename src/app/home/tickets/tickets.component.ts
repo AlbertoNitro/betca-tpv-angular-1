@@ -5,6 +5,8 @@ import {ShoppingState} from './models/shopping-state.enum';
 import {GenericMatSelect} from '../shared/generic-mat-select.model';
 import {Ticket} from './models/ticket.model';
 import {TicketsService} from './tickets.service';
+import {TicketQueryInput} from './models/ticket-query-input.model';
+import {TicketQueryOutput} from './models/ticket-query-output.model';
 
 @Component({
   selector: 'app-tickets',
@@ -15,7 +17,14 @@ import {TicketsService} from './tickets.service';
 export class TicketsComponent {
 
   static URL = 'tickets';
+  AdvancedQuery = '/query';
+  AdvancedQueryByOrderId = '/orderId';
   ticket: Ticket;
+  ticketQueryInput: TicketQueryInput = {userMobile: null, dateStart: null, dateEnd: null,
+    totalMin: null, totalMax: null, orderId: null, pending: null};
+  ticketQueryOuput: TicketQueryOutput[];
+  advancedTicketQueryPending = false;
+  advancedTicketQueryOrderIdPending = false;
   isTicketFound: boolean;
   ticketCode: string;
   ticketTotal: number;
@@ -99,6 +108,27 @@ export class TicketsComponent {
   manageMatSelectOptions (actualState, shoppingTicket) {
     shoppingTicket.shoppingState = actualState.value;
     this.customizedMatSelectStates = this.choosePossibleStates(actualState.value);
+  }
+
+  advancedTicketQuery(path: string, ticketQueryInput: TicketQueryInput) {
+    this.ticketsService.advancedTicketQuery(path, ticketQueryInput).subscribe(
+      data => this.ticketQueryOuput = data
+    );
+  }
+
+  advancedTicketQueryNormal(path: string, ticketQueryInput: TicketQueryInput) {
+    ticketQueryInput.pending = this.advancedTicketQueryPending;
+    this.advancedTicketQuery(path, ticketQueryInput);
+  }
+
+  advancedTicketQueryOrderId(path: string, ticketQueryInput: TicketQueryInput) {
+    ticketQueryInput.pending = this.advancedTicketQueryOrderIdPending;
+    this.advancedTicketQuery(path, ticketQueryInput);
+  }
+
+  resetAdvancedSearch() {
+    this.ticketQueryInput = {userMobile: null, dateStart: null, dateEnd: null,
+      totalMin: null, totalMax: null, pending: null, orderId: null};
   }
 }
 
