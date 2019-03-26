@@ -31,7 +31,7 @@ import {StatisticComponent} from './home/stadistics/statistic.component';
 import {StockPredictionComponent} from './home/stock-prediction/stock-prediction.component';
 import {RolesDialogComponent} from './home/users/roles-dialog.component';
 import {InvoiceUpdateComponent} from './home/invoice/invoice-update.component';
-import {AdvancedQueryComponent} from './home/shared/advanced-query.component';
+import {ArticlesQueryComponent} from './home/shared/articles-query.component';
 import {VouchersUseDialogComponent} from './home/vouchers/vouchersUse-dialog.component';
 import {TicketsComponent} from './home/tickets/tickets.component';
 import {OrderComponent} from './home/order/order.component';
@@ -77,10 +77,10 @@ const routes: Routes = [
 export class AppRoutingModule {
   static COMPONENTS = [
     AdvancedSearchComponent,
-    AdvancedQueryComponent,
     ArticlesComponent,
     ArticlesFamiliesCRUDComponent,
     ArticlesFamilyViewComponent,
+    ArticlesQueryComponent,
     BudgetsComponent,
     CashierClosedComponent,
     CashierOpenedComponent,

@@ -7,10 +7,10 @@ import {ArticleDetailModel} from './article-detail-model';
 
 @Component({
   selector: 'app-advanced-query',
-  templateUrl: './advanced-query.component.html',
-  styleUrls: ['./advanced-query.component.css']
+  templateUrl: './articles-query.component.html',
+  styleUrls: ['./articles-query.component.css']
 })
-export class AdvancedQueryComponent {
+export class ArticlesQueryComponent {
 
   article: ArticleQueryModel;
   data: ArticleDetailModel[];
