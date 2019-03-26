@@ -25,9 +25,9 @@ export class OffersComponent implements OnInit {
 
   ngOnInit(): void {
     this.formSearchOffers = new FormGroup({
-      id: new FormControl(null),
-      offername: new FormControl(null),
-      idArticle: new FormControl(  null),
+      id: new FormControl(''),
+      offername: new FormControl(''),
+      idArticle: new FormControl(  ''),
       activeOffers: new FormControl(  false),
     });
 
@@ -43,6 +43,16 @@ export class OffersComponent implements OnInit {
     const idArticle = formSubmitted.controls.idArticle.value;
     const activeOffers = formSubmitted.controls.activeOffers.value;
     this.offerService.search({id, offername, idArticle, activeOffers}).subscribe(
+      offers => this.offers = offers
+    );
+  }
+
+  reset(formSearchOffers: FormGroup) {
+    formSearchOffers.controls.id.setValue('');
+    formSearchOffers.controls.offername.setValue('');
+    formSearchOffers.controls.idArticle.setValue('');
+    formSearchOffers.controls.activeOffers.setValue(false);
+    this.offerService.readAll().subscribe(
       offers => this.offers = offers
     );
   }
