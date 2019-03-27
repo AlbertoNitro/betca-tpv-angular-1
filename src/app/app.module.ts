@@ -26,6 +26,7 @@ import {VoucherService} from './home/vouchers/voucher.service';
 import {ModalComponent} from './home/order/modal/modal.component';
 import {TicketsService} from './home/tickets/tickets.service';
 import {ArticleFamilyViewService} from './home/cashier-opened/articles-family/articles-families-view.service';
+import {RgpdService} from './home/rgpd/rgpd.service';
 
 @NgModule({
   imports: [
@@ -64,6 +65,7 @@ import {ArticleFamilyViewService} from './home/cashier-opened/articles-family/ar
     UserService,
     OfferService,
     OrderService,
+    RgpdService,
     VoucherService
   ],
   bootstrap: [AppComponent]
