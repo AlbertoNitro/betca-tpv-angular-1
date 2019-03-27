@@ -1,9 +1,8 @@
 import {Component} from '@angular/core';
+
 import {Order} from './order.model';
-import {User} from '../users/user.model';
 import {OrderService} from './order.service';
 import {MatDialog} from '@angular/material';
-import { ModalComponent } from './modal/modal.component';
 
 @Component({
   selector: 'app-order',
@@ -15,7 +14,7 @@ export class OrderComponent {
   order: { descriptionOrders: null; descriptionArticles: null };
   data: Order[];
   title = 'Order management';
-  columns = ['Description orders', 'Description articles', 'Required amount', 'Final amount', 'Opening date', 'Closing date'];
+  columns = ['descriptionOrders', 'descriptionArticles', 'requiredAmount', 'finalAmount', 'openingDate', 'closingDate'];
 
   constructor(private orderService: OrderService, private  dialog: MatDialog) {
     this.order = {descriptionOrders: null, descriptionArticles: null };
@@ -27,6 +26,7 @@ export class OrderComponent {
     this.orderService.readAll().subscribe(
       data => this.data = data
     );
+    console.log('data: ' +  this.data);
   }
 
   resetSearch() {
@@ -37,26 +37,15 @@ export class OrderComponent {
     // TODO
   }
 
-  read(user: User) {
+  read(user: Order) {
     // TODO
   }
 
-  update(user: User) {
+  update(user: Order) {
     // TODO
   }
 
-  delete(user: User) {
+  delete(user: Order) {
     // TODO
-  }
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(ModalComponent, {
-      width: '700px',
-      data: {order: this.order}
-    });
-
-    /*dialogRef.afterClosed().subscribe(result => {
-      this.order = result;
-    });*/
   }
 }
