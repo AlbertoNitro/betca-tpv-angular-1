@@ -1,11 +1,25 @@
 <mat-card>
   <mat-card-title>Articles Family View</mat-card-title>
-  <mat-card-subtitle>
-    <a class="" href="{{route_family_element}}">{{family_description}}</a>
-  </mat-card-subtitle>
+  <mat-card-title><a href="" class="path_stepper">{{familyCompositeRoot.description}}</a></mat-card-title>
+
   <div class="align-cards">
-    <app-family-article-view (click)="familyArticle()"></app-family-article-view>
-    <app-family-composite-view (click)="familyComposite()"></app-family-composite-view>
-    <app-family-sizes-view (click)="familySize()"></app-family-sizes-view>
+    <app-family-article-view
+      *ngFor="let familyArticle of familyCompositeRootArticleList"
+      [code]="familyArticle.article.code"
+      [description]="familyArticle.article.description"
+      [retailPrice]="familyArticle.article.retailPrice"
+      [familyType]="familyArticle.familyType"
+      (click)="familyArticle()">
+    </app-family-article-view>
+
+    <app-family-composite-view
+      *ngFor="let familyComposite of familyCompositeRootArticlesList"
+
+      [description]="familyComposite.description"
+      [familyType]="familyComposite.familyType"
+
+      (click)="expandElementsFamilyComposite()">
+    </app-family-composite-view>
+    <!--    <app-family-sizes-view (click)="familySize()"></app-family-sizes-view>-->
   </div>
 </mat-card>
