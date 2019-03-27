@@ -5,10 +5,10 @@
     <input matInput type="text" placeholder="Code" [(ngModel)]="article.code"/>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="text" placeholder="Description" [(ngModel)]="article.description"/>
+    <input matInput type="text" required placeholder="Description" [(ngModel)]="article.description"/>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="number" min="0" placeholder="Real price" [(ngModel)]="article.retailPrice"/>
+    <input matInput type="number" [min]="0" placeholder="Real price" [(ngModel)]="article.retailPrice"/>
   </mat-form-field>
   <mat-form-field>
     <input matInput type="text" placeholder="Reference" [(ngModel)]="article.reference"/>
@@ -17,12 +17,12 @@
     <input matInput type="text" placeholder="Provider" [(ngModel)]="article.provider"/>
   </mat-form-field>
   <mat-form-field>
-    <input matInput type="number" min="0" placeholder="Stock" [(ngModel)]="article.stock"/>
+    <input matInput type="number" [min]="0" placeholder="Stock" [(ngModel)]="article.stock"/>
   </mat-form-field>
   <mat-form-field>
-    <mat-select placeholder="Tax">
-      <mat-option *ngFor="let tax of taxes" [value]="article.tax">
-        {{tax.label}}
+    <mat-select placeholder="Tax" required (selectionChange)="taxSelect($event)">
+      <mat-option *ngFor="let tax of taxTypeList" [value]="tax.value" [(ngModel)]="article.tax">
+        {{tax.viewValue}}
       </mat-option>
     </mat-select>
   </mat-form-field>

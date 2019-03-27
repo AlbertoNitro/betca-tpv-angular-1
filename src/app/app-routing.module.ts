@@ -31,7 +31,7 @@ import {StatisticComponent} from './home/stadistics/statistic.component';
 import {StockPredictionComponent} from './home/stock-prediction/stock-prediction.component';
 import {RolesDialogComponent} from './home/users/roles-dialog.component';
 import {InvoiceUpdateComponent} from './home/invoice/invoice-update.component';
-import {AdvancedQueryComponent} from './home/shared/advanced-query.component';
+import {ArticlesQueryComponent} from './home/shared/articles-query.component';
 import {VouchersUseDialogComponent} from './home/vouchers/vouchersUse-dialog.component';
 import {TicketsComponent} from './home/tickets/tickets.component';
 import {OrderComponent} from './home/order/order.component';
@@ -44,6 +44,9 @@ import {VoucherNewDialogComponent} from './home/vouchers/voucherNew-dialog.compo
 import {VoucherConsumedDialogComponent} from './home/vouchers/voucherConsumed-dialog.component';
 import {ArticlesFamiliesUpdateDialogComponent} from './home/articles-families/update-dialog/articles-families-update-dialog.component';
 import {ArticlesFamiliesAttachDialogComponent} from './home/articles-families/update-dialog/attach-dialog/articles-families-attach-dialog.component';
+import {FamilyArticleViewComponent} from './home/cashier-opened/articles-family/family-views/family-article-view.component';
+import {FamilyCompositeViewComponent} from './home/cashier-opened/articles-family/family-views/family-composite-view.component';
+import {FamilySizesViewComponent} from './home/cashier-opened/articles-family/family-views/family-sizes-view.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
@@ -77,13 +80,16 @@ const routes: Routes = [
 export class AppRoutingModule {
   static COMPONENTS = [
     AdvancedSearchComponent,
-    AdvancedQueryComponent,
     ArticlesComponent,
     ArticlesFamiliesCRUDComponent,
     ArticlesFamilyViewComponent,
+    ArticlesQueryComponent,
     BudgetsComponent,
     CashierClosedComponent,
     CashierOpenedComponent,
+    FamilyArticleViewComponent,
+    FamilyCompositeViewComponent,
+    FamilySizesViewComponent,
     HomeComponent,
     InvoiceUpdateComponent,
     LineChartComponent,

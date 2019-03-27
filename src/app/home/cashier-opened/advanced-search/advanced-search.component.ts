@@ -18,15 +18,11 @@ export class AdvancedSearchComponent {
   columns = ['code', 'description', 'retailPrice', 'stock'];
   data: Article[];
 
-  createButton = false;
-  editButton = false;
-  deleteButton = false;
-
   dataSource: MatTableDataSource<Shopping>;
   private subscriptionDatasource: Subscription;
 
   constructor(private shoppingCartService: ShoppingCartService) {
-    this.article = {description: null, stock: null, maximumPrice: null, minimumPrice: null};
+    this.article = {description: null, stock: null, maxPrice: null, minPrice: null};
     this.data = null;
     this.subscriptionDatasource = this.shoppingCartService.shoppingCartObservable().subscribe(
       data => {
