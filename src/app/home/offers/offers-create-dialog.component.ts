@@ -22,15 +22,15 @@ export class OffersCreateDialogComponent implements OnInit {
     this.formCreateOffer = new FormGroup({
       offername: new FormControl('',
         [Validators.required]),
-      endDate: new FormControl(  '',
+      endDate: new FormControl('',
         [Validators.required]),
     });
 
     this.formAddArticle = new FormGroup({
       idArticle: new FormControl('',
         [Validators.required]),
-      percentage: new FormControl(  '',
-        [Validators.required, Validators.min(1), Validators.max(100)] ),
+      percentage: new FormControl('',
+        [Validators.required, Validators.min(1), Validators.max(100)]),
     });
   }
 
@@ -44,12 +44,12 @@ export class OffersCreateDialogComponent implements OnInit {
     this.articleService.readOne(idArticle).subscribe((result) => {
         const articleRepeated = this.dataSource.data.find(article => article.idArticle === idArticle) !== undefined;
         if (!articleRepeated) {
-          this.dataSource.data.push({ idArticle: idArticle, percentage: percentage });
+          this.dataSource.data.push({idArticle: idArticle, percentage: percentage});
           this.dataSource = new MatTableDataSource(this.dataSource.data);
         }
       },
       (error) => {
-        console.log(error, '<<<<<<<<< ERROR: Article Id not found');
+        console.log('ERROR: Article Id not found');
       }
     );
   }
