@@ -22,15 +22,15 @@ export class OffersCreateDialogComponent implements OnInit {
     this.formCreateOffer = new FormGroup({
       offername: new FormControl('',
         [Validators.required]),
-      endDate: new FormControl(  '',
+      endDate: new FormControl('',
         [Validators.required]),
     });
 
     this.formAddArticle = new FormGroup({
       idArticle: new FormControl('',
         [Validators.required]),
-      percentage: new FormControl(  '',
-        [Validators.required, Validators.min(1), Validators.max(100)] ),
+      percentage: new FormControl('',
+        [Validators.required, Validators.min(1), Validators.max(100)]),
     });
   }
 
@@ -44,12 +44,12 @@ export class OffersCreateDialogComponent implements OnInit {
     this.articleService.readOne(idArticle).subscribe((result) => {
         const articleRepeated = this.dataSource.data.find(article => article.idArticle === idArticle) !== undefined;
         if (!articleRepeated) {
-          this.dataSource.data.push({ idArticle: idArticle, percentage: percentage });
+          this.dataSource.data.push({idArticle: idArticle, percentage: percentage});
           this.dataSource = new MatTableDataSource(this.dataSource.data);
         }
       },
       (error) => {
-        console.log(error, '<<<<<<<<< ERROR: Article Id not found');
+        console.log('ERROR: Article Id not found');
       }
     );
   }
@@ -58,15 +58,24 @@ export class OffersCreateDialogComponent implements OnInit {
     this.dataSource.data = this.dataSource.data.filter(h => h !== article);
   }
 
-  createOffer(formSubmitted: FormGroup) {
+  createOffer(formCreateOffer: FormGroup, formAddArticle: FormGroup) {
     this.offer = {
-      offername: formSubmitted.controls.offername.value,
-      endDate: formSubmitted.controls.endDate.value,
+      offername: formCreateOffer.controls.offername.value,
+      endDate: formCreateOffer.controls.endDate.value,
       articleLine: this.dataSource.data
     };
     this.offerService.create(this.offer).subscribe(
       result => {
-        console.log(result, '<<<<< RESULT');
+        formCreateOffer.controls.offername.setValue('');
+        formCreateOffer.controls.endDate.setValue('');
+        formAddArticle.controls.idArticle.setValue('');
+        formAddArticle.controls.percentage.setValue('');
+        this.offer = {
+          offername: null,
+          endDate: null,
+          articleLine: null
+        };
+        this.dataSource = new MatTableDataSource<ArticleLine>();
       },
       error => {
         console.log(error, '<<<<< ERROR');

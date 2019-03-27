@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import {MatDialog, MatDialogConfig} from '@angular/material';
 import { CancelYesDialogComponent } from '../../core/cancel-yes-dialog.component';
 import { OffersCreateDialogComponent } from './offers-create-dialog.component';
 import { OffersDetailsDialogComponent } from './offers-details-dialog.component';
 
-import { Offer } from './offer.model';
+import {Offer} from './offer.model';
 import { OfferService } from './offer.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
+import {count} from 'rxjs/operators';
 
 @Component({
   selector: 'app-offers',
@@ -25,30 +26,46 @@ export class OffersComponent implements OnInit {
 
   ngOnInit(): void {
     this.formSearchOffers = new FormGroup({
-      id: new FormControl(null),
-      offername: new FormControl(null),
-      idArticle: new FormControl(  null),
+      id: new FormControl(''),
+      offername: new FormControl(''),
+      idArticle: new FormControl(  ''),
       activeOffers: new FormControl(  false),
     });
-
-    this.offerService.readAll().subscribe(
-      offers => this.offers = offers
-    );
+    this.findAll();
   }
 
   search(formSubmitted: FormGroup) {
-    console.log('Search Offer');
     const id = formSubmitted.controls.id.value;
     const offername = formSubmitted.controls.offername.value;
     const idArticle = formSubmitted.controls.idArticle.value;
     const activeOffers = formSubmitted.controls.activeOffers.value;
     this.offerService.search({id, offername, idArticle, activeOffers}).subscribe(
-      offers => this.offers = offers
+      results => {
+        if (results.length > 0) {
+          this.formatEndDate(results);
+        } else {
+          this.offers = results;
+        }
+      },
+      error => {
+        console.log(error);
+      }
     );
   }
 
+  reset(formSearchOffers: FormGroup) {
+    formSearchOffers.controls.id.setValue('');
+    formSearchOffers.controls.offername.setValue('');
+    formSearchOffers.controls.idArticle.setValue('');
+    formSearchOffers.controls.activeOffers.setValue(false);
+    this.findAll();
+  }
+
   create() {
-    this.dialog.open(OffersCreateDialogComponent, { width: '60%', height: '90%' } );
+    this.dialog.open(OffersCreateDialogComponent, { width: '60%', height: '90%' } ).afterClosed().subscribe(
+      result => {
+        this.reset(this.formSearchOffers);
+      });
   }
 
   read(offer: Offer) {
@@ -71,5 +88,23 @@ export class OffersComponent implements OnInit {
         this.offerService.delete(offer).subscribe();
       }
     });
+  }
+
+  findAll() {
+    this.offerService.readAll().subscribe(
+      results => {
+        this.formatEndDate(results);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  formatEndDate(results) {
+    for (const result of results) {
+      result.endDate = result.endDate.split('T', 1)[0];
+      this.offers = results;
+    }
   }
 }

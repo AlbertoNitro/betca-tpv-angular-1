@@ -30,7 +30,6 @@ export class OfferService {
     pathParams = params.id !== null ? pathParams + '&id=' + params.id : pathParams;
     pathParams = params.offername !== null ? pathParams + '&offername=' + params.offername : pathParams;
     pathParams = params.idArticle !== null ? pathParams + '&idArticle=' + params.idArticle : pathParams;
-    console.log(ApiEndpoint.OFFERS + ApiEndpoint.SEARCH + '?' + pathParams, '<<<<< ROUTE');
     return this.httpService.get(ApiEndpoint.OFFERS + ApiEndpoint.SEARCH + '?' + pathParams);
   }
 }

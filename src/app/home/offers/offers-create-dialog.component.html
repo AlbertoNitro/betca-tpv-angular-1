@@ -70,9 +70,9 @@
 <mat-dialog-actions>
   <button mat-button mat-dialog-close color="accent">Cancel</button>
   <button
+    *ngIf="dataSource.data.length > 0"
     mat-button
-    [disabled]="formCreateOffer.invalid
-    && formAddArticle.invalid"
-    (click)="createOffer(formCreateOffer)"
+    [disabled]="formCreateOffer.invalid"
+    (click)="createOffer(formCreateOffer, formAddArticle)"
     color="primary">Create</button>
 </mat-dialog-actions>
