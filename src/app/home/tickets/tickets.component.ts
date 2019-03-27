@@ -25,16 +25,20 @@ export class TicketsComponent {
   ticketQueryOuput: TicketQueryOutput[];
   advancedTicketQueryPending = false;
   advancedTicketQueryOrderIdPending = false;
+  hasAdvancedQueryResults: boolean;
   isTicketFound: boolean;
   ticketCode: string;
   ticketTotal: number;
   matSelectStates: GenericMatSelect[];
   customizedMatSelectStates: GenericMatSelect[];
   dataSource: MatTableDataSource<ShoppingTicket>;
+  dataSourceQuery: MatTableDataSource<TicketQueryOutput>;
   displayedColumns = ['id', 'description', 'retailPrice', 'amount', 'discount', 'totalPrice', 'shoppingState'];
+  displayedColumnsQuery: string[] = ['id', 'creationDate', 'total'];
 
   constructor(private ticketsService: TicketsService) {
     this.isTicketFound = false;
+    this.hasAdvancedQueryResults = false;
     this.ticketCode = '0';
     this.ticketTotal = 0;
     this.matSelectStates = [
@@ -73,6 +77,7 @@ export class TicketsComponent {
     this.ticketCode = code;
     this.dataSource = new MatTableDataSource<ShoppingTicket>(this.ticket.shoppingTicket);
     this.isTicketFound = true;
+    this.hasAdvancedQueryResults = false;
     this.ticketTotal = this.ticket.total;
   }
 
@@ -112,8 +117,13 @@ export class TicketsComponent {
 
   advancedTicketQuery(path: string, ticketQueryInput: TicketQueryInput) {
     this.ticketsService.advancedTicketQuery(path, ticketQueryInput).subscribe(
-      data => this.ticketQueryOuput = data
-    );
+      data => {this.ticketQueryOuput = data;
+        this.hasAdvancedQueryResults = true;
+        this.isTicketFound = false;
+        this.dataSourceQuery = new MatTableDataSource<TicketQueryOutput>(this.ticketQueryOuput); },
+      error => {
+        console.log(error);
+      });
   }
 
   advancedTicketQueryNormal(path: string, ticketQueryInput: TicketQueryInput) {
@@ -129,6 +139,7 @@ export class TicketsComponent {
   resetAdvancedSearch() {
     this.ticketQueryInput = {userMobile: null, dateStart: null, dateEnd: null,
       totalMin: null, totalMax: null, pending: null, orderId: null};
+    this.hasAdvancedQueryResults = false;
   }
 }
 

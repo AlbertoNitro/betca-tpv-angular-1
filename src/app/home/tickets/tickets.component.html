@@ -21,12 +21,14 @@
           <input [(ngModel)]="ticketQueryInput.userMobile" name="userMobile" matInput placeholder="User Mobile">
         </mat-form-field>
         <mat-form-field>
-          <input matInput [(ngModel)]="ticketQueryInput.dateStart" [matDatepicker]="dateStart" name="dateStart" placeholder="Date Start">
+          <input matInput [(ngModel)]="ticketQueryInput.dateStart" [matDatepicker]="dateStart" name="dateStart"
+                 placeholder="Date Start">
           <mat-datepicker-toggle matSuffix [for]="dateStart"></mat-datepicker-toggle>
           <mat-datepicker #dateStart></mat-datepicker>
         </mat-form-field>
         <mat-form-field>
-          <input matInput [(ngModel)]="ticketQueryInput.dateEnd" [matDatepicker]="dateEnd" name="dateEnd" placeholder="Date End">
+          <input matInput [(ngModel)]="ticketQueryInput.dateEnd" [matDatepicker]="dateEnd" name="dateEnd"
+                 placeholder="Date End">
           <mat-datepicker-toggle matSuffix [for]="dateEnd"></mat-datepicker-toggle>
           <mat-datepicker #dateEnd></mat-datepicker>
         </mat-form-field>
@@ -37,7 +39,8 @@
           <input [(ngModel)]="ticketQueryInput.totalMax" name="totalMax" matInput placeholder="Total Max">
         </mat-form-field>
         <mat-checkbox [(ngModel)]="advancedTicketQueryPending" name="pending">Pendiente de Entrega</mat-checkbox>
-        <button (click)="advancedTicketQueryNormal(this.AdvancedQuery, this.ticketQueryInput)" color="primary" mat-mini-fab>
+        <button (click)="advancedTicketQueryNormal(this.AdvancedQuery, this.ticketQueryInput)" color="primary"
+                mat-mini-fab>
           <mat-icon>search</mat-icon>
         </button>
         <button (click)="resetAdvancedSearch()" color="primary" mat-mini-fab>
@@ -50,9 +53,11 @@
         <mat-form-field>
           <input [(ngModel)]="ticketQueryInput.orderId" name="orderId" matInput placeholder="Order Id" required>
         </mat-form-field>
-        <mat-checkbox [(ngModel)]="advancedTicketQueryOrderIdPending" name="orderIdPending">Pendiente de Entrega</mat-checkbox>
-        <button (click)="advancedTicketQueryOrderId(this.AdvancedQuery+this.AdvancedQueryByOrderId, this.ticketQueryInput)"
-                color="primary" mat-mini-fab>
+        <mat-checkbox [(ngModel)]="advancedTicketQueryOrderIdPending" name="orderIdPending">Pendiente de Entrega
+        </mat-checkbox>
+        <button
+          (click)="advancedTicketQueryOrderId(this.AdvancedQuery+this.AdvancedQueryByOrderId, this.ticketQueryInput)"
+          color="primary" mat-mini-fab>
           <mat-icon>search</mat-icon>
         </button>
         <button (click)="resetAdvancedSearch()" color="primary" mat-mini-fab>
@@ -147,5 +152,33 @@
   </mat-card>
 </div>
 
+<div [hidden]="!hasAdvancedQueryResults">
+  <mat-card>
+    <table>
+      <tr>
+        <th class="left">Ticket Results</th>
+      </tr>
+    </table>
+  </mat-card>
+  <mat-card>
+    <table mat-table [dataSource]="dataSourceQuery" class="advanced-query-results mat-elevation-z8">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef fxFlex="35%"> Id</th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+      <ng-container matColumnDef="creationDate">
+        <th mat-header-cell *matHeaderCellDef fxFlex="35%"> Creation Date</th>
+        <td mat-cell *matCellDef="let element"> {{element.creationDate | date:'medium'}} </td>
+      </ng-container>
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef fxFlex="30%"> Total</th>
+        <td mat-cell *matCellDef="let element"> {{element.total | number:'1.2-2'}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsQuery"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsQuery;"></tr>
+    </table>
+  </mat-card>
+</div>
 
 
