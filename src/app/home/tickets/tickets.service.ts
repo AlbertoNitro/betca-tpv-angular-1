@@ -52,6 +52,10 @@ export class TicketsService {
     // return this.httpService.post(ApiEndpoint.TICKETS, ticket);
   }
 
+  read(id: string): Observable<Ticket> {
+    return this.httpService.get(ApiEndpoint.TICKETS + '/' + id);
+  }
+
   advancedTicketQuery(apiPath: string, queryInput: TicketQueryInput): Observable<TicketQueryOutput[]> {
     return this.httpService.post(ApiEndpoint.TICKETS + apiPath, queryInput);
   }

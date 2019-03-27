@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import {MatDialog, MatTableDataSource} from '@angular/material';
 import {ShoppingTicket} from './models/shopping-ticket.model';
 import {ShoppingState} from './models/shopping-state.enum';
 import {GenericMatSelect} from '../shared/generic-mat-select.model';
@@ -7,6 +7,7 @@ import {Ticket} from './models/ticket.model';
 import {TicketsService} from './tickets.service';
 import {TicketQueryInput} from './models/ticket-query-input.model';
 import {TicketQueryOutput} from './models/ticket-query-output.model';
+import {DetailsDialogComponent} from '../../core/details-dialog.component';
 
 @Component({
   selector: 'app-tickets',
@@ -20,6 +21,7 @@ export class TicketsComponent {
   AdvancedQuery = '/query';
   AdvancedQueryByOrderId = '/orderId';
   ticket: Ticket;
+  advTicket: Ticket;
   ticketQueryInput: TicketQueryInput = {userMobile: null, dateStart: null, dateEnd: null,
     totalMin: null, totalMax: null, orderId: null, pending: null};
   ticketQueryOuput: TicketQueryOutput[];
@@ -34,9 +36,9 @@ export class TicketsComponent {
   dataSource: MatTableDataSource<ShoppingTicket>;
   dataSourceQuery: MatTableDataSource<TicketQueryOutput>;
   displayedColumns = ['id', 'description', 'retailPrice', 'amount', 'discount', 'totalPrice', 'shoppingState'];
-  displayedColumnsQuery: string[] = ['id', 'creationDate', 'total'];
+  displayedColumnsQuery: string[] = ['id', 'creationDate', 'total', 'details'];
 
-  constructor(private ticketsService: TicketsService) {
+  constructor(private ticketsService: TicketsService, private dialog: MatDialog) {
     this.isTicketFound = false;
     this.hasAdvancedQueryResults = false;
     this.ticketCode = '0';
@@ -140,6 +142,19 @@ export class TicketsComponent {
     this.ticketQueryInput = {userMobile: null, dateStart: null, dateEnd: null,
       totalMin: null, totalMax: null, pending: null, orderId: null};
     this.hasAdvancedQueryResults = false;
+  }
+
+  viewDetails(id: string) {
+    this.ticketsService.read(id).subscribe(
+      provider =>
+        this.dialog.open(DetailsDialogComponent,
+          {data: {
+              title: 'Ticket details',
+              object: this.advTicket,
+              properties: Object.getOwnPropertyNames(this.advTicket)}
+          }
+        )
+    );
   }
 }
 
