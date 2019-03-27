@@ -35,7 +35,9 @@
     </div>
     <div class="form-group">
       <mat-form-field>
-        <input matInput type="date" placeholder="RegistrationDate" formControlName="registrationDate"/>
+        <input matInput name="endDate" placeholder="Registration date" formControlName="registrationDate" [matDatepicker]="picker"/>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker disabled="false"></mat-datepicker>
       </mat-form-field>
     </div>
     <mat-checkbox formControlName="active">Active</mat-checkbox>
