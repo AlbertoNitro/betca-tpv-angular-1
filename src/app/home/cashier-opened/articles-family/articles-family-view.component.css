@@ -4,7 +4,7 @@
 .align-cards{
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 
 .element-articles-family-card{
@@ -25,6 +25,13 @@
 
 .family-sizes-card{
   border-color: darkgrey;
+}
+
+.path_stepper{
+  font-size: 14px;
+  text-decoration: none;
+  color: cornflowerblue;
+  font-style: italic;
 }
 
 

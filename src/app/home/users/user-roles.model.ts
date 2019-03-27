@@ -1,4 +1,4 @@
-export interface UserRolesModel {
+export interface UserRoles {
   mobile: number;
-  role?: string[];
+  roles?: string[];
 }
