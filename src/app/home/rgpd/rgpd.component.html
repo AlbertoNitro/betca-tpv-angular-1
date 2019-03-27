@@ -1,1 +1,26 @@
-<h1>RGPD Managament</h1>
+<mat-card>
+  <mat-card-title>RGPD Agrement</mat-card-title>
+  <mat-card-subtitle>
+    Manage RGPD Agrement
+  </mat-card-subtitle>
+  <mat-card-content>
+    <div *ngIf="!showFileUpload">
+      <mat-radio-group aria-label="Select Type Agrement" [(ngModel)]="agreementType">
+        <mat-radio-button  value="1">Low</mat-radio-button>
+        <mat-radio-button value="2">Medium</mat-radio-button>
+        <mat-radio-button value="3">High</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div *ngIf="!showFileUpload">
+      <button mat-raised-button
+              matTooltip="Print agrement and term conditions" (click)="printAgreement()">
+        Print Agrement
+      </button>
+    </div>
+    <div *ngIf="showFileUpload">
+      <button type="button" mat-raised-button (click)="fileInput.click()">Choose Signed Agreement</button>
+      <input hidden (change)="onAgreementSelected($event)" #fileInput type="file" id="file">
+    </div>
+  </mat-card-content>
+</mat-card>
+
