@@ -5,8 +5,9 @@ import {HttpService} from '../../core/http.service';
 import {ApiEndpoint} from '../shared/api-endpoint.model';
 import {User} from './user.model';
 import {UserMinimum} from './user-quick-creation-dialog/user-minimum.model';
-import {Provider} from '../providers/provider.model';
-import {UserRolesModel} from './user-roles.model';
+
+import {UserRoles} from './user-roles.model';
+import {UserSearch} from './user-search.model';
 
 @Injectable()
 export class UserService {
@@ -22,16 +23,23 @@ export class UserService {
     return this.httpService.get(ApiEndpoint.USERS + '/' + mobile);
   }
 
-  saveUser(user: UserMinimum): Observable<UserMinimum> {
+  saveMinimumUser(user: UserMinimum): Observable<UserMinimum> {
+    return this.httpService.post(ApiEndpoint.USERS + '/minimum', user);
+  }
+
+  saveUser(user: User): Observable<User> {
     return this.httpService.post(ApiEndpoint.USERS, user);
   }
 
   updateUser(user: User): Observable<User> {
-    return this.httpService.put(ApiEndpoint.USERS, user);
+    return this.httpService.put(ApiEndpoint.USERS + '/' + user.mobile, user);
   }
-  updateRoles(user: UserRolesModel): Observable<UserRolesModel> {
-    console.log(ApiEndpoint.USERS + ApiEndpoint.ROLES + '/' + user.mobile);
+
+  updateRoles(user: UserRoles): Observable<User> {
     return this.httpService.put(ApiEndpoint.USERS + ApiEndpoint.ROLES + '/' + user.mobile, user );
+  }
+  readSearch(user: UserSearch): Observable<User[]> {
+    return this.httpService.post(ApiEndpoint.USERS + ApiEndpoint.QUERY, user);
   }
 
 

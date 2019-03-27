@@ -9,11 +9,13 @@ export class ApiEndpoint {
 
   public static USERS = '/users';
   public static ROLES = '/roles';
+  public static QUERY = '/query';
 
   public static ARTICLES = '/articles';
   public static ARTICLES_MINIMUM = ApiEndpoint.ARTICLES + '/minimum';
   public static ARTICLES_FAMILY = '/articles-family';
   public static ARTICLE_FAMILY_CREATE = ApiEndpoint.ARTICLES_FAMILY + '/create';
+  public static ARTICLE_FAMILY_COMPOSITE_ROOT = ApiEndpoint.ARTICLES_FAMILY + '/family-root';
 
   public static TICKETS = '/tickets';
   public static FAMILY_SIZES = '/family-sizes';
@@ -29,4 +31,7 @@ export class ApiEndpoint {
 
   public static VOUCHERS = '/vouchers';
 
+  public static PARTIALLY_DEFINED = '/partially-defined';
+
+  public static ARTICLES_SEARCH = ApiEndpoint.ARTICLES + ApiEndpoint.SEARCH;
 }

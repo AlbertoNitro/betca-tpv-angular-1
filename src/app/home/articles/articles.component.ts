@@ -24,9 +24,6 @@ export class ArticlesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.articleService.readAll().subscribe(
-      articleList => this.data = articleList
-    );
   }
 
   updateData(data) {
@@ -73,7 +70,7 @@ export class ArticlesComponent implements OnInit {
       result => {
         if (result) {
           this.articleService.delete(article.code).subscribe();
-          this.articleService.readAll().subscribe(
+          this.articleService.readArticlesQuery(null).subscribe(
             articleList => this.data = articleList
           );
         }
