@@ -42,10 +42,6 @@ export class ArticlesComponent implements OnInit {
     this.dialog.open(ArticleCreateUpdateDialogComponent, dialogConfig);
   }
 
-  read(article: ArticleQueryModel) {
-
-  }
-
   update(articleDetailModel: ArticleDetailModel) {
 
     let dialogConfig: MatDialogConfig = null;
@@ -69,10 +65,7 @@ export class ArticlesComponent implements OnInit {
     this.dialog.open(CancelYesDialogComponent).afterClosed().subscribe(
       result => {
         if (result) {
-          this.articleService.delete(article.code).subscribe();
-          this.articleService.readArticlesQuery(null).subscribe(
-            articleList => this.data = articleList
-          );
+          this.articleService.delete(article.code);
         }
       }
     );
