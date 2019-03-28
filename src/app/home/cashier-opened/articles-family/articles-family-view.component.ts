@@ -12,30 +12,14 @@ export class ArticlesFamilyViewComponent {
 
   familyCompositeRoot: FamilyCompositeMinimum;
 
-  familyCompositeRootArticleList = [];
-  familyCompositeRootArticlesList = [];
-  familyCompositeRootSizesList = [];
+  familyCompositeRootList: FamilyCompositeMinimum[] = [];
+  familyCompositeRootParam = 'root';
 
   constructor(private articlesFamilyViewService: ArticleFamilyViewService) {
-    articlesFamilyViewService.readFamilyCompositeRoot()
+    articlesFamilyViewService.readFamilyCompositeRoot(this.familyCompositeRootParam)
       .subscribe(
-        (data) => {
-          this.familyCompositeRoot = data;
-
-          data.familyCompositeList.forEach(
-            elm => {
-              if ( elm.familyType === 'ARTICLE') {
-                this.familyCompositeRootArticleList.push(elm);
-              } else if (elm.familyType === 'ARTICLES') {
-                this.familyCompositeRootArticlesList.push(elm);
-              } else {
-                this.familyCompositeRootSizesList.push(elm);
-              }
-            }
-          );
+        data => {
           console.log(data);
-          console.log(this.familyCompositeRootArticleList);
-          console.log(this.familyCompositeRootArticlesList);
         }
       );
   }
