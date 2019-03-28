@@ -80,7 +80,7 @@ export class TicketsComponent {
     this.dataSource = new MatTableDataSource<ShoppingTicket>(this.ticket.shoppingTicket);
     this.isTicketFound = true;
     this.hasAdvancedQueryResults = false;
-    this.ticketTotal = this.ticket.total;
+    this.synchronizeTicketTotal();
   }
 
   reset() {
@@ -88,7 +88,7 @@ export class TicketsComponent {
   }
 
   save() {
-    this.ticketsService.createNewTicket(this.ticket);
+    this.ticketsService.updateTicket(this.ticket);
   }
 
   decreaseAmount(shoppingTicket: ShoppingTicket) {
@@ -105,7 +105,6 @@ export class TicketsComponent {
       total = total + shopping.totalPrice;
     }
     this.ticketTotal = Math.round(total * 100) / 100;
-    this.ticket.total = this.ticketTotal;
   }
 
   initializeCustomizedMatSelectStates(state) {
