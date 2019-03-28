@@ -22,12 +22,16 @@ export class ArticleService {
     return this.httpService.get(ApiEndpoint.ARTICLES + '/' + code);
   }
 
+  readAll(): Observable<ArticleDetailModel[]> {
+    return this.httpService.get(ApiEndpoint.ARTICLES);
+  }
+
   create(article: Article): Observable<Article> {
     return this.httpService.successful('The article was created').post(ApiEndpoint.ARTICLES, article);
   }
 
-  update(code: String, article: Article): Observable<Article> {
-    return this.httpService.successful('The article was updated').put(ApiEndpoint.ARTICLES + '/' + code, article);
+  update(article: Article): Observable<Article> {
+    return this.httpService.successful('The article was updated').put(ApiEndpoint.ARTICLES + '/' + article.code, article);
   }
 
   delete(code: String): Observable<Article> {
