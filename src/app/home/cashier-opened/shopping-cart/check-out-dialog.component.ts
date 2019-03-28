@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig} from '@angular/material';
 
 import {TicketCreation} from './ticket-creation.model';
 import {ShoppingCartService} from './shopping-cart.service';
-import {UserQuickCreationDialogComponent} from '../../users/user-quick-creation-dialog/user-quick-creation-dialog.controller';
+import {UserQuickCreationDialogComponent} from './user-quick-creation-dialog/user-quick-creation-dialog.controller';
 import {VouchersUseDialogComponent} from '../../vouchers/vouchersUse-dialog.component';
 import {User} from '../../users/user.model';
 import {UserCreateUpdateDialogComponent} from '../../users/user-create-update-dialog/user-create-update-dialog.component';
