@@ -10,8 +10,10 @@ export class ArticleFamilyViewService {
   constructor(private httpService: HttpService) {
   }
 
-  readFamilyCompositeRoot(): Observable<any> {
-    return this.httpService.get(ApiEndpoint.ARTICLE_FAMILY_COMPOSITE_ROOT);
+  readFamilyCompositeRoot(familyDescription: string): Observable<any> {
+    return this.httpService
+      .param('description', familyDescription)
+      .get(ApiEndpoint.ARTICLES_FAMILY + ApiEndpoint.ARTICLES_FAMILY_COMPOSITE);
   }
 
 }
