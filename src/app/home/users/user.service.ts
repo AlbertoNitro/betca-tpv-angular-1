@@ -8,6 +8,7 @@ import {UserMinimum} from '../cashier-opened/shopping-cart/user-quick-creation-d
 
 import {UserRoles} from './user-roles.model';
 import {UserSearch} from './user-search.model';
+import {UserProfile} from './user-profile.model';
 
 @Injectable()
 export class UserService {
@@ -40,6 +41,10 @@ export class UserService {
   }
   readSearch(user: UserSearch): Observable<User[]> {
     return this.httpService.post(ApiEndpoint.USERS + ApiEndpoint.QUERY, user);
+  }
+
+  updateProfile(user: UserProfile): Observable<User> {
+    return this.httpService.put(ApiEndpoint.USERS + ApiEndpoint.PASSWORDS + '/' + user.mobile, user );
   }
 
 
