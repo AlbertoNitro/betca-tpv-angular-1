@@ -38,18 +38,18 @@ export class TicketsService {
       }
     ] ;
      this.ticketMock = {
-      shoppingTicket: this.shoppingTicketMock ,
-      total: 106
+       id: '112287',
+       shoppingTicket: this.shoppingTicketMock
     };
      return this.ticketMock;
     // TODO: API CALL and returning an Observable<Ticket>
-    // return this.httpService.get(ApiEndpoint.TICKETS + '/' + code);
+    // return this.httpService.get(ApiEndpoint.TICKETS + '/' + id);
   }
 
-  createNewTicket(ticket: Ticket) {
+  updateTicket(ticket: Ticket) {
     console.log('Saving a new Ticket!', ticket);
     // TODO: API CALL and returning an Observable<Ticket>
-    // return this.httpService.post(ApiEndpoint.TICKETS, ticket);
+    // return this.httpService.put(ApiEndpoint.TICKETS + '/' + id, ticket);
   }
 
   read(id: string): Observable<Ticket> {
