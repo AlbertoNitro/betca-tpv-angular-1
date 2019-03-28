@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {Article} from '../../shared/article.model';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA} from '@angular/material';
 import {ArticleService} from '../../shared/article.service';
 import {GenericMatSelect} from '../../shared/generic-mat-select.model';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -24,8 +24,7 @@ export class ArticleCreateUpdateDialogComponent implements OnInit {
     {value: 'SUPER_REDUCED', viewValue: 'Super Reduced'}
   ];
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private articleService: ArticleService,
-              public dialogRef: MatDialogRef<ArticleCreateUpdateDialogComponent>) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private articleService: ArticleService) {
     this.article = data.article;
     this.modeDialog = data.mode;
   }
@@ -43,15 +42,27 @@ export class ArticleCreateUpdateDialogComponent implements OnInit {
     });
   }
 
+  createOrUpdate() {
+    if (this.modeDialog === 'Create') {
+      this.create();
+    } else {
+      this.update();
+    }
+  }
+
   create() {
-    this.articleService.create(this.articleForm.value).subscribe(response => {
-      this.dialogRef.close();
+    this.articleService.create(this.articleForm.value).subscribe(result => {
+      if (result) {
+        return true;
+      }
     });
   }
 
   update() {
-    this.articleService.update(this.articleForm.value).subscribe(response => {
-      this.dialogRef.close();
+    this.articleService.update(this.articleForm.value).subscribe(result => {
+      if (result) {
+        return true;
+      }
     });
   }
 }
