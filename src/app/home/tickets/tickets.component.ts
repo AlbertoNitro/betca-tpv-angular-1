@@ -144,19 +144,6 @@ export class TicketsComponent {
       totalMin: null, totalMax: null, pending: null, orderId: null};
     this.hasAdvancedQueryResults = false;
   }
-
-  viewDetails(id: string) {
-    this.ticketsService.readOne(id).subscribe(
-      advTicket =>
-        this.dialog.open(DetailsDialogComponent,
-          {data: {
-              title: 'Ticket details',
-              object: advTicket,
-              properties: Object.getOwnPropertyNames(advTicket)}
-          }
-        )
-    );
-  }
 }
 
 

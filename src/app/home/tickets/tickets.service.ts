@@ -15,7 +15,7 @@ export class TicketsService {
 
   readOne(code: string): Observable<Ticket> {
     console.log('Searching Ticket with id: ', code);
-    return this.httpService.get(ApiEndpoint.TICKETS + '/' + code);
+    return this.httpService.get(ApiEndpoint.TICKETS);
   }
 
   updateTicket(ticket: Ticket) {
