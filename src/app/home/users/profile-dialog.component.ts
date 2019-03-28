@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {TokensService} from '../../core/tokens.service';
+import {UserService} from './user.service';
+import {User} from './user.model';
+import {UserProfile} from './user-profile.model';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-perfile',
@@ -12,7 +17,13 @@ export class ProfileDialogComponent implements OnInit {
   NewRepeatpassword: string;
   WarningPasswordNews = false;
   WarningPasswordCurrentNew = false;
-  constructor() { }
+  data: UserProfile;
+  userProfile: UserProfile = {mobile: null, password: null};
+  submited = true;
+
+  validatorForm = false;
+
+  constructor(private tokensService: TokensService, private userService: UserService, public dialogRef: MatDialogRef<ProfileDialogComponent>) { }
 
   public userForm: FormGroup;
 
@@ -32,10 +43,18 @@ export class ProfileDialogComponent implements OnInit {
     if (this.passwordCurrent === this.passwordNew) {
       this.WarningPasswordCurrentNew = true;
     }
+
   }
   comparatePasswordNews() {
     if (this.passwordNew !== this.NewRepeatpassword) {
       this.WarningPasswordNews = true;
+    }
+  }
+  validatorFormulario() {
+    if (this.passwordNew === this.NewRepeatpassword && this.passwordCurrent !== this.passwordNew && this.userForm.valid)
+    {
+      this.validatorForm = true;
+      this.submited = false;
     }
   }
 
@@ -47,9 +66,14 @@ export class ProfileDialogComponent implements OnInit {
     this.WarningPasswordCurrentNew = false;
   }
 
-  public submmit () {
-    if (this.userForm.valid) {
-      console.log('guardarDatos');
-    }
+  submmit() {
+      this.userProfile.mobile = this.tokensService.getMobile();
+      this.userProfile.password = this.NewRepeatpassword;
+      this.userService.updateProfile(this.userProfile).subscribe(response => {
+        this.dialogRef.close();
+      }, error => {
+        console.log('ERROR:', error);
+      });
+
   }
  }
