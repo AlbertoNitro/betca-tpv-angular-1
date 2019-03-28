@@ -26,8 +26,8 @@ export class UserCreateUpdateDialogComponent implements OnInit {
     this.userForm = new FormGroup({
       mobile: new FormControl(this.user.mobile, [Validators.required, Validators.pattern('[0-9]{9}')]),
       username: new FormControl(this.user.username, Validators.required),
-      email: new FormControl(this.user.email, Validators.pattern('[^ @]*@[^ @]*')),
-      dni: new FormControl(this.user.dni, Validators.pattern('^[0-9]{8,8}[A-Za-z]')),
+      email: new FormControl(this.user.email, Validators.pattern('\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$')),
+      dni: new FormControl(this.user.dni),
       address: new FormControl(this.user.address),
       registrationDate: new FormControl(this.user.registrationDate),
       active: new FormControl(this.user.active)
@@ -38,14 +38,10 @@ export class UserCreateUpdateDialogComponent implements OnInit {
     if (this.modeDialog === 'Update') {
       this.userService.updateUser(this.userForm.value).subscribe(response => {
         this.dialogRef.close(response);
-      }, error => {
-        console.log('ERROR:', error);
       });
     } else {
         this.userService.saveUser(this.userForm.value).subscribe(response => {
           this.dialogRef.close();
-        }, error => {
-          console.log('ERROR:', error);
         });
     }
   }
@@ -59,8 +55,6 @@ export class UserCreateUpdateDialogComponent implements OnInit {
           }
         };
         this.dialog.open(RolesDialogComponent, dialogConfig);
-      }, error => {
-        console.log(error);
       });
     }
 }
