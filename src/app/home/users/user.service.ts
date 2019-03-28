@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {HttpService} from '../../core/http.service';
 import {ApiEndpoint} from '../shared/api-endpoint.model';
 import {User} from './user.model';
-import {UserMinimum} from './user-quick-creation-dialog/user-minimum.model';
+import {UserMinimum} from '../cashier-opened/shopping-cart/user-quick-creation-dialog/user-minimum.model';
 
 import {UserRoles} from './user-roles.model';
 import {UserSearch} from './user-search.model';

@@ -1,11 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserService} from '../user.service';
+import {UserService} from '../../../users/user.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({
   templateUrl: 'user-quick-creation-dialog.component.html',
-  styleUrls: ['../user-create-update-dialog/user-create-update-dialog.component.css']
+  styleUrls: ['../../../users/user-create-update-dialog/user-create-update-dialog.component.css']
 })
 
 export class UserQuickCreationDialogComponent implements OnInit {
