@@ -21,7 +21,6 @@ export class TicketsComponent {
   AdvancedQuery = '/query';
   AdvancedQueryByOrderId = '/orderId';
   ticket: Ticket;
-  advTicket: Ticket;
   ticketQueryInput: TicketQueryInput = {userMobile: null, dateStart: null, dateEnd: null,
     totalMin: null, totalMax: null, orderId: null, pending: null};
   ticketQueryOuput: TicketQueryOutput[];
@@ -71,8 +70,11 @@ export class TicketsComponent {
   }
 
   searchTicketById(code: string) {
-    this.ticket = this.ticketsService.readOne(code);
-    this.fillData(code);
+    this.ticketsService.readOne(code).subscribe(
+      ticket => {
+        this.ticket = ticket;
+        this.fillData(code);
+      });
   }
 
   fillData(code: string) {
@@ -144,13 +146,13 @@ export class TicketsComponent {
   }
 
   viewDetails(id: string) {
-    this.ticketsService.read(id).subscribe(
-      provider =>
+    this.ticketsService.readOne(id).subscribe(
+      advTicket =>
         this.dialog.open(DetailsDialogComponent,
           {data: {
               title: 'Ticket details',
-              object: this.advTicket,
-              properties: Object.getOwnPropertyNames(this.advTicket)}
+              object: advTicket,
+              properties: Object.getOwnPropertyNames(advTicket)}
           }
         )
     );
