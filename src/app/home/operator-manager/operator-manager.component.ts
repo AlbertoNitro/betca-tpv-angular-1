@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Clock} from './models/clock';
 import {DatesValidator} from './dates-validator';
 import {OperatorManagerService} from './operator-manager.service';
 import {OperatorManagerInput} from './models/operator-manager-input.model';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
+import {OperatorManagerOutput} from './models/operator-manager-output.model';
 
 @Component({
   selector: 'app-operator-manager',
@@ -22,7 +22,7 @@ export class OperatorManagerComponent implements OnInit {
   operatorManagerForm: FormGroup;
   dateFrom: Date;
   dateTo: Date;
-  clocksData: Clock[];
+  clocksData: OperatorManagerOutput[];
   employeeMobile: number;
   title = 'Operator, Manager Clock in/out';
   columns = ['employee', 'date', 'in', 'out', 'total'];
@@ -49,14 +49,15 @@ export class OperatorManagerComponent implements OnInit {
   doSearch() {
     console.log('onSubmit search');
     const operatorManagerInput: OperatorManagerInput = {
-      dateFrom: this.formFields.dateFrom.value === '' ? 0 : new Date(this.formFields.dateFrom.value).getTime(),
-      dateTo: this.formFields.dateTo.value === '' ? 0 : new Date(this.formFields.dateTo.value).getTime(),
-      employeeMobile: this.formFields.employeeMobile.value === '' ? null : this.formFields.employeeMobile.value
+      dateFrom: this.formFields.dateFrom.value,
+      dateTo: this.formFields.dateTo.value,
+      employeeMobile: this.formFields.employeeMobile.value
     };
     this.operatorManagerService.search(operatorManagerInput).subscribe(
       clocksOutput => {
         this.clocksData = clocksOutput;
         console.dir(this.clocksData);
       });
+
   }
 }
