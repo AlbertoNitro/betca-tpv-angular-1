@@ -3,6 +3,7 @@ import {Component} from '@angular/core';
 import {Order} from './order.model';
 import {OrderService} from './order.service';
 import {MatDialog} from '@angular/material';
+import {OrderSearch} from './order-search.model';
 
 @Component({
   selector: 'app-order',
@@ -10,7 +11,7 @@ import {MatDialog} from '@angular/material';
 })
 export class OrderComponent {
   static URL = 'orders';
-  onlyClosingDate = false;
+  orderSearch: { descriptionOrders: null; descriptionArticles: null; onlyClosingDate: true };
   order: { descriptionOrders: null; descriptionArticles: null };
   data: Order[];
   title = 'Order management';
@@ -19,14 +20,21 @@ export class OrderComponent {
   constructor(private orderService: OrderService, private  dialog: MatDialog) {
     this.order = {descriptionOrders: null, descriptionArticles: null };
     this.data = null;
+    this.orderSearch = {descriptionOrders: null, descriptionArticles: null, onlyClosingDate: true };
   }
 
-  search() {
-    // TODO implement search with fields
+  readAll() {
     this.orderService.readAll().subscribe(
       data => this.data = data
     );
     console.log('data: ' +  this.data);
+  }
+
+  search() {
+    this.orderService.readSearch(this.orderSearch).subscribe(
+      data => this.data = data
+    );
+    console.log('orderSearch: ' +  this.orderSearch);
   }
 
   resetSearch() {
