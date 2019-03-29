@@ -44,9 +44,7 @@ import {VoucherNewDialogComponent} from './home/vouchers/voucherNew-dialog.compo
 import {VoucherConsumedDialogComponent} from './home/vouchers/voucherConsumed-dialog.component';
 import {ArticlesFamiliesUpdateDialogComponent} from './home/articles-families/update-dialog/articles-families-update-dialog.component';
 import {ArticlesFamiliesAttachDialogComponent} from './home/articles-families/update-dialog/attach-dialog/articles-families-attach-dialog.component';
-import {FamilyArticleViewComponent} from './home/cashier-opened/articles-family/family-views/family-article-view.component';
-import {FamilyCompositeViewComponent} from './home/cashier-opened/articles-family/family-views/family-composite-view.component';
-import {FamilySizesViewComponent} from './home/cashier-opened/articles-family/family-views/family-sizes-view.component';
+import {ArticlesFamilyViewSizesDialogComponent} from './home/cashier-opened/articles-family/articles-family-view-dialog/articles-family-view-sizes-dialog.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
@@ -87,9 +85,6 @@ export class AppRoutingModule {
     BudgetsComponent,
     CashierClosedComponent,
     CashierOpenedComponent,
-    FamilyArticleViewComponent,
-    FamilyCompositeViewComponent,
-    FamilySizesViewComponent,
     HomeComponent,
     InvoiceUpdateComponent,
     LineChartComponent,
@@ -115,6 +110,7 @@ export class AppRoutingModule {
     ArticlesFamiliesCreateDialogComponent,
     ArticlesFamiliesUpdateDialogComponent,
     ArticleQuickCreationDialogComponent,
+    ArticlesFamilyViewSizesDialogComponent,
     CashierClosureDialogComponent,
     CashMovementDialogComponent,
     CheckOutDialogComponent,
