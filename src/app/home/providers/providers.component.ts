@@ -12,16 +12,12 @@ import {ProvidersSaveDialogComponent} from './providers-save-dialog.component';
 export class ProvidersComponent{
   static URL = 'providers';
 
-  data: Provider[];
+  data: Provider[] = [];
   title = 'Provider management';
   columns = ['company', 'nif'];
   provider: Provider = {'active' : true};
 
-  constructor(private providerService: ProviderService, private dialog: MatDialog) {
-    this.providerService.readAll().subscribe(
-      data => this.data = data
-    );
-  }
+  constructor(private providerService: ProviderService, private dialog: MatDialog) {}
 
   create() {
         this.dialog.open(ProvidersSaveDialogComponent,
@@ -64,8 +60,6 @@ export class ProvidersComponent{
 
   resetSearch() {
     this.provider = {'active' : true};
-    this.providerService.readAll().subscribe(
-      data => this.data = data
-    );
+    this.data = [];
   }
 }
