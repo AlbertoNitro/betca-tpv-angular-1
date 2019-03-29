@@ -68,7 +68,7 @@
   </mat-card-content>
 </mat-card>
 
-<div [hidden]="!isTicketFound">
+<div *ngIf="isTicketFound">
   <mat-card>
     <table>
       <tr>
@@ -112,9 +112,11 @@
         <ng-container matColumnDef="shoppingState">
           <mat-header-cell *matHeaderCellDef fxFlex="12%"> State</mat-header-cell>
           <mat-cell *matCellDef="let item" fxFlex="28%">
+            <button (click)="initializeCustomizedMatSelectStates(item.shoppingState)" mat-button mat-icon-button matSuffix>
+              <mat-icon color="primary">autorenew</mat-icon>
+            </button>
             <mat-form-field>
               <mat-select placeholder="{{item.shoppingState}}"
-                          (openedChange)="initializeCustomizedMatSelectStates(item.shoppingState)"
                           (selectionChange)="manageMatSelectOptions($event, item)">
                 <mat-option
                   *ngFor="let state of customizedMatSelectStates"

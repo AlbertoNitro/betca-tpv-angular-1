@@ -1,6 +1,6 @@
 export enum ShoppingState {
-  NotCommited = 'NOT_COMMITED',
-  InStock = 'IN_STOCK',
-  Sending = 'SENDING',
-  Commited = 'COMMITED',
+  NOT_COMMITTED = 'NOT_COMMITTED',
+  IN_STOCK = 'IN_STOCK',
+  SENDING = 'SENDING',
+  COMMITTED = 'COMMITTED',
 }

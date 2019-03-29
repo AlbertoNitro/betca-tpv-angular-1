@@ -10,7 +10,7 @@ export class ApiEndpoint {
   public static USERS = '/users';
   public static ROLES = '/roles';
   public static QUERY = '/query';
-  public static PASSWORDS = '/passwords';
+  public static PROFILES = '/profiles';
 
   public static ARTICLES = '/articles';
   public static ARTICLES_MINIMUM = ApiEndpoint.ARTICLES + '/minimum';
@@ -27,6 +27,7 @@ export class ApiEndpoint {
 
   public static OFFERS = '/offers';
   public static ORDERS = '/orders';
+  public static OPERATOR_MANAGER = '/timeclocks';
 
   public static STOCK_PREDICTION = '/stock-prediction';
 

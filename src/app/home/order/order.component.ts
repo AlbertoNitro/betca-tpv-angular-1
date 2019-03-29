@@ -3,6 +3,7 @@ import {Component} from '@angular/core';
 import {Order} from './order.model';
 import {OrderService} from './order.service';
 import {MatDialog} from '@angular/material';
+import {OrderSearch} from './order-search.model';
 
 @Component({
   selector: 'app-order',
@@ -10,27 +11,33 @@ import {MatDialog} from '@angular/material';
 })
 export class OrderComponent {
   static URL = 'orders';
-  onlyClosingDate = false;
-  order: { descriptionOrders: null; descriptionArticles: null };
+  orderSearch: { descriptionOrders: string; descriptionArticles: string; onlyClosingDate: boolean };
+  order: { descriptionOrders: string; descriptionArticles: string; onlyClosingDate: boolean };
   data: Order[];
   title = 'Order management';
   columns = ['descriptionOrders', 'descriptionArticles', 'requiredAmount', 'finalAmount', 'openingDate', 'closingDate'];
 
   constructor(private orderService: OrderService, private  dialog: MatDialog) {
-    this.order = {descriptionOrders: null, descriptionArticles: null };
+    this.order = { descriptionOrders: '', descriptionArticles: '', onlyClosingDate: false };
     this.data = null;
+    this.orderSearch = { descriptionOrders: '' , descriptionArticles: '', onlyClosingDate: false };
   }
 
-  search() {
-    // TODO implement search with fields
+  readAll() {
     this.orderService.readAll().subscribe(
       data => this.data = data
     );
-    console.log('data: ' +  this.data);
+    // console.log('data: ' +  this.data);
+  }
+
+  search() {
+    this.orderService.readSearch(this.orderSearch).subscribe(
+      data => this.data = data
+    );
   }
 
   resetSearch() {
-    this.order = {descriptionOrders: null, descriptionArticles: null };
+    this.orderSearch = {descriptionOrders: '', descriptionArticles: '' , onlyClosingDate: false };
   }
 
   create() {

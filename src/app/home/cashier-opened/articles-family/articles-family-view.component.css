@@ -15,23 +15,12 @@
   cursor: pointer;
 }
 
-.family-article-card{
-  border-color: cornflowerblue;
-}
-
-.family-articles-card{
-  border-color: darksalmon;
-}
-
-.family-sizes-card{
-  border-color: darkgrey;
-}
-
 .path_stepper{
   font-size: 14px;
   text-decoration: none;
   color: cornflowerblue;
   font-style: italic;
+  margin-left: 5px;
 }
 
 

@@ -13,15 +13,12 @@ export class TicketsService {
   constructor(private httpService: HttpService) {
   }
 
-  readOne(code: string): Observable<Ticket> {
-    console.log('Searching Ticket with id: ', code);
-    return this.httpService.get(ApiEndpoint.TICKETS);
+  readOne(id: string): Observable<Ticket> {
+    return this.httpService.get(ApiEndpoint.TICKETS + '/' + id);
   }
 
-  updateTicket(ticket: Ticket) {
-    console.log('Saving a new Ticket!', ticket);
-    // TODO: API CALL and returning an Observable<Ticket>
-    // return this.httpService.put(ApiEndpoint.TICKETS + '/' + id, ticket);
+  updateTicket(id: string, ticket: Ticket): Observable<Ticket> {
+    return this.httpService.pdf().put(ApiEndpoint.TICKETS + '/' + id, ticket);
   }
 
   advancedTicketQuery(apiPath: string, queryInput: TicketQueryInput): Observable<TicketQueryOutput[]> {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {MatDialog, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatSnackBar, MatTableDataSource} from '@angular/material';
 import {ShoppingTicket} from './models/shopping-ticket.model';
 import {ShoppingState} from './models/shopping-state.enum';
 import {GenericMatSelect} from '../shared/generic-mat-select.model';
@@ -16,6 +16,21 @@ import {DetailsDialogComponent} from '../../core/details-dialog.component';
 })
 
 export class TicketsComponent {
+
+  constructor(private ticketsService: TicketsService, private dialog: MatDialog, private snackBar: MatSnackBar) {
+    this.isTicketFound = false;
+    this.hasAdvancedQueryResults = false;
+    this.ticketCode = '0';
+    this.ticketTotal = 0;
+    this.initialShoppingStates = [];
+    this.matSelectStates = [
+      {value: ShoppingState.NOT_COMMITTED, viewValue: ShoppingState.NOT_COMMITTED},
+      {value: ShoppingState.IN_STOCK, viewValue: ShoppingState.IN_STOCK},
+      {value: ShoppingState.SENDING, viewValue: ShoppingState.SENDING},
+      {value: ShoppingState.COMMITTED, viewValue: ShoppingState.COMMITTED}
+    ];
+    this.customizedMatSelectStates = this.matSelectStates;
+  }
 
   static URL = 'tickets';
   AdvancedQuery = '/query';
@@ -36,61 +51,99 @@ export class TicketsComponent {
   dataSourceQuery: MatTableDataSource<TicketQueryOutput>;
   displayedColumns = ['id', 'description', 'retailPrice', 'amount', 'discount', 'totalPrice', 'shoppingState'];
   displayedColumnsQuery: string[] = ['id', 'creationDate', 'total', 'details'];
-
-  constructor(private ticketsService: TicketsService, private dialog: MatDialog) {
-    this.isTicketFound = false;
-    this.hasAdvancedQueryResults = false;
-    this.ticketCode = '0';
-    this.ticketTotal = 0;
-    this.matSelectStates = [
-      {value: ShoppingState.NotCommited, viewValue: 'Not Commited'},
-      {value: ShoppingState.InStock, viewValue: 'In Stock'},
-      {value: ShoppingState.Sending, viewValue: 'Sending'},
-      {value: ShoppingState.Commited, viewValue: 'Commited'}
-    ];
-    this.customizedMatSelectStates = this.matSelectStates;
-  }
-
-  choosePossibleStates = (selectedState => {
-    switch ( selectedState ) {
-      case ShoppingState.NotCommited:
-        return this.matSelectStates.filter(status => status.value !== ShoppingState.NotCommited);
-      case ShoppingState.InStock:
-        return this.matSelectStates.filter(status =>
-          (status.value === ShoppingState.Sending || status.value === ShoppingState.Commited));
-      case ShoppingState.Sending:
-      case ShoppingState.Commited:
-        return this.matSelectStates.filter(status => status.value === ShoppingState.Commited);
-    }
-  });
+  initialShoppingStates: string[];
 
   static updateTotal(shoppingTicket: ShoppingTicket): void {
     const value = shoppingTicket.retailPrice * shoppingTicket.amount * (1 - shoppingTicket.discount / 100);
     shoppingTicket.totalPrice = Math.round(value * 100) / 100;
   }
 
+  static isStateValid(initialState: string, actualState: string) {
+    let isValid;
+    switch (initialState) {
+      case ShoppingState.NOT_COMMITTED:
+        isValid = true;
+        break;
+      case ShoppingState.IN_STOCK:
+        isValid = ShoppingState.NOT_COMMITTED !== actualState;
+        break;
+      case ShoppingState.SENDING:
+        isValid = ShoppingState.SENDING === actualState || ShoppingState.COMMITTED === actualState;
+        break;
+      case ShoppingState.COMMITTED:
+        isValid = ShoppingState.COMMITTED === actualState;
+        break;
+    }
+    return isValid;
+  }
+
+  choosePossibleStates(selectedState) {
+    switch ( selectedState ) {
+      case ShoppingState.NOT_COMMITTED:
+        return this.matSelectStates;
+      case ShoppingState.IN_STOCK:
+        return this.matSelectStates.filter(status => (status.value !== ShoppingState.NOT_COMMITTED));
+      case ShoppingState.SENDING:
+        return this.matSelectStates.filter(status =>
+          (status.value === ShoppingState.SENDING || status.value === ShoppingState.COMMITTED));
+      case ShoppingState.COMMITTED:
+        return this.matSelectStates.filter(status => status.value === ShoppingState.COMMITTED);
+    }
+  }
+
   searchTicketById(code: string) {
-    this.ticketsService.readOne(code).subscribe(
-      ticket => {
-        this.ticket = ticket;
-        this.fillData(code);
+    this.ticketsService.readOne(code).subscribe(ticket => {
+      this.ticket = ticket;
+      this.fillData(code);
+      },
+      error => {
+      console.log(error);
+      this.isTicketFound = false;
       });
   }
 
   fillData(code: string) {
+    const shoppingTicket = this.ticket.shoppingList;
+    this.initialShoppingStates = [];
+    shoppingTicket.forEach(p => this.initialShoppingStates.push(p.shoppingState));
     this.ticketCode = code;
-    this.dataSource = new MatTableDataSource<ShoppingTicket>(this.ticket.shoppingTicket);
+    this.dataSource = new MatTableDataSource<ShoppingTicket>(this.ticket.shoppingList);
     this.isTicketFound = true;
     this.hasAdvancedQueryResults = false;
     this.synchronizeTicketTotal();
   }
 
   reset() {
+    this.isTicketFound = false;
     this.searchTicketById(this.ticketCode);
   }
 
+  isShoppingStatesValid () {
+    let isValid = true;
+    const shoppingTicket = this.ticket.shoppingList;
+    for (let i = 0; i < this.ticket.shoppingList.length; i++) {
+      if (!TicketsComponent.isStateValid(this.initialShoppingStates[i], shoppingTicket[i].shoppingState)) {
+        isValid = false;
+      }
+    }
+    return isValid;
+  }
+
   save() {
-    this.ticketsService.updateTicket(this.ticket);
+    const isValid = this.isShoppingStatesValid();
+    if (isValid) {
+      this.ticketsService.updateTicket(this.ticketCode, this.ticket).subscribe(() => {
+        this.snackBar.open('The ticket was updated. Wait to print it.', 'Success', {
+          duration: 5000
+        });
+        this.isTicketFound = false;
+        //  TODO: Create Voucher;
+      });
+    } else {
+      this.snackBar.open('States are not valid. Try again', 'Error', {
+        duration: 5000
+      });
+    }
   }
 
   decreaseAmount(shoppingTicket: ShoppingTicket) {
@@ -103,7 +156,7 @@ export class TicketsComponent {
 
   synchronizeTicketTotal(): void {
     let total = 0;
-    for (const shopping of this.ticket.shoppingTicket) {
+    for (const shopping of this.ticket.shoppingList) {
       total = total + shopping.totalPrice;
     }
     this.ticketTotal = Math.round(total * 100) / 100;
