@@ -32,4 +32,13 @@ export class OperatorManagerService {
     console.log('API = ' + ApiEndpoint.OPERATOR_MANAGER + ApiEndpoint.SEARCH + '?' + paramPath);
     return this.httpService.get(ApiEndpoint.OPERATOR_MANAGER + ApiEndpoint.SEARCH + '?' + paramPath);
   }
+
+  updateLogout(): Observable<any> {
+    let paramPath = '';
+    if (this.httpService.getToken() !== undefined) {
+      paramPath = paramPath + '?&mobile=' + this.httpService.getToken().mobile;
+      console.log(paramPath);
+    }
+    return this.httpService.get(ApiEndpoint.USERS + '/logout' + paramPath);
+  }
 }

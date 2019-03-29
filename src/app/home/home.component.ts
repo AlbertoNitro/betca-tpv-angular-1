@@ -26,6 +26,7 @@ import {OrderComponent} from './order/order.component';
 import {OperatorManagerComponent} from './operator-manager/operator-manager.component';
 import {RGPDComponent} from './rgpd/rgpd.component';
 import {VouchersComponent} from './vouchers/vouchers.component';
+import {OperatorManagerService} from './operator-manager/operator-manager.service';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -40,7 +41,7 @@ export class HomeComponent {
 
   constructor(private router: Router, private dialog: MatDialog,
               private tokensService: TokensService, private userService: UserService, private cashierService: CashierService,
-              private adminsService: AdminsService) {
+              private adminsService: AdminsService, private operatorManagerService: OperatorManagerService) {
     this.username = tokensService.getName();
     this.cashierClosed = true;
     this.cashier();
@@ -90,7 +91,9 @@ export class HomeComponent {
   }
 
   logout() {
-    this.tokensService.logout();
+    this.operatorManagerService.updateLogout().subscribe(
+      () => this.tokensService.logout()
+    );
   }
 
   closeCashier() {
