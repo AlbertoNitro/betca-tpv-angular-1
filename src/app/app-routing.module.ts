@@ -36,7 +36,7 @@ import {VouchersUseDialogComponent} from './home/vouchers/vouchersUse-dialog.com
 import {TicketsComponent} from './home/tickets/tickets.component';
 import {OrderComponent} from './home/order/order.component';
 import {UserCreateUpdateDialogComponent} from './home/users/user-create-update-dialog/user-create-update-dialog.component';
-import {UserQuickCreationDialogComponent} from './home/users/user-quick-creation-dialog/user-quick-creation-dialog.controller';
+import {UserQuickCreationDialogComponent} from './home/cashier-opened/shopping-cart/user-quick-creation-dialog/user-quick-creation-dialog.controller';
 import {RGPDComponent} from './home/rgpd/rgpd.component';
 import {ArticlesFamiliesCreateDialogComponent} from './home/articles-families/create-dialog/articles-families-create-dialog.component';
 import {VouchersComponent} from './home/vouchers/vouchers.component';

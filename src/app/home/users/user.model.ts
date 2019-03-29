@@ -4,7 +4,7 @@ export interface User {
   email?: string;
   dni?: string;
   address?: string;
-  registrationDate?: Date;
+  registrationDate?: string;
   active?: boolean;
   roles?: string[];
 }

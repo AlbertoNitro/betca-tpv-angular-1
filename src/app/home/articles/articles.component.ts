@@ -39,11 +39,15 @@ export class ArticlesComponent implements OnInit {
       }
     };
 
-    this.dialog.open(ArticleCreateUpdateDialogComponent, dialogConfig);
-  }
-
-  read(article: ArticleQueryModel) {
-
+    this.dialog.open(ArticleCreateUpdateDialogComponent, dialogConfig).afterClosed().subscribe(
+      response => {
+        if (response) {
+          this.articleService.readAll().subscribe(
+            articleList => this.data = articleList
+          );
+        }
+      }
+    );
   }
 
   update(articleDetailModel: ArticleDetailModel) {
@@ -59,7 +63,15 @@ export class ArticlesComponent implements OnInit {
           }
         };
 
-        this.dialog.open(ArticleCreateUpdateDialogComponent, dialogConfig);
+        this.dialog.open(ArticleCreateUpdateDialogComponent, dialogConfig).afterClosed().subscribe(
+          response => {
+            if (response) {
+              this.articleService.readAll().subscribe(
+                articleList => this.data = articleList
+              );
+            }
+          }
+        );
       }
     );
 
@@ -69,10 +81,14 @@ export class ArticlesComponent implements OnInit {
     this.dialog.open(CancelYesDialogComponent).afterClosed().subscribe(
       result => {
         if (result) {
-          this.articleService.delete(article.code).subscribe();
-          this.articleService.readArticlesQuery(null).subscribe(
-            articleList => this.data = articleList
-          );
+          this.articleService.delete(article.code).subscribe(
+            response => {
+              if (response) {
+                this.articleService.readAll().subscribe(
+                  articleList => this.data = articleList
+                );
+              }
+            });
         }
       }
     );
