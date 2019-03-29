@@ -2,7 +2,7 @@
 <h3 mat-dialog-title>Profile User</h3>
 <mat-dialog-content>
   <mat-form-field>
-    <input matInput type="password" placeholder="Current Password " [(ngModel)]="passwordCurrent" formControlName="VpasswordCurrent"/>
+    <input matInput type="password" placeholder="Current Password " [(ngModel)]="passwordCurrent" formControlName="VpasswordCurrent" (blur)="iscomparatePasswordCurrent()"/>
     <mat-error *ngIf="hasError('VpasswordCurrent', 'required')">It is required</mat-error>
   </mat-form-field>
   <mat-form-field>
