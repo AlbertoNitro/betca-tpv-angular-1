@@ -24,10 +24,10 @@ export class TicketsComponent {
     this.ticketTotal = 0;
     this.initialShoppingStates = [];
     this.matSelectStates = [
-      {value: ShoppingState.NOT_COMMITED, viewValue: ShoppingState.NOT_COMMITED},
+      {value: ShoppingState.NOT_COMMITTED, viewValue: ShoppingState.NOT_COMMITTED},
       {value: ShoppingState.IN_STOCK, viewValue: ShoppingState.IN_STOCK},
       {value: ShoppingState.SENDING, viewValue: ShoppingState.SENDING},
-      {value: ShoppingState.COMMITED, viewValue: ShoppingState.COMMITED}
+      {value: ShoppingState.COMMITTED, viewValue: ShoppingState.COMMITTED}
     ];
     this.customizedMatSelectStates = this.matSelectStates;
   }
@@ -62,15 +62,17 @@ export class TicketsComponent {
   static isStateValid(initialState: string, actualState: string) {
     let isValid;
     switch (initialState) {
-      case 'NOT_COMMITED':
+      case ShoppingState.NOT_COMMITTED:
         isValid = true;
         break;
-      case 'IN_STOCK':
-        isValid = 'SENDING' === actualState || 'COMMITED' === actualState;
+      case ShoppingState.IN_STOCK:
+        isValid = ShoppingState.NOT_COMMITTED !== actualState;
         break;
-      case 'SENDING':
-      case 'COMMITED':
-        isValid = 'COMMITED' === actualState;
+      case ShoppingState.SENDING:
+        isValid = ShoppingState.SENDING === actualState || ShoppingState.COMMITTED === actualState;
+        break;
+      case ShoppingState.COMMITTED:
+        isValid = ShoppingState.COMMITTED === actualState;
         break;
     }
     return isValid;
@@ -78,14 +80,15 @@ export class TicketsComponent {
 
   choosePossibleStates(selectedState) {
     switch ( selectedState ) {
-      case ShoppingState.NOT_COMMITED:
-        return this.matSelectStates.filter(status => status.value !== ShoppingState.NOT_COMMITED);
+      case ShoppingState.NOT_COMMITTED:
+        return this.matSelectStates;
       case ShoppingState.IN_STOCK:
-        return this.matSelectStates.filter(status =>
-          (status.value === ShoppingState.SENDING || status.value === ShoppingState.COMMITED));
+        return this.matSelectStates.filter(status => (status.value !== ShoppingState.NOT_COMMITTED));
       case ShoppingState.SENDING:
-      case ShoppingState.COMMITED:
-        return this.matSelectStates.filter(status => status.value === ShoppingState.COMMITED);
+        return this.matSelectStates.filter(status =>
+          (status.value === ShoppingState.SENDING || status.value === ShoppingState.COMMITTED));
+      case ShoppingState.COMMITTED:
+        return this.matSelectStates.filter(status => status.value === ShoppingState.COMMITTED);
     }
   }
 
@@ -101,10 +104,9 @@ export class TicketsComponent {
   }
 
   fillData(code: string) {
-    console.log('Length', this.ticket.shoppingList.length);
     const shoppingTicket = this.ticket.shoppingList;
+    this.initialShoppingStates = [];
     shoppingTicket.forEach(p => this.initialShoppingStates.push(p.shoppingState));
-    console.log('initial', this.initialShoppingStates);
     this.ticketCode = code;
     this.dataSource = new MatTableDataSource<ShoppingTicket>(this.ticket.shoppingList);
     this.isTicketFound = true;
@@ -136,14 +138,12 @@ export class TicketsComponent {
           duration: 5000
         });
         this.isTicketFound = false;
-        this.initialShoppingStates = [];
         //  TODO: Create Voucher;
       });
     } else {
       this.snackBar.open('States are not valid. Try again', 'Error', {
         duration: 5000
       });
-      this.initialShoppingStates = [];
     }
   }
 
