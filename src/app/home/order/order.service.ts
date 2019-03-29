@@ -5,7 +5,6 @@ import {HttpService} from '../../core/http.service';
 import {ApiEndpoint} from '../shared/api-endpoint.model';
 import {Order} from './order.model';
 import {OrderSearch} from '../order/order-search.model';
-import {Provider} from '../providers/provider.model';
 
 @Injectable()
 export class OrderService {
