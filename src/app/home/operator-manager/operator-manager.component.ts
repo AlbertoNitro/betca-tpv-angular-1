@@ -1,24 +1,31 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Clock} from './models/clock';
 import {DatesValidator} from './dates-validator';
 import {OperatorManagerService} from './operator-manager.service';
 import {OperatorManagerInput} from './models/operator-manager-input.model';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
+import {OperatorManagerOutput} from './models/operator-manager-output.model';
 
 @Component({
   selector: 'app-operator-manager',
   templateUrl: './operator-manager.component.html',
-  styleUrls: ['./operator-manager.component.css']
+  styleUrls: ['./operator-manager.component.css'],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'es-ES'},
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+  ]
 })
 export class OperatorManagerComponent implements OnInit {
   static URL = 'operator-manager';
   operatorManagerForm: FormGroup;
   dateFrom: Date;
   dateTo: Date;
-  clocksData: Clock[];
+  clocksData: OperatorManagerOutput[];
   employeeMobile: number;
   title = 'Operator, Manager Clock in/out';
-  columns = ['employee', 'date', 'in', 'out', 'total'];
+  columns = ['mobile', 'dateMs', 'inMs', 'outMs', 'totalHours'];
 
   constructor(private fb: FormBuilder, private operatorManagerService: OperatorManagerService) {
   }
@@ -46,10 +53,11 @@ export class OperatorManagerComponent implements OnInit {
       dateTo: this.formFields.dateTo.value,
       employeeMobile: this.formFields.employeeMobile.value
     };
-    this.operatorManagerService.readAllClocksWithDateFromAndDateUpAndEmployeeMobile(operatorManagerInput).subscribe(
+    this.operatorManagerService.search(operatorManagerInput).subscribe(
       clocksOutput => {
         this.clocksData = clocksOutput;
         console.dir(this.clocksData);
       });
+
   }
 }
