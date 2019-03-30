@@ -32,6 +32,7 @@ import {StatisticComponent} from './home/stadistics/statistic.component';
 import {StockPredictionComponent} from './home/stock-prediction/stock-prediction.component';
 import {RolesDialogComponent} from './home/users/roles-dialog.component';
 import {InvoiceUpdateComponent} from './home/invoice/invoice-update.component';
+import {AlarmsQueryComponent} from './home/alarms/alarms-query-component';
 import {ArticlesQueryComponent} from './home/shared/articles-query.component';
 import {VouchersUseDialogComponent} from './home/vouchers/vouchersUse-dialog.component';
 import {TicketsComponent} from './home/tickets/tickets.component';
@@ -81,6 +82,7 @@ export class AppRoutingModule {
   static COMPONENTS = [
     AdvancedSearchComponent,
     AlarmComponent,
+    AlarmsQueryComponent,
     ArticlesComponent,
     ArticlesFamiliesCRUDComponent,
     ArticlesFamilyViewComponent,
