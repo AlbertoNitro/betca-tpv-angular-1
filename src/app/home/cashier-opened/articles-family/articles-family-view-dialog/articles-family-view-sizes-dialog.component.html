@@ -1,6 +1,7 @@
 <mat-nav-list>
   <a class="separator" *ngFor="let articleSize of articlesSizeslist" mat-list-item (click)="addSizeToCart(articleSize.reference)">
-    {{articleSize.reference}}
+    {{articleSize.code}}
     <span>{{articleSize.stock}}</span>
+    <span>{{articleSize.size}}</span>
   </a>
 </mat-nav-list>

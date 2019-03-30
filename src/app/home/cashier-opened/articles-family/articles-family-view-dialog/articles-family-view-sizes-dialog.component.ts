@@ -1,6 +1,6 @@
 import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
-import {ArticleSize} from './article-size-view.model';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material';
+import {ArticleFamilyViewElement} from '../article-family-view-element.model';
 
 
 @Component({
@@ -9,9 +9,13 @@ import {ArticleSize} from './article-size-view.model';
 })
 export class ArticlesFamilyViewSizesDialogComponent {
 
-  articlesSizeslist: ArticleSize[];
+  articlesSizeslist: ArticleFamilyViewElement[];
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any[], private dialog: MatDialog, public dialogRef: MatDialogRef<ArticlesFamilyViewSizesDialogComponent>) {
+    console.log('IN DIALOG' + data);
+    data.forEach(
+      e => console.log(e)
+    );
     this.articlesSizeslist = data;
   }
 
