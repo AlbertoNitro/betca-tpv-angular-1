@@ -33,8 +33,6 @@ export class ArticlesFamilyViewComponent {
   }
 
   showSizes(articleInfoSizes: ArticleFamilyViewElement[]) {
-    console.log('process data array sizes');
-    console.log(articleInfoSizes);
     const infoSizes = [];
     let dialogConfig: MatDialogConfig;
     articleInfoSizes.forEach(
@@ -42,7 +40,6 @@ export class ArticlesFamilyViewComponent {
         infoSizes.push({ code: e.code, stock: e.stock, size: e.size });
       }
     );
-    console.log(infoSizes);
     dialogConfig = {data: infoSizes};
     this.dialog.open(ArticlesFamilyViewSizesDialogComponent, dialogConfig);
   }
@@ -69,23 +66,15 @@ export class ArticlesFamilyViewComponent {
   }
 
   handleFamilyTypeArticlesFamily(familyType: string, articleItem: ArticleFamilyViewElement) {
-    const itemProperty = articleItem;
     switch (familyType) {
       case 'ARTICLE': {
-        this.addArticleShoppingCart(itemProperty.code);
+        this.addArticleShoppingCart(articleItem.code);
         break;
       }
-      case 'ARTICLES': {
+      case 'ARTICLES':
+      case 'SIZES':
         this.readFamilyArticlesList(articleItem.description);
         break;
-      }
-      case 'SIZES': {
-        this.readFamilyArticlesList(itemProperty.description);
-        break;
-      }
-      default: {
-        break;
-      }
     }
   }
 
