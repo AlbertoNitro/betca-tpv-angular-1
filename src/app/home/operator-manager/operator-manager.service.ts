@@ -33,7 +33,7 @@ export class OperatorManagerService {
     return this.httpService.get(ApiEndpoint.OPERATOR_MANAGER + ApiEndpoint.SEARCH + '?' + paramPath);
   }
 
-  updateLogout(): Observable<any> {
+  updateDateTimeLogout(): Observable<any> {
     let paramPath = '';
     if (this.httpService.getToken() !== undefined) {
       paramPath = paramPath + '?&mobile=' + this.httpService.getToken().mobile;

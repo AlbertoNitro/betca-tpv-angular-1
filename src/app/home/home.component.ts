@@ -91,7 +91,7 @@ export class HomeComponent {
   }
 
   logout() {
-    this.operatorManagerService.updateLogout().subscribe(
+    this.operatorManagerService.updateDateTimeLogout().subscribe(
       () => this.tokensService.logout()
     );
   }
