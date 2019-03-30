@@ -4,4 +4,6 @@ export class ArticleFamilyViewElement {
   description: string;
   reference?: string;
   retailPrice?: string;
+  stock?: string;
+  size?; string;
 }

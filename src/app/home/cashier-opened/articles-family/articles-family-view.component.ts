@@ -2,8 +2,11 @@ import {Component} from '@angular/core';
 import {ArticleFamilyViewService} from './articles-families-view.service';
 import {ArticleFamilyViewElement} from './article-family-view-element.model';
 import {ArticlesFamilyViewSizesDialogComponent} from './articles-family-view-dialog/articles-family-view-sizes-dialog.component';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatDialogConfig} from '@angular/material';
 import {ShoppingCartService} from '../shopping-cart/shopping-cart.service';
+import {forEach} from '@angular/router/src/utils/collection';
+import * as moment from 'moment';
+import _date = moment.unitOfTime._date;
 
 @Component({
   selector: 'app-articles-family-view',
@@ -17,53 +20,59 @@ export class ArticlesFamilyViewComponent {
   ArticlesFamilyViewDefaultComposite = 'root';
 
   familyTypes: string[] = [];
+  familyArticleSizesStock: ArticleFamilyViewElement[] = [];
 
   constructor(private articlesFamilyViewService: ArticleFamilyViewService, private dialog: MatDialog, private shoppingCartService: ShoppingCartService) {
     this.familyTypes.push(this.ArticlesFamilyViewDefaultComposite);
-    this.articlesFamilyViewService.readFamilyCompositeRoot(this.ArticlesFamilyViewDefaultComposite)
+    this.articlesFamilyViewService.readFamilyCompositeByDesc(this.ArticlesFamilyViewDefaultComposite)
       .subscribe(
         data => {
           this.articlesFamilyList = data;
-          console.log(data);
         }
       );
   }
 
-  showSizes() {
-    this.dialog.open(ArticlesFamilyViewSizesDialogComponent);
+  showSizes(articleInfoSizes: ArticleFamilyViewElement[]) {
+    console.log('process data array sizes');
+    console.log(articleInfoSizes);
+    const infoSizes = [];
+    let dialogConfig: MatDialogConfig;
+    articleInfoSizes.forEach(
+      e => {
+        infoSizes.push({ code: e.code, stock: e.stock, size: e.size });
+      }
+    );
+    console.log(infoSizes);
+    dialogConfig = {data: infoSizes};
+    this.dialog.open(ArticlesFamilyViewSizesDialogComponent, dialogConfig);
   }
 
   addArticleShoppingCart(code: string) {
-    console.log('my code + ' + code);
     return this.shoppingCartService.add(code).subscribe((data) => {
-    }
+      }
     );
   }
 
   readFamilyArticlesList(description: string) {
     this.familyTypes.push(description);
-    console.log(description);
-    this.articlesFamilyViewService.readFamilyCompositeRoot(description)
+    this.articlesFamilyViewService.readFamilyCompositeByDesc(description)
       .subscribe(
         data => {
-          this.articlesFamilyList = data;
-          console.log(data);
+          if (data.find(e => e.size !== null && e.stock !== null)) {
+            this.familyArticleSizesStock = data;
+            this.showSizes(this.familyArticleSizesStock);
+          } else {
+            this.articlesFamilyList = data;
+          }
         }
       );
   }
 
-
-  readFamilySizesList(reference: string) {
-    console.log('look for all articles sizes + my ref: ' + reference);
-  }
-
-
   handleFamilyTypeArticlesFamily(familyType: string, articleItem: ArticleFamilyViewElement) {
-    let itemProperty;
+    const itemProperty = articleItem;
     switch (familyType) {
       case 'ARTICLE': {
-        itemProperty = articleItem.code;
-        this.addArticleShoppingCart(itemProperty);
+        this.addArticleShoppingCart(itemProperty.code);
         break;
       }
       case 'ARTICLES': {
@@ -71,15 +80,13 @@ export class ArticlesFamilyViewComponent {
         break;
       }
       case 'SIZES': {
-        console.log('look all sizes for this article');
+        this.readFamilyArticlesList(itemProperty.description);
         break;
       }
       default: {
-        console.log('No family type obtained');
         break;
       }
     }
-
   }
 
 }
