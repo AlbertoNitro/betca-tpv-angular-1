@@ -24,7 +24,7 @@ export class OperatorManagerService {
       paramPath = paramPath + '&' + this.KEY_PARAM_DATE_FROM + '=' + new Date(this._operatorManagerInput.dateFrom).getTime();
     }
     if (!isNaN(new Date(this._operatorManagerInput.dateTo).getTime()) && new Date(this._operatorManagerInput.dateTo).getTime() !== 0) {
-      paramPath = paramPath + '&' + this.KEY_PARAM_DATE_TO + '=' + new Date(this._operatorManagerInput.dateTo).getTime();
+      paramPath = paramPath + '&' + this.KEY_PARAM_DATE_TO + '=' + new Date(this._operatorManagerInput.dateTo).setHours(23, 59, 59);
     }
     if (this._operatorManagerInput.employeeMobile !== '' && this._operatorManagerInput.employeeMobile !== null) {
       paramPath = paramPath + '&' + this.KEY_PARAM_MOBILE + '=' + String(this._operatorManagerInput.employeeMobile);

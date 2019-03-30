@@ -25,7 +25,7 @@ export class OperatorManagerComponent implements OnInit {
   clocksData: OperatorManagerOutput[];
   employeeMobile: number;
   title = 'Operator, Manager Clock in/out';
-  columns = ['mobile', 'dateMs', 'inMs', 'outMs', 'totalHours'];
+  columns = ['mobile', 'date', 'in', 'out', 'total'];
 
   constructor(private fb: FormBuilder, private operatorManagerService: OperatorManagerService) {
   }
