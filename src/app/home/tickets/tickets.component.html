@@ -110,16 +110,20 @@
           <mat-cell *matCellDef="let item" fxFlex="28%"> {{item.totalPrice}}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="shoppingState">
-          <mat-header-cell *matHeaderCellDef fxFlex="12%"> State</mat-header-cell>
-          <mat-cell *matCellDef="let item" fxFlex="28%">
-            <button (click)="initializeCustomizedMatSelectStates(item.shoppingState)" mat-button mat-icon-button matSuffix>
-              <mat-icon color="primary">autorenew</mat-icon>
+          <mat-header-cell *matHeaderCellDef fxFlex="12%">
+            <button (click)="showShoppingStates()"
+                    *ngIf="!isShoppingStateShown"
+                    mat-button mat-icon-button matSuffix>
+              <mat-icon color="primary">remove_red_eye</mat-icon>
             </button>
-            <mat-form-field>
+            State
+          </mat-header-cell>
+          <mat-cell *matCellDef="let item" fxFlex="28%">
+            <mat-form-field *ngIf="isShoppingStateShown">
               <mat-select placeholder="{{item.shoppingState}}"
-                          (selectionChange)="manageMatSelectOptions($event, item)">
+                (selectionChange)="manageMatSelectOptions($event, item)">
                 <mat-option
-                  *ngFor="let state of customizedMatSelectStates"
+                  *ngFor="let state of chooseCustomizedMatSelectStates(item.shoppingState)"
                   [value]="state.value">
                   {{state.viewValue}}
                 </mat-option>
@@ -187,5 +191,3 @@
     </table>
   </mat-card>
 </div>
-
-

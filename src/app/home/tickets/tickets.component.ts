@@ -30,6 +30,7 @@ export class TicketsComponent {
       {value: ShoppingState.COMMITTED, viewValue: ShoppingState.COMMITTED}
     ];
     this.customizedMatSelectStates = this.matSelectStates;
+    this.isShoppingStateShown = false;
   }
 
   static URL = 'tickets';
@@ -52,6 +53,7 @@ export class TicketsComponent {
   displayedColumns = ['id', 'description', 'retailPrice', 'amount', 'discount', 'totalPrice', 'shoppingState'];
   displayedColumnsQuery: string[] = ['id', 'creationDate', 'total', 'details'];
   initialShoppingStates: string[];
+  isShoppingStateShown: boolean;
 
   static updateTotal(shoppingTicket: ShoppingTicket): void {
     const value = shoppingTicket.retailPrice * shoppingTicket.amount * (1 - shoppingTicket.discount / 100);
@@ -96,8 +98,7 @@ export class TicketsComponent {
       this.ticket = ticket;
       this.fillData(code);
       },
-      error => {
-      console.log(error);
+      () => {
       this.isTicketFound = false;
       });
   }
@@ -115,6 +116,7 @@ export class TicketsComponent {
 
   reset() {
     this.isTicketFound = false;
+    this.isShoppingStateShown = false;
     this.searchTicketById(this.ticketCode);
   }
 
@@ -162,8 +164,16 @@ export class TicketsComponent {
     this.ticketTotal = Math.round(total * 100) / 100;
   }
 
-  initializeCustomizedMatSelectStates(state) {
-   this.customizedMatSelectStates = this.choosePossibleStates(state);
+  showShoppingStates() {
+    this.isShoppingStateShown = true;
+  }
+
+  chooseCustomizedMatSelectStates(state) {
+    if (this.isShoppingStateShown) {
+      return this.choosePossibleStates(state);
+    } else {
+      return this.customizedMatSelectStates;
+    }
   }
 
   manageMatSelectOptions (actualState, shoppingTicket) {
