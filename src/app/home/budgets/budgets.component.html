@@ -12,4 +12,5 @@
     </button>
   </mat-card-content>
 </mat-card>
-<app-crud [data]="data" [title]="title" [columns]="columns" [createAction]="false"></app-crud>
+<app-crud [data]="data" [title]="title" [columns]="columns" [createAction]="false"
+          (delete)="delete($event.id)"></app-crud>

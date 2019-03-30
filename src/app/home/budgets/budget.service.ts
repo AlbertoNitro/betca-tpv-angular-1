@@ -11,6 +11,10 @@ export class BudgetService {
   constructor(private httpService: HttpService) {
   }
 
+  delete(id: string): Observable<any> {
+    return this.httpService.delete(ApiEndpoint.BUDGETS + '/' + id);
+  }
+
   readAll(): Observable<Budget[]> {
     return this.httpService.get(ApiEndpoint.BUDGETS);
   }

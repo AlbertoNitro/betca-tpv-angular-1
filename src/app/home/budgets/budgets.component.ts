@@ -35,4 +35,13 @@ export class BudgetsComponent {
     this.budget = {id: null};
   }
 
+  delete(id: string) {
+    this.budgetService.delete(id).subscribe(
+      () => {
+        this.budgetService.readAll().subscribe(
+          data => this.data = data
+        );
+      }
+    );
+  }
 }
