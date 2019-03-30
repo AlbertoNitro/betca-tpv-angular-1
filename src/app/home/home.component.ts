@@ -26,6 +26,8 @@ import {OrderComponent} from './order/order.component';
 import {OperatorManagerComponent} from './operator-manager/operator-manager.component';
 import {RGPDComponent} from './rgpd/rgpd.component';
 import {VouchersComponent} from './vouchers/vouchers.component';
+import {AlarmComponent} from './alarms/alarm.component';
+import {log} from 'util';
 
 @Component({
   templateUrl: 'home.component.html',
@@ -169,6 +171,7 @@ export class HomeComponent {
     this.router.navigate([HomeComponent.URL, OperatorManagerComponent.URL]);
   }
   stockAlarm() {
+    this.router.navigate([HomeComponent.URL, AlarmComponent.URL]);
   }
 
   stockManager() {
