@@ -126,12 +126,10 @@ export class ShoppingCartService {
     );
   }
 
-  createBudget(): void {
-    // TODO: Uncomment this code & delete alone reset
-    /*this.httpService.pdf().post(ApiEndpoint.BUDGETS, this.shoppingCart).pipe(
+  createBudget(): Observable<any> {
+    return this.httpService.pdf().post(ApiEndpoint.BUDGETS, this.shoppingCart).pipe(
       map(() => this.reset())
-    );*/
-    this.reset();
+    );
   }
 
   isEmpty(): boolean {
