@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AdvancedSearchComponent} from './home/cashier-opened/advanced-search/advanced-search.component';
+import {AlarmComponent} from './home/alarms/alarm.component';
 import {ArticlesComponent} from './home/articles/articles.component';
 import {FamilySizesCreationComponent} from './home/cashier-opened/articles-family/family-sizes-creation.component';
 import {ArticlesFamilyViewComponent} from './home/cashier-opened/articles-family/articles-family-view.component';
@@ -52,6 +53,7 @@ const routes: Routes = [
   {
     path: HomeComponent.URL, component: HomeComponent,
     children: [
+      {path: AlarmComponent.URL, component: AlarmComponent},
       {path: ArticlesComponent.URL, component: ArticlesComponent},
       {path: ArticlesFamiliesCRUDComponent.URL, component: ArticlesFamiliesCRUDComponent},
       {path: BudgetsComponent.URL, component: BudgetsComponent},
@@ -78,6 +80,7 @@ const routes: Routes = [
 export class AppRoutingModule {
   static COMPONENTS = [
     AdvancedSearchComponent,
+    AlarmComponent,
     ArticlesComponent,
     ArticlesFamiliesCRUDComponent,
     ArticlesFamilyViewComponent,
