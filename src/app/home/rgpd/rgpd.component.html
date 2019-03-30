@@ -4,22 +4,43 @@
     Manage RGPD Agrement
   </mat-card-subtitle>
   <mat-card-content>
-    <div *ngIf="!showFileUpload">
-      <mat-radio-group aria-label="Select Type Agrement" [(ngModel)]="agreementType">
-        <mat-radio-button  value="1">Low</mat-radio-button>
-        <mat-radio-button value="2">Medium</mat-radio-button>
-        <mat-radio-button value="3">High</mat-radio-button>
-      </mat-radio-group>
+    <div *ngIf="!acceptedRgpd">
+      <div *ngIf="!showFileUpload">
+        <mat-radio-group aria-label="Select Type Agrement" [(ngModel)]="agreementType">
+          <mat-radio-button value="1">Low</mat-radio-button>
+          <mat-radio-button value="2">Medium</mat-radio-button>
+          <mat-radio-button value="3">High</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div *ngIf="!showFileUpload">
+        <button mat-raised-button
+                matTooltip="Print agrement and term conditions" (click)="printAgreement()">
+          Print Agrement
+        </button>
+      </div>
+      <div *ngIf="showFileUpload">
+        <button type="button" mat-raised-button (click)="fileInput.click()">Choose Signed Agreement</button>
+        <input hidden (change)="onAgreementSelected($event)" #fileInput type="file" id="file">
+      </div>
     </div>
-    <div *ngIf="!showFileUpload">
-      <button mat-raised-button
-              matTooltip="Print agrement and term conditions" (click)="printAgreement()">
-        Print Agrement
-      </button>
-    </div>
-    <div *ngIf="showFileUpload">
-      <button type="button" mat-raised-button (click)="fileInput.click()">Choose Signed Agreement</button>
-      <input hidden (change)="onAgreementSelected($event)" #fileInput type="file" id="file">
+    <div *ngIf="acceptedRgpd">
+      <div>
+        <mat-radio-group aria-label="Select Type Agrement" [(ngModel)]="agreementType" disabled>
+          <mat-radio-button value="1">Low</mat-radio-button>
+          <mat-radio-button value="2">Medium</mat-radio-button>
+          <mat-radio-button value="3">High</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div>
+        <button mat-raised-button
+                matTooltip="Show user agrement" (click)="showUserAgreement()">
+          Show my Agrement
+        </button>
+        <button mat-raised-button
+                matTooltip="Revocation" (click)="revokeUserAgreement()">
+          Revocation
+        </button>
+      </div>
     </div>
   </mat-card-content>
 </mat-card>
