@@ -11,6 +11,7 @@ export class ApiEndpoint {
   public static ROLES = '/roles';
   public static QUERY = '/query';
   public static PROFILES = '/profiles';
+  public static VALIDATORS = '/validators';
 
   public static ARTICLES = '/articles';
   public static ARTICLES_MINIMUM = ApiEndpoint.ARTICLES + '/minimum';
