@@ -1,3 +1,3 @@
 export interface VoucherMin {
-  value: string;
+  value: number;
 }

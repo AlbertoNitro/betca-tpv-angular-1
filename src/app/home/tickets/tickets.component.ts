@@ -17,22 +17,6 @@ import {DetailsDialogComponent} from '../../core/details-dialog.component';
 
 export class TicketsComponent {
 
-  constructor(private ticketsService: TicketsService, private dialog: MatDialog, private snackBar: MatSnackBar) {
-    this.isTicketFound = false;
-    this.hasAdvancedQueryResults = false;
-    this.ticketCode = '0';
-    this.ticketTotal = 0;
-    this.initialShoppingStates = [];
-    this.matSelectStates = [
-      {value: ShoppingState.NOT_COMMITTED, viewValue: ShoppingState.NOT_COMMITTED},
-      {value: ShoppingState.IN_STOCK, viewValue: ShoppingState.IN_STOCK},
-      {value: ShoppingState.SENDING, viewValue: ShoppingState.SENDING},
-      {value: ShoppingState.COMMITTED, viewValue: ShoppingState.COMMITTED}
-    ];
-    this.customizedMatSelectStates = this.matSelectStates;
-    this.isShoppingStateShown = false;
-  }
-
   static URL = 'tickets';
   AdvancedQuery = '/query';
   AdvancedQueryByOrderId = '/orderId';
@@ -54,6 +38,24 @@ export class TicketsComponent {
   displayedColumnsQuery: string[] = ['id', 'creationDate', 'total', 'details'];
   initialShoppingStates: string[];
   isShoppingStateShown: boolean;
+  voucher: number;
+
+  constructor(private ticketsService: TicketsService, private dialog: MatDialog, private snackBar: MatSnackBar) {
+    this.isTicketFound = false;
+    this.hasAdvancedQueryResults = false;
+    this.ticketCode = '0';
+    this.ticketTotal = 0;
+    this.initialShoppingStates = [];
+    this.matSelectStates = [
+      {value: ShoppingState.NOT_COMMITTED, viewValue: ShoppingState.NOT_COMMITTED},
+      {value: ShoppingState.IN_STOCK, viewValue: ShoppingState.IN_STOCK},
+      {value: ShoppingState.SENDING, viewValue: ShoppingState.SENDING},
+      {value: ShoppingState.COMMITTED, viewValue: ShoppingState.COMMITTED}
+    ];
+    this.customizedMatSelectStates = this.matSelectStates;
+    this.isShoppingStateShown = false;
+    this.voucher = 0;
+  }
 
   static updateTotal(shoppingTicket: ShoppingTicket): void {
     const value = shoppingTicket.retailPrice * shoppingTicket.amount * (1 - shoppingTicket.discount / 100);
@@ -115,8 +117,8 @@ export class TicketsComponent {
   }
 
   reset() {
-    this.isTicketFound = false;
     this.isShoppingStateShown = false;
+    this.voucher = 0;
     this.searchTicketById(this.ticketCode);
   }
 
@@ -161,7 +163,15 @@ export class TicketsComponent {
     for (const shopping of this.ticket.shoppingList) {
       total = total + shopping.totalPrice;
     }
-    this.ticketTotal = Math.round(total * 100) / 100;
+    const updatedRoundedTotal = Math.round(total * 100) / 100;
+    console.log(this.ticketTotal);
+    console.log(updatedRoundedTotal);
+    if (this.ticketTotal !== 0) {
+      this.voucher += this.ticketTotal - updatedRoundedTotal;
+    }
+    this.ticketTotal = updatedRoundedTotal;
+    console.log('Total', this.ticketTotal);
+    console.log('Voucher', this.voucher);
   }
 
   showShoppingStates() {

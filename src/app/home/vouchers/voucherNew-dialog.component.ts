@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {VoucherService} from './voucher.service';
+import {VoucherService} from '../shared/voucher.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Provider} from '../providers/provider.model';
 import {Voucher} from './voucher.model';
-import {VoucherMin} from './voucher-min.model';
+import {VoucherMin} from '../shared/voucher-min.model';
 
 @Component({
   templateUrl: 'voucherNew-dialog.component.html',
@@ -14,7 +14,7 @@ export class VoucherNewDialogComponent implements OnInit {
   provider: Provider = {};
   data: string;
   voucher: VoucherMin;
-  valueVoucher: string;
+  valueVoucher: number;
   constructor(private dialogRef: MatDialogRef<Voucher>, @Inject(MAT_DIALOG_DATA) data: any, private voucherservice: VoucherService) {
     this.mode = data.mode;
     if (this.mode === 'create') {
