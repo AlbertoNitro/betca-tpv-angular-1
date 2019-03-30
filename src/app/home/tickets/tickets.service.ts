@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from '../../core/http.service';
 import {Ticket} from './models/ticket.model';
-import {ShoppingTicket} from './models/shopping-ticket.model';
-import {ShoppingState} from './models/shopping-state.enum';
 import {TicketQueryOutput} from './models/ticket-query-output.model';
 import {Observable} from 'rxjs';
 import {ApiEndpoint} from '../shared/api-endpoint.model';
@@ -21,10 +19,6 @@ export class TicketsService {
 
   updateTicket(id: string, ticket: Ticket): Observable<Ticket> {
     return this.httpService.pdf().put(ApiEndpoint.TICKETS + '/' + id, ticket);
-  }
-
-  read(id: string): Observable<Ticket> {
-    return this.httpService.get(ApiEndpoint.TICKETS + '/' + id);
   }
 
   advancedTicketQuery(apiPath: string, queryInput: TicketQueryInput): Observable<TicketQueryOutput[]> {
