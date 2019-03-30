@@ -15,4 +15,8 @@ export class BudgetService {
     return this.httpService.get(ApiEndpoint.BUDGETS);
   }
 
+  readById(id: string): Observable<Budget> {
+    return this.httpService.get(ApiEndpoint.BUDGETS + '/' + id);
+  }
+
 }

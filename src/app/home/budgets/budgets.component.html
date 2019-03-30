@@ -4,7 +4,7 @@
     <mat-form-field>
       <input [(ngModel)]="budget.id" matInput placeholder="Budget Id">
     </mat-form-field>
-    <button (click)="search()" color="primary" mat-mini-fab>
+    <button (click)="search(budget.id)" color="primary" mat-mini-fab>
       <mat-icon>search</mat-icon>
     </button>
     <button (click)="resetSearch()" color="primary" mat-mini-fab>

@@ -19,10 +19,16 @@ export class BudgetsComponent {
     this.budget = {id: null};
   }
 
-  search() {
-    this.budgetService.readAll().subscribe(
-      data => this.data = data
-    );
+  search(id: string) {
+    if (id) {
+      this.budgetService.readById(id).subscribe(
+        data => this.data = [data]
+      );
+    } else {
+      this.budgetService.readAll().subscribe(
+        data => this.data = data
+      );
+    }
   }
 
   resetSearch() {
