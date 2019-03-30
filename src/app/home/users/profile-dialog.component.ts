@@ -23,6 +23,8 @@ export class ProfileDialogComponent implements OnInit {
   submited = true;
   users: User;
   validatorForm = false;
+  validator: Boolean = false;
+  WarningPasswordCurrent = false;
 
   constructor(private httpService: HttpService, private tokensService: TokensService, private userService: UserService, public dialogRef: MatDialogRef<ProfileDialogComponent>) {
 
@@ -48,6 +50,18 @@ export class ProfileDialogComponent implements OnInit {
     }
   }
   iscomparatePasswordCurrent() {
+    this.userProfile.mobile = this.tokensService.getMobile();
+    this.userProfile.password = this.passwordCurrent;
+    this.userService.validatorsProfile(this.userProfile).subscribe(users => this.validator = users);
+    console.log(this.validator);
+    if (this.validator) {
+      console.log('valida');
+    } else {
+      this.WarningPasswordCurrent = true;
+    }
+  }
+  closeWarningPasswordCurrent() {
+    this.WarningPasswordCurrent = false;
   }
   comparatePasswordNews() {
     if (this.passwordNew !== this.NewRepeatpassword) {
@@ -69,6 +83,7 @@ export class ProfileDialogComponent implements OnInit {
   closeWarningPasswordCurrentNew() {
     this.WarningPasswordCurrentNew = false;
   }
+
 
   submmit() {
       this.userProfile.mobile = this.tokensService.getMobile();
