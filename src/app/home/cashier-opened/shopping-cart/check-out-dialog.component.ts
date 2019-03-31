@@ -8,6 +8,7 @@ import {VouchersUseDialogComponent} from '../../vouchers/vouchersUse-dialog.comp
 import {User} from '../../users/user.model';
 import {UserCreateUpdateDialogComponent} from '../../users/user-create-update-dialog/user-create-update-dialog.component';
 import {UserService} from '../../users/user.service';
+import {Observable} from 'rxjs';
 
 @Component({
   templateUrl: 'check-out-dialog.component.html',
@@ -20,6 +21,7 @@ export class CheckOutDialogComponent {
   ticketCreation: TicketCreation;
   userFound: User;
   userMobile: number;
+  value: number;
 
   constructor(@Inject(MAT_DIALOG_DATA) data: any, private dialog: MatDialog, private shoppingCartService: ShoppingCartService,
               private userService: UserService) {
@@ -88,16 +90,21 @@ export class CheckOutDialogComponent {
       data: {
         mode: 'Update',
         voucher: {id: this.ticketCreation.voucher},
+        value: 0,
         width: '60%',
         height: '90%'
       }
     };
     this.dialog.open(VouchersUseDialogComponent, dialogConfig).afterClosed().subscribe(
-      result => {
-        if (result) {
-          console.log(result.importeVoucher);
-        }
+      data => {
+
+        this.ticketCreation.voucher = data;
+
+      },
+      error => {
+        return Observable.throw(error);
       });
+
   }
 
   invalidCheckOut(): boolean {
