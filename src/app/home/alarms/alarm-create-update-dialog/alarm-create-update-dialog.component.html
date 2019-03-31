@@ -1,5 +1,5 @@
-<h2 mat-dialog-title *ngIf="modeDialog == 'Create'">New alarm: </h2>
-<h2 mat-dialog-title *ngIf="modeDialog == 'Update'">Update alarm: </h2>
+<h2 mat-dialog-title *ngIf="modeDialog == 'Create'">Create Alarm </h2>
+<h2 mat-dialog-title *ngIf="modeDialog == 'Update'">Update Alarm </h2>
 <form [formGroup]="alarmForm">
   <mat-dialog-content>
     <div class="form-group">
@@ -9,14 +9,14 @@
     </div>
     <div class="form-group">
       <mat-form-field>
-        <input matInput type="text" formControlName="refToArticle" placeholder="refToArticle" required/>
+        <input matInput type="text" formControlName="refToArticle" placeholder="Article" required/>
       </mat-form-field>
       <mat-error class="error-message" *ngIf="alarmForm.controls.refToArticle.errors?.required">refToArticle is required
       </mat-error>
     </div>
     <div class="form-group">
       <mat-form-field>
-        <input matInput type="number" min="0" formControlName="warning" placeholder="warning"/>
+        <input matInput type="number" min="0" formControlName="warning" placeholder="Warning"/>
       </mat-form-field>
       <mat-error class="error-message" *ngIf="alarmForm.controls.warning.errors?.min">warning must be greater
         than or equal to zero
@@ -24,7 +24,7 @@
     </div>
     <div class="form-group">
       <mat-form-field>
-        <input matInput type="number" min="0" formControlName="critical" placeholder="critical"/>
+        <input matInput type="number" min="0" formControlName="critical" placeholder="Critical"/>
       </mat-form-field>
       <mat-error class="error-message" *ngIf="alarmForm.controls.critical.errors?.min">critical must be greater
         than or equal to zero
