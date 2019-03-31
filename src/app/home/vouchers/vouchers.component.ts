@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {VoucherService} from './voucher.service';
+import {VoucherService} from '../shared/voucher.service';
 import {Voucher} from './voucher.model';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
