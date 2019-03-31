@@ -3,6 +3,9 @@ import {Component} from '@angular/core';
 import {Budget} from './budgets.model';
 import {BudgetService} from './budget.service';
 import {Shopping} from '../cashier-opened/shopping-cart/shopping.model';
+import {Router} from '@angular/router';
+import {CashierOpenedComponent} from '../cashier-opened/cashier-opened.component';
+import {HomeComponent} from '../home.component';
 
 @Component({
   templateUrl: 'budgets.component.html'
@@ -16,7 +19,7 @@ export class BudgetsComponent {
   title = 'Budget management';
   columns = ['id'];
 
-  constructor(private budgetService: BudgetService) {
+  constructor(private router: Router, private budgetService: BudgetService) {
     this.budget = {id: null};
   }
 
@@ -24,7 +27,10 @@ export class BudgetsComponent {
     this.budgetService.delete(id).subscribe(
       () => {
         this.budgetService.readAll().subscribe(
-          data => this.data = data
+          data => {
+            this.data = data;
+            this.resetSearch();
+          }
         );
       }
     );
@@ -32,6 +38,7 @@ export class BudgetsComponent {
 
   fillShoppingCart(shoppingCart: Shopping[]) {
     this.budgetService.fillShoppingCart(shoppingCart);
+    this.router.navigate([HomeComponent.URL, CashierOpenedComponent.URL]);
   }
 
   generatePdf(id: string) {

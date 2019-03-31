@@ -17,7 +17,7 @@ export class BudgetService {
     return this.httpService.delete(ApiEndpoint.BUDGETS + '/' + id);
   }
 
-  fillShoppingCart(shoppingCart: Shopping[]) {
+  fillShoppingCart(shoppingCart: Shopping[]): void {
     return this.shoppingCartService.fill(shoppingCart);
   }
 
@@ -32,5 +32,4 @@ export class BudgetService {
   readById(id: string): Observable<Budget> {
     return this.httpService.get(ApiEndpoint.BUDGETS + '/' + id);
   }
-
 }
