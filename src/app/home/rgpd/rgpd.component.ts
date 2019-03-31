@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {RgpdService} from './rgpd.service';
 import {Rgpd} from './rgpd.model';
 
@@ -7,7 +7,7 @@ import {Rgpd} from './rgpd.model';
   selector: 'app-rgpd',
   templateUrl: './rgpd.component.html'
 })
-export class RGPDComponent implements OnInit {
+export class RGPDComponent {
   static URL = 'rgpd';
   title = 'RGPD management';
 
@@ -34,9 +34,20 @@ export class RGPDComponent implements OnInit {
     reader.onload = () => {
       this.documentResult = reader.result;
       this.documentResult = window.btoa(this.documentResult);
+      this.rgpd.printableAgreement = this.documentResult;
+      this.rgpd.agreementType = this.agreementType;
+      this.rgpdService.createUserAgreement(this.rgpd).subscribe(data => {
+        console.log('Created agreement: ' + this.agreementType + ' and agreement ' + this.documentResult);
+        console.log('Devuelve: ' + data.accepted);
+        this.acceptedRgpd = data.accepted;
+        this.agreementType = data.agreementType;
+        this.rgpd = data;
+      }, (error => {
+        console.log(error);
+      }));
     };
     reader.readAsBinaryString((<HTMLInputElement>input).files[0]);
-    console.log('Create service to call API Rest with: ' + this.agreementType + ' and agreement ' + this.documentResult);
+
   }
 
   printAgreement() {
@@ -69,12 +80,10 @@ export class RGPDComponent implements OnInit {
   }
 
   revokeUserAgreement() {
-    this.rgpdService.deleteUserAgreement();
-  }
-
-  ngOnInit() {
-    this.agreementType = '1';
-    this.showFileUpload = false;
-    console.log('On Init Executed!');
+    this.rgpdService.deleteUserAgreement().subscribe(() => {
+      this.acceptedRgpd = false;
+      this.showFileUpload = false;
+      this.agreementType = '1';
+    });
   }
 }

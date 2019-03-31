@@ -4,9 +4,6 @@ import {ArticleFamilyViewElement} from './article-family-view-element.model';
 import {ArticlesFamilyViewSizesDialogComponent} from './articles-family-view-dialog/articles-family-view-sizes-dialog.component';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {ShoppingCartService} from '../shopping-cart/shopping-cart.service';
-import {forEach} from '@angular/router/src/utils/collection';
-import * as moment from 'moment';
-import _date = moment.unitOfTime._date;
 
 @Component({
   selector: 'app-articles-family-view',
@@ -19,11 +16,11 @@ export class ArticlesFamilyViewComponent {
   articlesFamilyList: ArticleFamilyViewElement[] = [];
   ArticlesFamilyViewDefaultComposite = 'root';
 
-  familyTypes: string[] = [];
+  navigationFamilyTypes: string[] = [];
   familyArticleSizesStock: ArticleFamilyViewElement[] = [];
 
   constructor(private articlesFamilyViewService: ArticleFamilyViewService, private dialog: MatDialog, private shoppingCartService: ShoppingCartService) {
-    this.familyTypes.push(this.ArticlesFamilyViewDefaultComposite);
+    this.navigationFamilyTypes.push(this.ArticlesFamilyViewDefaultComposite);
     this.articlesFamilyViewService.readFamilyCompositeByDesc(this.ArticlesFamilyViewDefaultComposite)
       .subscribe(
         data => {
@@ -51,7 +48,10 @@ export class ArticlesFamilyViewComponent {
   }
 
   readFamilyArticlesList(description: string) {
-    this.familyTypes.push(description);
+    if (!this.navigationFamilyTypes.find(e => e === description)) {
+      this.navigationFamilyTypes.push(description);
+    }
+    this.updateNavigationFamilyTypes(description);
     this.articlesFamilyViewService.readFamilyCompositeByDesc(description)
       .subscribe(
         data => {
@@ -63,6 +63,16 @@ export class ArticlesFamilyViewComponent {
           }
         }
       );
+  }
+
+  updateNavigationFamilyTypes(description: string) {
+    const familyNames: string[] = this.navigationFamilyTypes;
+
+    for (let i = 0; i < familyNames.length; i++) {
+      if (familyNames[i] ===  description) {
+        this.navigationFamilyTypes = familyNames.slice(0, i + 1);
+      }
+    }
   }
 
   handleFamilyTypeArticlesFamily(familyType: string, articleItem: ArticleFamilyViewElement) {
