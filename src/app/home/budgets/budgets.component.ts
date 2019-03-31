@@ -52,7 +52,13 @@ export class BudgetsComponent {
   search(id: string) {
     if (id) {
       this.budgetService.readById(id).subscribe(
-        data => this.data = [data]
+        data => {
+          if (data.id && data.id) {
+            this.data = [data];
+          } else {
+            this.data = [];
+          }
+        }
       );
     } else {
       this.budgetService.readAll().subscribe(

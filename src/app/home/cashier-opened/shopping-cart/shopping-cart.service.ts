@@ -137,6 +137,7 @@ export class ShoppingCartService {
   }
 
   fill(shoppingCart): void {
+    this.reset();
     shoppingCart.map((item) => {
       this.add(item.article.code).subscribe();
     });
