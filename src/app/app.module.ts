@@ -6,6 +6,7 @@ import {CdkTableModule} from '@angular/cdk/table';
 
 import {CoreModule} from './core/core.module';
 import {CashierService} from './home/shared/cashier.service';
+import {AlarmService} from './home/alarms/alarm.service';
 import {ArticleService} from './home/shared/article.service';
 import {BudgetService} from './home/budgets/budget.service';
 import {CashierClosureService} from './home/cashier-opened/cashier/cashier-closure.service';
@@ -50,6 +51,7 @@ import {RgpdService} from './home/rgpd/rgpd.service';
   entryComponents: [AppRoutingModule.DIALOGS, ModalComponent],
   providers: [
     AdminsService,
+    AlarmService,
     ArticleFamilyService,
     ArticleFamilyViewService,
     ArticleService,

@@ -11,12 +11,18 @@ export class RGPDComponent implements OnInit {
   static URL = 'rgpd';
   title = 'RGPD management';
 
+  acceptedRgpd: boolean;
   showFileUpload: boolean;
   agreementType: string;
   documentResult;
   rgpd: Rgpd;
 
   constructor(private rgpdService: RgpdService) {
+    this.rgpdService.getUserAgreement().subscribe(data => {
+      console.log('Valor ' + data.accepted);
+      this.acceptedRgpd = data.accepted;
+      this.rgpd = data;
+    });
     this.agreementType = '1';
     this.showFileUpload = false;
     console.log('Constructor Executed!');
@@ -48,6 +54,22 @@ export class RGPDComponent implements OnInit {
       this.showFileUpload = true;
     });
     console.log('Create service to call API Rest with: ' + this.agreementType + ' and get Agreement to sign.');
+  }
+
+  showUserAgreement() {
+    const byteCharacters = window.atob(this.rgpd.printableAgreement);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], {type: 'application/pdf'});
+    const fileURL = URL.createObjectURL(blob);
+    window.open(fileURL, '_blank');
+  }
+
+  revokeUserAgreement() {
+    this.rgpdService.deleteUserAgreement();
   }
 
   ngOnInit() {

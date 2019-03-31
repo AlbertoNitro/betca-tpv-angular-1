@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AdvancedSearchComponent} from './home/cashier-opened/advanced-search/advanced-search.component';
+import {AlarmComponent} from './home/alarms/alarm.component';
 import {ArticlesComponent} from './home/articles/articles.component';
 import {FamilySizesCreationComponent} from './home/cashier-opened/articles-family/family-sizes-creation.component';
 import {ArticlesFamilyViewComponent} from './home/cashier-opened/articles-family/articles-family-view.component';
@@ -31,6 +32,7 @@ import {StatisticComponent} from './home/stadistics/statistic.component';
 import {StockPredictionComponent} from './home/stock-prediction/stock-prediction.component';
 import {RolesDialogComponent} from './home/users/roles-dialog.component';
 import {InvoiceUpdateComponent} from './home/invoice/invoice-update.component';
+import {AlarmsQueryComponent} from './home/alarms/alarms-query-component';
 import {ArticlesQueryComponent} from './home/shared/articles-query.component';
 import {VouchersUseDialogComponent} from './home/vouchers/vouchersUse-dialog.component';
 import {TicketsComponent} from './home/tickets/tickets.component';
@@ -44,9 +46,7 @@ import {VoucherNewDialogComponent} from './home/vouchers/voucherNew-dialog.compo
 import {VoucherConsumedDialogComponent} from './home/vouchers/voucherConsumed-dialog.component';
 import {ArticlesFamiliesUpdateDialogComponent} from './home/articles-families/update-dialog/articles-families-update-dialog.component';
 import {ArticlesFamiliesAttachDialogComponent} from './home/articles-families/update-dialog/attach-dialog/articles-families-attach-dialog.component';
-import {FamilyArticleViewComponent} from './home/cashier-opened/articles-family/family-views/family-article-view.component';
-import {FamilyCompositeViewComponent} from './home/cashier-opened/articles-family/family-views/family-composite-view.component';
-import {FamilySizesViewComponent} from './home/cashier-opened/articles-family/family-views/family-sizes-view.component';
+import {ArticlesFamilyViewSizesDialogComponent} from './home/cashier-opened/articles-family/articles-family-view-dialog/articles-family-view-sizes-dialog.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
@@ -54,6 +54,7 @@ const routes: Routes = [
   {
     path: HomeComponent.URL, component: HomeComponent,
     children: [
+      {path: AlarmComponent.URL, component: AlarmComponent},
       {path: ArticlesComponent.URL, component: ArticlesComponent},
       {path: ArticlesFamiliesCRUDComponent.URL, component: ArticlesFamiliesCRUDComponent},
       {path: BudgetsComponent.URL, component: BudgetsComponent},
@@ -80,6 +81,8 @@ const routes: Routes = [
 export class AppRoutingModule {
   static COMPONENTS = [
     AdvancedSearchComponent,
+    AlarmComponent,
+    AlarmsQueryComponent,
     ArticlesComponent,
     ArticlesFamiliesCRUDComponent,
     ArticlesFamilyViewComponent,
@@ -87,9 +90,6 @@ export class AppRoutingModule {
     BudgetsComponent,
     CashierClosedComponent,
     CashierOpenedComponent,
-    FamilyArticleViewComponent,
-    FamilyCompositeViewComponent,
-    FamilySizesViewComponent,
     HomeComponent,
     InvoiceUpdateComponent,
     LineChartComponent,
@@ -115,6 +115,7 @@ export class AppRoutingModule {
     ArticlesFamiliesCreateDialogComponent,
     ArticlesFamiliesUpdateDialogComponent,
     ArticleQuickCreationDialogComponent,
+    ArticlesFamilyViewSizesDialogComponent,
     CashierClosureDialogComponent,
     CashMovementDialogComponent,
     CheckOutDialogComponent,

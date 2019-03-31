@@ -1,0 +1,25 @@
+<mat-card>
+  <mat-card-title>Advance search</mat-card-title>
+  <mat-card-content>
+
+    <mat-form-field id="codeField">
+      <input [(ngModel)]="alarm.code" matInput placeholder="code">
+    </mat-form-field>
+    <mat-form-field id="refToArticleField">
+      <input [(ngModel)]="alarm.refToArticle" matInput placeholder="Article">
+    </mat-form-field>
+    <mat-form-field id="warningField">
+      <input [(ngModel)]="alarm.warning" matInput placeholder="warning">
+    </mat-form-field>
+    <mat-form-field id="criticalField">
+      <input [(ngModel)]="alarm.critical" matInput placeholder="critical">
+    </mat-form-field>
+
+    <button (click)="search()" color="primary" mat-mini-fab>
+      <mat-icon>search</mat-icon>
+    </button>
+    <button (click)="resetSearch()" color="primary" mat-mini-fab>
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-card-content>
+</mat-card>

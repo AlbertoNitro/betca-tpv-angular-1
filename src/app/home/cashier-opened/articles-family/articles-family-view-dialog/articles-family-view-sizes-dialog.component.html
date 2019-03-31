@@ -1,0 +1,8 @@
+<mat-nav-list>
+  <a class="separator_ver" *ngFor="let articleInfo of articlesSizeslist" mat-list-item (click)="addSizeToCart(articleInfo.code)">
+    <span class="separator_hor"><strong># </strong> {{articleInfo.code}}</span>
+    <span class="separator_hor"><strong>stock: </strong>{{articleInfo.stock}}</span>
+    <span class="separator_hor"><strong>size: </strong> {{articleInfo.size}}</span>
+    <mat-divider></mat-divider>
+  </a>
+</mat-nav-list>

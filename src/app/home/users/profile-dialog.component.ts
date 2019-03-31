@@ -4,7 +4,8 @@ import {TokensService} from '../../core/tokens.service';
 import {UserService} from './user.service';
 import {User} from './user.model';
 import {UserProfile} from './user-profile.model';
-import {MatDialogRef} from '@angular/material';
+import {MatDialogConfig, MatDialogRef} from '@angular/material';
+import {HttpService} from '../../core/http.service';
 
 @Component({
   selector: 'app-perfile',
@@ -20,10 +21,14 @@ export class ProfileDialogComponent implements OnInit {
   data: UserProfile;
   userProfile: UserProfile = {mobile: null, password: null};
   submited = true;
-
+  users: User;
   validatorForm = false;
+  validator: Boolean = false;
+  WarningPasswordCurrent = false;
 
-  constructor(private tokensService: TokensService, private userService: UserService, public dialogRef: MatDialogRef<ProfileDialogComponent>) { }
+  constructor(private httpService: HttpService, private tokensService: TokensService, private userService: UserService, public dialogRef: MatDialogRef<ProfileDialogComponent>) {
+
+  }
 
   public userForm: FormGroup;
 
@@ -43,7 +48,20 @@ export class ProfileDialogComponent implements OnInit {
     if (this.passwordCurrent === this.passwordNew) {
       this.WarningPasswordCurrentNew = true;
     }
-
+  }
+  iscomparatePasswordCurrent() {
+    this.userProfile.mobile = this.tokensService.getMobile();
+    this.userProfile.password = this.passwordCurrent;
+    this.userService.validatorsProfile(this.userProfile).subscribe(users => this.validator = users);
+    console.log(this.validator);
+    if (this.validator) {
+      console.log('valida');
+    } else {
+      this.WarningPasswordCurrent = true;
+    }
+  }
+  closeWarningPasswordCurrent() {
+    this.WarningPasswordCurrent = false;
   }
   comparatePasswordNews() {
     if (this.passwordNew !== this.NewRepeatpassword) {
@@ -65,6 +83,7 @@ export class ProfileDialogComponent implements OnInit {
   closeWarningPasswordCurrentNew() {
     this.WarningPasswordCurrentNew = false;
   }
+
 
   submmit() {
       this.userProfile.mobile = this.tokensService.getMobile();

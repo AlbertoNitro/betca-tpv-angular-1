@@ -30,13 +30,13 @@ export class TicketsComponent {
       {value: ShoppingState.COMMITTED, viewValue: ShoppingState.COMMITTED}
     ];
     this.customizedMatSelectStates = this.matSelectStates;
+    this.isShoppingStateShown = false;
   }
 
   static URL = 'tickets';
   AdvancedQuery = '/query';
   AdvancedQueryByOrderId = '/orderId';
   ticket: Ticket;
-  advTicket: Ticket;
   ticketQueryInput: TicketQueryInput = {userMobile: null, dateStart: null, dateEnd: null,
     totalMin: null, totalMax: null, orderId: null, pending: null};
   ticketQueryOuput: TicketQueryOutput[];
@@ -53,6 +53,7 @@ export class TicketsComponent {
   displayedColumns = ['id', 'description', 'retailPrice', 'amount', 'discount', 'totalPrice', 'shoppingState'];
   displayedColumnsQuery: string[] = ['id', 'creationDate', 'total', 'details'];
   initialShoppingStates: string[];
+  isShoppingStateShown: boolean;
 
   static updateTotal(shoppingTicket: ShoppingTicket): void {
     const value = shoppingTicket.retailPrice * shoppingTicket.amount * (1 - shoppingTicket.discount / 100);
@@ -97,8 +98,7 @@ export class TicketsComponent {
       this.ticket = ticket;
       this.fillData(code);
       },
-      error => {
-      console.log(error);
+      () => {
       this.isTicketFound = false;
       });
   }
@@ -116,6 +116,7 @@ export class TicketsComponent {
 
   reset() {
     this.isTicketFound = false;
+    this.isShoppingStateShown = false;
     this.searchTicketById(this.ticketCode);
   }
 
@@ -163,8 +164,16 @@ export class TicketsComponent {
     this.ticketTotal = Math.round(total * 100) / 100;
   }
 
-  initializeCustomizedMatSelectStates(state) {
-   this.customizedMatSelectStates = this.choosePossibleStates(state);
+  showShoppingStates() {
+    this.isShoppingStateShown = true;
+  }
+
+  chooseCustomizedMatSelectStates(state) {
+    if (this.isShoppingStateShown) {
+      return this.choosePossibleStates(state);
+    } else {
+      return this.customizedMatSelectStates;
+    }
   }
 
   manageMatSelectOptions (actualState, shoppingTicket) {
@@ -197,19 +206,6 @@ export class TicketsComponent {
     this.ticketQueryInput = {userMobile: null, dateStart: null, dateEnd: null,
       totalMin: null, totalMax: null, pending: null, orderId: null};
     this.hasAdvancedQueryResults = false;
-  }
-
-  viewDetails(id: string) {
-    this.ticketsService.read(id).subscribe(
-      provider =>
-        this.dialog.open(DetailsDialogComponent,
-          {data: {
-              title: 'Ticket details',
-              object: this.advTicket,
-              properties: Object.getOwnPropertyNames(this.advTicket)}
-          }
-        )
-    );
   }
 }
 
