@@ -8,6 +8,7 @@ import {VouchersUseDialogComponent} from '../../vouchers/vouchersUse-dialog.comp
 import {User} from '../../users/user.model';
 import {UserCreateUpdateDialogComponent} from '../../users/user-create-update-dialog/user-create-update-dialog.component';
 import {UserService} from '../../users/user.service';
+import {VoucherService} from '../../shared/voucher.service';
 
 @Component({
   templateUrl: 'check-out-dialog.component.html',
@@ -20,12 +21,14 @@ export class CheckOutDialogComponent {
   ticketCreation: TicketCreation;
   userFound: User;
   userMobile: number;
+  codeVoucher: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) data: any, private dialog: MatDialog, private shoppingCartService: ShoppingCartService,
-              private userService: UserService) {
+              private userService: UserService, private voucherService: VoucherService) {
     this.totalPurchase = data.total;
     this.ticketCreation = data.ticketCreation;
     this.userService = userService;
+
   }
 
   static format(value: number): number {
@@ -84,7 +87,23 @@ export class CheckOutDialogComponent {
   }
 
   consumeVoucher() {
-    this.dialog.open(VouchersUseDialogComponent);
+    const dialogConfig: MatDialogConfig = {
+      data: {
+        mode: 'Update',
+        voucher: {id: this.ticketCreation.voucher},
+        value: 0,
+        width: '60%',
+        height: '90%'
+      }
+    };
+    this.dialog.open(VouchersUseDialogComponent, dialogConfig).afterClosed().subscribe(
+      data => {
+        this.ticketCreation.voucher = data.value;
+        this.codeVoucher = data.id;
+      },
+      error => {
+        console.log(error);
+      });
   }
 
   invalidCheckOut(): boolean {
@@ -120,14 +139,16 @@ export class CheckOutDialogComponent {
       this.ticketCreation.note += ' Return: ' + Math.round(returned * 100) / 100 + '.';
     }
     this.shoppingCartService.checkOut(this.ticketCreation).subscribe(() => {
-        if (voucher > 0) {
-          // TODO crear un vale como parte del pago, luego crear la factura
-          this.createInvoice();
-        } else {
-          this.createInvoice();
-        }
+      if (voucher > 0) {
+        // TODO crear un vale como parte del pago, luego crear la factura
+        this.createInvoice();
+      } else {
+        this.createInvoice();
       }
-    );
+
+      this.voucherService.update(this.codeVoucher);
+
+    });
   }
 
   createInvoice() {
