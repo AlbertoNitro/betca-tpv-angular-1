@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {StockPredictionService} from './stock-prediction.service';
 import {PeriodicityType} from './model/periodicity-type.enum';
-import {StockPredictionOutputDto} from './model/stock-prediction-output-dto.model';
-import {StockPredictionInputDto} from './model/stock-prediction-input-dto.model';
+import {StockPredictionOutput} from './model/stock-prediction-output.model';
+import {StockPredictionInput} from './model/stock-prediction-input.model';
 import {ArticleMinimum} from '../shared/article-minimum.model';
 import {ArticleService} from '../shared/article.service';
 
@@ -19,8 +19,8 @@ export class StockPredictionComponent implements OnInit {
   periodsNumberList: number[] = this.weeklyPeriodsNumberList();
   articleList: ArticleMinimum[];
   stockPredictionTableTitle = 'Stock Prediction';
-  stockPredictionTableColumns = ['period', 'periodNumber', 'stock'];
-  stockPredictionTableData: StockPredictionOutputDto[];
+  stockPredictionTableColumns = ['periodType', 'periodNumber', 'stock'];
+  stockPredictionTableData: StockPredictionOutput[];
 
   constructor(private formBuilder: FormBuilder, private stockPredictionService: StockPredictionService, private articleService: ArticleService) {
   }
@@ -52,7 +52,7 @@ export class StockPredictionComponent implements OnInit {
   }
 
   onSubmit() {
-    const stockPredictionInputDto: StockPredictionInputDto = {
+    const stockPredictionInputDto: StockPredictionInput = {
       articleCode: this.articleFormControl.value,
       periodicityType: this.periodicityTypeFormControl.value,
       periodsNumber: this.periodsNumberFormControl.value

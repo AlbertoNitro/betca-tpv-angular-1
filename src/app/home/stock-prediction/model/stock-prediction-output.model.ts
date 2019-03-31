@@ -1,7 +1,7 @@
 import {PeriodType} from './period-type.enum';
 
-export interface StockPredictionOutputDto {
-  period: PeriodType;
+export interface StockPredictionOutput {
+  periodType: PeriodType;
   periodNumber: number;
   stock: number;
 }

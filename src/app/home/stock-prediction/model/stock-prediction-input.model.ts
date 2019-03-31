@@ -1,6 +1,6 @@
 import {PeriodicityType} from './periodicity-type.enum';
 
-export interface StockPredictionInputDto {
+export interface StockPredictionInput {
   articleCode: string;
   periodicityType: PeriodicityType;
   periodsNumber: number;
