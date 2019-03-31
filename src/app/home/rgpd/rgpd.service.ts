@@ -28,7 +28,7 @@ export class RgpdService {
     return this.httpService.post(RgpdService.USER_AGREEMENT, rgpd);
   }
 
-  deleteUserAgreement(): Observable<Rgpd> {
+  deleteUserAgreement(): Observable<any> {
     console.log('Call Service revoke user agreement ' + RgpdService.USER_AGREEMENT);
     return this.httpService.delete(RgpdService.USER_AGREEMENT);
   }
