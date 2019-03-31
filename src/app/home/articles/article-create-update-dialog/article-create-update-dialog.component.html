@@ -1,10 +1,10 @@
-<h2 mat-dialog-title *ngIf="modeDialog == 'Create'">New article: </h2>
-<h2 mat-dialog-title *ngIf="modeDialog == 'Update'">Update article: </h2>
+<h2 mat-dialog-title *ngIf="isDialogCreate()">New article: </h2>
+<h2 mat-dialog-title *ngIf="!isDialogCreate()">Update article: </h2>
 <form [formGroup]="articleForm">
   <mat-dialog-content>
     <div class="form-group">
       <mat-form-field>
-        <input matInput type="text" formControlName="code" placeholder="Code"/>
+        <input matInput type="text" formControlName="code" placeholder="Code" [readonly]="!isDialogCreate()"/>
       </mat-form-field>
     </div>
     <div class="form-group">
@@ -54,9 +54,7 @@
       <mat-error class="error-message" *ngIf="articleForm.controls.tax.errors?.required">Tax is required
       </mat-error>
     </div>
-    <div class="form-group">
-      <mat-checkbox formControlName="discontinued">Discontinued</mat-checkbox>
-    </div>
+    <mat-checkbox formControlName="discontinued">Discontinued</mat-checkbox>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-raised-button mat-dialog-close cdkFocusInitial>Cancel</button>
