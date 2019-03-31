@@ -22,12 +22,11 @@ export class VouchersUseDialogComponent implements OnInit {
   save() {
     this.voucherService.readById(this.codeVoucher).subscribe(
       resul => {
-        this.showMessage('Voucher used' + resul.value);
         this.data = resul;
         this.dialogRef.close(this.data);
       },
       error => {
-        this.showMessage('Error in get voucher.');
+        this.showMessage('Code voucher not valid.');
         console.log(error);
       }
     );

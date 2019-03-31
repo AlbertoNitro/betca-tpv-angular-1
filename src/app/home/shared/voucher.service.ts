@@ -29,7 +29,7 @@ export class VoucherService {
   }
 
   readById(code: string): Observable<Voucher> {
-    return this.httpService.successful('The voucher was used').get(ApiEndpoint.VOUCHERS + '/' + code);
+    return this.httpService.successful('Valid voucher').get(ApiEndpoint.VOUCHERS + '/' + code);
 
   }
 }
