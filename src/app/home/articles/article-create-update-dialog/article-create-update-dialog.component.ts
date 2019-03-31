@@ -44,8 +44,12 @@ export class ArticleCreateUpdateDialogComponent implements OnInit {
     });
   }
 
+  isDialogCreate() {
+    return this.modeDialog === 'Create';
+  }
+
   createOrUpdate() {
-    this.modeDialog === 'Create' ? this.create() : this.update();
+    this.isDialogCreate() ? this.create() : this.update();
   }
 
   create() {

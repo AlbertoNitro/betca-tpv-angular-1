@@ -11,6 +11,8 @@ import {Alarm} from './alarm.model';
 export class AlarmsQueryComponent {
 
   alarm: Alarm;
+  warningGreaterToZero: boolean;
+  criticalGreaterToZero: boolean;
   data: Alarm[];
   @Output() emitter = new EventEmitter<Alarm[]>();
 
@@ -20,6 +22,18 @@ export class AlarmsQueryComponent {
   }
 
   search() {
+    if (this.warningGreaterToZero && this.criticalGreaterToZero) {
+      this.searchWarningAndCritical();
+    } else if (this.warningGreaterToZero) {
+      this.searchWarning();
+    } else if (this.criticalGreaterToZero) {
+      this.searchCritical();
+    } else {
+      this.searchAll();
+    }
+  }
+
+  searchAll() {
     this.alarmService.readAll().subscribe(
       data => {
         this.data = data;
@@ -29,7 +43,40 @@ export class AlarmsQueryComponent {
     );
   }
 
+  searchWarningAndCritical() {
+    this.alarmService.readAll().subscribe(
+      data => {
+        this.data = data.filter( a => (a.warning > 0) && (a.critical > 0) );
+        console.log(this.data);
+        this.emitter.emit(this.data);
+      }
+    );
+  }
+
+  searchWarning() {
+    this.alarmService.readAll().subscribe(
+      data => {
+        this.data = data.filter( a => a.warning > 0 );
+        console.log(this.data);
+        this.emitter.emit(this.data);
+      }
+    );
+  }
+
+  searchCritical() {
+    this.alarmService.readAll().subscribe(
+      data => {
+        this.data = data.filter( a => a.critical > 0 );
+        console.log(this.data);
+        this.emitter.emit(this.data);
+      }
+    );
+
+  }
+
   resetSearch() {
+    this.warningGreaterToZero = false;
+    this.criticalGreaterToZero = false;
     this.alarm = {code: null, refToArticle: null, warning: null, critical: null};
   }
 }
