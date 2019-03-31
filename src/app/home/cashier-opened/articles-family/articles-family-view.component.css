@@ -23,4 +23,14 @@
   margin-left: 5px;
 }
 
+.typeARTICLE{
+  border-color: cornflowerblue;
+}
 
+.typeARTICLES{
+  border-color: darkblue;
+}
+
+.typeSIZES{
+  border-color: coral;
+}
