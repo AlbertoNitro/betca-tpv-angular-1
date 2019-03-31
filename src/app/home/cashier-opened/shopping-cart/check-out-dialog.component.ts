@@ -8,7 +8,6 @@ import {VouchersUseDialogComponent} from '../../vouchers/vouchersUse-dialog.comp
 import {User} from '../../users/user.model';
 import {UserCreateUpdateDialogComponent} from '../../users/user-create-update-dialog/user-create-update-dialog.component';
 import {UserService} from '../../users/user.service';
-import {Observable} from 'rxjs';
 import {VoucherService} from '../../shared/voucher.service';
 
 @Component({
@@ -103,7 +102,7 @@ export class CheckOutDialogComponent {
         this.codeVoucher = data.id;
       },
       error => {
-        return Observable.throw(error);
+        console.log(error);
       });
   }
 
@@ -140,24 +139,16 @@ export class CheckOutDialogComponent {
       this.ticketCreation.note += ' Return: ' + Math.round(returned * 100) / 100 + '.';
     }
     this.shoppingCartService.checkOut(this.ticketCreation).subscribe(() => {
-        if (voucher > 0) {
-          // TODO crear un vale como parte del pago, luego crear la factura
-          this.createInvoice();
-        } else {
-          this.createInvoice();
-        }
-
-      this.voucherService.update(this.codeVoucher).subscribe(
-        data => {
-          return true;
-        },
-        error => {
-          return Observable.throw(error);
-          console.log(error);
-        }
-      );
+      if (voucher > 0) {
+        // TODO crear un vale como parte del pago, luego crear la factura
+        this.createInvoice();
+      } else {
+        this.createInvoice();
       }
-    );
+
+      this.voucherService.update(this.codeVoucher);
+
+    });
   }
 
   createInvoice() {
