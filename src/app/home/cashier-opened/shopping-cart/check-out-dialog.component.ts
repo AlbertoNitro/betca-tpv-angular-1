@@ -1,5 +1,5 @@
 import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatSnackBar} from '@angular/material';
 
 import {TicketCreation} from './ticket-creation.model';
 import {ShoppingCartService} from './shopping-cart.service';
@@ -24,7 +24,7 @@ export class CheckOutDialogComponent {
   codeVoucher: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) data: any, private dialog: MatDialog, private shoppingCartService: ShoppingCartService,
-              private userService: UserService, private voucherService: VoucherService) {
+              private userService: UserService, private voucherService: VoucherService, private snackBar: MatSnackBar) {
     this.totalPurchase = data.total;
     this.ticketCreation = data.ticketCreation;
     this.userService = userService;
@@ -98,13 +98,22 @@ export class CheckOutDialogComponent {
     };
     this.dialog.open(VouchersUseDialogComponent, dialogConfig).afterClosed().subscribe(
       data => {
-        this.ticketCreation.voucher = data.value;
-        this.codeVoucher = data.id;
+        if (data !== '' && data.dateOfUse == null) {
+          this.ticketCreation.voucher = data.value;
+          this.codeVoucher = data.id;
+        } else {
+          this.snackBar.open('The voucher is not valid', '', {
+            duration: 5000
+          });
+        }
+
       },
       error => {
+        this.ticketCreation.voucher = 0;
         console.log(error);
       });
   }
+
 
   invalidCheckOut(): boolean {
     return (this.totalPurchase + this.returnedAmount() - this.shoppingCartService.getTotalCommitted() < -0.01); // rounding errors
