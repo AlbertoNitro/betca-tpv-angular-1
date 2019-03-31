@@ -13,6 +13,7 @@ export class ApiEndpoint {
   public static PROFILES = '/profiles';
   public static VALIDATORS = '/validators';
 
+  public static ALARMS = '/alarms';
   public static ARTICLES = '/articles';
   public static ARTICLES_MINIMUM = ApiEndpoint.ARTICLES + '/minimum';
   public static ARTICLES_FAMILY = '/articles-family';
