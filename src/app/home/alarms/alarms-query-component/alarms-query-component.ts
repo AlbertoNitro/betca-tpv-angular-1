@@ -1,12 +1,11 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-
 import {AlarmService} from './alarm.service';
 import {Alarm} from './alarm.model';
 
 @Component({
   selector: 'app-alarm-query',
   templateUrl: './alarms-query.component.html',
-  styleUrls: ['./alarms-query.component.css']
+  styleUrls: ['./alarms-query-component/alarms-query.component.css']
 })
 export class AlarmsQueryComponent {
 
@@ -71,7 +70,6 @@ export class AlarmsQueryComponent {
         this.emitter.emit(this.data);
       }
     );
-
   }
 
   resetSearch() {
