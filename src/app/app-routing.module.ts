@@ -12,6 +12,7 @@ import {CashMovementDialogComponent} from './home/cashier-opened/shared/cash-mov
 import {HomeComponent} from './home/home.component';
 import {ShoppingCartComponent} from './home/cashier-opened/shopping-cart/shopping-cart.component';
 import {UsersComponent} from './home/users/users.component';
+import {AlarmCreateUpdateDialogComponent} from './home/alarms/alarm-create-update-dialog/alarm-create-update-dialog.component';
 import {ArticleCreateUpdateDialogComponent} from './home/articles/article-create-update-dialog/article-create-update-dialog.component';
 import {ArticleQuickCreationDialogComponent} from './home/cashier-opened/shopping-cart/article-quick-creation-dialog.component';
 import {CashierClosureDialogComponent} from './home/cashier-opened/cashier/cashier-closure-dialog.component';
@@ -32,6 +33,7 @@ import {StatisticComponent} from './home/stadistics/statistic.component';
 import {StockPredictionComponent} from './home/stock-prediction/stock-prediction.component';
 import {RolesDialogComponent} from './home/users/roles-dialog.component';
 import {InvoiceUpdateComponent} from './home/invoice/invoice-update.component';
+import {AlarmsQueryComponent} from './home/alarms/alarms-query-component';
 import {ArticlesQueryComponent} from './home/shared/articles-query.component';
 import {VouchersUseDialogComponent} from './home/vouchers/vouchersUse-dialog.component';
 import {TicketsComponent} from './home/tickets/tickets.component';
@@ -81,6 +83,7 @@ export class AppRoutingModule {
   static COMPONENTS = [
     AdvancedSearchComponent,
     AlarmComponent,
+    AlarmsQueryComponent,
     ArticlesComponent,
     ArticlesFamiliesCRUDComponent,
     ArticlesFamilyViewComponent,
@@ -107,6 +110,7 @@ export class AppRoutingModule {
   ];
 
   static DIALOGS = [
+    AlarmCreateUpdateDialogComponent,
     ArticleCreateUpdateDialogComponent,
     FamilySizesCreationComponent,
     ArticlesFamiliesAttachDialogComponent,

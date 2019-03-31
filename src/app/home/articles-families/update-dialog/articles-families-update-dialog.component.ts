@@ -1,7 +1,7 @@
 import {Component, Inject} from '@angular/core';
 import {ArticleFamilyService} from '../shared/articles-families.service';
 import {ArticleFamilyMinimum} from '../shared/articles-families-minimum.model';
-import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig} from '@angular/material';
 import {ArticleFamily} from '../shared/articles-families.model';
 import {FamilyTypes} from '../shared/family-types.model';
 import {CancelYesDialogComponent} from '../../../core/cancel-yes-dialog.component';
@@ -58,7 +58,13 @@ export class ArticlesFamiliesUpdateDialogComponent {
   }
 
   delete(articleFamily: ArticleFamily) {
-    this.dialog.open(CancelYesDialogComponent).afterClosed().subscribe(
+    const dialogConfig: MatDialogConfig = {
+      data: {
+        message: 'The article family will be deleted',
+        question: 'Are you sure?'
+      }
+    };
+    this.dialog.open(CancelYesDialogComponent, dialogConfig).afterClosed().subscribe(
       result => {
         if (result) {
           this.articleFamilyService.deleteComponentFromFamily(this.parentFamily.description, articleFamily.description).subscribe(

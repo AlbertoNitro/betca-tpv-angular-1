@@ -1,1 +1,7 @@
 <h1> Alarm Component </h1>
+
+<app-alarm-query (emitter)="updateData($event)"></app-alarm-query>
+
+<app-crud [data]="data" [title]="title" [columns]="columns" [readAction]="false"
+          (create)="create()" (update)="update($event)" (delete)="delete($event)">
+</app-crud>

@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatDialogConfig} from '@angular/material';
 import {TokensService} from '../core/tokens.service';
 import {CancelYesDialogComponent} from '../core/cancel-yes-dialog.component';
 import {CashierService} from './shared/cashier.service';
@@ -26,6 +26,9 @@ import {OrderComponent} from './order/order.component';
 import {OperatorManagerComponent} from './operator-manager/operator-manager.component';
 import {RGPDComponent} from './rgpd/rgpd.component';
 import {VouchersComponent} from './vouchers/vouchers.component';
+import {AlarmComponent} from './alarms/alarm.component';
+import {OperatorManagerService} from './operator-manager/operator-manager.service';
+
 
 @Component({
   templateUrl: 'home.component.html',
@@ -40,7 +43,7 @@ export class HomeComponent {
 
   constructor(private router: Router, private dialog: MatDialog,
               private tokensService: TokensService, private userService: UserService, private cashierService: CashierService,
-              private adminsService: AdminsService) {
+              private adminsService: AdminsService, private operatorManagerService: OperatorManagerService) {
     this.username = tokensService.getName();
     this.cashierClosed = true;
     this.cashier();
@@ -72,7 +75,13 @@ export class HomeComponent {
   }
 
   deleteDb() {
-    this.dialog.open(CancelYesDialogComponent).afterClosed().subscribe(
+    const dialogConfig: MatDialogConfig = {
+      data: {
+        message: 'The Database will be deleted',
+        question: 'Are you sure?'
+      }
+    };
+    this.dialog.open(CancelYesDialogComponent, dialogConfig).afterClosed().subscribe(
       result => {
         if (result) {
           this.adminsService.deleteDb();
@@ -90,7 +99,9 @@ export class HomeComponent {
   }
 
   logout() {
-    this.tokensService.logout();
+    this.operatorManagerService.updateDateTimeLogout().subscribe(
+      () => this.tokensService.logout()
+    );
   }
 
   closeCashier() {
@@ -169,6 +180,7 @@ export class HomeComponent {
     this.router.navigate([HomeComponent.URL, OperatorManagerComponent.URL]);
   }
   stockAlarm() {
+    this.router.navigate([HomeComponent.URL, AlarmComponent.URL]);
   }
 
   stockManager() {
