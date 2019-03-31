@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {AlarmService} from './alarm.service';
 import {Alarm} from './alarm.model';
@@ -12,9 +11,7 @@ import {AlarmCreateUpdateDialogComponent} from './alarm-create-update-dialog/ala
 })
 export class AlarmComponent implements OnInit {
   static URL = 'alarm';
-
   alarm: Alarm;
-
   title = 'Alarm Management';
   columns = ['code', 'refToArticle', 'warning', 'critical'];
   data: Alarm[];
@@ -51,7 +48,6 @@ export class AlarmComponent implements OnInit {
   }
 
   update(alarm: Alarm) {
-
     this.alarmService.readOne(alarm.code).subscribe(
       res => {
         this.dialogConfig = {
@@ -60,7 +56,6 @@ export class AlarmComponent implements OnInit {
             alarm: res
           }
         };
-
         this.dialog.open(AlarmCreateUpdateDialogComponent, this.dialogConfig).afterClosed().subscribe(
           response => {
             if (response) {
@@ -97,6 +92,5 @@ export class AlarmComponent implements OnInit {
       }
     );
   }
-
 }
 
