@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {VoucherService} from '../shared/voucher.service';
 import {Voucher} from './voucher.model';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
@@ -20,17 +20,16 @@ import {VoucherConsumedDialogComponent} from './voucherConsumed-dialog.component
   ]
 })
 
-export class VouchersComponent {
+export class VouchersComponent implements OnInit {
   static URL = 'vouchers';
   voucher: Voucher;
-  onlyConsumed = true;
   form: FormGroup;
   initDate: Date;
   endDate: Date;
   title = 'Vouchers management';
   columns = ['id', 'value'];
   data: Voucher[];
-
+  isChecked: boolean;
   constructor(fb: FormBuilder, private voucherService: VoucherService, private dialog: MatDialog) {
     this.form = new FormGroup({
       initDate: new FormControl(),
@@ -39,6 +38,16 @@ export class VouchersComponent {
     });
   }
 
+  onChkChange() {
+    this.isChecked = (this.isChecked !== true);
+  }
+
+  ngOnInit(): void {
+    this.isChecked = true;
+    this.voucherService.readAll().subscribe(
+      voucherList => this.data = voucherList
+    );
+  }
   search() {
     // TODO implement search with fields
     this.data = [
