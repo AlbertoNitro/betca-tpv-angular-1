@@ -9,6 +9,7 @@ import {User} from '../../users/user.model';
 import {UserCreateUpdateDialogComponent} from '../../users/user-create-update-dialog/user-create-update-dialog.component';
 import {UserService} from '../../users/user.service';
 import {Observable} from 'rxjs';
+import {VoucherService} from '../../shared/voucher.service';
 
 @Component({
   templateUrl: 'check-out-dialog.component.html',
@@ -21,13 +22,14 @@ export class CheckOutDialogComponent {
   ticketCreation: TicketCreation;
   userFound: User;
   userMobile: number;
-  value: number;
+  codeVoucher: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) data: any, private dialog: MatDialog, private shoppingCartService: ShoppingCartService,
-              private userService: UserService) {
+              private userService: UserService, private voucherService: VoucherService) {
     this.totalPurchase = data.total;
     this.ticketCreation = data.ticketCreation;
     this.userService = userService;
+
   }
 
   static format(value: number): number {
@@ -97,14 +99,12 @@ export class CheckOutDialogComponent {
     };
     this.dialog.open(VouchersUseDialogComponent, dialogConfig).afterClosed().subscribe(
       data => {
-
-        this.ticketCreation.voucher = data;
-
+        this.ticketCreation.voucher = data.value;
+        this.codeVoucher = data.id;
       },
       error => {
         return Observable.throw(error);
       });
-
   }
 
   invalidCheckOut(): boolean {
@@ -146,6 +146,16 @@ export class CheckOutDialogComponent {
         } else {
           this.createInvoice();
         }
+
+      this.voucherService.update(this.codeVoucher).subscribe(
+        data => {
+          return true;
+        },
+        error => {
+          return Observable.throw(error);
+          console.log(error);
+        }
+      );
       }
     );
   }

@@ -14,8 +14,6 @@ export class VouchersUseDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<VouchersUseDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private snackBar: MatSnackBar, private voucherService: VoucherService) {
     data.id = this.codeVoucher;
-    console.log(data.value);
-
   }
 
   ngOnInit() {
@@ -28,7 +26,7 @@ export class VouchersUseDialogComponent implements OnInit {
       resul => {
         this.showMessage('Voucher used' + resul.value);
 
-        this.data = resul.value;
+        this.data = resul;
         this.dialogRef.close(this.data);
       },
       error => {
