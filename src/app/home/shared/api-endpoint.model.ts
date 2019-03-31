@@ -13,6 +13,9 @@ export class ApiEndpoint {
   public static PROFILES = '/profiles';
   public static VALIDATORS = '/validators';
 
+  public static RGPD_AGREEMENT = '/rgpd/agreement';
+  public static RGPD_USER_AGREEMENT = '/rgpd/useragreement';
+
   public static ALARMS = '/alarms';
   public static ARTICLES = '/articles';
   public static ARTICLES_MINIMUM = ApiEndpoint.ARTICLES + '/minimum';
