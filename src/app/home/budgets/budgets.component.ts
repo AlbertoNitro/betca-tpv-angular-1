@@ -19,6 +19,24 @@ export class BudgetsComponent {
     this.budget = {id: null};
   }
 
+  delete(id: string) {
+    this.budgetService.delete(id).subscribe(
+      () => {
+        this.budgetService.readAll().subscribe(
+          data => this.data = data
+        );
+      }
+    );
+  }
+
+  generatePdf(id: string) {
+    this.budgetService.generatePdf(id).subscribe();
+  }
+
+  resetSearch() {
+    this.budget = {id: null};
+  }
+
   search(id: string) {
     if (id) {
       this.budgetService.readById(id).subscribe(
@@ -29,19 +47,5 @@ export class BudgetsComponent {
         data => this.data = data
       );
     }
-  }
-
-  resetSearch() {
-    this.budget = {id: null};
-  }
-
-  delete(id: string) {
-    this.budgetService.delete(id).subscribe(
-      () => {
-        this.budgetService.readAll().subscribe(
-          data => this.data = data
-        );
-      }
-    );
   }
 }

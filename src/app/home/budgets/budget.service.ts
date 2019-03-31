@@ -15,6 +15,10 @@ export class BudgetService {
     return this.httpService.delete(ApiEndpoint.BUDGETS + '/' + id);
   }
 
+  generatePdf(id: string): Observable<any> {
+    return this.httpService.pdf().get(ApiEndpoint.BUDGETS + '/pdf/' + id);
+  }
+
   readAll(): Observable<Budget[]> {
     return this.httpService.get(ApiEndpoint.BUDGETS);
   }
