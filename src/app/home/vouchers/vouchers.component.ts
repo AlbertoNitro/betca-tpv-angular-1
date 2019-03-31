@@ -99,7 +99,13 @@ export class VouchersComponent implements OnInit {
         voucher: {id: voucher.id, dateOfUse: voucher.dateOfUse}
       }
     };
-    this.dialog.open(VoucherConsumedDialogComponent, dialogConfig);
+    this.dialog.open(VoucherConsumedDialogComponent, dialogConfig).afterClosed().subscribe(
+      data => {
+        this.ngOnInit();
+      },
+      error => {
+        console.log(error);
+      });
   }
   create() {
     const dialogConfig: MatDialogConfig = {
