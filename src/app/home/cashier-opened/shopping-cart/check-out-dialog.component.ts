@@ -84,7 +84,20 @@ export class CheckOutDialogComponent {
   }
 
   consumeVoucher() {
-    this.dialog.open(VouchersUseDialogComponent);
+    const dialogConfig: MatDialogConfig = {
+      data: {
+        mode: 'Update',
+        voucher: {id: this.ticketCreation.voucher},
+        width: '60%',
+        height: '90%'
+      }
+    };
+    this.dialog.open(VouchersUseDialogComponent, dialogConfig).afterClosed().subscribe(
+      result => {
+        if (result) {
+          console.log(result.importeVoucher);
+        }
+      });
   }
 
   invalidCheckOut(): boolean {

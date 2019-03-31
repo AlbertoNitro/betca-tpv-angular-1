@@ -27,4 +27,9 @@ export class VoucherService {
   update(code: string): Observable<VoucherMin> {
     return this.httpService.successful('The voucher was updated').put(ApiEndpoint.VOUCHERS + '/' + code);
   }
+
+  readById(code: string): Observable<Voucher> {
+    return this.httpService.successful('The voucher was used').get(ApiEndpoint.VOUCHERS + '/' + code);
+
+  }
 }
