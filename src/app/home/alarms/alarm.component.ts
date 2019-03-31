@@ -18,6 +18,7 @@ export class AlarmComponent implements OnInit {
   title = 'Alarm Management';
   columns = ['code', 'refToArticle', 'warning', 'critical'];
   data: Alarm[];
+  dialogConfig: MatDialogConfig;
 
   constructor(private dialog: MatDialog, private alarmService: AlarmService) {
   }
@@ -31,14 +32,14 @@ export class AlarmComponent implements OnInit {
   }
 
   create() {
-    const dialogConfig: MatDialogConfig = {
+    this.dialogConfig = {
       data: {
         mode: 'Create',
         alarm: {}
       }
     };
 
-    this.dialog.open(AlarmCreateUpdateDialogComponent, dialogConfig).afterClosed().subscribe(
+    this.dialog.open(AlarmCreateUpdateDialogComponent, this.dialogConfig).afterClosed().subscribe(
       response => {
         if (response) {
           this.alarmService.readAll().subscribe(
@@ -51,18 +52,16 @@ export class AlarmComponent implements OnInit {
 
   update(alarm: Alarm) {
 
-    let dialogConfig: MatDialogConfig = null;
-
     this.alarmService.readOne(alarm.code).subscribe(
       res => {
-        dialogConfig = {
+        this.dialogConfig = {
           data: {
             mode: 'Update',
             alarm: res
           }
         };
 
-        this.dialog.open(AlarmCreateUpdateDialogComponent, dialogConfig).afterClosed().subscribe(
+        this.dialog.open(AlarmCreateUpdateDialogComponent, this.dialogConfig).afterClosed().subscribe(
           response => {
             if (response) {
               this.alarmService.readAll().subscribe(
@@ -77,7 +76,13 @@ export class AlarmComponent implements OnInit {
   }
 
   delete(alarm: Alarm) {
-    this.dialog.open(CancelYesDialogComponent).afterClosed().subscribe(
+    this.dialogConfig = {
+      data: {
+        message: 'The alarm will be deleted.',
+        question: 'Are you sure?'
+      }
+    };
+    this.dialog.open(CancelYesDialogComponent, this.dialogConfig).afterClosed().subscribe(
       result => {
         if (result) {
           this.alarmService.delete(alarm.code).subscribe(
