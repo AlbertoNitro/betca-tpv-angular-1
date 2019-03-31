@@ -23,8 +23,10 @@ export class DatesValidator {
     let valid: any;
     valid = null;
     let diff: any;
-    diff = new Date().valueOf() - new Date(control.value).valueOf();
-    if (diff > 3600 * 24) {
+    const valueDateControl = new Date(control.value).valueOf();
+    diff = new Date().valueOf() - valueDateControl;
+    console.log('new Date(control.value).valueOf()', new Date(control.value).valueOf());
+    if (isNaN(valueDateControl) || diff > 3600 * 24) {
       valid = true;
     }
     return valid ? null : {validEndDate: true};
