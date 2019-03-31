@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 
 import {Budget} from './budgets.model';
 import {BudgetService} from './budget.service';
+import {Shopping} from '../cashier-opened/shopping-cart/shopping.model';
 
 @Component({
   templateUrl: 'budgets.component.html'
@@ -27,6 +28,10 @@ export class BudgetsComponent {
         );
       }
     );
+  }
+
+  fillShoppingCart(shoppingCart: Shopping[]) {
+    this.budgetService.fillShoppingCart(shoppingCart);
   }
 
   generatePdf(id: string) {

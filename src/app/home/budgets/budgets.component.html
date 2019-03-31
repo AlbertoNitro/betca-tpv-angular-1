@@ -13,4 +13,5 @@
   </mat-card-content>
 </mat-card>
 <app-crud [data]="data" [title]="title" [columns]="columns" [createAction]="false"
-          (delete)="delete($event.id)" (read)="generatePdf($event.id)"></app-crud>
+          (delete)="delete($event.id)" (read)="generatePdf($event.id)"
+          (update)="fillShoppingCart($event.shoppingList)"></app-crud>

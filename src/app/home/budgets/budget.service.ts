@@ -2,17 +2,23 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import {HttpService} from '../../core/http.service';
+import {ShoppingCartService} from '../cashier-opened/shopping-cart/shopping-cart.service';
 import {ApiEndpoint} from '../shared/api-endpoint.model';
 import {Budget} from './budgets.model';
+import {Shopping} from '../cashier-opened/shopping-cart/shopping.model';
 
 @Injectable()
 export class BudgetService {
 
-  constructor(private httpService: HttpService) {
+  constructor(private httpService: HttpService, private shoppingCartService: ShoppingCartService) {
   }
 
   delete(id: string): Observable<any> {
     return this.httpService.delete(ApiEndpoint.BUDGETS + '/' + id);
+  }
+
+  fillShoppingCart(shoppingCart: Shopping[]) {
+    return this.shoppingCartService.fill(shoppingCart);
   }
 
   generatePdf(id: string): Observable<any> {

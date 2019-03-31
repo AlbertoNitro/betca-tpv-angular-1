@@ -136,6 +136,12 @@ export class ShoppingCartService {
     return (!this.shoppingCart || this.shoppingCart.length === 0);
   }
 
+  fill(shoppingCart): void {
+    shoppingCart.map((item) => {
+      this.add(item.article.code).subscribe();
+    });
+  }
+
   private synchronizeAll() {
     this.shoppingCartSubject.next(this.shoppingCart);
     this.synchronizeCartTotal();
