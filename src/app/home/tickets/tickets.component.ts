@@ -120,6 +120,7 @@ export class TicketsComponent {
     this.isTicketFound = true;
     this.hasAdvancedQueryResults = false;
     this.voucher.value = 0;
+    this.ticketTotal = 0;
     this.synchronizeTicketTotal();
   }
 
