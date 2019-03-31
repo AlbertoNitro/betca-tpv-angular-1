@@ -19,4 +19,9 @@ export class VoucherService {
   create(voucherMin: VoucherMin): Observable<VoucherMin> {
     return this.httpService.successful('The Voucher  was created').post(ApiEndpoint.VOUCHERS, voucherMin);
   }
+
+  search(consumed: boolean, dateFrom: string, dateTo: string): Observable<Voucher[]> {
+    return this.httpService.get(ApiEndpoint.VOUCHERS + '/search?consumed=' + consumed + '&dateFrom=' + dateFrom + '&dateTo=' + dateTo);
+  }
+
 }
