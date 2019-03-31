@@ -93,12 +93,10 @@ export class VouchersComponent implements OnInit {
   }
 
   update(voucher: Voucher) {
-    // TODO quitar mock de Voucher.
-    const voucherFound = {id: 1, value: 10, dateOfUse: null};
     const dialogConfig: MatDialogConfig = {
       data: {
         mode: 'Update',
-        voucher: voucherFound
+        voucher: {id: voucher.id, dateOfUse: voucher.dateOfUse}
       }
     };
     this.dialog.open(VoucherConsumedDialogComponent, dialogConfig);

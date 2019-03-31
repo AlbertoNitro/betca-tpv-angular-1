@@ -24,4 +24,7 @@ export class VoucherService {
     return this.httpService.get(ApiEndpoint.VOUCHERS + '/search?consumed=' + consumed + '&dateFrom=' + dateFrom + '&dateTo=' + dateTo);
   }
 
+  update(code: string): Observable<VoucherMin> {
+    return this.httpService.successful('The voucher was updated').put(ApiEndpoint.VOUCHERS + '/' + code);
+  }
 }
