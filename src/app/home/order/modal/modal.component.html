@@ -10,8 +10,8 @@
     </tr>
     </thead>
     <tbody>
+    <!-- TODO ngFor with all articles from Order -->
     <tr>
-      <td><input [(ngModel)]="data.descriptionArticles"></td>
       <td><input [(ngModel)]="data.descriptionArticles"></td>
       <td><input [(ngModel)]="data.requiredAmount"></td>
       <td><input [(ngModel)]="data.finalAmount"></td>
@@ -21,5 +21,5 @@
 </div>
 <div>
   <button (click)="onNoClick()">No Thanks</button>
-  <button [mat-dialog-close]="data" cdkFocusInitial>Close Order</button>
+  <button [mat-dialog-close]="data" cdkFocusInitial (click)="closeOrder(data)">Close Order</button>
 </div>

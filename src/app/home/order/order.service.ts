@@ -19,4 +19,8 @@ export class OrderService {
   readSearch(order: OrderSearch): Observable<Order[]> {
     return this.httpService.post(ApiEndpoint.ORDERS + ApiEndpoint.SEARCH, order);
   }
+
+  closeOrder(order: Order[]): Observable<Order[]>{
+    return this.httpService.post(ApiEndpoint.ORDERS + ApiEndpoint.CLOSE, order)
+  }
 }

@@ -4,6 +4,7 @@ import {Order} from './order.model';
 import {OrderService} from './order.service';
 import {MatDialog} from '@angular/material';
 import {OrderSearch} from './order-search.model';
+import {ModalComponent} from "./modal/modal.component";
 
 @Component({
   selector: 'app-order',
@@ -54,5 +55,16 @@ export class OrderComponent {
 
   delete(user: Order) {
     // TODO
+  }
+
+  closeOrderModal($event): void {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '700px',
+      data: $event
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.closeOrderModal = result;
+    });
   }
 }

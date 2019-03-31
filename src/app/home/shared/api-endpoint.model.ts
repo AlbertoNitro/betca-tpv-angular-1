@@ -32,6 +32,7 @@ export class ApiEndpoint {
 
   public static OFFERS = '/offers';
   public static ORDERS = '/orders';
+  public static CLOSE = '/close';
   public static OPERATOR_MANAGER = '/timeclocks';
 
   public static STOCK_PREDICTION = '/stock-prediction';

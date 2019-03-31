@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { Order } from '../order.model';
+import {OrderService} from '../order.service';
 
 @Component({
   selector: 'app-modal',
@@ -10,6 +11,7 @@ import { Order } from '../order.model';
 export class ModalComponent implements OnInit {
 
   constructor(
+    private orderService: OrderService,
     public dialogRef: MatDialogRef<ModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Order) {}
 
@@ -18,6 +20,14 @@ export class ModalComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  closeOrder(data) {
+    this.orderService.closeOrder(data).subscribe(result => {
+      if (result) {
+        console.log(result);
+      }
+    });
   }
 
 }
