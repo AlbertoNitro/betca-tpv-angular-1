@@ -19,6 +19,7 @@ export class ArticlesComponent implements OnInit {
   title = 'Articles Management';
   columns = ['code', 'description', 'retailPrice', 'stock'];
   data: ArticleDetailModel[];
+  dialogConfig: MatDialogConfig;
 
   constructor(private dialog: MatDialog, private articleService: ArticleService) {
   }
@@ -31,44 +32,43 @@ export class ArticlesComponent implements OnInit {
     this.data = data;
   }
 
+  readAll() {
+    this.articleService.readAll().subscribe(
+      articleList => this.data = articleList
+    );
+  }
+
   create() {
-    const dialogConfig: MatDialogConfig = {
+    this.dialogConfig = {
       data: {
         mode: 'Create',
         article: {}
       }
     };
 
-    this.dialog.open(ArticleCreateUpdateDialogComponent, dialogConfig).afterClosed().subscribe(
+    this.dialog.open(ArticleCreateUpdateDialogComponent, this.dialogConfig).afterClosed().subscribe(
       response => {
         if (response) {
-          this.articleService.readAll().subscribe(
-            articleList => this.data = articleList
-          );
+          this.readAll();
         }
       }
     );
   }
 
   update(articleDetailModel: ArticleDetailModel) {
-
-    let dialogConfig: MatDialogConfig = null;
-
     this.articleService.readOne(articleDetailModel.code).subscribe(
       article => {
-        dialogConfig = {
+        this.dialogConfig = {
           data: {
             mode: 'Update',
             article: article
           }
         };
 
-        this.dialog.open(ArticleCreateUpdateDialogComponent, dialogConfig).afterClosed().subscribe(
+        this.dialog.open(ArticleCreateUpdateDialogComponent, this.dialogConfig).afterClosed().subscribe(
           response => {
             if (response) {
-              this.articleService.readAll().subscribe(
-                articleList => this.data = articleList
-              );
+              this.readAll();
             }
           }
         );
@@ -78,15 +78,20 @@ export class ArticlesComponent implements OnInit {
   }
 
   delete(article: ArticleDetailModel) {
-    this.dialog.open(CancelYesDialogComponent).afterClosed().subscribe(
+     this.dialogConfig = {
+      data: {
+        message: 'The article will be deleted.',
+        question: 'Are you sure?'
+      }
+    };
+
+    this.dialog.open(CancelYesDialogComponent, this.dialogConfig).afterClosed().subscribe(
       result => {
         if (result) {
           this.articleService.delete(article.code).subscribe(
             response => {
               if (response) {
-                this.articleService.readAll().subscribe(
-                  articleList => this.data = articleList
-                );
+                this.readAll();
               }
             });
         }
@@ -94,4 +99,3 @@ export class ArticlesComponent implements OnInit {
     );
   }
 }
-
