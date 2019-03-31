@@ -108,11 +108,12 @@ export class VouchersComponent implements OnInit {
         voucher: this.voucher
       }
     };
-    this.dialog.open(VoucherNewDialogComponent, dialogConfig);
-  }
-
-  updateData(data) {
-    console.log(data);
-    this.data = data;
+    this.dialog.open(VoucherNewDialogComponent, dialogConfig).afterClosed().subscribe(
+      data => {
+        this.ngOnInit();
+      },
+      error => {
+        console.log(error);
+      });
   }
 }

@@ -1,5 +1,4 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
 import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from '@angular/material';
 import {VoucherService} from '../shared/voucher.service';
 
@@ -11,8 +10,9 @@ import {VoucherService} from '../shared/voucher.service';
 export class VouchersUseDialogComponent implements OnInit {
   codeVoucher: string;
 
-
-  constructor(public dialogRef: MatDialogRef<VouchersUseDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private snackBar: MatSnackBar, private voucherService: VoucherService) {
+  constructor(public dialogRef: MatDialogRef<VouchersUseDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              private snackBar: MatSnackBar, private voucherService: VoucherService) {
     data.id = this.codeVoucher;
   }
 
@@ -20,18 +20,15 @@ export class VouchersUseDialogComponent implements OnInit {
   }
 
   save() {
-
-
     this.voucherService.readById(this.codeVoucher).subscribe(
       resul => {
         this.showMessage('Voucher used' + resul.value);
-
         this.data = resul;
         this.dialogRef.close(this.data);
       },
       error => {
-        return Observable.throw(error);
-        this.showMessage('Error in se voucher.');
+        this.showMessage('Error in get voucher.');
+        console.log(error);
       }
     );
   }
