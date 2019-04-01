@@ -74,6 +74,9 @@
       <tr>
         <th class="left">Ticket</th>
         <td>{{ticketCode}}</td>
+        <button (click)="printGiftTicketById()" color="primary" mat-mini-fab matTooltip="Print Gift Ticket">
+          <mat-icon>print</mat-icon>
+        </button>
       </tr>
     </table>
   </mat-card>
