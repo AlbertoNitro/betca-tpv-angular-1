@@ -126,6 +126,10 @@ export class ShoppingCartService {
     );
   }
 
+  printGiftTicket(): Observable<any> {
+    return this.httpService.pdf().get(ApiEndpoint.GIFT_TICKETS).pipe(map(() => this.reset()));
+  }
+
   createBudget(): Observable<any> {
     return this.httpService.pdf().post(ApiEndpoint.BUDGETS, this.shoppingCart).pipe(
       map(() => this.reset())
