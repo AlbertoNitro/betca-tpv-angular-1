@@ -220,6 +220,10 @@ export class TicketsComponent {
     this.advancedTicketQuery(path, ticketQueryInput);
   }
 
+  printGiftTicketById(){
+    this.ticketsService.printGiftTicket(this.ticketCode).subscribe(() => {});
+  }
+
   resetAdvancedSearch() {
     this.ticketQueryInput = {userMobile: null, dateStart: null, dateEnd: null,
       totalMin: null, totalMax: null, pending: null, orderId: null};
