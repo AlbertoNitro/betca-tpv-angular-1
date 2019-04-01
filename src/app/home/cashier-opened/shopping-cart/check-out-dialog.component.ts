@@ -18,6 +18,7 @@ export class CheckOutDialogComponent {
 
   totalPurchase: number;
   requestedInvoice = false;
+  requestedGiftTicket = false;
   ticketCreation: TicketCreation;
   userFound: User;
   userMobile: number;
