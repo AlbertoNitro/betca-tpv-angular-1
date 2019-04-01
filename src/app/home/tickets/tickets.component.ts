@@ -29,6 +29,7 @@ export class TicketsComponent {
   advancedTicketQueryOrderIdPending = false;
   hasAdvancedQueryResults: boolean;
   isTicketFound: boolean;
+  isGiftTicketExpired: boolean;
   ticketCode: string;
   ticketTotal: number;
   matSelectStates: GenericMatSelect[];
@@ -48,6 +49,7 @@ export class TicketsComponent {
     private snackBar: MatSnackBar) {
 
     this.isTicketFound = false;
+    this.isGiftTicketExpired = false;
     this.hasAdvancedQueryResults = false;
     this.ticketCode = '0';
     this.ticketTotal = 0;
@@ -108,6 +110,7 @@ export class TicketsComponent {
       },
       () => {
       this.isTicketFound = false;
+      this.isGiftTicketExpired = false;
       });
   }
 
@@ -118,6 +121,7 @@ export class TicketsComponent {
     this.ticketCode = code;
     this.dataSource = new MatTableDataSource<ShoppingTicket>(this.ticket.shoppingList);
     this.isTicketFound = true;
+    this.isGiftTicketExpired = this.ticket.isGiftTicketExpired;
     this.hasAdvancedQueryResults = false;
     this.voucher.value = 0;
     this.ticketTotal = 0;
