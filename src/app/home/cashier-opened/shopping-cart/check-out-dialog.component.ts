@@ -158,6 +158,9 @@ export class CheckOutDialogComponent {
 
       this.voucherService.update(this.codeVoucher);
 
+      if(this.requestedGiftTicket){
+        this.shoppingCartService.printGiftTicket().subscribe(() => {});
+      }
     });
   }
 

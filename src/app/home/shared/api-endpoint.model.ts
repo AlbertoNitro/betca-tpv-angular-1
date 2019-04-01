@@ -24,6 +24,9 @@ export class ApiEndpoint {
   public static ARTICLES_FAMILY_COMPOSITE = '/familydescription';
 
   public static TICKETS = '/tickets';
+
+  public static GIFT_TICKETS = '/tickets/gift';
+
   public static FAMILY_SIZES = '/family-sizes';
 
   public static PROVIDERS = '/providers';
