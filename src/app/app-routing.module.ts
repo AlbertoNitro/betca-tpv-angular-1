@@ -46,8 +46,10 @@ import {VouchersComponent} from './home/vouchers/vouchers.component';
 import {VoucherNewDialogComponent} from './home/vouchers/voucherNew-dialog.component';
 import {VoucherConsumedDialogComponent} from './home/vouchers/voucherConsumed-dialog.component';
 import {ArticlesFamiliesUpdateDialogComponent} from './home/articles-families/update-dialog/articles-families-update-dialog.component';
-import {ArticlesFamiliesAttachDialogComponent} from './home/articles-families/update-dialog/attach-dialog/articles-families-attach-dialog.component';
-import {ArticlesFamilyViewSizesDialogComponent} from './home/cashier-opened/articles-family/articles-family-view-dialog/articles-family-view-sizes-dialog.component';
+import {ArticlesFamiliesAttachDialogComponent} from
+    './home/articles-families/update-dialog/attach-dialog/articles-families-attach-dialog.component';
+import {ArticlesFamilyViewSizesDialogComponent} from
+    './home/cashier-opened/articles-family/articles-family-view-dialog/articles-family-view-sizes-dialog.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
@@ -62,6 +64,7 @@ const routes: Routes = [
       {path: CashierClosedComponent.URL, component: CashierClosedComponent},
       {path: CashierOpenedComponent.URL, component: CashierOpenedComponent},
       {path: OperatorManagerComponent.URL, component: OperatorManagerComponent},
+      {path: InvoiceUpdateComponent.URL, component: InvoiceUpdateComponent},
       {path: ProvidersComponent.URL, component: ProvidersComponent},
       {path: StatisticComponent.URL, component: StatisticComponent},
       {path: StockPredictionComponent.URL, component: StockPredictionComponent},

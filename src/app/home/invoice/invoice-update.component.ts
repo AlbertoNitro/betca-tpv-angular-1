@@ -9,5 +9,10 @@ export class InvoiceUpdateComponent {
 
   constructor() {
   }
-
+  searchMobile() {
+    console.log('search mobile');
+  }
+  resetMobile() {
+    console.log('reset mobile');
+  }
 }

@@ -1,3 +1,21 @@
-<p>
-  invoice-update works!
-</p>
+<mat-card>
+  <mat-card-title>Search</mat-card-title>
+<mat-form-field>
+  <input matInput placeholder="Mobile" type="text"
+         cdkFocusInitial>
+</mat-form-field>
+  <mat-form-field>
+  <input matInput placeholder="Initial Date" type="text"
+         cdkFocusInitial>
+ </mat-form-field>
+  <mat-form-field>
+  <input matInput placeholder="Final Date" type="text"
+         cdkFocusInitial>
+</mat-form-field>
+  <button type="submit" mat-mini-fab color="primary" (click)="searchMobile()">
+  <mat-icon>search</mat-icon>
+</button>
+  <button (click)="resetMobile()" color="primary" mat-mini-fab>
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-card>
