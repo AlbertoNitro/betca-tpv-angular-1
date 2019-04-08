@@ -21,6 +21,7 @@ import {LoginDialogComponent} from './login-dialog.component';
 import {CancelYesDialogComponent} from './cancel-yes-dialog.component';
 import {CrudComponent} from './crud.component';
 import {DetailsDialogComponent} from './details-dialog.component';
+import {DataTableComponent} from './data-table.component';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import {DetailsDialogComponent} from './details-dialog.component';
   declarations: [
     CancelYesDialogComponent,
     CrudComponent,
+    DataTableComponent,
     DetailsDialogComponent,
     DateComponent,
     LoginDialogComponent
@@ -45,6 +47,7 @@ import {DetailsDialogComponent} from './details-dialog.component';
   exports: [
     CancelYesDialogComponent,
     CrudComponent,
+    DataTableComponent,
     DetailsDialogComponent,
     DateComponent,
     LoginDialogComponent,

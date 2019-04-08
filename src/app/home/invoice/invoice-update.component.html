@@ -1,21 +1,30 @@
 <mat-card>
   <mat-card-title>Search</mat-card-title>
+  <form [formGroup]="invoiceUpdateForm">
 <mat-form-field>
-  <input matInput placeholder="Mobile" type="text"
+  <input matInput placeholder="Mobile" type="text" formControlName="mobile" formGroupName="mobile"
          cdkFocusInitial>
 </mat-form-field>
-  <mat-form-field>
-  <input matInput placeholder="Initial Date" type="text"
-         cdkFocusInitial>
- </mat-form-field>
-  <mat-form-field>
-  <input matInput placeholder="Final Date" type="text"
-         cdkFocusInitial>
-</mat-form-field>
-  <button type="submit" mat-mini-fab color="primary" (click)="searchMobile()">
+    <mat-form-field>
+      <input matInput placeholder="Date from" [matDatepicker]="dateFrom" [(ngModel)]="myDate" formControlName="dateFrom" formGroupName="dateFrom">
+      <mat-datepicker-toggle matSuffix [for]="dateFrom"></mat-datepicker-toggle>
+      <mat-datepicker #dateFrom ></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Date to" [matDatepicker]="dateTo" [(ngModel)]="myDateTo" formControlName="dateTo" formGroupName="dateTo">
+      <mat-datepicker-toggle matSuffix [for]="dateTo"></mat-datepicker-toggle>
+      <mat-datepicker #dateTo ></mat-datepicker>
+    </mat-form-field>
+      <button type="submit" mat-mini-fab color="primary" (click)="searchMobile()">
   <mat-icon>search</mat-icon>
 </button>
   <button (click)="resetMobile()" color="primary" mat-mini-fab>
     <mat-icon>close</mat-icon>
   </button>
+  </form>
+  <app-data-table [title]="title" [columns]="columns"
+                  [data]="articleList">
+  </app-data-table>
 </mat-card>
+
