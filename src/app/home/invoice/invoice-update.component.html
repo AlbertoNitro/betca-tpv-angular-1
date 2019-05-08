@@ -2,7 +2,7 @@
   <mat-card-title>Search</mat-card-title>
   <form [formGroup]="invoiceUpdateForm">
 <mat-form-field>
-  <input matInput placeholder="Mobile" type="text" formControlName="mobile" formGroupName="mobile"
+  <input matInput placeholder="Mobile" type="text" [(ngModel)]= "mobile" formControlName="mobile" formGroupName="mobile"
          cdkFocusInitial>
 </mat-form-field>
     <mat-form-field>
