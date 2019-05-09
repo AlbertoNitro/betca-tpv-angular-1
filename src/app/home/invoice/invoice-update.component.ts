@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ArticleDetailModel } from '../shared/article-detail-model';
 import { InvoiceUpdateModel } from '../shared/invoice-update.model';
+import {InvoiceUpdateService} from './invoice-update.service';
 
 @Component({
   selector: 'app-invoice-update',
@@ -12,12 +13,12 @@ export class InvoiceUpdateComponent implements OnInit {
   invoiceUpdateForm: FormGroup;
   myDate: Date;
   myDateTo: Date;
-  mobile: number;
+  mobile: string;
   data: InvoiceUpdateModel[];
   articleList: ArticleDetailModel[];
   title = 'Invoice Update';
   columns = ['code', 'description', 'retailPrice', 'stock'];
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder , private invoiceUpdateService: InvoiceUpdateService) {
   }
 
   ngOnInit() {
@@ -39,14 +40,12 @@ export class InvoiceUpdateComponent implements OnInit {
     const dateTo = yyTo.toString() + (mmTo < 10 ? '0' + mmTo.toString() : mmTo.toString()) + (ddTo < 10 ? '0' +
       ddTo.toString() : ddTo.toString());
     console.log('Mobile: ' + this.mobile + 'DateFrom ' + dateFrom + 'DateTo ' + dateTo);
-    /*
-    this.invoiceUpdateService.getList(this.mobile, dateFrom, dateTo).subscribe(
+    this.invoiceUpdateService.getInvoices(this.mobile, dateFrom, dateTo).subscribe(
       list =>  {
         this.data = list;
+        console.log(list);
       }
     );
-     */
-
   }
   resetMobile() {
     this.invoiceUpdateForm.reset();

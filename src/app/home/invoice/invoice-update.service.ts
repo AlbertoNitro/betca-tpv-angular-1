@@ -8,13 +8,14 @@ import {ApiEndpoint} from '../shared/api-endpoint.model';
 export class InvoiceUpdateService {
   constructor(private httpService: HttpService) {
   }
-  getInvoices(mobile: string, dateFrom: string, dateTo: string): Observable<InvoiceUpdateModel> {
+  getInvoices(mobile: string, dateFrom: string, dateTo: string): Observable<InvoiceUpdateModel[]> {
     if (mobile === '' && dateFrom !== '' && dateTo !== '') {
       return this.httpService.get(ApiEndpoint.INVOICEUPDATE + '/' + dateFrom + '/' + dateTo);
     } else if (mobile !== '' && dateFrom === '' &&  dateTo === '') {
       return this.httpService.get(ApiEndpoint.INVOICEUPDATE + '/' + mobile );
     } else if (mobile !== '' && dateFrom !== '' && dateTo !== '') {
-      return this.httpService.get(ApiEndpoint.INVOICEUPDATE + '/' + mobile + '/' + dateFrom + '/' + dateTo);
+   //   return this.httpService.get(ApiEndpoint.INVOICEUPDATE + '/' + mobile + '/' + dateFrom + '/' + dateTo);
+        return this.httpService.get(ApiEndpoint.INVOICEUPDATE);
     }
   }
 }
