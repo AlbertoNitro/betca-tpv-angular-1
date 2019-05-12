@@ -30,6 +30,7 @@ import {OffersCreateDialogComponent} from './home/offers/offers-create-dialog.co
 import {OffersDetailsDialogComponent} from './home/offers/offers-details-dialog.component';
 import {OperatorManagerComponent} from './home/operator-manager/operator-manager.component';
 import {StatisticComponent} from './home/stadistics/statistic.component';
+import {StockManagerComponent} from './home/stock-manager/stock-manager.component';
 import {StockPredictionComponent} from './home/stock-prediction/stock-prediction.component';
 import {RolesDialogComponent} from './home/users/roles-dialog.component';
 import {InvoiceUpdateComponent} from './home/invoice/invoice-update.component';
@@ -64,6 +65,7 @@ const routes: Routes = [
       {path: OperatorManagerComponent.URL, component: OperatorManagerComponent},
       {path: ProvidersComponent.URL, component: ProvidersComponent},
       {path: StatisticComponent.URL, component: StatisticComponent},
+      {path: StockManagerComponent.URL, component: StockManagerComponent},
       {path: StockPredictionComponent.URL, component: StockPredictionComponent},
       {path: OffersComponent.URL, component: OffersComponent},
       {path: TicketsComponent.URL, component: TicketsComponent},
@@ -77,7 +79,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  declarations: [StockManagerComponent]
 })
 export class AppRoutingModule {
   static COMPONENTS = [
@@ -100,6 +103,7 @@ export class AppRoutingModule {
     ProviderSelectComponent,
     ShoppingCartComponent,
     StatisticComponent,
+    StockManagerComponent,
     StockPredictionComponent,
     TicketsComponent,
     OrderComponent,
