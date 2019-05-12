@@ -28,6 +28,7 @@ import {ModalComponent} from './home/order/modal/modal.component';
 import {TicketsService} from './home/tickets/tickets.service';
 import {ArticleFamilyViewService} from './home/cashier-opened/articles-family/articles-families-view.service';
 import {RgpdService} from './home/rgpd/rgpd.service';
+import {InvoiceUpdateService} from './home/invoice/invoice-update.service';
 
 @NgModule({
   imports: [
@@ -59,6 +60,7 @@ import {RgpdService} from './home/rgpd/rgpd.service';
     CashierClosureService,
     CashierService,
     CashMovementService,
+    InvoiceUpdateService,
     ShoppingCartService,
     StatisticsService,
     UserService,

@@ -7,12 +7,11 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 
 })
 export class DetailsDialogComponent {
-  
   object: any;
   title: string;
   properties: string[];
 
-  constructor(@Inject(MAT_DIALOG_DATA) data: any){
+  constructor(@Inject(MAT_DIALOG_DATA) data: any) {
     this.title = data.title;
     this.properties = data.properties;
     this.object = data.object;

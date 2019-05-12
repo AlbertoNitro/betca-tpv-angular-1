@@ -63,6 +63,7 @@ const routes: Routes = [
       {path: CashierClosedComponent.URL, component: CashierClosedComponent},
       {path: CashierOpenedComponent.URL, component: CashierOpenedComponent},
       {path: OperatorManagerComponent.URL, component: OperatorManagerComponent},
+      {path: InvoiceUpdateComponent.URL, component: InvoiceUpdateComponent},
       {path: ProvidersComponent.URL, component: ProvidersComponent},
       {path: StatisticComponent.URL, component: StatisticComponent},
       {path: StockManagerComponent.URL, component: StockManagerComponent},

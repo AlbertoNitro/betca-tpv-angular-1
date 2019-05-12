@@ -29,12 +29,11 @@ import {RGPDComponent} from './rgpd/rgpd.component';
 import {VouchersComponent} from './vouchers/vouchers.component';
 import {AlarmComponent} from './alarms/alarm.component';
 import {OperatorManagerService} from './operator-manager/operator-manager.service';
-
+import {InvoiceUpdateComponent} from './invoice/invoice-update.component';
 
 @Component({
   templateUrl: 'home.component.html',
   styleUrls: ['home.component.css'],
-
 })
 export class HomeComponent {
   static URL = 'home';
@@ -195,5 +194,7 @@ export class HomeComponent {
   rgpd() {
     this.router.navigate([HomeComponent.URL, RGPDComponent.URL]);
   }
-
+  invoiceUpdate() {
+    this.router.navigate([HomeComponent.URL, InvoiceUpdateComponent.URL]);
+  }
 }
