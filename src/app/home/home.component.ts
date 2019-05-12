@@ -20,6 +20,7 @@ import {ArticlesFamiliesCRUDComponent} from './articles-families/articles-famili
 import {FamilySizesCreationComponent} from './cashier-opened/articles-family/family-sizes-creation.component';
 import {OffersComponent} from './offers/offers.component';
 import {StatisticComponent} from './stadistics/statistic.component';
+import {StockManagerComponent} from './stock-manager/stock-manager.component';
 import {StockPredictionComponent} from './stock-prediction/stock-prediction.component';
 import {TicketsComponent} from './tickets/tickets.component';
 import {OrderComponent} from './order/order.component';
@@ -184,6 +185,7 @@ export class HomeComponent {
   }
 
   stockManager() {
+    this.router.navigate([HomeComponent.URL, StockManagerComponent.URL]);
   }
 
   stockPrediction() {
