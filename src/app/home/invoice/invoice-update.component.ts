@@ -17,7 +17,7 @@ export class InvoiceUpdateComponent implements OnInit {
   data: InvoiceUpdateModel[];
   articleList: ArticleDetailModel[];
   title = 'Invoice Update';
-  columns = ['code', 'description', 'retailPrice', 'stock'];
+  columns = ['id', 'creationDate', 'baseTax', 'tax'];
   constructor(private formBuilder: FormBuilder , private invoiceUpdateService: InvoiceUpdateService) {
   }
 
@@ -30,15 +30,19 @@ export class InvoiceUpdateComponent implements OnInit {
     );
   }
   searchMobile() {
-    const dd = this.myDate.getDate();
-    const mm = this.myDate.getMonth() + 1;
-    const yy =  this.myDate.getFullYear();
-    const dateFrom = yy.toString() + (mm < 10 ? '0' + mm.toString() : mm.toString()) + (dd < 10 ? '0' + dd.toString() : dd.toString()) ;
-    const ddTo = this.myDateTo.getDate();
-    const mmTo = this.myDateTo.getMonth() + 1;
-    const yyTo =  this.myDateTo.getFullYear();
-    const dateTo = yyTo.toString() + (mmTo < 10 ? '0' + mmTo.toString() : mmTo.toString()) + (ddTo < 10 ? '0' +
-      ddTo.toString() : ddTo.toString());
+    let dateFrom = '';
+    let dateTo = '';
+    if (this.myDate !== undefined) {
+      const dd = this.myDate.getDate();
+      const mm = this.myDate.getMonth() + 1;
+      const yy = this.myDate.getFullYear();
+      dateFrom = yy.toString() + (mm < 10 ? '0' + mm.toString() : mm.toString()) + (dd < 10 ? '0' + dd.toString() : dd.toString());
+      const ddTo = this.myDateTo.getDate();
+      const mmTo = this.myDateTo.getMonth() + 1;
+      const yyTo = this.myDateTo.getFullYear();
+      dateTo = yyTo.toString() + (mmTo < 10 ? '0' + mmTo.toString() : mmTo.toString()) + (ddTo < 10 ? '0' +
+        ddTo.toString() : ddTo.toString());
+    }
     console.log('Mobile: ' + this.mobile + 'DateFrom ' + dateFrom + 'DateTo ' + dateTo);
     this.invoiceUpdateService.getInvoices(this.mobile, dateFrom, dateTo).subscribe(
       list =>  {
