@@ -1,21 +1,3 @@
-<mat-card>
-  <mat-card-title>
-    Search
-  </mat-card-title>
-  <form [formGroup]="stockManagerForm">
-    <mat-card-content>
-      <mat-form-field>
-        <input matInput placeholder="Minimum" type="number" formControlName="minimum" cdkFocusInitial>
-      </mat-form-field>
-      <button type="submit" mat-mini-fab color="primary" (click)="searchStockMin()"
-              [disabled]="!stockManagerForm.valid">
-        <mat-icon>search</mat-icon>
-      </button>
-      <button (click)="resetSearchStock()" color="primary" mat-mini-fab>
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-card-content>
-  </form>
-</mat-card>
-<app-data-table [title]="listTitle" [columns]="columns" [data]="articleList">
-</app-data-table>
+<p>
+  stock-manager works!
+</p>
