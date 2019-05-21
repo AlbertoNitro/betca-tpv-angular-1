@@ -1,0 +1,27 @@
+<h3 mat-dialog-title>{{mode}} Order</h3>
+
+<mat-dialog-content>
+
+  <mat-form-field>
+    <mat-label>Select a provider</mat-label>
+    <mat-select placeholder="State" (selectionChange)="getArticlesByProvider($event.value)">
+      <mat-option *ngFor="let provee of orderProvider" [value]="provee.id">
+        {{ provee.company }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Select article</mat-label>
+    <mat-select placeholder="State" (selectionChange)="saveArtcileSelect($event.value)">
+      <mat-option *ngFor="let article of orderArticle" [value]="article.code">
+        {{ article.description}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close (click)="onclick()">Submit</button>
+</mat-dialog-actions>

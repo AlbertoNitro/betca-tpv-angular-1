@@ -5,6 +5,8 @@ import {HttpService} from '../../core/http.service';
 import {ApiEndpoint} from '../shared/api-endpoint.model';
 import {Order} from './order.model';
 import {OrderSearch} from '../order/order-search.model';
+import {Provider} from '../providers/provider.model';
+import {OrderArticle} from './order-article.model';
 
 @Injectable()
 export class OrderService {
@@ -18,5 +20,25 @@ export class OrderService {
 
   readSearch(order: OrderSearch): Observable<Order[]> {
     return this.httpService.post(ApiEndpoint.ORDERS + ApiEndpoint.SEARCH, order);
+  }
+
+  read(id: string): Observable<Order> {
+    return this.httpService.get(ApiEndpoint.ORDERS + '\\' + id);
+  }
+
+  create(order: Order): Observable<Provider> {
+    return this.httpService.post(ApiEndpoint.ORDERS, order);
+  }
+
+  update(order: Order): Observable<Order> {
+    return this.httpService.put(ApiEndpoint.ORDERS + '\\' + order.descriptionOrders, order);
+  }
+
+  readAllActives(): Observable<Provider[]> {
+    return this.httpService.get(ApiEndpoint.PROVIDERS + ApiEndpoint.ACTIVES);
+  }
+
+  readArticlesByProvider(id: string): Observable<OrderArticle[]> {
+    return this.httpService.post(ApiEndpoint.ORDERS + ApiEndpoint.PROVIDER, id);
   }
 }
