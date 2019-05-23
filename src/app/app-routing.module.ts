@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AdvancedSearchComponent} from './home/cashier-opened/advanced-search/advanced-search.component';
+import {AlarmComponent} from './home/alarms/alarm.component';
 import {ArticlesComponent} from './home/articles/articles.component';
 import {FamilySizesCreationComponent} from './home/cashier-opened/articles-family/family-sizes-creation.component';
 import {ArticlesFamilyViewComponent} from './home/cashier-opened/articles-family/articles-family-view.component';
@@ -11,6 +12,7 @@ import {CashMovementDialogComponent} from './home/cashier-opened/shared/cash-mov
 import {HomeComponent} from './home/home.component';
 import {ShoppingCartComponent} from './home/cashier-opened/shopping-cart/shopping-cart.component';
 import {UsersComponent} from './home/users/users.component';
+import {AlarmCreateUpdateDialogComponent} from './home/alarms/alarm-create-update-dialog/alarm-create-update-dialog.component';
 import {ArticleCreateUpdateDialogComponent} from './home/articles/article-create-update-dialog/article-create-update-dialog.component';
 import {ArticleQuickCreationDialogComponent} from './home/cashier-opened/shopping-cart/article-quick-creation-dialog.component';
 import {CashierClosureDialogComponent} from './home/cashier-opened/cashier/cashier-closure-dialog.component';
@@ -28,9 +30,11 @@ import {OffersCreateDialogComponent} from './home/offers/offers-create-dialog.co
 import {OffersDetailsDialogComponent} from './home/offers/offers-details-dialog.component';
 import {OperatorManagerComponent} from './home/operator-manager/operator-manager.component';
 import {StatisticComponent} from './home/stadistics/statistic.component';
+import {StockManagerComponent} from './home/stock-manager/stock-manager.component';
 import {StockPredictionComponent} from './home/stock-prediction/stock-prediction.component';
 import {RolesDialogComponent} from './home/users/roles-dialog.component';
 import {InvoiceUpdateComponent} from './home/invoice/invoice-update.component';
+import {AlarmsQueryComponent} from './home/alarms/alarms-query-component/alarms-query-component';
 import {ArticlesQueryComponent} from './home/shared/articles-query.component';
 import {VouchersUseDialogComponent} from './home/vouchers/vouchersUse-dialog.component';
 import {TicketsComponent} from './home/tickets/tickets.component';
@@ -53,14 +57,17 @@ const routes: Routes = [
   {
     path: HomeComponent.URL, component: HomeComponent,
     children: [
+      {path: AlarmComponent.URL, component: AlarmComponent},
       {path: ArticlesComponent.URL, component: ArticlesComponent},
       {path: ArticlesFamiliesCRUDComponent.URL, component: ArticlesFamiliesCRUDComponent},
       {path: BudgetsComponent.URL, component: BudgetsComponent},
       {path: CashierClosedComponent.URL, component: CashierClosedComponent},
       {path: CashierOpenedComponent.URL, component: CashierOpenedComponent},
       {path: OperatorManagerComponent.URL, component: OperatorManagerComponent},
+      {path: InvoiceUpdateComponent.URL, component: InvoiceUpdateComponent},
       {path: ProvidersComponent.URL, component: ProvidersComponent},
       {path: StatisticComponent.URL, component: StatisticComponent},
+      {path: StockManagerComponent.URL, component: StockManagerComponent},
       {path: StockPredictionComponent.URL, component: StockPredictionComponent},
       {path: OffersComponent.URL, component: OffersComponent},
       {path: TicketsComponent.URL, component: TicketsComponent},
@@ -79,6 +86,8 @@ const routes: Routes = [
 export class AppRoutingModule {
   static COMPONENTS = [
     AdvancedSearchComponent,
+    AlarmComponent,
+    AlarmsQueryComponent,
     ArticlesComponent,
     ArticlesFamiliesCRUDComponent,
     ArticlesFamilyViewComponent,
@@ -95,6 +104,7 @@ export class AppRoutingModule {
     ProviderSelectComponent,
     ShoppingCartComponent,
     StatisticComponent,
+    StockManagerComponent,
     StockPredictionComponent,
     TicketsComponent,
     OrderComponent,
@@ -106,6 +116,7 @@ export class AppRoutingModule {
   ];
 
   static DIALOGS = [
+    AlarmCreateUpdateDialogComponent,
     ArticleCreateUpdateDialogComponent,
     FamilySizesCreationComponent,
     ArticlesFamiliesAttachDialogComponent,

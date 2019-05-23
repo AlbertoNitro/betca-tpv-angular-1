@@ -26,7 +26,7 @@ export class OrderService {
     return this.httpService.get(ApiEndpoint.ORDERS + '\\' + id);
   }
 
-  create(order: Order): Observable<Provider> {
+  create(order: Order): Observable<Order> {
     return this.httpService.post(ApiEndpoint.ORDERS, order);
   }
 
@@ -40,5 +40,9 @@ export class OrderService {
 
   readArticlesByProvider(id: string): Observable<OrderArticle[]> {
     return this.httpService.post(ApiEndpoint.ORDERS + ApiEndpoint.PROVIDER, id);
+  }
+
+  closeOrder(order: Order[]): Observable<Order[]> {
+    return this.httpService.post(ApiEndpoint.ORDERS + ApiEndpoint.CLOSE, order);
   }
 }

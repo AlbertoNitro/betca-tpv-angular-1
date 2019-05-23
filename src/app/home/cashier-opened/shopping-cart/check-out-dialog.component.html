@@ -34,6 +34,15 @@
       <mat-icon color="warn">local_offer</mat-icon>
     </button>
   </mat-form-field>
+
+  <mat-checkbox [(ngModel)]="requestedGiftTicket">
+    <span> Generate Gift Ticket </span>
+  </mat-checkbox>
+
+<mat-form-field *ngIf= "requestedGiftTicket">
+    <input matInput placeholder="Leave a Message" type="text" [(ngModel)]="ticketCreation.giftNote">
+</mat-form-field>
+
   <mat-checkbox [(ngModel)]="requestedInvoice" [disabled]="invalidInvoice()">
     <span> Create Invoice ({{ticketCreation.userMobile}})</span>
   </mat-checkbox>

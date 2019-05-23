@@ -21,6 +21,22 @@
   color: cornflowerblue;
   font-style: italic;
   margin-left: 5px;
+  cursor: pointer;
 }
 
+.path_stepper:before{
+  content: '>';
+  color: #000;
+}
 
+.typeARTICLE{
+  border-color: cornflowerblue;
+}
+
+.typeARTICLES{
+  border-color: darkblue;
+}
+
+.typeSIZES{
+  border-color: coral;
+}

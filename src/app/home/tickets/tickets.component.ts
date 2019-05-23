@@ -7,7 +7,8 @@ import {Ticket} from './models/ticket.model';
 import {TicketsService} from './tickets.service';
 import {TicketQueryInput} from './models/ticket-query-input.model';
 import {TicketQueryOutput} from './models/ticket-query-output.model';
-import {DetailsDialogComponent} from '../../core/details-dialog.component';
+import {VoucherMin} from '../shared/voucher-min.model';
+import {VoucherService} from '../shared/voucher.service';
 
 @Component({
   selector: 'app-tickets',
@@ -16,21 +17,6 @@ import {DetailsDialogComponent} from '../../core/details-dialog.component';
 })
 
 export class TicketsComponent {
-
-  constructor(private ticketsService: TicketsService, private dialog: MatDialog, private snackBar: MatSnackBar) {
-    this.isTicketFound = false;
-    this.hasAdvancedQueryResults = false;
-    this.ticketCode = '0';
-    this.ticketTotal = 0;
-    this.initialShoppingStates = [];
-    this.matSelectStates = [
-      {value: ShoppingState.NOT_COMMITTED, viewValue: ShoppingState.NOT_COMMITTED},
-      {value: ShoppingState.IN_STOCK, viewValue: ShoppingState.IN_STOCK},
-      {value: ShoppingState.SENDING, viewValue: ShoppingState.SENDING},
-      {value: ShoppingState.COMMITTED, viewValue: ShoppingState.COMMITTED}
-    ];
-    this.customizedMatSelectStates = this.matSelectStates;
-  }
 
   static URL = 'tickets';
   AdvancedQuery = '/query';
@@ -43,6 +29,7 @@ export class TicketsComponent {
   advancedTicketQueryOrderIdPending = false;
   hasAdvancedQueryResults: boolean;
   isTicketFound: boolean;
+  isGiftTicketExpired: boolean;
   ticketCode: string;
   ticketTotal: number;
   matSelectStates: GenericMatSelect[];
@@ -52,6 +39,31 @@ export class TicketsComponent {
   displayedColumns = ['id', 'description', 'retailPrice', 'amount', 'discount', 'totalPrice', 'shoppingState'];
   displayedColumnsQuery: string[] = ['id', 'creationDate', 'total', 'details'];
   initialShoppingStates: string[];
+  isShoppingStateShown: boolean;
+  voucher: VoucherMin = { value: null};
+
+  constructor(
+    private ticketsService: TicketsService,
+    private dialog: MatDialog,
+    private voucherService: VoucherService,
+    private snackBar: MatSnackBar) {
+
+    this.isTicketFound = false;
+    this.isGiftTicketExpired = false;
+    this.hasAdvancedQueryResults = false;
+    this.ticketCode = '0';
+    this.ticketTotal = 0;
+    this.initialShoppingStates = [];
+    this.matSelectStates = [
+      {value: ShoppingState.NOT_COMMITTED, viewValue: ShoppingState.NOT_COMMITTED},
+      {value: ShoppingState.IN_STOCK, viewValue: ShoppingState.IN_STOCK},
+      {value: ShoppingState.SENDING, viewValue: ShoppingState.SENDING},
+      {value: ShoppingState.COMMITTED, viewValue: ShoppingState.COMMITTED}
+    ];
+    this.customizedMatSelectStates = this.matSelectStates;
+    this.isShoppingStateShown = false;
+    this.voucher.value = 0;
+  }
 
   static updateTotal(shoppingTicket: ShoppingTicket): void {
     const value = shoppingTicket.retailPrice * shoppingTicket.amount * (1 - shoppingTicket.discount / 100);
@@ -96,9 +108,9 @@ export class TicketsComponent {
       this.ticket = ticket;
       this.fillData(code);
       },
-      error => {
-      console.log(error);
+      () => {
       this.isTicketFound = false;
+      this.isGiftTicketExpired = false;
       });
   }
 
@@ -109,12 +121,16 @@ export class TicketsComponent {
     this.ticketCode = code;
     this.dataSource = new MatTableDataSource<ShoppingTicket>(this.ticket.shoppingList);
     this.isTicketFound = true;
+    this.isGiftTicketExpired = this.ticket.isGiftTicketExpired;
     this.hasAdvancedQueryResults = false;
+    this.voucher.value = 0;
+    this.ticketTotal = 0;
     this.synchronizeTicketTotal();
   }
 
   reset() {
-    this.isTicketFound = false;
+    this.isShoppingStateShown = false;
+    this.ticketTotal = 0;
     this.searchTicketById(this.ticketCode);
   }
 
@@ -133,15 +149,19 @@ export class TicketsComponent {
     const isValid = this.isShoppingStatesValid();
     if (isValid) {
       this.ticketsService.updateTicket(this.ticketCode, this.ticket).subscribe(() => {
-        this.snackBar.open('The ticket was updated. Wait to print it.', 'Success', {
-          duration: 5000
-        });
         this.isTicketFound = false;
-        //  TODO: Create Voucher;
+        if (this.voucher.value !== 0) {
+          this.voucherService.create(this.voucher).subscribe();
+        }
+        setTimeout(() => {
+          this.snackBar.open('The ticket was updated. Wait to print it.', 'Success', {
+            duration: 3500,
+          });
+        }, 2000);
       });
     } else {
       this.snackBar.open('States are not valid. Try again', 'Error', {
-        duration: 5000
+        duration: 3000
       });
     }
   }
@@ -159,11 +179,23 @@ export class TicketsComponent {
     for (const shopping of this.ticket.shoppingList) {
       total = total + shopping.totalPrice;
     }
-    this.ticketTotal = Math.round(total * 100) / 100;
+    const updatedRoundedTotal = Math.round(total * 100) / 100;
+    if (this.ticketTotal !== 0) {
+     this.voucher.value += this.ticketTotal - updatedRoundedTotal;
+    }
+    this.ticketTotal = updatedRoundedTotal;
   }
 
-  initializeCustomizedMatSelectStates(state) {
-   this.customizedMatSelectStates = this.choosePossibleStates(state);
+  showShoppingStates() {
+    this.isShoppingStateShown = true;
+  }
+
+  chooseCustomizedMatSelectStates(state) {
+    if (this.isShoppingStateShown) {
+      return this.choosePossibleStates(state);
+    } else {
+      return this.customizedMatSelectStates;
+    }
   }
 
   manageMatSelectOptions (actualState, shoppingTicket) {
@@ -190,6 +222,10 @@ export class TicketsComponent {
   advancedTicketQueryOrderId(path: string, ticketQueryInput: TicketQueryInput) {
     ticketQueryInput.pending = this.advancedTicketQueryOrderIdPending;
     this.advancedTicketQuery(path, ticketQueryInput);
+  }
+
+  printGiftTicketById(){
+    this.ticketsService.printGiftTicket(this.ticketCode).subscribe(() => {});
   }
 
   resetAdvancedSearch() {

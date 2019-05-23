@@ -14,7 +14,7 @@ import {OrderArticle} from './order-article.model';
 export class OrderSaveDialogComponent implements OnInit {
 
   mode: string;
-  order: Order = {};
+  order: Order =  {};
   orderProvider: OrderProvider[];
   orderArticle: OrderArticle[];
 

@@ -6,6 +6,7 @@ import {MatDialog} from '@angular/material';
 import {OrderSearch} from './order-search.model';
 import {DetailsDialogComponent} from '../../core/details-dialog.component';
 import {OrderSaveDialogComponent} from './order-save-dialog.component';
+import {ModalComponent} from './modal/modal.component';
 
 @Component({
   selector: 'app-order',
@@ -40,7 +41,7 @@ export class OrderComponent {
   }
 
   resetSearch() {
-    this.orderSearch = {descriptionOrders: '', descriptionArticles: '', onlyClosingDate: false};
+    this.orderSearch = {descriptionOrders: '', descriptionArticles: '' , onlyClosingDate: false };
   }
 
   create() {
@@ -75,5 +76,16 @@ export class OrderComponent {
 
   delete(user: Order) {
     // TODO
+  }
+
+  closeOrderModal($event): void {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '700px',
+      data: $event
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.closeOrderModal = result;
+    });
   }
 }

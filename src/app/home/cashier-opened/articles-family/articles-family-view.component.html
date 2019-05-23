@@ -1,10 +1,16 @@
 <h1>Articles family View</h1>
-<a class="path_stepper" (click)="readFamilyArticlesList(familyInfo)" *ngFor="let familyInfo of familyTypes">
+<a class="path_stepper" (click)="readFamilyArticlesList(familyInfo)" *ngFor="let familyInfo of navigationFamilyTypes">
   {{familyInfo}}
 </a>
 <div class="align-cards">
-  <mat-card  class="element-articles-family-card family-article-card"
-             *ngFor="let articleElement of articlesFamilyList" (click)="handleFamilyTypeArticlesFamily(articleElement.familyType, articleElement)">
+  <mat-card
+    [class.typeARTICLE]="articleElement.familyType == 'ARTICLE'"
+    [class.typeARTICLES]="articleElement.familyType == 'ARTICLES'"
+    [class.typeSIZES]="articleElement.familyType == 'SIZES'"
+    class="element-articles-family-card family-article-card"
+
+    *ngFor="let articleElement of articlesFamilyList"
+    (click)="handleFamilyTypeArticlesFamily(articleElement.familyType, articleElement)">
     <mat-card-title *ngIf="articleElement.code">{{articleElement.code}}</mat-card-title>
     <div *ngIf="articleElement.description">{{articleElement.description}}</div>
     <div *ngIf="articleElement.reference">{{articleElement.reference}}</div>

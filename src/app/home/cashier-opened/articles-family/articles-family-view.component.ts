@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {ArticleFamilyViewService} from './articles-families-view.service';
 import {ArticleFamilyViewElement} from './article-family-view-element.model';
 import {ArticlesFamilyViewSizesDialogComponent} from './articles-family-view-dialog/articles-family-view-sizes-dialog.component';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatDialogConfig} from '@angular/material';
 import {ShoppingCartService} from '../shopping-cart/shopping-cart.service';
 
 @Component({
@@ -16,70 +16,76 @@ export class ArticlesFamilyViewComponent {
   articlesFamilyList: ArticleFamilyViewElement[] = [];
   ArticlesFamilyViewDefaultComposite = 'root';
 
-  familyTypes: string[] = [];
+  navigationFamilyTypes: string[] = [];
+  familyArticleSizesStock: ArticleFamilyViewElement[] = [];
 
   constructor(private articlesFamilyViewService: ArticleFamilyViewService, private dialog: MatDialog, private shoppingCartService: ShoppingCartService) {
-    this.familyTypes.push(this.ArticlesFamilyViewDefaultComposite);
-    this.articlesFamilyViewService.readFamilyCompositeRoot(this.ArticlesFamilyViewDefaultComposite)
+    this.navigationFamilyTypes.push(this.ArticlesFamilyViewDefaultComposite);
+    this.articlesFamilyViewService.readFamilyCompositeByDesc(this.ArticlesFamilyViewDefaultComposite)
       .subscribe(
         data => {
           this.articlesFamilyList = data;
-          console.log(data);
         }
       );
   }
 
-  showSizes() {
-    this.dialog.open(ArticlesFamilyViewSizesDialogComponent);
+  showSizes(articleInfoSizes: ArticleFamilyViewElement[]) {
+    const infoSizes = [];
+    let dialogConfig: MatDialogConfig;
+    articleInfoSizes.forEach(
+      e => {
+        infoSizes.push({ code: e.code, stock: e.stock, size: e.size });
+      }
+    );
+    dialogConfig = {data: infoSizes};
+    this.dialog.open(ArticlesFamilyViewSizesDialogComponent, dialogConfig);
   }
 
   addArticleShoppingCart(code: string) {
-    console.log('my code + ' + code);
     return this.shoppingCartService.add(code).subscribe((data) => {
-    }
+      }
     );
   }
 
   readFamilyArticlesList(description: string) {
-    this.familyTypes.push(description);
-    console.log(description);
-    this.articlesFamilyViewService.readFamilyCompositeRoot(description)
+    if (!this.navigationFamilyTypes.find(e => e === description)) {
+      this.navigationFamilyTypes.push(description);
+    }
+    this.updateNavigationFamilyTypes(description);
+    this.articlesFamilyViewService.readFamilyCompositeByDesc(description)
       .subscribe(
         data => {
-          this.articlesFamilyList = data;
-          console.log(data);
+          if (data.find(e => e.size !== null && e.stock !== null)) {
+            this.familyArticleSizesStock = data;
+            this.showSizes(this.familyArticleSizesStock);
+          } else {
+            this.articlesFamilyList = data;
+          }
         }
       );
   }
 
+  updateNavigationFamilyTypes(description: string) {
+    const familyNames: string[] = this.navigationFamilyTypes;
 
-  readFamilySizesList(reference: string) {
-    console.log('look for all articles sizes + my ref: ' + reference);
-  }
-
-
-  handleFamilyTypeArticlesFamily(familyType: string, articleItem: ArticleFamilyViewElement) {
-    let itemProperty;
-    switch (familyType) {
-      case 'ARTICLE': {
-        itemProperty = articleItem.code;
-        this.addArticleShoppingCart(itemProperty);
-        break;
-      }
-      case 'ARTICLES': {
-        this.readFamilyArticlesList(articleItem.description);
-        break;
-      }
-      case 'SIZES': {
-        console.log('look all sizes for this article');
-        break;
-      }
-      default: {
-        console.log('No family type obtained');
-        break;
+    for (let i = 0; i < familyNames.length; i++) {
+      if (familyNames[i] ===  description) {
+        this.navigationFamilyTypes = familyNames.slice(0, i + 1);
       }
     }
+  }
 
+  handleFamilyTypeArticlesFamily(familyType: string, articleItem: ArticleFamilyViewElement) {
+    switch (familyType) {
+      case 'ARTICLE': {
+        this.addArticleShoppingCart(articleItem.code);
+        break;
+      }
+      case 'ARTICLES':
+      case 'SIZES':
+        this.readFamilyArticlesList(articleItem.description);
+        break;
+    }
   }
 
 }

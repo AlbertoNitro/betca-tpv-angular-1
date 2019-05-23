@@ -1,4 +1,5 @@
 export class ApiEndpoint {
+  public static INVOICEUPDATE = '/invoice-update';
   public static BUDGETS = '/budgets';
   public static CASHIER_CLOSURES = '/cashier-closures';
   public static CASHIER_CLOSURES_LAST = ApiEndpoint.CASHIER_CLOSURES + '/last';
@@ -11,7 +12,12 @@ export class ApiEndpoint {
   public static ROLES = '/roles';
   public static QUERY = '/query';
   public static PROFILES = '/profiles';
+  public static VALIDATORS = '/validators';
 
+  public static RGPD_AGREEMENT = '/rgpd/agreement';
+  public static RGPD_USER_AGREEMENT = '/rgpd/useragreement';
+
+  public static ALARMS = '/alarms';
   public static ARTICLES = '/articles';
   public static ARTICLES_MINIMUM = ApiEndpoint.ARTICLES + '/minimum';
   public static ARTICLES_FAMILY = '/articles-family';
@@ -19,6 +25,9 @@ export class ApiEndpoint {
   public static ARTICLES_FAMILY_COMPOSITE = '/familydescription';
 
   public static TICKETS = '/tickets';
+
+  public static GIFT_TICKETS = '/tickets/gift';
+
   public static FAMILY_SIZES = '/family-sizes';
 
   public static PROVIDERS = '/providers';
@@ -27,6 +36,7 @@ export class ApiEndpoint {
 
   public static OFFERS = '/offers';
   public static ORDERS = '/orders';
+  public static CLOSE = '/close';
   public static OPERATOR_MANAGER = '/timeclocks';
 
   public static STOCK_PREDICTION = '/stock-prediction';

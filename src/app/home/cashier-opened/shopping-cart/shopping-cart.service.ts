@@ -126,16 +126,25 @@ export class ShoppingCartService {
     );
   }
 
-  createBudget(): void {
-    // TODO: Uncomment this code & delete alone reset
-    /*this.httpService.pdf().post(ApiEndpoint.BUDGETS, this.shoppingCart).pipe(
+  printGiftTicket(): Observable<any> {
+    return this.httpService.pdf().get(ApiEndpoint.GIFT_TICKETS).pipe(map(() => this.reset()));
+  }
+
+  createBudget(): Observable<any> {
+    return this.httpService.pdf().post(ApiEndpoint.BUDGETS, this.shoppingCart).pipe(
       map(() => this.reset())
-    );*/
-    this.reset();
+    );
   }
 
   isEmpty(): boolean {
     return (!this.shoppingCart || this.shoppingCart.length === 0);
+  }
+
+  fill(shoppingCart): void {
+    this.reset();
+    shoppingCart.map((item) => {
+      this.add(item.article.code).subscribe();
+    });
   }
 
   private synchronizeAll() {

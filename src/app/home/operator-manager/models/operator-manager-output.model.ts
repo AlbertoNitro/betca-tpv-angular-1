@@ -1,9 +1,9 @@
 export interface OperatorManagerOutput {
   id: string;
-  dateMs: number;
-  inMs: string;
-  outMs: string;
-  totalHours: number;
+  date: string;
+  in: string;
+  out: string;
+  total: number;
   dni: string;
   username: string;
   mobile: string;

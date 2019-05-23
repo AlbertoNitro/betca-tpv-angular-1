@@ -43,6 +43,10 @@
     <mat-icon>account_circle</mat-icon>
     <span>Users</span>
   </button>
+  <button mat-menu-item >
+    <mat-icon>card_giftcard</mat-icon>
+    <span>Discount</span>
+  </button>
   <button mat-menu-item *ngIf="isAdmin()||isManager()" (click)="statistics()">
     <mat-icon>assessment</mat-icon>
     <span>Statistics</span>
@@ -90,6 +94,10 @@
   <button mat-menu-item (click)="invoices()">
     <mat-icon>receipt</mat-icon>
     <span>Invoices</span>
+  </button>
+  <button mat-menu-item (click)="invoiceUpdate()">
+    <mat-icon>update</mat-icon>
+    <span>Invoices Update</span>
   </button>
   <button mat-menu-item (click)="budgets()">
     <mat-icon>description</mat-icon>
