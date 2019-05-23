@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { ArticleDetailModel } from '../shared/article-detail-model';
 import { InvoiceUpdateModel } from '../shared/invoice-update.model';
 import {InvoiceUpdateService} from './invoice-update.service';
 
@@ -15,9 +14,8 @@ export class InvoiceUpdateComponent implements OnInit {
   myDateTo: Date;
   mobile: string;
   data: InvoiceUpdateModel[];
-  articleList: ArticleDetailModel[];
   title = 'Invoice Update';
-  columns = ['id', 'creationDate', 'baseTax', 'tax'];
+  columns = ['id', 'creationDate', 'base Tax', 'tax', 'amount', 'viwq', 'edit / negative', 'print'];
   constructor(private formBuilder: FormBuilder , private invoiceUpdateService: InvoiceUpdateService) {
   }
 
