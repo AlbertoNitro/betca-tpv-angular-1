@@ -19,6 +19,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {StatisticsService} from './home/stadistics/statistics.service';
+import {StockManagerService} from './home/stock-manager/stock-manager.service';
 import {ProviderService} from './home/providers/provider.service';
 import {OfferService} from './home/offers/offer.service';
 import {OrderService} from './home/order/order.service';
@@ -63,6 +64,7 @@ import {InvoiceUpdateService} from './home/invoice/invoice-update.service';
     InvoiceUpdateService,
     ShoppingCartService,
     StatisticsService,
+    StockManagerService,
     UserService,
     ProviderService,
     TicketsService,
