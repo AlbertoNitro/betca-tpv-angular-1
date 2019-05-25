@@ -18,21 +18,6 @@ export class StockManagerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.stockManagerForm = this.formBuilder.group({
-        minimum: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-      }
-    );
-  }
-
-  searchStockMin() {
-    console.log('stockManagerForm ' + this.stockManagerForm.get('minimum').value);
-    const limit = this.stockManagerForm.get('minimum').value;
-    console.log('limit ' + limit);
-  }
-
-  resetSearchStock() {
-    console.log('reset search Stock');
-    this.stockManagerForm.reset();
   }
 
 }
