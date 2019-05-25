@@ -15,7 +15,7 @@ export class InvoiceUpdateComponent implements OnInit {
   mobile: string;
   data: InvoiceUpdateModel[];
   title = 'Invoice Update';
-  columns = ['id', 'creationDate', 'base Tax', 'tax', 'amount', 'viwq', 'edit / negative', 'print'];
+  columns = ['id', 'creationDate', 'base Tax', 'tax', 'view', 'edit / negative', 'print'];
   constructor(private formBuilder: FormBuilder , private invoiceUpdateService: InvoiceUpdateService) {
   }
 
@@ -27,27 +27,34 @@ export class InvoiceUpdateComponent implements OnInit {
       }
     );
   }
-  searchMobile() {
+  search() {
     let dateFrom = '';
     let dateTo = '';
-    if (this.myDate !== undefined) {
+    if (this.myDate !== undefined && this.myDate !== null) {
       const dd = this.myDate.getDate();
       const mm = this.myDate.getMonth() + 1;
       const yy = this.myDate.getFullYear();
       dateFrom = yy.toString() + (mm < 10 ? '0' + mm.toString() : mm.toString()) + (dd < 10 ? '0' + dd.toString() : dd.toString());
-      const ddTo = this.myDateTo.getDate();
-      const mmTo = this.myDateTo.getMonth() + 1;
-      const yyTo = this.myDateTo.getFullYear();
-      dateTo = yyTo.toString() + (mmTo < 10 ? '0' + mmTo.toString() : mmTo.toString()) + (ddTo < 10 ? '0' +
-        ddTo.toString() : ddTo.toString());
+      if (this.myDateTo !== undefined) {
+        const ddTo = this.myDateTo.getDate();
+        const mmTo = this.myDateTo.getMonth() + 1;
+        const yyTo = this.myDateTo.getFullYear();
+        dateTo = yyTo.toString() + (mmTo < 10 ? '0' + mmTo.toString() : mmTo.toString()) + (ddTo < 10 ? '0' +
+          ddTo.toString() : ddTo.toString());
+      }
     }
     console.log('Mobile: ' + this.mobile + 'DateFrom ' + dateFrom + 'DateTo ' + dateTo);
-    this.invoiceUpdateService.getInvoices(this.mobile, dateFrom, dateTo).subscribe(
-      list =>  {
-        this.data = list;
-        console.log(list);
-      }
-    );
+    if (this.mobile !== '' && dateFrom === '' && dateTo === '') {
+      this.invoiceUpdateService.getInvoicesByMobile(this.mobile);
+    } else if (this.mobile === '' && dateFrom !== '' && dateTo === '') {
+      this.invoiceUpdateService.getInvoicesByAfterDate(dateFrom);
+    } if (this.mobile === '' && dateTo !== '' && dateFrom !== '') {
+      this.invoiceUpdateService.getInvoicesByBetweenDates(dateFrom, dateTo);
+    } else {
+      this.invoiceUpdateService.getInvoicesByMobileAndBetweenDate(this.mobile, dateFrom, dateTo);
+    }
+
+
   }
   resetMobile() {
     this.invoiceUpdateForm.reset();
