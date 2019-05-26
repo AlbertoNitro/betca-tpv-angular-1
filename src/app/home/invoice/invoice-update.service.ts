@@ -3,14 +3,13 @@ import {HttpService} from '../../core/http.service';
 import {Observable} from 'rxjs';
 import {InvoiceUpdateModel} from '../shared/invoice-update.model';
 import {ApiEndpoint} from '../shared/api-endpoint.model';
-import {before} from 'selenium-webdriver/testing';
 
 @Injectable()
 export class InvoiceUpdateService {
   constructor(private httpService: HttpService) {
   }
   getInvoicesByMobile(mobile: string): Observable<InvoiceUpdateModel[]> {
-    return this.httpService.get(ApiEndpoint.INVOICEUPDATE + '/' + mobile);
+    return this.httpService.get(ApiEndpoint.INVOICEUPDATEMOBILE + '/' + mobile);
   }
   getInvoicesByAfterDate(afterDate: string) {
     const dateUntil = new Date();

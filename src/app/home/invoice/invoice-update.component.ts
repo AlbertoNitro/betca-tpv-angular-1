@@ -45,13 +45,29 @@ export class InvoiceUpdateComponent implements OnInit {
     }
     console.log('Mobile: ' + this.mobile + 'DateFrom ' + dateFrom + 'DateTo ' + dateTo);
     if (this.mobile !== '' && dateFrom === '' && dateTo === '') {
-      this.invoiceUpdateService.getInvoicesByMobile(this.mobile);
+      this.invoiceUpdateService.getInvoicesByMobile(this.mobile).subscribe(
+        list => {
+          this.data = list;
+        }
+      );
     } else if (this.mobile === '' && dateFrom !== '' && dateTo === '') {
-      this.invoiceUpdateService.getInvoicesByAfterDate(dateFrom);
-    } if (this.mobile === '' && dateTo !== '' && dateFrom !== '') {
-      this.invoiceUpdateService.getInvoicesByBetweenDates(dateFrom, dateTo);
+      this.invoiceUpdateService.getInvoicesByAfterDate(dateFrom).subscribe(
+        list => {
+          this.data = list;
+        }
+      );
+    } else if (this.mobile === '' && dateTo !== '' && dateFrom !== '') {
+      this.invoiceUpdateService.getInvoicesByBetweenDates(dateFrom, dateTo).subscribe(
+        list => {
+          this.data = list;
+        }
+      );
     } else {
-      this.invoiceUpdateService.getInvoicesByMobileAndBetweenDate(this.mobile, dateFrom, dateTo);
+      this.invoiceUpdateService.getInvoicesByMobileAndBetweenDate(this.mobile, dateFrom, dateTo).subscribe(
+        list => {
+          this.data = list;
+        }
+      );
     }
 
 
