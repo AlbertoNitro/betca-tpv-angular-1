@@ -3,6 +3,7 @@ export interface User {
   username: string;
   email?: string;
   dni?: string;
+  discount?: number ;
   address?: string;
   registrationDate?: string;
   active?: boolean;
