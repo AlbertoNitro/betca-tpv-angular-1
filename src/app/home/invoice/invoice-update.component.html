@@ -23,8 +23,10 @@
     <mat-icon>close</mat-icon>
   </button>
   </form>
-  <app-data-table [title]="title" [columns]="columns"
-                  [data]="data">
-  </app-data-table>
+  <app-crud [title]="title" [columns]="columns"
+                  [data]="data" [createAction]="false"
+                  (create)="create($event.id)" (update)="update($event.id)"
+                  (delete)="delete()" >
+  </app-crud>
 </mat-card>
 
