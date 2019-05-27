@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { InvoiceUpdateModel } from '../shared/invoice-update.model';
 import {InvoiceUpdateService} from './invoice-update.service';
+import {ArticleCreateUpdateDialogComponent} from '../articles/article-create-update-dialog/article-create-update-dialog.component';
+import {MatDialog, MatDialogConfig} from '@angular/material';
+import {CancelYesDialogComponent} from '../../core/cancel-yes-dialog.component';
 
 @Component({
   selector: 'app-invoice-update',
@@ -15,8 +18,10 @@ export class InvoiceUpdateComponent implements OnInit {
   mobile: string;
   data: InvoiceUpdateModel[];
   title = 'Invoice Update';
-  columns = ['id', 'creationDate', 'base Tax', 'tax', 'view', 'edit / negative', 'print'];
-  constructor(private formBuilder: FormBuilder , private invoiceUpdateService: InvoiceUpdateService) {
+  columns = ['id', 'creationDate', 'base Tax', 'tax'];
+  dialogConfig: MatDialogConfig;
+  constructor(private formBuilder: FormBuilder , private invoiceUpdateService: InvoiceUpdateService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -74,5 +79,21 @@ export class InvoiceUpdateComponent implements OnInit {
   }
   resetMobile() {
     this.invoiceUpdateForm.reset();
+  }
+
+  create(id: any) {
+
+  }
+  update(id: any) {
+
+  }
+  delete() {
+    this.dialogConfig = {
+      data: {
+        message: 'The invoice cannot be deleted because it has already been issued.',
+        question: 'Please cancel.'
+      }
+    };
+    this.dialog.open(CancelYesDialogComponent, this.dialogConfig);
   }
 }
