@@ -81,8 +81,8 @@ export class InvoiceUpdateComponent implements OnInit {
     this.invoiceUpdateForm.reset();
   }
 
-  create(id: any) {
-
+  generatePdf(id: any) {
+    this.invoiceUpdateService.generatePdf(id).subscribe();
   }
   update(id: any) {
 

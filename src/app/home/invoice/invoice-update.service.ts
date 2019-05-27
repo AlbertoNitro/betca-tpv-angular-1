@@ -27,4 +27,8 @@ export class InvoiceUpdateService {
       return this.httpService.get(ApiEndpoint.INVOICEUPDATE + '/' + mobile + '/' +
         afterDate + '/' + beforeDate);
     }
+  generatePdf(id: string) {
+      return this.httpService.pdf().get(ApiEndpoint.INVOICEUPDATE + '/pdf/' + id);
+  }
+
 }
