@@ -21,7 +21,7 @@ export class UsersComponent {
   constructor(private userService: UserService, private dialog: MatDialog) {
     this.user = {mobile: null, username: null};
     this.data = null;
-    this.userSearch = {mobile: null, username: null, dni: null, discount: null, address: null, onlyCustomer: true };
+    this.userSearch = {mobile: null, username: null, dni: null, address: null, onlyCustomer: true };
   }
   search() {
     this.userService.readSearch(this.userSearch).subscribe(
@@ -29,7 +29,7 @@ export class UsersComponent {
     );
   }
   resetSearch() {
-    this.userSearch = {mobile: null, username: null, dni: null, discount: null, address: null, onlyCustomer: true };
+    this.userSearch = {mobile: null, username: null, dni: null, address: null, onlyCustomer: true };
     this.user = {mobile: null, username: null};
   }
 
