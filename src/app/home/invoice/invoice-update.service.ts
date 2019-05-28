@@ -28,6 +28,7 @@ export class InvoiceUpdateService {
         afterDate + '/' + beforeDate);
     }
   generatePdf(id: string) {
+    console.log ('String for PDF: ' + id);
       return this.httpService.pdf().get(ApiEndpoint.INVOICEUPDATE + '/pdf/' + id);
   }
 

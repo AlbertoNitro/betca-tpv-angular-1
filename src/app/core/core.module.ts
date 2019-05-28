@@ -19,6 +19,7 @@ import {TokensService} from './tokens.service';
 import {DateComponent} from './date.component';
 import {LoginDialogComponent} from './login-dialog.component';
 import {CancelYesDialogComponent} from './cancel-yes-dialog.component';
+import {SimpleDialogComponent} from '../home/shared/simple-dialog.component';
 import {CrudComponent} from './crud.component';
 import {DetailsDialogComponent} from './details-dialog.component';
 import {DataTableComponent} from './data-table.component';
@@ -38,6 +39,7 @@ import {DataTableComponent} from './data-table.component';
   ],
   declarations: [
     CancelYesDialogComponent,
+    SimpleDialogComponent,
     CrudComponent,
     DataTableComponent,
     DetailsDialogComponent,
@@ -46,6 +48,7 @@ import {DataTableComponent} from './data-table.component';
   ],
   exports: [
     CancelYesDialogComponent,
+    SimpleDialogComponent,
     CrudComponent,
     DataTableComponent,
     DetailsDialogComponent,
@@ -55,6 +58,7 @@ import {DataTableComponent} from './data-table.component';
   ],
   entryComponents: [
     CancelYesDialogComponent,
+    SimpleDialogComponent,
     DetailsDialogComponent,
     LoginDialogComponent
   ],

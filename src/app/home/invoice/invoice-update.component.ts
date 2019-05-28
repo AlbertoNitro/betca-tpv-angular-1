@@ -4,7 +4,7 @@ import { InvoiceUpdateModel } from '../shared/invoice-update.model';
 import {InvoiceUpdateService} from './invoice-update.service';
 import {ArticleCreateUpdateDialogComponent} from '../articles/article-create-update-dialog/article-create-update-dialog.component';
 import {MatDialog, MatDialogConfig} from '@angular/material';
-import {CancelYesDialogComponent} from '../../core/cancel-yes-dialog.component';
+import {SimpleDialogComponent} from '../shared/simple-dialog.component';
 
 @Component({
   selector: 'app-invoice-update',
@@ -18,7 +18,7 @@ export class InvoiceUpdateComponent implements OnInit {
   mobile: string;
   data: InvoiceUpdateModel[];
   title = 'Invoice Update';
-  columns = ['id', 'creationDate', 'base Tax', 'tax'];
+  columns = ['id', 'creationDate', 'baseTax', 'tax'];
   dialogConfig: MatDialogConfig;
   constructor(private formBuilder: FormBuilder , private invoiceUpdateService: InvoiceUpdateService,
               private dialog: MatDialog) {
@@ -94,6 +94,6 @@ export class InvoiceUpdateComponent implements OnInit {
         question: 'Please cancel.'
       }
     };
-    this.dialog.open(CancelYesDialogComponent, this.dialogConfig);
+    this.dialog.open(SimpleDialogComponent, this.dialogConfig);
   }
 }
