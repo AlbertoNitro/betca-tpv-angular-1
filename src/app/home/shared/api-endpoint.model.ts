@@ -22,6 +22,7 @@ export class ApiEndpoint {
   public static ALARMS = '/alarms';
   public static ARTICLES = '/articles';
   public static ARTICLES_MINIMUM = ApiEndpoint.ARTICLES + '/minimum';
+  public static ARTICLES_RESERVATION = ApiEndpoint.ARTICLES + '/reservation';
   public static ARTICLES_FAMILY = '/articles-family';
   public static ARTICLE_FAMILY_CREATE = ApiEndpoint.ARTICLES_FAMILY + '/create';
   public static ARTICLES_FAMILY_COMPOSITE = '/familydescription';
