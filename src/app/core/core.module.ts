@@ -23,6 +23,7 @@ import {SimpleDialogComponent} from '../home/shared/simple-dialog.component';
 import {CrudComponent} from './crud.component';
 import {DetailsDialogComponent} from './details-dialog.component';
 import {DataTableComponent} from './data-table.component';
+import {NegativeInvoiceDialogComponent} from '../home/shared/negative-invoice-dialog.component';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import {DataTableComponent} from './data-table.component';
   declarations: [
     CancelYesDialogComponent,
     SimpleDialogComponent,
+    NegativeInvoiceDialogComponent,
     CrudComponent,
     DataTableComponent,
     DetailsDialogComponent,
@@ -49,6 +51,7 @@ import {DataTableComponent} from './data-table.component';
   exports: [
     CancelYesDialogComponent,
     SimpleDialogComponent,
+    NegativeInvoiceDialogComponent,
     CrudComponent,
     DataTableComponent,
     DetailsDialogComponent,
@@ -59,6 +62,7 @@ import {DataTableComponent} from './data-table.component';
   entryComponents: [
     CancelYesDialogComponent,
     SimpleDialogComponent,
+    NegativeInvoiceDialogComponent,
     DetailsDialogComponent,
     LoginDialogComponent
   ],

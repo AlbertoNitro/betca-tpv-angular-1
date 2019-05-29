@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { InvoiceUpdateModel } from '../shared/invoice-update.model';
 import {InvoiceUpdateService} from './invoice-update.service';
-import {ArticleCreateUpdateDialogComponent} from '../articles/article-create-update-dialog/article-create-update-dialog.component';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {SimpleDialogComponent} from '../shared/simple-dialog.component';
+import {NegativeInvoiceDialogComponent} from '../shared/negative-invoice-dialog.component';
 
 @Component({
   selector: 'app-invoice-update',
@@ -85,9 +85,14 @@ export class InvoiceUpdateComponent implements OnInit {
     this.invoiceUpdateService.generatePdf(id).subscribe();
   }
   update(id: any) {
-
+    this.dialogConfig = {
+      data: {
+        message: 'The invoice cannot be deleted because it has already been issued.',
+      }
+    };
+    this.dialog.open(NegativeInvoiceDialogComponent, this.dialogConfig);
   }
-  delete() {
+  deleteInfo() {
     this.dialogConfig = {
       data: {
         message: 'The invoice cannot be deleted because it has already been issued.',
