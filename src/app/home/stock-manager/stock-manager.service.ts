@@ -19,4 +19,15 @@ export class StockManagerService {
     );
     return result;
   }
+
+  getArticlesReservation(): Observable<ArticleDetailModel[]> {
+    console.log('servicio:');
+    const result = this.httpService.get(ApiEndpoint.ARTICLES_RESERVATION);
+    console.log('total ' + result);
+    console.log('result :' + result.forEach(element => {
+      console.log('elem ' + element);
+    })
+    );
+    return result;
+  }
 }

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormGroup, FormBuilder, FormControl, AbstractControl} from '@angular/forms';
+import {Validators, ValidatorFn} from '@angular/forms';
 import {ArticleDetailModel} from '../shared/article-detail-model';
 import {StockManagerService} from './stock-manager.service';
 
@@ -11,6 +12,7 @@ import {StockManagerService} from './stock-manager.service';
 export class StockManagerComponent implements OnInit {
   static URL = 'stock-manager';
   stockManagerForm: FormGroup;
+  stockManagerReservationForm: FormGroup;
   listTitle = 'Stock manager';
   columns = ['code', 'description', 'retailPrice', 'stock'];
   articleList: ArticleDetailModel[];
@@ -21,6 +23,10 @@ export class StockManagerComponent implements OnInit {
   ngOnInit() {
     this.stockManagerForm = this.formBuilder.group({
         minimum: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      }
+    );
+    this.stockManagerReservationForm = this.formBuilder.group({
+        reservation: ['', [Validators.required, Validators.pattern('^(0)')]],
       }
     );
   }
@@ -39,5 +45,20 @@ export class StockManagerComponent implements OnInit {
   resetSearchStock() {
     console.log('reset search Stock');
     this.stockManagerForm.reset();
+  }
+
+  searchStockReservation() {
+    console.log('stockManagerReservationForm ' + this.stockManagerReservationForm.get('reservation').value);
+    this.stockManagerService.getArticlesReservation().subscribe(
+      articleList => {
+        this.articleList = articleList;
+        console.log('art list ' + this.articleList.length);
+      }
+    );
+  }
+
+  resetSearchStockReservation() {
+    console.log('reset search Stock Reservation');
+    this.stockManagerReservationForm.reset();
   }
 }
