@@ -1,6 +1,7 @@
 export class ApiEndpoint {
-  public static INVOICEUPDATE = '/invoice-update';
+  public static INVOICEUPDATEDATES = '/invoice-update/dates';
   public static INVOICEUPDATEMOBILE = '/invoice-update/mobile';
+  public static INVOICEUPDATEPDF = '/invoice-update/pdf';
   public static BUDGETS = '/budgets';
   public static CASHIER_CLOSURES = '/cashier-closures';
   public static CASHIER_CLOSURES_LAST = ApiEndpoint.CASHIER_CLOSURES + '/last';
