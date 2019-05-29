@@ -18,18 +18,17 @@ export class InvoiceUpdateService {
     const year = dateUntil.getFullYear();
     const beforeDate = year.toString() + (month < 10 ? '0' + month.toString() : month.toString()) + (day < 10 ? '0' +
       day.toString() : day.toString());
-    return this.httpService.get(ApiEndpoint.INVOICEUPDATE + '/' + afterDate + '/' + beforeDate);
+    return this.httpService.get(ApiEndpoint.INVOICEUPDATEDATES + '/' + afterDate + '/' + beforeDate);
   }
   getInvoicesByBetweenDates(afterDate: string, beforeDate: string) {
-      return this.httpService.get(ApiEndpoint.INVOICEUPDATE + '/' + afterDate + '/' + beforeDate);
+      return this.httpService.get(ApiEndpoint.INVOICEUPDATEDATES + '/' + afterDate + '/' + beforeDate);
   }
   getInvoicesByMobileAndBetweenDate(mobile: string, afterDate: string, beforeDate: string) {
-      return this.httpService.get(ApiEndpoint.INVOICEUPDATE + '/' + mobile + '/' +
+      return this.httpService.get(ApiEndpoint.INVOICEUPDATEDATES + '/' + mobile + '/' +
         afterDate + '/' + beforeDate);
     }
-  generatePdf(id: string) {
-    console.log ('String for PDF: ' + id);
-      return this.httpService.pdf().get(ApiEndpoint.INVOICEUPDATE + '/pdf/' + id);
+  generatePdf(id: string): Observable<any> {
+    return this.httpService.pdf().get(ApiEndpoint.INVOICEUPDATEPDF + '/' + id);
   }
 
 }
