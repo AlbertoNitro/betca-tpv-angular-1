@@ -1,6 +1,7 @@
 export class ApiEndpoint {
-  public static INVOICEUPDATE = '/invoice-update';
+  public static INVOICEUPDATEDATES = '/invoice-update/dates';
   public static INVOICEUPDATEMOBILE = '/invoice-update/mobile';
+  public static INVOICEUPDATEPDF = '/invoice-update/pdf';
   public static BUDGETS = '/budgets';
   public static CASHIER_CLOSURES = '/cashier-closures';
   public static CASHIER_CLOSURES_LAST = ApiEndpoint.CASHIER_CLOSURES + '/last';
@@ -21,12 +22,13 @@ export class ApiEndpoint {
   public static ALARMS = '/alarms';
   public static ARTICLES = '/articles';
   public static ARTICLES_MINIMUM = ApiEndpoint.ARTICLES + '/minimum';
+  public static ARTICLES_RESERVATION = ApiEndpoint.ARTICLES + '/reservation';
   public static ARTICLES_FAMILY = '/articles-family';
   public static ARTICLE_FAMILY_CREATE = ApiEndpoint.ARTICLES_FAMILY + '/create';
   public static ARTICLES_FAMILY_COMPOSITE = '/familydescription';
 
   public static TICKETS = '/tickets';
-
+  public static ARTICLES_DATE_SOLD = ApiEndpoint.TICKETS + '/datesold';
   public static GIFT_TICKETS = '/tickets/gift';
 
   public static FAMILY_SIZES = '/family-sizes';

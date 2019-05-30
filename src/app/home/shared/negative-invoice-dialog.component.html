@@ -1,0 +1,29 @@
+<h3 mat-dialog-title>
+  Would you like to generate a Negative Invoice?:
+</h3>
+<div>
+  <p>{{message}}</p>
+</div>
+<div class="example-container">
+<mat-form-field>
+  <textarea cdkTextareaAutosize>{{positiveValue}}
+  </textarea>
+  <input matInput placeholder="New Negative Value"/>
+</mat-form-field>
+<mat-form-field>
+  <p>Total Tax: {{totalTax}}
+  </p>
+</mat-form-field>
+<mat-form-field>
+  <button mat-flat-button color="primary" (click)="look4PosibleTotal()">
+    Set Total
+  </button>
+  &nbsp;
+  <button type="submit" mat-raised-button color="accent" (click)="generateNegativeInvoice()">
+    Generate Negative Invoice
+  </button>
+</mat-form-field>
+</div>
+<mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close cdkFocusInitial color="warn">Cancel</button>
+</mat-dialog-actions>

@@ -25,8 +25,8 @@
   </form>
   <app-crud [title]="title" [columns]="columns"
                   [data]="data" [createAction]="false"
-                  (create)="generatePdf($event.id)" (update)="update($event.id)"
-                  (delete)="delete()" >
+                  (read)="generatePdf($event.id)" (update)="update($event.id)"
+                  (delete)="deleteInfo()" >
   </app-crud>
 </mat-card>
 
