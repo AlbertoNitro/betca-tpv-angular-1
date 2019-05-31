@@ -13,6 +13,7 @@ export class InvoiceUpdateService {
   }
   getInvoicesByAfterDate(afterDate: string) {
     const dateUntil = new Date();
+    dateUntil.setDate( dateUntil.getDate() + 1);
     const day = dateUntil.getDate();
     const month = dateUntil.getMonth() + 1;
     const year = dateUntil.getFullYear();
@@ -24,7 +25,7 @@ export class InvoiceUpdateService {
       return this.httpService.get(ApiEndpoint.INVOICEUPDATEDATES + '/' + afterDate + '/' + beforeDate);
   }
   getInvoicesByMobileAndBetweenDate(mobile: string, afterDate: string, beforeDate: string) {
-      return this.httpService.get(ApiEndpoint.INVOICEUPDATEDATES + '/' + mobile + '/' +
+      return this.httpService.get(ApiEndpoint.INVOICEUPDATEMOBILEDATES + '/' + mobile + '/' +
         afterDate + '/' + beforeDate);
     }
   generatePdf(id: string): Observable<any> {
