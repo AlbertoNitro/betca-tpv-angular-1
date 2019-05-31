@@ -9,7 +9,8 @@
   <p>Maximum positive value to offset: {{positiveValue}}
   </p>
 <mat-form-field appearance="fill">
-  <input matInput type="number" placeholder="New Negative Value" required [(ngModel)]="negativeValue"/>
+  <input matInput type="number" placeholder="New Negative Value" required [(ngModel)]="negativeValue"
+  min="0" max="{{positiveValue}}"/>
 </mat-form-field>
   <p>Total Tax: {{totalTax}}
   </p>
