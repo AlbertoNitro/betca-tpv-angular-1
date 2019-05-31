@@ -4,7 +4,7 @@ import { InvoiceUpdateModel } from '../shared/invoice-update.model';
 import {InvoiceUpdateService} from './invoice-update.service';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {SimpleDialogComponent} from '../shared/simple-dialog.component';
-import {NegativeInvoiceDialogComponent} from '../shared/negative-invoice-dialog.component';
+import {NegativeInvoiceDialogComponent} from './negative-invoice-dialog.component';
 
 @Component({
   selector: 'app-invoice-update',
@@ -91,7 +91,7 @@ export class InvoiceUpdateComponent implements OnInit {
         invoice: this.data.find(x => x.id === id)
       }
     };
-    this.dialog.open(NegativeInvoiceDialogComponent, this.dialogConfig);
+    this.dialog.open(NegativeInvoiceDialogComponent, this.dialogConfig).afterClosed();
   }
   deleteInfo() {
     this.dialogConfig = {
