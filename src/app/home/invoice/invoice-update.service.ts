@@ -34,7 +34,7 @@ export class InvoiceUpdateService {
     return this.httpService.get(ApiEndpoint.INVOICEUPDATENEGATIVEMAX + '/' + id);
   }
   generateNegative(negativeInvoice: InvoiceUpdateModel): Observable<InvoiceUpdateModel> {
-    return this.httpService.successful('The negative invoice was created')
+    return this.httpService.pdf().successful('The negative invoice was created')
       .post(ApiEndpoint.INVOICECREATENEGATIVE, negativeInvoice);
   }
 }

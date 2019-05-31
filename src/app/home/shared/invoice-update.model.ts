@@ -4,4 +4,5 @@ export interface InvoiceUpdateModel {
   baseTax: number;
   tax: number;
   referencesPositiveInvoice: string;
+  negative: number;
 }

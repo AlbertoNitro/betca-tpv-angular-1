@@ -83,28 +83,15 @@ export class InvoiceUpdateComponent implements OnInit {
   generatePdf(id: any) {
     this.invoiceUpdateService.generatePdf(id).subscribe();
   }
-  @HostListener('update', ['$event'])
-  update(id: string) {
+
+  update(id: any) {
     this.dialogConfig = {
       data: {
         message: 'The invoice cannot be deleted because it has already been issued.',
-        id: id
+        invoice: this.data.find(x => x.id === id)
       }
     };
-    /*
-    if (this.el.nativeElement.contains(event.target)) {
-    } else {
-    }
-
-        id: event.target.classList.contains('id'),
-        creationDate: event.target.classList.contains('creationDate'),
-        baseTax: event.target.classList.contains('baseTax'),
-        tax: event.target.classList.contains('tax')
-      }
-    };
-    console.log('id: ' + this.dialogConfig.data.id + ' creationDate: ' + this.dialogConfig.data.creationDate);
-    */
-     this.dialog.open(NegativeInvoiceDialogComponent, this.dialogConfig);
+    this.dialog.open(NegativeInvoiceDialogComponent, this.dialogConfig);
   }
   deleteInfo() {
     this.dialogConfig = {

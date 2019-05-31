@@ -13,6 +13,7 @@ export class NegativeInvoiceDialogComponent  {
   @Input() positiveValue: number;
   @Input() totalTax: number;
   id: string;
+  data: InvoiceUpdateModel;
   creationDate: string;
   baseTax: string;
   tax: string;
@@ -20,19 +21,18 @@ export class NegativeInvoiceDialogComponent  {
 
   constructor(@Inject(MAT_DIALOG_DATA) data: any, private invoiceUpdateService: InvoiceUpdateService) {
     this.message = data.message;
-    this.id = data.id;
+    this.id = data.invoice.id;
+    this.data = data.invoice;
     this.invoiceUpdateService.look4PosibleTotal(this.id).subscribe(
       posibletotal =>
         this.positiveValue = posibletotal
     );
   }
-  generateNegativeInvoice(event: Event) {
-    const negativeInvoice: InvoiceUpdateModel = null;
-    console.log(event.target);
-    /*
-    negativeInvoice.referencesPositiveInvoice = invoiceUpdateModel.id;
-    this.invoiceUpdateService.generateNegative(negativeInvoice);
-  */
+  generateNegativeInvoice() {
+    const negativeInvoice: InvoiceUpdateModel = this.data;
+    negativeInvoice.referencesPositiveInvoice = this.id;
+    negativeInvoice.negative = this.negativeValue;
+    this.invoiceUpdateService.generateNegative(negativeInvoice).subscribe();
   }
   setPosibleTotal(id: any) {
     this.negativeValue = this.positiveValue;
