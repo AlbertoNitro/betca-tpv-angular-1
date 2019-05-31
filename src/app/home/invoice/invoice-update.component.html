@@ -6,13 +6,13 @@
          cdkFocusInitial>
 </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Date from" [matDatepicker]="dateFrom" [(ngModel)]="myDate" formControlName="dateFrom" formGroupName="dateFrom">
+      <input matInput placeholder="Date from" [matDatepicker]="dateFrom" [(ngModel)]="selectDateFrom" formControlName="dateFrom" formGroupName="dateFrom">
       <mat-datepicker-toggle matSuffix [for]="dateFrom"></mat-datepicker-toggle>
       <mat-datepicker #dateFrom ></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Date to" [matDatepicker]="dateTo" [(ngModel)]="myDateTo" formControlName="dateTo" formGroupName="dateTo">
+      <input matInput placeholder="Date to" [matDatepicker]="dateTo" [(ngModel)]="selectDateTo" formControlName="dateTo" formGroupName="dateTo">
       <mat-datepicker-toggle matSuffix [for]="dateTo"></mat-datepicker-toggle>
       <mat-datepicker #dateTo ></mat-datepicker>
     </mat-form-field>
