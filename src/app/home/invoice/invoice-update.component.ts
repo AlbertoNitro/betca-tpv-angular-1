@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { InvoiceUpdateModel } from '../shared/invoice-update.model';
 import {InvoiceUpdateService} from './invoice-update.service';
@@ -48,7 +48,7 @@ export class InvoiceUpdateComponent implements OnInit {
           ddTo.toString() : ddTo.toString());
       }
     }
-    console.log('Mobile: ' + this.mobile + 'DateFrom ' + dateFrom + 'DateTo ' + dateTo);
+    // console.log('Mobile: ' + this.mobile + 'DateFrom ' + dateFrom + 'DateTo ' + dateTo);
     if (this.mobile !== '' && dateFrom === '' && dateTo === '') {
       this.invoiceUpdateService.getInvoicesByMobile(this.mobile).subscribe(
         list => {
@@ -80,23 +80,37 @@ export class InvoiceUpdateComponent implements OnInit {
   resetMobile() {
     this.invoiceUpdateForm.reset();
   }
-
   generatePdf(id: any) {
     this.invoiceUpdateService.generatePdf(id).subscribe();
   }
-  update(id: any) {
+  @HostListener('update', ['$event'])
+  update(id: string) {
     this.dialogConfig = {
       data: {
         message: 'The invoice cannot be deleted because it has already been issued.',
+        id: id
       }
     };
-    this.dialog.open(NegativeInvoiceDialogComponent, this.dialogConfig);
+    /*
+    if (this.el.nativeElement.contains(event.target)) {
+    } else {
+    }
+
+        id: event.target.classList.contains('id'),
+        creationDate: event.target.classList.contains('creationDate'),
+        baseTax: event.target.classList.contains('baseTax'),
+        tax: event.target.classList.contains('tax')
+      }
+    };
+    console.log('id: ' + this.dialogConfig.data.id + ' creationDate: ' + this.dialogConfig.data.creationDate);
+    */
+     this.dialog.open(NegativeInvoiceDialogComponent, this.dialogConfig);
   }
   deleteInfo() {
     this.dialogConfig = {
       data: {
         message: 'The invoice cannot be deleted because it has already been issued.',
-        question: 'Please cancel.'
+        question: ''
       }
     };
     this.dialog.open(SimpleDialogComponent, this.dialogConfig);

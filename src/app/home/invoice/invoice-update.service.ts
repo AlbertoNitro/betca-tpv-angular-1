@@ -30,5 +30,11 @@ export class InvoiceUpdateService {
   generatePdf(id: string): Observable<any> {
     return this.httpService.pdf().get(ApiEndpoint.INVOICEUPDATEPDF + '/' + id);
   }
-
+  look4PosibleTotal(id: string): Observable<number> {
+    return this.httpService.get(ApiEndpoint.INVOICEUPDATENEGATIVEMAX + '/' + id);
+  }
+  generateNegative(negativeInvoice: InvoiceUpdateModel): Observable<InvoiceUpdateModel> {
+    return this.httpService.successful('The negative invoice was created')
+      .post(ApiEndpoint.INVOICECREATENEGATIVE, negativeInvoice);
+  }
 }

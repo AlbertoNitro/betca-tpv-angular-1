@@ -1,7 +1,7 @@
 import {Component, Inject, Input, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatFormFieldControl} from '@angular/material';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material';
+import {InvoiceUpdateService} from '../invoice/invoice-update.service';
+import {InvoiceUpdateModel} from './invoice-update.model';
 
 @Component({
   templateUrl: 'negative-invoice-dialog.component.html',
@@ -12,15 +12,29 @@ export class NegativeInvoiceDialogComponent  {
   @Input() message: string;
   @Input() positiveValue: number;
   @Input() totalTax: number;
+  id: string;
+  creationDate: string;
+  baseTax: string;
+  tax: string;
   negativeValue: number;
 
-  constructor(@Inject(MAT_DIALOG_DATA) data: any) {
+  constructor(@Inject(MAT_DIALOG_DATA) data: any, private invoiceUpdateService: InvoiceUpdateService) {
     this.message = data.message;
+    this.id = data.id;
+    this.invoiceUpdateService.look4PosibleTotal(this.id).subscribe(
+      posibletotal =>
+        this.positiveValue = posibletotal
+    );
   }
-  generateNegativeInvoice() {
-    console.log(this.negativeValue);
+  generateNegativeInvoice(event: Event) {
+    const negativeInvoice: InvoiceUpdateModel = null;
+    console.log(event.target);
+    /*
+    negativeInvoice.referencesPositiveInvoice = invoiceUpdateModel.id;
+    this.invoiceUpdateService.generateNegative(negativeInvoice);
+  */
   }
-  look4PosibleTotal() {
-
+  setPosibleTotal(id: any) {
+    this.negativeValue = this.positiveValue;
   }
 }

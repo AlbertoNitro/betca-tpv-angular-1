@@ -14,11 +14,11 @@
   <p>Total Tax: {{totalTax}}
   </p>
 <mat-dialog-actions>
-  <button mat-flat-button color="primary" (click)="look4PosibleTotal()">
+  <button mat-flat-button color="primary" (click)="setPosibleTotal($event.id)">
     Set Total
   </button>
   &nbsp;
-  <button type="submit" mat-raised-button color="accent" (click)="generateNegativeInvoice()">
+  <button type="submit" mat-raised-button color="accent" (click)="generateNegativeInvoice($event)">
     Generate Negative Invoice
   </button>
   <button mat-raised-button mat-dialog-close cdkFocusInitial color="warn">Cancel</button>
