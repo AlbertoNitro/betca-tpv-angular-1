@@ -28,6 +28,7 @@ export class UserCreateUpdateDialogComponent implements OnInit {
       username: new FormControl(this.user.username, Validators.required),
       email: new FormControl(this.user.email, Validators.pattern('\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$')),
       dni: new FormControl(this.user.dni),
+      discount: new FormControl(this.user.discount),
       address: new FormControl(this.user.address),
       registrationDate: new FormControl(this.user.registrationDate),
       active: new FormControl(this.user.active)
