@@ -176,7 +176,6 @@ export class CheckOutDialogComponent {
   findUserByMobile() {
     this.userService.findByMobile(this.userMobile).subscribe(response => {
       this.assignUserToTicket(response);
-      this.validateUser();
     }, () => {
       const dialogConfig: MatDialogConfig = {
         data: {
@@ -216,31 +215,23 @@ export class CheckOutDialogComponent {
     this.ticketCreation.userMobile = user.mobile;
     this.userMobile = user.mobile;
     this.userFound = user;
-
+    this.validateUser();
   }
 
   validateUser() {
-
-    //Only Mockup
-    if(this.userFound.mobile==6){
-      this.userFound.name = "Eric"
-      this.userFound.lastName ="Aldas";
-      this.userFound.address = "Madrid"
-    }
-
     if(!this.userFound.name ||
        !this.userFound.lastName ||
        !this.userFound.address){
-      this.invalidInvoiceUser = false;
-    }else{
       this.invalidInvoiceUser = true;
+    }else{
+      this.invalidInvoiceUser = false;
     }
-    console.log(this.invalidInvoiceUser)
   }
 
   unassignUserToTicket() {
     this.ticketCreation.userMobile = null;
     this.userMobile = null;
     this.userFound = null;
+    this.invalidInvoiceUser = true;
   }
 }
