@@ -43,7 +43,7 @@
     <input matInput placeholder="Leave a Message" type="text" [(ngModel)]="ticketCreation.giftNote">
 </mat-form-field>
 
-  <mat-checkbox [(ngModel)]="requestedInvoice" [disabled]="invalidInvoice()">
+  <mat-checkbox [(ngModel)]="requestedInvoice" [disabled]="invalidInvoiceUser">
     <span> Create Invoice ({{ticketCreation.userMobile}})</span>
   </mat-checkbox>
   <div class="mat-raised-button mat-primary" *ngIf="!invalidCheckOut()&&returnedCash()>0"> Cash Return:

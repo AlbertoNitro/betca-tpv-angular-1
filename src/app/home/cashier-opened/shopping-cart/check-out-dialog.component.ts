@@ -23,6 +23,7 @@ export class CheckOutDialogComponent {
   userFound: User;
   userMobile: number;
   codeVoucher: string;
+  invalidInvoiceUser = true;
 
   constructor(@Inject(MAT_DIALOG_DATA) data: any, private dialog: MatDialog, private shoppingCartService: ShoppingCartService,
               private userService: UserService, private voucherService: VoucherService, private snackBar: MatSnackBar) {
@@ -172,14 +173,10 @@ export class CheckOutDialogComponent {
     }
   }
 
-  invalidInvoice(): boolean {
-    // TODO pendiente de calcular. Hace falta tener al usuario totalmente completado
-    return true;
-  }
-
   findUserByMobile() {
     this.userService.findByMobile(this.userMobile).subscribe(response => {
       this.assignUserToTicket(response);
+      this.validateUser();
     }, () => {
       const dialogConfig: MatDialogConfig = {
         data: {
@@ -219,6 +216,26 @@ export class CheckOutDialogComponent {
     this.ticketCreation.userMobile = user.mobile;
     this.userMobile = user.mobile;
     this.userFound = user;
+
+  }
+
+  validateUser() {
+
+    //Only Mockup
+    if(this.userFound.mobile==6){
+      this.userFound.name = "Eric"
+      this.userFound.lastName ="Aldas";
+      this.userFound.address = "Madrid"
+    }
+
+    if(!this.userFound.name ||
+       !this.userFound.lastName ||
+       !this.userFound.address){
+      this.invalidInvoiceUser = false;
+    }else{
+      this.invalidInvoiceUser = true;
+    }
+    console.log(this.invalidInvoiceUser)
   }
 
   unassignUserToTicket() {
