@@ -12,10 +12,14 @@
   <input matInput type="number" placeholder="New Negative Value" required [(ngModel)]="negativeValue"
   min="0" max="{{positiveValue}}"/>
 </mat-form-field>
-  <p>Total Tax: {{totalTax}}
+  <p>Previous Base Tax: {{baseTax}} || Previous VAT Tax {{vatTax}} || Previous Total Tax: {{totalTax.toString()}}
   </p>
+ <mat-form-field>
+  <input matInput type="number" placeholder="New Tax Value" required [(ngModel)]="newTax"
+         min="0" max="{{maxVATTax}}"/>
+ </mat-form-field>
 <mat-dialog-actions>
-  <button mat-flat-button color="primary" (click)="setPosibleTotal($event.id)">
+  <button mat-flat-button color="primary" (click)="setPosibleTotal()">
     Set Total
   </button>
   &nbsp;
