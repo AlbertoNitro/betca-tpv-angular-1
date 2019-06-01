@@ -18,6 +18,7 @@ export class InvoiceUpdateComponent implements OnInit {
   selectDateTo: Date;
   selectDateToString: string;
   mobile: string;
+  tomorrowString: string;
   data: InvoiceUpdateModel[];
   title = 'Invoice Update';
   columns = ['id', 'creationDate', 'baseTax', 'tax'];
@@ -34,11 +35,10 @@ export class InvoiceUpdateComponent implements OnInit {
       }
     );
  //   this.mobile = '';
-    this.selectDateFromString = '';
-    this.selectDateToString = '';
   }
   search() {
-
+    this.selectDateFromString = '';
+    this.selectDateToString = '';
     if (this.selectDateFrom !== undefined && this.selectDateFrom !== null) {
       const dd = this.selectDateFrom.getDate();
       const mm = this.selectDateFrom.getMonth() + 1;
@@ -53,7 +53,7 @@ export class InvoiceUpdateComponent implements OnInit {
         this.selectDateToString = yyTo.toString() + (mmTo < 10 ? '0' + mmTo.toString() : mmTo.toString())
           + (ddTo < 10 ? '0' + ddTo.toString() : ddTo.toString());
     }
-    console.log('Mobile: ' + this.mobile + 'DateFrom ' + this.selectDateFromString + 'DateTo ' + this.selectDateToString);
+  //  console.log('Mobile: ' + this.mobile + 'DateFrom ' + this.selectDateFromString + 'DateTo ' + this.selectDateToString);
     if (this.mobile !== '' && this.mobile !== null
         && this.selectDateFromString === '' && this.selectDateToString === '') {
       this.invoiceUpdateService.getInvoicesByMobile(this.mobile).subscribe(
@@ -61,36 +61,42 @@ export class InvoiceUpdateComponent implements OnInit {
           this.data = list;
         }
       );
-    } else if (this.mobile === null || this.mobile === ''
-              && this.selectDateFrom !== null
-              || this.selectDateFromString !== ''
-              && this.selectDateTo === null
-              || this.selectDateToString === '') {
+    } else if ( (this.mobile === null || this.mobile === undefined)
+              && this.selectDateFromString !== ''
+              && this.selectDateToString === '') {
       this.invoiceUpdateService.getInvoicesByAfterDate(this.selectDateFromString).subscribe(
         list => {
           this.data = list;
         }
       );
-    } else if (this.mobile === null || this.mobile === ''
-              && this.selectDateTo !== null
-              || this.selectDateToString !== ''
-              && this.selectDateFrom !== null
-              || this.selectDateFromString !== '') {
+    } else if ( (this.mobile === null || this.mobile === undefined)
+              && this.selectDateToString !== ''
+              && this.selectDateFromString !== '') {
       this.invoiceUpdateService.getInvoicesByBetweenDates(this.selectDateFromString, this.selectDateToString).subscribe(
         list => {
           this.data = list;
         }
       );
-    } else {
+    } else if ( (this.mobile !== null || this.mobile !== undefined)
+              && this.selectDateFromString !== ''
+              && this.selectDateToString === '') {
+      this.invoiceUpdateService.tomorrowString$.subscribe( (tomorrow) =>
+            this.tomorrowString = tomorrow
+      )
       this.invoiceUpdateService.getInvoicesByMobileAndBetweenDate(this.mobile,
-            this.selectDateFromString, this.selectDateToString).subscribe(
-        list => {
-          this.data = list;
-        }
+              this.selectDateFromString, this.tomorrowString).subscribe(
+              list => {
+                this.data = list;
+              }
       );
-    }
 
-
+    } else {
+        this.invoiceUpdateService.getInvoicesByMobileAndBetweenDate(this.mobile,
+            this.selectDateFromString, this.selectDateToString).subscribe(
+              list => {
+                this.data = list;
+              });
+        }
   }
   resetMobile() {
     this.invoiceUpdateForm.reset();
