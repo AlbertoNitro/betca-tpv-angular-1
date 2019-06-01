@@ -1,7 +1,10 @@
 export class ApiEndpoint {
   public static INVOICEUPDATEDATES = '/invoice-update/dates';
   public static INVOICEUPDATEMOBILE = '/invoice-update/mobile';
+  public static INVOICEUPDATEMOBILEDATES = '/invoice-update/mobiledates';
   public static INVOICEUPDATEPDF = '/invoice-update/pdf';
+  public static INVOICEUPDATENEGATIVEMAX = '/invoice-update/maxnegative';
+  public static INVOICECREATENEGATIVE = '/invoice-update/negative';
   public static BUDGETS = '/budgets';
   public static CASHIER_CLOSURES = '/cashier-closures';
   public static CASHIER_CLOSURES_LAST = ApiEndpoint.CASHIER_CLOSURES + '/last';

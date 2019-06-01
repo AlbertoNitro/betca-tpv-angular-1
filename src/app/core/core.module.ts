@@ -23,7 +23,7 @@ import {SimpleDialogComponent} from '../home/shared/simple-dialog.component';
 import {CrudComponent} from './crud.component';
 import {DetailsDialogComponent} from './details-dialog.component';
 import {DataTableComponent} from './data-table.component';
-import {NegativeInvoiceDialogComponent} from '../home/shared/negative-invoice-dialog.component';
+import {NegativeInvoiceDialogComponent} from '../home/invoice/negative-invoice-dialog.component';
 
 @NgModule({
   imports: [

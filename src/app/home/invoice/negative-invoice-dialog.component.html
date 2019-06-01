@@ -1,0 +1,32 @@
+<h3 mat-dialog-title>
+  Would you like to generate a Negative Invoice?:
+</h3>
+<div>
+  <p>{{message}}</p>
+</div>
+<mat-card>
+<div class="example-container">
+  <p>Maximum positive value to offset: {{positiveValue}}
+  </p>
+<mat-form-field appearance="fill">
+  <input matInput type="number" placeholder="New Negative Value" required [(ngModel)]="negativeValue"
+  min="0" max="{{positiveValue}}"/>
+</mat-form-field>
+  <p>Previous Base Tax: {{baseTax}} || Previous VAT Tax {{vatTax}} || Previous Total Tax: {{totalTax.toString()}}
+  </p>
+ <mat-form-field>
+  <input matInput type="number" placeholder="New Tax Value" required [(ngModel)]="newTax"
+         min="0" max="{{maxVATTax}}"/>
+ </mat-form-field>
+<mat-dialog-actions>
+  <button mat-flat-button color="primary" (click)="setPosibleTotal()">
+    Set Total
+  </button>
+  &nbsp;
+  <button type="submit" mat-raised-button color="accent" (click)="generateNegativeInvoice()">
+    Generate Negative Invoice
+  </button>
+  <button mat-raised-button mat-dialog-close cdkFocusInitial color="warn">Cancel</button>
+</mat-dialog-actions>
+</div>
+</mat-card>
