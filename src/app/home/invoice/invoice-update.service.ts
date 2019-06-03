@@ -8,23 +8,29 @@ import {ApiEndpoint} from '../shared/api-endpoint.model';
 export class InvoiceUpdateService {
   constructor(private httpService: HttpService) {
   }
+  tomorrowString$ = new Observable<string>((tomorrow) => {
+    const date = new Date();
+    date.setDate( date.getDate() + 1);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const tomorrowString = year.toString() + (month < 10 ? '0' + month.toString() : month.toString()) + (day < 10 ? '0' +
+      day.toString() : day.toString());
+    tomorrow.next(tomorrowString);
+    tomorrow.complete();
+  })
   getInvoicesByMobile(mobile: string): Observable<InvoiceUpdateModel[]> {
     return this.httpService.get(ApiEndpoint.INVOICEUPDATEMOBILE + '/' + mobile);
   }
+
   getInvoicesByAfterDate(afterDate: string) {
-    const dateUntil = new Date();
-    const day = dateUntil.getDate();
-    const month = dateUntil.getMonth() + 1;
-    const year = dateUntil.getFullYear();
-    const beforeDate = year.toString() + (month < 10 ? '0' + month.toString() : month.toString()) + (day < 10 ? '0' +
-      day.toString() : day.toString());
-    return this.httpService.get(ApiEndpoint.INVOICEUPDATEDATES + '/' + afterDate + '/' + beforeDate);
+    return this.httpService.get(ApiEndpoint.INVOICEUPDATEDATES + '/' + afterDate + '/' + this.tomorrowString$.subscribe());
   }
   getInvoicesByBetweenDates(afterDate: string, beforeDate: string) {
       return this.httpService.get(ApiEndpoint.INVOICEUPDATEDATES + '/' + afterDate + '/' + beforeDate);
   }
   getInvoicesByMobileAndBetweenDate(mobile: string, afterDate: string, beforeDate: string) {
-      return this.httpService.get(ApiEndpoint.INVOICEUPDATEDATES + '/' + mobile + '/' +
+      return this.httpService.get(ApiEndpoint.INVOICEUPDATEMOBILEDATES + '/' + mobile + '/' +
         afterDate + '/' + beforeDate);
     }
   generatePdf(id: string): Observable<any> {

@@ -2,6 +2,7 @@ export class ApiEndpoint {
   public static INVOICE = '/invoice';
   public static INVOICEUPDATEDATES = '/invoice-update/dates';
   public static INVOICEUPDATEMOBILE = '/invoice-update/mobile';
+  public static INVOICEUPDATEMOBILEDATES = '/invoice-update/mobiledates';
   public static INVOICEUPDATEPDF = '/invoice-update/pdf';
   public static INVOICEUPDATENEGATIVEMAX = '/invoice-update/maxnegative';
   public static INVOICECREATENEGATIVE = '/invoice-update/negative';
