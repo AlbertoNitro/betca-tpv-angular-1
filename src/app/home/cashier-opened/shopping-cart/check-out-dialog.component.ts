@@ -128,6 +128,7 @@ export class CheckOutDialogComponent {
     this.ticketCreation.cash = CheckOutDialogComponent.format(this.ticketCreation.cash);
     this.ticketCreation.card = CheckOutDialogComponent.format(this.ticketCreation.card);
     this.ticketCreation.voucher = CheckOutDialogComponent.format(this.ticketCreation.voucher);
+    this.ticketCreation.invoiceRequired = this.requestedInvoice;
     if (returned > 0) {
       this.ticketCreation.cash -= returned;
     }
@@ -152,26 +153,18 @@ export class CheckOutDialogComponent {
     this.shoppingCartService.checkOut(this.ticketCreation).subscribe(() => {
       if (voucher > 0) {
         // TODO crear un vale como parte del pago, luego crear la factura
-        this.createInvoice();
       } else {
-        this.createInvoice();
       }
 
       this.voucherService.update(this.codeVoucher);
 
-      if(this.requestedGiftTicket){
-        this.shoppingCartService.printGiftTicket().subscribe(() => {});
+      if (this.requestedGiftTicket) {
+        this.shoppingCartService.printGiftTicket().subscribe(() => {
+        });
       }
     });
   }
 
-  createInvoice() {
-    if (this.requestedInvoice) {
-      // TODO crear una factura
-    } else {
-      this.dialog.closeAll();
-    }
-  }
 
   findUserByMobile() {
     this.userService.findByMobile(this.userMobile).subscribe(response => {
@@ -219,11 +212,11 @@ export class CheckOutDialogComponent {
   }
 
   validateUser() {
-    if(!this.userFound.name ||
-       !this.userFound.lastName ||
-       !this.userFound.address){
+    if (!this.userFound.name ||
+      !this.userFound.lastName ||
+      !this.userFound.address) {
       this.invalidInvoiceUser = true;
-    }else{
+    } else {
       this.invalidInvoiceUser = false;
     }
   }
