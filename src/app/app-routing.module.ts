@@ -39,6 +39,7 @@ import {ArticlesQueryComponent} from './home/shared/articles-query.component';
 import {VouchersUseDialogComponent} from './home/vouchers/vouchersUse-dialog.component';
 import {TicketsComponent} from './home/tickets/tickets.component';
 import {OrderComponent} from './home/order/order.component';
+import {OrderSaveDialogComponent} from './home/order/order-save-dialog.component';
 import {UserCreateUpdateDialogComponent} from './home/users/user-create-update-dialog/user-create-update-dialog.component';
 import {UserQuickCreationDialogComponent} from './home/cashier-opened/shopping-cart/user-quick-creation-dialog/user-quick-creation-dialog.controller';
 import {RGPDComponent} from './home/rgpd/rgpd.component';
@@ -107,6 +108,7 @@ export class AppRoutingModule {
     StockPredictionComponent,
     TicketsComponent,
     OrderComponent,
+    OrderSaveDialogComponent,
     UsersComponent,
     WelcomeComponent,
     RGPDComponent,
@@ -128,6 +130,7 @@ export class AppRoutingModule {
     DbSeedDialogComponent,
     OffersCreateDialogComponent,
     OffersDetailsDialogComponent,
+    OrderSaveDialogComponent,
     ProfileDialogComponent,
     ProvidersSaveDialogComponent,
     RolesDialogComponent,

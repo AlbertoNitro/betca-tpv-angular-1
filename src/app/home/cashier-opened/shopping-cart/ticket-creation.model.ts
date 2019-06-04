@@ -8,5 +8,4 @@ export interface TicketCreation {
   note: String;
   shoppingCart: Shopping[];
   giftNote?: String;
-  invoiceRequired: boolean;
 }
