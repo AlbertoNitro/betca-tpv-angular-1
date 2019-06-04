@@ -4,24 +4,35 @@ import {Order} from './order.model';
 import {OrderService} from './order.service';
 import {MatDialog} from '@angular/material';
 import {OrderSearch} from './order-search.model';
-import {ModalComponent} from "./modal/modal.component";
+import {DetailsDialogComponent} from '../../core/details-dialog.component';
+import {OrderSaveDialogComponent} from './order-save-dialog.component';
+import {ModalComponent} from './modal/modal.component';
+import {ProviderService} from '../providers/provider.service';
+import {Provider} from '../providers/provider.model';
+import {Article} from '../shared/article.model';
 
 @Component({
   selector: 'app-order',
-  templateUrl: './order.component.html'
+  templateUrl: './order.component.html',
 })
 export class OrderComponent {
   static URL = 'orders';
+
   orderSearch: { descriptionOrders: string; descriptionArticles: string; onlyClosingDate: boolean };
   order: { descriptionOrders: string; descriptionArticles: string; onlyClosingDate: boolean };
   data: Order[];
   title = 'Order management';
   columns = ['descriptionOrders', 'descriptionArticles', 'requiredAmount', 'finalAmount', 'openingDate', 'closingDate'];
+  provider: { 'active': true };
+  providers: Provider[];
+  dataDialog: Article[];
+  columnsDialog = ['code', 'description', 'retailPrice'];
+  titleDialog = 'Card articles';
 
-  constructor(private orderService: OrderService, private  dialog: MatDialog) {
-    this.order = { descriptionOrders: '', descriptionArticles: '', onlyClosingDate: false };
+  constructor(private orderService: OrderService, private  dialog: MatDialog, private providerService: ProviderService) {
+    this.order = {descriptionOrders: '', descriptionArticles: '', onlyClosingDate: false};
     this.data = null;
-    this.orderSearch = { descriptionOrders: '' , descriptionArticles: '', onlyClosingDate: false };
+    this.orderSearch = {descriptionOrders: '', descriptionArticles: '', onlyClosingDate: false};
   }
 
   readAll() {
@@ -42,11 +53,33 @@ export class OrderComponent {
   }
 
   create() {
-    // TODO
+    this.dialog.open(OrderSaveDialogComponent,
+      {
+        data: {
+          mode: 'create',
+          title: this.titleDialog,
+          columns: this.columnsDialog,
+          datos: this.dataDialog,
+        },
+        width : '1000px'
+      }
+    );
   }
 
-  read(user: Order) {
-    // TODO
+  read(id: string) {
+    this.orderService.read(id).subscribe(
+      data =>
+        this.dialog.open(DetailsDialogComponent,
+          {
+            data: {
+              title: 'Provider details',
+              object: data,
+              properties: Object.getOwnPropertyNames(data),
+              ordersd: console.log('order' + data.toLocaleString())
+            }
+          }
+        )
+    );
   }
 
   update(user: Order) {
@@ -59,7 +92,7 @@ export class OrderComponent {
 
   closeOrderModal($event): void {
     const dialogRef = this.dialog.open(ModalComponent, {
-      width: '700px',
+      width: '1700px',
       data: $event
     });
 

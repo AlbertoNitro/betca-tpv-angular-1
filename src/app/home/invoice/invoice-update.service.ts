@@ -27,12 +27,12 @@ export class InvoiceUpdateService {
     return this.httpService.get(ApiEndpoint.INVOICEUPDATEDATES + '/' + afterDate + '/' + this.tomorrowString$.subscribe());
   }
   getInvoicesByBetweenDates(afterDate: string, beforeDate: string) {
-      return this.httpService.get(ApiEndpoint.INVOICEUPDATEDATES + '/' + afterDate + '/' + beforeDate);
+    return this.httpService.get(ApiEndpoint.INVOICEUPDATEDATES + '/' + afterDate + '/' + beforeDate);
   }
   getInvoicesByMobileAndBetweenDate(mobile: string, afterDate: string, beforeDate: string) {
-      return this.httpService.get(ApiEndpoint.INVOICEUPDATEMOBILEDATES + '/' + mobile + '/' +
-        afterDate + '/' + beforeDate);
-    }
+    return this.httpService.get(ApiEndpoint.INVOICEUPDATEMOBILEDATES + '/' + mobile + '/' +
+      afterDate + '/' + beforeDate);
+  }
   generatePdf(id: string): Observable<any> {
     return this.httpService.pdf().get(ApiEndpoint.INVOICEUPDATEPDF + '/' + id);
   }
