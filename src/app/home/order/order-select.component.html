@@ -1,7 +1,0 @@
-<mat-form-field>
-  <mat-select placeholder="Provider" (selectionChange)="onChange($event.value.toString())">
-    <mat-option *ngFor="let provider of providers" [value]="provider.id">
-      {{provider.company}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>

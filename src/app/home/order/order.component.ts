@@ -7,21 +7,29 @@ import {OrderSearch} from './order-search.model';
 import {DetailsDialogComponent} from '../../core/details-dialog.component';
 import {OrderSaveDialogComponent} from './order-save-dialog.component';
 import {ModalComponent} from './modal/modal.component';
+import {ProviderService} from '../providers/provider.service';
+import {Provider} from '../providers/provider.model';
+import {Article} from '../shared/article.model';
 
 @Component({
   selector: 'app-order',
-  templateUrl: './order.component.html'
+  templateUrl: './order.component.html',
 })
 export class OrderComponent {
   static URL = 'orders';
+
   orderSearch: { descriptionOrders: string; descriptionArticles: string; onlyClosingDate: boolean };
   order: { descriptionOrders: string; descriptionArticles: string; onlyClosingDate: boolean };
   data: Order[];
   title = 'Order management';
   columns = ['descriptionOrders', 'descriptionArticles', 'requiredAmount', 'finalAmount', 'openingDate', 'closingDate'];
   provider: { 'active': true };
+  providers: Provider[];
+  dataDialog: Article[];
+  columnsDialog = ['code', 'description', 'retailPrice'];
+  titleDialog = 'Card articles';
 
-  constructor(private orderService: OrderService, private  dialog: MatDialog) {
+  constructor(private orderService: OrderService, private  dialog: MatDialog, private providerService: ProviderService) {
     this.order = {descriptionOrders: '', descriptionArticles: '', onlyClosingDate: false};
     this.data = null;
     this.orderSearch = {descriptionOrders: '', descriptionArticles: '', onlyClosingDate: false};
@@ -48,8 +56,12 @@ export class OrderComponent {
     this.dialog.open(OrderSaveDialogComponent,
       {
         data: {
-          mode: 'create'
-        }
+          mode: 'create',
+          title: this.titleDialog,
+          columns: this.columnsDialog,
+          datos: this.dataDialog,
+        },
+        width : '1000px'
       }
     );
   }
@@ -80,7 +92,7 @@ export class OrderComponent {
 
   closeOrderModal($event): void {
     const dialogRef = this.dialog.open(ModalComponent, {
-      width: '700px',
+      width: '1700px',
       data: $event
     });
 

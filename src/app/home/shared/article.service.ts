@@ -55,4 +55,9 @@ export class ArticleService {
   readAllArticleMinimum(): Observable<ArticleMinimum[]> {
     return this.httpService.get(ApiEndpoint.ARTICLES_MINIMUM);
   }
+
+  readArticlesByProvider(id: string): Observable<Article[]> {
+    // console.log('url: ' + ApiEndpoint.ARTICLES + '/' + 'provider_id' + '/' + id);
+    return this.httpService.get(ApiEndpoint.ARTICLES + '/' + 'provider_id' + '/' + id);
+  }
 }
