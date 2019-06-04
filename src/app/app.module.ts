@@ -33,7 +33,6 @@ import {InvoiceUpdateService} from './home/invoice/invoice-update.service';
 import {MatInputModule} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {NegativeInvoiceDialogComponent} from './home/invoice/negative-invoice-dialog.component';
-import {InvoiceUpdateService} from './home/invoice/invoice-update.service';
 
 @NgModule({
   imports: [
