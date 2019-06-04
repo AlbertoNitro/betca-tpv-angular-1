@@ -19,6 +19,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {StatisticsService} from './home/stadistics/statistics.service';
+import {StockManagerService} from './home/stock-manager/stock-manager.service';
 import {ProviderService} from './home/providers/provider.service';
 import {OfferService} from './home/offers/offer.service';
 import {OrderService} from './home/order/order.service';
@@ -28,6 +29,10 @@ import {ModalComponent} from './home/order/modal/modal.component';
 import {TicketsService} from './home/tickets/tickets.service';
 import {ArticleFamilyViewService} from './home/cashier-opened/articles-family/articles-families-view.service';
 import {RgpdService} from './home/rgpd/rgpd.service';
+import {InvoiceUpdateService} from './home/invoice/invoice-update.service';
+import {MatInputModule} from '@angular/material';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {NegativeInvoiceDialogComponent} from './home/invoice/negative-invoice-dialog.component';
 import {InvoiceUpdateService} from './home/invoice/invoice-update.service';
 
 @NgModule({
@@ -40,6 +45,8 @@ import {InvoiceUpdateService} from './home/invoice/invoice-update.service';
     CoreModule,
     FormsModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
     NgxChartsModule
 
   ],
@@ -61,8 +68,11 @@ import {InvoiceUpdateService} from './home/invoice/invoice-update.service';
     CashierService,
     CashMovementService,
     InvoiceUpdateService,
+    MatFormFieldModule,
+    MatInputModule,
     ShoppingCartService,
     StatisticsService,
+    StockManagerService,
     UserService,
     ProviderService,
     TicketsService,

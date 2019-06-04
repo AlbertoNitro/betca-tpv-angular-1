@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { ArticleDetailModel } from '../shared/article-detail-model';
 import { InvoiceUpdateModel } from '../shared/invoice-update.model';
 import {InvoiceUpdateService} from './invoice-update.service';
+import {MatDialog, MatDialogConfig} from '@angular/material';
+import {SimpleDialogComponent} from '../shared/simple-dialog.component';
+import {NegativeInvoiceDialogComponent} from './negative-invoice-dialog.component';
 
 @Component({
   selector: 'app-invoice-update',
@@ -11,14 +13,18 @@ import {InvoiceUpdateService} from './invoice-update.service';
 export class InvoiceUpdateComponent implements OnInit {
   static URL = 'invoice_update';
   invoiceUpdateForm: FormGroup;
-  myDate: Date;
-  myDateTo: Date;
+  selectDateFrom: Date;
+  selectDateFromString: string;
+  selectDateTo: Date;
+  selectDateToString: string;
   mobile: string;
+  tomorrowString: string;
   data: InvoiceUpdateModel[];
-  articleList: ArticleDetailModel[];
   title = 'Invoice Update';
-  columns = ['code', 'description', 'retailPrice', 'stock'];
-  constructor(private formBuilder: FormBuilder , private invoiceUpdateService: InvoiceUpdateService) {
+  columns = ['id', 'creationDate', 'baseTax', 'tax'];
+  dialogConfig: MatDialogConfig;
+  constructor(private formBuilder: FormBuilder , private invoiceUpdateService: InvoiceUpdateService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -28,26 +34,93 @@ export class InvoiceUpdateComponent implements OnInit {
         dateTo: ['', ],
       }
     );
+ //   this.mobile = '';
   }
-  searchMobile() {
-    const dd = this.myDate.getDate();
-    const mm = this.myDate.getMonth() + 1;
-    const yy =  this.myDate.getFullYear();
-    const dateFrom = yy.toString() + (mm < 10 ? '0' + mm.toString() : mm.toString()) + (dd < 10 ? '0' + dd.toString() : dd.toString()) ;
-    const ddTo = this.myDateTo.getDate();
-    const mmTo = this.myDateTo.getMonth() + 1;
-    const yyTo =  this.myDateTo.getFullYear();
-    const dateTo = yyTo.toString() + (mmTo < 10 ? '0' + mmTo.toString() : mmTo.toString()) + (ddTo < 10 ? '0' +
-      ddTo.toString() : ddTo.toString());
-    console.log('Mobile: ' + this.mobile + 'DateFrom ' + dateFrom + 'DateTo ' + dateTo);
-    this.invoiceUpdateService.getInvoices(this.mobile, dateFrom, dateTo).subscribe(
-      list =>  {
-        this.data = list;
-        console.log(list);
-      }
-    );
+  search() {
+    this.selectDateFromString = '';
+    this.selectDateToString = '';
+    if (this.selectDateFrom !== undefined && this.selectDateFrom !== null) {
+      const dd = this.selectDateFrom.getDate();
+      const mm = this.selectDateFrom.getMonth() + 1;
+      const yy = this.selectDateFrom.getFullYear();
+      this.selectDateFromString = yy.toString() + (mm < 10 ? '0' + mm.toString() : mm.toString())
+        + (dd < 10 ? '0' + dd.toString() : dd.toString());
+    }
+    if (this.selectDateTo !== undefined && this.selectDateTo !== null) {
+        const ddTo = this.selectDateTo.getDate();
+        const mmTo = this.selectDateTo.getMonth() + 1;
+        const yyTo = this.selectDateTo.getFullYear();
+        this.selectDateToString = yyTo.toString() + (mmTo < 10 ? '0' + mmTo.toString() : mmTo.toString())
+          + (ddTo < 10 ? '0' + ddTo.toString() : ddTo.toString());
+    }
+  //  console.log('Mobile: ' + this.mobile + 'DateFrom ' + this.selectDateFromString + 'DateTo ' + this.selectDateToString);
+    if (this.mobile !== '' && this.mobile !== null
+        && this.selectDateFromString === '' && this.selectDateToString === '') {
+      this.invoiceUpdateService.getInvoicesByMobile(this.mobile).subscribe(
+        list => {
+          this.data = list;
+        }
+      );
+    } else if ( (this.mobile === null || this.mobile === undefined)
+              && this.selectDateFromString !== ''
+              && this.selectDateToString === '') {
+      this.invoiceUpdateService.getInvoicesByAfterDate(this.selectDateFromString).subscribe(
+        list => {
+          this.data = list;
+        }
+      );
+    } else if ( (this.mobile === null || this.mobile === undefined)
+              && this.selectDateToString !== ''
+              && this.selectDateFromString !== '') {
+      this.invoiceUpdateService.getInvoicesByBetweenDates(this.selectDateFromString, this.selectDateToString).subscribe(
+        list => {
+          this.data = list;
+        }
+      );
+    } else if ( (this.mobile !== null || this.mobile !== undefined)
+              && this.selectDateFromString !== ''
+              && this.selectDateToString === '') {
+      this.invoiceUpdateService.tomorrowString$.subscribe( (tomorrow) =>
+            this.tomorrowString = tomorrow
+      )
+      this.invoiceUpdateService.getInvoicesByMobileAndBetweenDate(this.mobile,
+              this.selectDateFromString, this.tomorrowString).subscribe(
+              list => {
+                this.data = list;
+              }
+      );
+
+    } else {
+        this.invoiceUpdateService.getInvoicesByMobileAndBetweenDate(this.mobile,
+            this.selectDateFromString, this.selectDateToString).subscribe(
+              list => {
+                this.data = list;
+              });
+        }
   }
   resetMobile() {
     this.invoiceUpdateForm.reset();
+  }
+  generatePdf(id: any) {
+    this.invoiceUpdateService.generatePdf(id).subscribe();
+  }
+
+  update(id: any) {
+    this.dialogConfig = {
+      data: {
+        message: 'The invoice cannot be deleted because it has already been issued.',
+        invoice: this.data.find(x => x.id === id)
+      }
+    };
+    this.dialog.open(NegativeInvoiceDialogComponent, this.dialogConfig).afterClosed();
+  }
+  deleteInfo() {
+    this.dialogConfig = {
+      data: {
+        message: 'The invoice cannot be deleted because it has already been issued.',
+        question: ''
+      }
+    };
+    this.dialog.open(SimpleDialogComponent, this.dialogConfig);
   }
 }

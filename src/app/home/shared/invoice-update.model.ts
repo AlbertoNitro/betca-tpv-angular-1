@@ -3,4 +3,6 @@ export interface InvoiceUpdateModel {
   creationDate: Date;
   baseTax: number;
   tax: number;
+  referencesPositiveInvoice: string;
+  negative: number;
 }

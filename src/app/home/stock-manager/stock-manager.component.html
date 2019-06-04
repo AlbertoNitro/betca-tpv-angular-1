@@ -1,3 +1,54 @@
-<p>
-  stock-manager works!
-</p>
+<mat-card>
+  <mat-card-title>Search</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="stockManagerForm">
+      <mat-form-field>
+        <input matInput placeholder="Minimum" type="number" formControlName="minimum" cdkFocusInitial>
+      </mat-form-field>
+      <button type="submit" mat-mini-fab color="primary" (click)="searchStockMin()"
+              [disabled]="!stockManagerForm.valid">
+        <mat-icon>search</mat-icon>
+      </button>
+      <button (click)="resetSearchStock()" color="primary" mat-mini-fab>
+        <mat-icon>close</mat-icon>
+      </button>
+    </form>
+  </mat-card-content>
+  <mat-card-content>
+    <form [formGroup]="stockManagerDateForm">
+      <mat-form-field>
+        <input matInput placeholder="Date sold"
+               [matDatepicker]="dateSold"
+               (dateChange)="dateInitChange($event)"
+               formControlName="dateSold" required/>
+        <mat-datepicker-toggle matSuffix [for]="dateSold">
+        </mat-datepicker-toggle>
+        <mat-datepicker #dateSold>
+        </mat-datepicker>
+      </mat-form-field>
+      <button type="submit" mat-mini-fab color="primary" (click)="searchStockDate()"
+              [disabled]="!stockManagerDateForm.valid">
+        <mat-icon>search</mat-icon>
+      </button>
+      <button (click)="resetSearchStockDate()" color="primary" mat-mini-fab>
+        <mat-icon>close</mat-icon>
+      </button>
+    </form>
+  </mat-card-content>
+  <mat-card-content>
+    <form [formGroup]="stockManagerReservationForm">
+      <mat-form-field>
+        <input matInput placeholder="Reservation" type="number" formControlName="reservation">
+      </mat-form-field>
+      <button type="submit" mat-mini-fab color="primary" (click)="searchStockReservation()"
+              [disabled]="!stockManagerReservationForm.valid">
+        <mat-icon>search</mat-icon>
+      </button>
+      <button (click)="resetSearchStockReservation()" color="primary" mat-mini-fab>
+        <mat-icon>close</mat-icon>
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>
+<app-data-table [title]="listTitle" [columns]="columns" [data]="articleList">
+</app-data-table>

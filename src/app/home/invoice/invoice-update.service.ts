@@ -8,14 +8,39 @@ import {ApiEndpoint} from '../shared/api-endpoint.model';
 export class InvoiceUpdateService {
   constructor(private httpService: HttpService) {
   }
-  getInvoices(mobile: string, dateFrom: string, dateTo: string): Observable<InvoiceUpdateModel[]> {
-    if (mobile === '' && dateFrom !== '' && dateTo !== '') {
-      return this.httpService.get(ApiEndpoint.INVOICEUPDATE + '/' + dateFrom + '/' + dateTo);
-    } else if (mobile !== '' && dateFrom === '' &&  dateTo === '') {
-      return this.httpService.get(ApiEndpoint.INVOICEUPDATE + '/' + mobile );
-    } else if (mobile !== '' && dateFrom !== '' && dateTo !== '') {
-   //   return this.httpService.get(ApiEndpoint.INVOICEUPDATE + '/' + mobile + '/' + dateFrom + '/' + dateTo);
-        return this.httpService.get(ApiEndpoint.INVOICEUPDATE);
-    }
+  tomorrowString$ = new Observable<string>((tomorrow) => {
+    const date = new Date();
+    date.setDate( date.getDate() + 1);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const tomorrowString = year.toString() + (month < 10 ? '0' + month.toString() : month.toString()) + (day < 10 ? '0' +
+      day.toString() : day.toString());
+    tomorrow.next(tomorrowString);
+    tomorrow.complete();
+  })
+  getInvoicesByMobile(mobile: string): Observable<InvoiceUpdateModel[]> {
+    return this.httpService.get(ApiEndpoint.INVOICEUPDATEMOBILE + '/' + mobile);
+  }
+
+  getInvoicesByAfterDate(afterDate: string) {
+    return this.httpService.get(ApiEndpoint.INVOICEUPDATEDATES + '/' + afterDate + '/' + this.tomorrowString$.subscribe());
+  }
+  getInvoicesByBetweenDates(afterDate: string, beforeDate: string) {
+    return this.httpService.get(ApiEndpoint.INVOICEUPDATEDATES + '/' + afterDate + '/' + beforeDate);
+  }
+  getInvoicesByMobileAndBetweenDate(mobile: string, afterDate: string, beforeDate: string) {
+    return this.httpService.get(ApiEndpoint.INVOICEUPDATEMOBILEDATES + '/' + mobile + '/' +
+      afterDate + '/' + beforeDate);
+  }
+  generatePdf(id: string): Observable<any> {
+    return this.httpService.pdf().get(ApiEndpoint.INVOICEUPDATEPDF + '/' + id);
+  }
+  look4PosibleTotal(id: string): Observable<number> {
+    return this.httpService.get(ApiEndpoint.INVOICEUPDATENEGATIVEMAX + '/' + id);
+  }
+  generateNegative(negativeInvoice: InvoiceUpdateModel): Observable<InvoiceUpdateModel> {
+    return this.httpService.pdf().successful('The negative invoice was created')
+      .post(ApiEndpoint.INVOICECREATENEGATIVE, negativeInvoice);
   }
 }
