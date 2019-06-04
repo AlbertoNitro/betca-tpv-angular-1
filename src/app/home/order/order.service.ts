@@ -34,7 +34,7 @@ export class OrderService {
   }
 
   readSearch(order: OrderSearch): Observable<Order[]> {
-    return this.httpService.post(ApiEndpoint.ORDERS + ApiEndpoint.SEARCH, order);
+    return this.httpService.post(ApiEndpoint.ORDERS + ApiEndpoint.SEARCH, order, this.shoppingCart);
   }
 
   read(id: string): Observable<Order> {
@@ -45,8 +45,14 @@ export class OrderService {
     return this.httpService.get(ApiEndpoint.ARTICLES + '/' + code);
   }
 
-  create(articles: Article, provider: Provider): Observable<any> {
+  /*create(articles: Article, provider: Provider): Observable<any> {
     return this.httpService.post(ApiEndpoint.ORDERS + '\\' + articles, provider);
+  }*/
+
+  create(id: String): Observable<any> {
+    alert('create');
+
+    return this.httpService.post(ApiEndpoint.ORDERS, id, this.shoppingCart);
   }
 
   update(order: Order): Observable<Order> {
@@ -54,7 +60,7 @@ export class OrderService {
   }
 
   closeOrder(order: Order[]): Observable<Order[]> {
-    return this.httpService.post(ApiEndpoint.ORDERS + ApiEndpoint.CLOSE, order);
+    return this.httpService.post(ApiEndpoint.ORDERS + ApiEndpoint.CLOSE, order, this.shoppingCart);
   }
 
   shoppingCartObservable(): Observable<Article[]> {

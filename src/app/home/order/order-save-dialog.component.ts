@@ -9,7 +9,6 @@ import {Provider} from '../providers/provider.model';
 import {ArticleService} from '../shared/article.service';
 import {Article} from '../shared/article.model';
 import {ShoppingCartService} from '../cashier-opened/shopping-cart/shopping-cart.service';
-import {ShoppingCartComponent} from '../cashier-opened/shopping-cart/shopping-cart.component';
 import {Shopping} from '../cashier-opened/shopping-cart/shopping.model';
 import {ArticleQuickCreationDialogComponent} from '../cashier-opened/shopping-cart/article-quick-creation-dialog.component';
 import {CheckOutDialogComponent} from '../cashier-opened/shopping-cart/check-out-dialog.component';
@@ -23,15 +22,12 @@ export class OrderSaveDialogComponent implements OnInit {
 
   mode: string;
   order: {} = {};
-  // order: { descriptionOrders: string; descriptionArticles: string; onlyClosingDate: boolean };
   orderArticle: Article[];
   providers: Provider[];
-  // data: Article[];
   title = 'Articles from providers';
   columns = [];
   displayedColumns = ['id', 'description', 'amount', 'price', 'actions'];
   dataTAbleArticles: MatTableDataSource<Article>;
-  // static URL1 = 'cashier-opened';
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private orderService: OrderService, private providerService: ProviderService,
               private  articleService: ArticleService, private  dialog: MatDialog, private shoppingCartService: ShoppingCartService) {
@@ -43,8 +39,7 @@ export class OrderSaveDialogComponent implements OnInit {
     }
     this.orderService.shoppingCartObservable().subscribe(
       result => {
-        console.log('00000000000');
-        console.log(result);
+        console.log('result: ' + result);
         this.dataTAbleArticles = new MatTableDataSource<Article>(result);
         console.log(this.dataTAbleArticles);
       }
@@ -53,7 +48,6 @@ export class OrderSaveDialogComponent implements OnInit {
 
   ngOnInit() {
     this.getProviderActive();
-    // this.getArticlesByProvider('1');
   }
 
   getProviderActive() {
@@ -84,15 +78,20 @@ export class OrderSaveDialogComponent implements OnInit {
     // this.orderService.update(this.order).subscribe();
   }
 
-  create() {
-    // this.orderService.create(this.order).subscribe();
+  create(id: string) {
+    this.orderService.create(id).subscribe(
+      data => {
+         console.log('create -id' + id);
+         alert('create-id');
+      }
+    );
   }
 
   onclick() {
     if (this.mode === 'update') {
       this.update();
     } else if (this.mode === 'create') {
-      this.create();
+      // this.create();
     }
   }
 
@@ -103,7 +102,6 @@ export class OrderSaveDialogComponent implements OnInit {
       }
     );
   }
-
 
   totalShoppingCart(): number {
     return this.shoppingCartService.getTotalShoppingCart();
@@ -148,10 +146,6 @@ export class OrderSaveDialogComponent implements OnInit {
     return ShoppingCartService.isArticleVarious(code);
   }
 
-
-
-
-
   exchange() {
     this.shoppingCartService.exchange();
   }
@@ -165,7 +159,6 @@ export class OrderSaveDialogComponent implements OnInit {
   }
 
 
-
   stockLabel(): string {
     return (this.shoppingCartService.getLastArticle()) ? 'Stock of ' + this.shoppingCartService.getLastArticle().description : 'Stock';
   }
@@ -177,7 +170,6 @@ export class OrderSaveDialogComponent implements OnInit {
   isEmpty(): boolean {
     return this.shoppingCartService.isEmpty();
   }
-
 
 
 }
