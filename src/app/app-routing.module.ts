@@ -50,6 +50,7 @@ import {VoucherConsumedDialogComponent} from './home/vouchers/voucherConsumed-di
 import {ArticlesFamiliesUpdateDialogComponent} from './home/articles-families/update-dialog/articles-families-update-dialog.component';
 import {ArticlesFamiliesAttachDialogComponent} from './home/articles-families/update-dialog/attach-dialog/articles-families-attach-dialog.component';
 import {ArticlesFamilyViewSizesDialogComponent} from './home/cashier-opened/articles-family/articles-family-view-dialog/articles-family-view-sizes-dialog.component';
+import {ApplyDiscountDialogComponent} from './home/cashier-opened/shopping-cart/apply-discount-dialog/apply-discount-dialog.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
@@ -117,7 +118,7 @@ export class AppRoutingModule {
 
   static DIALOGS = [
     AlarmCreateUpdateDialogComponent,
-    ArticleCreateUpdateDialogComponent,
+    ApplyDiscountDialogComponent,
     FamilySizesCreationComponent,
     ArticlesFamiliesAttachDialogComponent,
     ArticlesFamiliesCreateDialogComponent,
