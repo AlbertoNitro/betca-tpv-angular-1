@@ -23,14 +23,14 @@
       <mat-error class="error-message" *ngIf="userForm.controls.dni.errors?.pattern">DNI has wrong format</mat-error>
     </div>
     <div class="form-group">
-      <mat-form-field>
-        <input matInput type="text" placeholder="Address" formControlName="address"/>
-      </mat-form-field>
+    <mat-form-field>
+      <mat-label>Discount</mat-label>
+      <input matInput type="number" placeholder="%" formControlName="discount"/>
+    </mat-form-field>
     </div>
     <div class="form-group">
       <mat-form-field>
-        <mat-label>Discount</mat-label>
-        <input matInput type="number" placeholder="%" formControlName="discount"/>
+        <input matInput type="text" placeholder="Address" formControlName="address"/>
       </mat-form-field>
     </div>
     <div class="form-group">
