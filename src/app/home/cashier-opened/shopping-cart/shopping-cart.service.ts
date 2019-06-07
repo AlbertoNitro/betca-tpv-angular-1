@@ -23,6 +23,7 @@ export class ShoppingCartService {
   private shoppingCartList: Array<Array<Shopping>> = [];
   private shoppingCartSubject: Subject<Shopping[]> = new BehaviorSubject(undefined); // refresh auto
   private lastArticle: Article;
+  private userDiscount = 0;
 
   constructor(private articleService: ArticleService, private httpService: HttpService) {
     for (let i = 0; i < ShoppingCartService.SHOPPING_CART_NUM; i++) {
@@ -55,6 +56,7 @@ export class ShoppingCartService {
     for (const shopping of this.shoppingCart) {
       total = total + shopping.total;
     }
+    total = total - total * (+this.userDiscount) / 100;
     this.totalShoppingCart = Math.round(total * 100) / 100;
   }
 
@@ -155,6 +157,15 @@ export class ShoppingCartService {
   private reset() {
     this.shoppingCart = [];
     this.synchronizeAll();
+  }
+
+  updateUserDiscount(discount: number) {
+    this.userDiscount = discount;
+    if (discount == null) {
+      this.userDiscount = 0;
+    }
+    this.synchronizeAll();
+
   }
 
 }
