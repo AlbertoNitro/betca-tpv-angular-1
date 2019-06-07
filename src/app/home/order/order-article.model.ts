@@ -4,7 +4,7 @@ export class OrderArticle {
   total: number;
   committed: boolean;
 
-  constructor(public code: string, public description: string, public retailPrice: number) {
+  constructor(public code: string, public description: string, public retailPrice: number, public provider: String) {
     this.amount = 1;
     this.discount = 0;
     this.total = this.retailPrice * this.amount * (1 - this.discount / 100);
