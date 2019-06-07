@@ -1,0 +1,9 @@
+<h1 mat-dialog-title align="center">User Discount</h1>
+<div mat-dialog-content>
+  <span align="center">Mobile: {{user.mobile}}</span><br><br>
+  <span align="center">Discount: {{user.discount}}%</span>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button mat-dialog-close color="accent" (click)="apply()">Apply</button>
+</div>
