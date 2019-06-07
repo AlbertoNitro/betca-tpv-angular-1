@@ -3,7 +3,6 @@ import {Component} from '@angular/core';
 import {Order} from './order.model';
 import {OrderService} from './order.service';
 import {MatDialog} from '@angular/material';
-// import {OrderSearch} from './order-search.model';
 import {DetailsDialogComponent} from '../../core/details-dialog.component';
 import {OrderSaveDialogComponent} from './order-save-dialog.component';
 import {ModalComponent} from './modal/modal.component';
