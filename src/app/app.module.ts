@@ -33,7 +33,6 @@ import {InvoiceUpdateService} from './home/invoice/invoice-update.service';
 import {MatInputModule} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {NegativeInvoiceDialogComponent} from './home/invoice/negative-invoice-dialog.component';
-import {ApplyDiscountDialogComponent} from './home/cashier-opened/shopping-cart/apply-discount-dialog/apply-discount-dialog.component';
 
 @NgModule({
   imports: [
