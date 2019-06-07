@@ -53,4 +53,6 @@ export class ApiEndpoint {
   public static PARTIALLY_DEFINED = '/partially-defined';
 
   public static ARTICLES_SEARCH = ApiEndpoint.ARTICLES + ApiEndpoint.SEARCH;
+
+  public static ARTICLE = '/article';
 }
