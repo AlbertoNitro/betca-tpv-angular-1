@@ -1,11 +1,10 @@
 export class OrderArticle {
-  amount: number;
   discount: number;
   total: number;
   committed: boolean;
 
-  constructor(public code: string, public description: string, public retailPrice: number, public provider: String) {
-    this.amount = 1;
+  constructor(public code: string, public description: string, public amount: number, public retailPrice: number, public provider: String) {
+    this.amount = this.updateAmount(this.amount);
     this.discount = 0;
     this.total = this.retailPrice * this.amount * (1 - this.discount / 100);
     this.committed = true;
@@ -27,4 +26,10 @@ export class OrderArticle {
     return Math.round(value * 100) / 100;
   }
 
+  private updateAmount(value: number) {
+    if (isNaN(value)) {
+      return 1;
+    }
+    return value;
+  }
 }
