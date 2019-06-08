@@ -16,8 +16,6 @@ export class ApplyDiscountDialogComponent implements OnInit {
   user: User;
   provider: Provider = {};
   providers: [UserService, HttpClient];
-  isValid: any;
-
 
   constructor(private userService: UserService,
               private shoppingCartService: ShoppingCartService,
