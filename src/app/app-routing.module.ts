@@ -41,6 +41,7 @@ import {TicketsComponent} from './home/tickets/tickets.component';
 import {OrderComponent} from './home/order/order.component';
 import {OrderSaveDialogComponent} from './home/order/order-save-dialog.component';
 import {UserCreateUpdateDialogComponent} from './home/users/user-create-update-dialog/user-create-update-dialog.component';
+// tslint:disable-next-line:max-line-length
 import {UserQuickCreationDialogComponent} from './home/cashier-opened/shopping-cart/user-quick-creation-dialog/user-quick-creation-dialog.controller';
 import {RGPDComponent} from './home/rgpd/rgpd.component';
 import {ArticlesFamiliesCreateDialogComponent} from './home/articles-families/create-dialog/articles-families-create-dialog.component';
@@ -48,7 +49,9 @@ import {VouchersComponent} from './home/vouchers/vouchers.component';
 import {VoucherNewDialogComponent} from './home/vouchers/voucherNew-dialog.component';
 import {VoucherConsumedDialogComponent} from './home/vouchers/voucherConsumed-dialog.component';
 import {ArticlesFamiliesUpdateDialogComponent} from './home/articles-families/update-dialog/articles-families-update-dialog.component';
+// tslint:disable-next-line:max-line-length max-line-length
 import {ArticlesFamiliesAttachDialogComponent} from './home/articles-families/update-dialog/attach-dialog/articles-families-attach-dialog.component';
+// tslint:disable-next-line:max-line-length
 import {ArticlesFamilyViewSizesDialogComponent} from './home/cashier-opened/articles-family/articles-family-view-dialog/articles-family-view-sizes-dialog.component';
 import {ApplyDiscountDialogComponent} from './home/cashier-opened/shopping-cart/apply-discount-dialog/apply-discount-dialog.component';
 
@@ -120,6 +123,7 @@ export class AppRoutingModule {
     AlarmCreateUpdateDialogComponent,
     ApplyDiscountDialogComponent,
     FamilySizesCreationComponent,
+    ArticleCreateUpdateDialogComponent,
     ArticlesFamiliesAttachDialogComponent,
     ArticlesFamiliesCreateDialogComponent,
     ArticlesFamiliesUpdateDialogComponent,

@@ -3,13 +3,13 @@ import {Component} from '@angular/core';
 import {Order} from './order.model';
 import {OrderService} from './order.service';
 import {MatDialog} from '@angular/material';
-import {OrderSearch} from './order-search.model';
 import {DetailsDialogComponent} from '../../core/details-dialog.component';
 import {OrderSaveDialogComponent} from './order-save-dialog.component';
 import {ModalComponent} from './modal/modal.component';
 import {ProviderService} from '../providers/provider.service';
 import {Provider} from '../providers/provider.model';
 import {Article} from '../shared/article.model';
+import {OrderArticle} from './order-article.model';
 
 @Component({
   selector: 'app-order',
@@ -28,6 +28,7 @@ export class OrderComponent {
   dataDialog: Article[];
   columnsDialog = ['code', 'description', 'retailPrice'];
   titleDialog = 'Card articles';
+  dataDialogArticle: OrderArticle[];
 
   constructor(private orderService: OrderService, private  dialog: MatDialog, private providerService: ProviderService) {
     this.order = {descriptionOrders: '', descriptionArticles: '', onlyClosingDate: false};
@@ -39,7 +40,6 @@ export class OrderComponent {
     this.orderService.readAll().subscribe(
       data => this.data = data
     );
-    // console.log('data: ' +  this.data);
   }
 
   search() {
@@ -75,19 +75,30 @@ export class OrderComponent {
               title: 'Provider details',
               object: data,
               properties: Object.getOwnPropertyNames(data),
-              ordersd: console.log('order' + data.toLocaleString())
             }
           }
         )
     );
   }
 
-  update(user: Order) {
-    // TODO
-  }
-
-  delete(user: Order) {
-    // TODO
+  update(order: Order) {
+    this.orderService.finById(order).subscribe(
+      result => {
+        this.dataDialogArticle = result;
+        this.dialog.open(OrderSaveDialogComponent,
+          {
+            data: {
+              mode: 'update',
+              title: this.titleDialog,
+              columns: this.columnsDialog,
+              datos: this.dataDialogArticle,
+              orderSelect: order
+            },
+            width : '1000px'
+          }
+        );
+      }
+    );
   }
 
   closeOrderModal($event): void {

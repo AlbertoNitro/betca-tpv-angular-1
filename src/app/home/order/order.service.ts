@@ -6,20 +6,17 @@ import {ApiEndpoint} from '../shared/api-endpoint.model';
 import {Order} from './order.model';
 import {OrderSearch} from '../order/order-search.model';
 import {OrderArticle} from './order-article.model';
-import {Provider} from '../providers/provider.model';
 import {Article} from '../shared/article.model';
 import {map} from 'rxjs/operators';
-import {Shopping} from '../cashier-opened/shopping-cart/shopping.model';
 import {ArticleService} from '../shared/article.service';
 
 @Injectable()
 export class OrderService {
   static ARTICLE_VARIOUS = '1';
 
-  private shoppingCart: Array<Article> = [];
+  private shoppingCart: Array<OrderArticle> = [];
   private lastArticle: Article;
-  private shoppingCartSubject: Subject<Article[]> = new BehaviorSubject(undefined); // refresh auto
-
+  private orderArticlesObservable: Subject<OrderArticle[]> = new BehaviorSubject(undefined); // refresh auto
 
   constructor(private httpService: HttpService, private articleService: ArticleService) {
   }
@@ -41,12 +38,16 @@ export class OrderService {
     return this.httpService.get(ApiEndpoint.ORDERS + '\\' + id);
   }
 
-  readOne(code: String): Observable<Article> {
+  readOne(code: String): Observable<OrderArticle> {
     return this.httpService.get(ApiEndpoint.ARTICLES + '/' + code);
   }
 
-  create(articles: Article, provider: Provider): Observable<any> {
-    return this.httpService.post(ApiEndpoint.ORDERS + '\\' + articles, provider);
+  create(or): Observable<OrderArticle[]> {
+    return this.httpService.successful('Successful operation').post(ApiEndpoint.ORDERS, or);
+  }
+
+  finById(order: Order): Observable<OrderArticle[]> {
+    return this.httpService.post(ApiEndpoint.ORDERS + ApiEndpoint.ARTICLE, order);
   }
 
   update(order: Order): Observable<Order> {
@@ -57,30 +58,53 @@ export class OrderService {
     return this.httpService.post(ApiEndpoint.ORDERS + ApiEndpoint.CLOSE, order);
   }
 
-  shoppingCartObservable(): Observable<Article[]> {
-    return this.shoppingCartSubject.asObservable();
+  shoppingCartObservable(): Observable<OrderArticle[]> {
+    return this.orderArticlesObservable.asObservable();
   }
 
-  addArticleOrderList(code: string) {
+  getArticleOrderList(orderArticle: OrderArticle[] ) {
+    return orderArticle.forEach( (value) => {
+      const shopping = new OrderArticle(value.code, value.description, value.amount, value.retailPrice, value.provider);
+      this.shoppingCart.push(shopping);
+      this.orderArticlesObservable.next(this.shoppingCart);
+    });
+  }
+
+  addArticleOrderList(code: string, idProvider: string) {
     return this.articleService.readOne(code).pipe(
       map(
         (article: Article) => {
-          const shopping = new Shopping(article.code, article.description, article.retailPrice);
+          this.shoppingCart.forEach( (value) => {
+            if (value.provider !== idProvider ) {
+               alert('No se puede agregar artículos de otro proveedor');
+               this.shoppingCart = [];
+               return this.orderArticlesObservable.next(this.shoppingCart);
+            }
+          });
+          const shopping = new OrderArticle(article.code, article.description, article.amount, article.retailPrice, idProvider);
           if (article.stock < 1) {
             shopping.committed = false;
           }
           this.shoppingCart.push(shopping);
-          console.log('my list', this.shoppingCart);
           this.lastArticle = article;
-          this.shoppingCartSubject.next(this.shoppingCart);
+          this.orderArticlesObservable.next(this.shoppingCart);
         }));
   }
 
-  delete(shopping: Shopping): void {
-    const index = this.shoppingCart.indexOf(shopping);
+  resetOrderArticlesObsrvList() {
+    this.shoppingCart = [];
+    this.orderArticlesObservable.next(this.shoppingCart);
+  }
+
+  deleteOrder(orderArticle: OrderArticle): void {
+    const index = this.shoppingCart.indexOf(orderArticle);
     if (index > -1) {
       this.shoppingCart.splice(index, 1);
     }
-    this.shoppingCartSubject.next(this.shoppingCart);
+    this.orderArticlesObservable.next(this.shoppingCart);
+  }
+
+  delete(order: Order): Observable<any> {
+    return this.httpService.delete(ApiEndpoint.ORDERS + '/' + order.id);
   }
 }

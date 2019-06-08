@@ -32,10 +32,9 @@ export class ApiEndpoint {
   public static ARTICLES_FAMILY_COMPOSITE = '/familydescription';
 
   public static TICKETS = '/tickets';
+  public static FAMILY_SIZES = ApiEndpoint.ARTICLES + '/family-sizes';
   public static ARTICLES_DATE_SOLD = ApiEndpoint.TICKETS + '/datesold';
   public static GIFT_TICKETS = '/tickets/gift';
-
-  public static FAMILY_SIZES = '/family-sizes';
 
   public static PROVIDERS = '/providers';
   public static ACTIVES = '/actives';
@@ -53,4 +52,6 @@ export class ApiEndpoint {
   public static PARTIALLY_DEFINED = '/partially-defined';
 
   public static ARTICLES_SEARCH = ApiEndpoint.ARTICLES + ApiEndpoint.SEARCH;
+
+  public static ARTICLE = '/article';
 }

@@ -1,33 +1,28 @@
 <h3 mat-dialog-title>{{mode}} Order</h3>
 
 <mat-dialog-content>
-
   <mat-form-field>
     <mat-label>Select a provider</mat-label>
-    <mat-select placeholder="State" (selectionChange)="getArticlesByProvider($event.value)">
+    <mat-select placeholder="State" #pro (selectionChange)="getArticlesByProvider($event.value)">
       <mat-option *ngFor="let provee of providers" [value]="provee.id">
         {{ provee.company }}
       </mat-option>
     </mat-select>
   </mat-form-field>
-
   <mat-form-field>
     <mat-label>Select article</mat-label>
-    <mat-select placeholder="State" (selectionChange)="addArticleOrderList($event.value)">
+    <mat-select placeholder="State" (selectionChange)="addArticleOrderList($event.value, pro.value)">
       <mat-option *ngFor="let article of orderArticle" [value]="article.code">
         {{ article.description}}
       </mat-option>
     </mat-select>
   </mat-form-field>
-
-
 </mat-dialog-content>
-
 
 <mat-card>
   <mat-card-title>
     <mat-icon color="primary">shopping_cart</mat-icon>
-    Shopping Cart {{totalShoppingCart() | currency:'EUR':'symbol'}}
+    Articles
   </mat-card-title>
   <mat-card-content>
     <mat-table [dataSource]="dataTAbleArticles" class="mat-elevation-z8">
@@ -54,7 +49,6 @@
         </mat-cell>
       </ng-container>
 
-
       <ng-container matColumnDef="price">
         <mat-header-cell *matHeaderCellDef fxFlex="11%"> Price</mat-header-cell>
         <mat-cell *matCellDef="let item" fxFlex="11%">
@@ -65,7 +59,7 @@
       <ng-container matColumnDef="actions">
 
         <mat-header-cell *matHeaderCellDef fxFlex="15%">
-          <button  mat-button mat-icon-button matSuffix>
+          <button mat-button mat-icon-button matSuffix>
             <mat-icon color="primary">autorenew</mat-icon>
           </button>
         </mat-header-cell>
@@ -83,9 +77,6 @@
   </mat-card-content>
 </mat-card>
 
-
-
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button mat-dialog-close (click)="onclick()">Submit</button>
+  <button mat-button mat-dialog-close (click)="create()">Create order</button>
 </mat-dialog-actions>

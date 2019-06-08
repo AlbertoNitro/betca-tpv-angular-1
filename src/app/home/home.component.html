@@ -87,7 +87,7 @@
     <mat-icon>playlist_add_check</mat-icon>
     <span>Ticket tracking</span>
   </button>
-  <button mat-menu-item (click)="invoices()">
+  <button mat-menu-item [matMenuTriggerFor]="invoice">
     <mat-icon>receipt</mat-icon>
     <span>Invoices</span>
   </button>
@@ -102,6 +102,12 @@
   <button mat-menu-item (click)="vouchers()">
     <mat-icon>local_offer</mat-icon>
     <span>Vouchers</span>
+  </button>
+</mat-menu>
+<mat-menu #invoice="matMenu">
+  <button mat-menu-item (click)="generateInvoice()">
+    <mat-icon>receipt</mat-icon>
+    <span>Generate Invoice</span>
   </button>
 </mat-menu>
 <mat-menu #products="matMenu">
