@@ -3,7 +3,7 @@ import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
 import {HttpService} from '../../core/http.service';
 import {ApiEndpoint} from '../shared/api-endpoint.model';
-import {Order} from './order.model';
+import {Order, orderClose} from './order.model';
 import {OrderSearch} from '../order/order-search.model';
 import {OrderArticle} from './order-article.model';
 import {Article} from '../shared/article.model';
@@ -54,7 +54,7 @@ export class OrderService {
     return this.httpService.put(ApiEndpoint.ORDERS + '\\' + order.id, order);
   }
 
-  closeOrder(order: Order[]): Observable<Order[]> {
+  closeOrder(order: orderClose): Observable<Order> {
     return this.httpService.post(ApiEndpoint.ORDERS + ApiEndpoint.CLOSE, order);
   }
 

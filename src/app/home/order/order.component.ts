@@ -10,6 +10,7 @@ import {ProviderService} from '../providers/provider.service';
 import {Provider} from '../providers/provider.model';
 import {Article} from '../shared/article.model';
 import {OrderArticle} from './order-article.model';
+import {$} from "protractor";
 
 @Component({
   selector: 'app-order',
@@ -82,6 +83,7 @@ export class OrderComponent {
   }
 
   update(order: Order) {
+    console.log(order);
     this.orderService.finById(order).subscribe(
       result => {
         this.dataDialogArticle = result;
@@ -101,14 +103,29 @@ export class OrderComponent {
     );
   }
 
-  closeOrderModal($event): void {
-    const dialogRef = this.dialog.open(ModalComponent, {
+  closeOrderModal(order: Order): void {
+    console.log(order);
+    const getOrder = this.orderService.finById(order).subscribe(
+      result => {
+        this.dataDialogArticle = result;
+        console.log(result);
+        const dialogRef = this.dialog.open(ModalComponent, {
+          width: '1700px',
+          data: {
+            id: order.id,
+            orderLine: {
+              id: result[0].code,
+              descriptionArticles: order.descriptionArticles,
+              requiredAmount: order.requiredAmount,
+              finalAmount: order.finalAmount
+            }
+          }
+        });
+      }
+    );
+    /*const dialogRef = this.dialog.open(ModalComponent, {
       width: '1700px',
-      data: $event
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.closeOrderModal = result;
-    });
+      data: order
+    });*/
   }
 }
