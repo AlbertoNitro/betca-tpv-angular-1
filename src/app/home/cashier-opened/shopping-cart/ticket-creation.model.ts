@@ -7,4 +7,5 @@ export interface TicketCreation {
   voucher: number;
   note: String;
   shoppingCart: Shopping[];
+  giftNote?: String;
 }

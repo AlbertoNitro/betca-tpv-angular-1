@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from '../../core/http.service';
 import {Observable} from 'rxjs';
-import {StockPredictionOutputDto} from './model/stock-prediction-output-dto.model';
-import {StockPredictionInputDto} from './model/stock-prediction-input-dto.model';
+import {StockPredictionOutput} from './model/stock-prediction-output.model';
+import {StockPredictionInput} from './model/stock-prediction-input.model';
 import {ApiEndpoint} from '../shared/api-endpoint.model';
 
 @Injectable({
@@ -15,9 +15,10 @@ export class StockPredictionService {
   constructor(private httpService: HttpService) {
   }
 
-  calculate(stockPredictionInputDto: StockPredictionInputDto): Observable<StockPredictionOutputDto[]> {
-    return this.httpService.param(this.PARAM_PERIODICITY_TYPE, stockPredictionInputDto.periodicityType)
-      .param(this.PARAM_PERIODS_NUMBER, String(stockPredictionInputDto.periodsNumber))
-      .get(ApiEndpoint.ARTICLES + `/${stockPredictionInputDto.articleCode}` + ApiEndpoint.STOCK_PREDICTION);
+  calculate(stockPredictionInput: StockPredictionInput): Observable<StockPredictionOutput[]> {
+    const endpointStockPrediction = ApiEndpoint.ARTICLES + `/${stockPredictionInput.articleCode}` + ApiEndpoint.STOCK_PREDICTION;
+    return this.httpService.param(this.PARAM_PERIODICITY_TYPE, stockPredictionInput.periodicityType)
+      .param(this.PARAM_PERIODS_NUMBER, String(stockPredictionInput.periodsNumber))
+      .get(endpointStockPrediction);
   }
 }

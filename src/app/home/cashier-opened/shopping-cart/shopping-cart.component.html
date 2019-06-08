@@ -95,3 +95,21 @@
     </button>
   </mat-card-content>
 </mat-card>
+
+
+<mat-card>
+  <mat-card-content>
+    <div class="container">
+      <form>
+        <mat-form-field>
+          <input matInput #mobile name="mobile" ([ngModel])="mobile.value" placeholder="Client's phone for discount" >
+        </mat-form-field>
+        <button type="submit" (click)="searchDiscount(mobile.value)" color="primary" mat-mini-fab>
+          <mat-icon>search</mat-icon>
+        </button>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+

@@ -46,6 +46,8 @@ export class UserService {
   updateProfile(user: UserProfile): Observable<User> {
     return this.httpService.put(ApiEndpoint.USERS + ApiEndpoint.PROFILES + '/' + user.mobile, user );
   }
-
+  validatorsProfile(user: UserProfile): Observable<Boolean> {
+    return this.httpService.put(ApiEndpoint.USERS + ApiEndpoint.PROFILES + ApiEndpoint.VALIDATORS + '/' + user.mobile, user );
+  }
 
 }

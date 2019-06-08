@@ -6,6 +6,11 @@ import {ShoppingCartService} from './shopping-cart.service';
 import {Shopping} from './shopping.model';
 import {CheckOutDialogComponent} from './check-out-dialog.component';
 import {ArticleQuickCreationDialogComponent} from './article-quick-creation-dialog.component';
+import { ApplyDiscountDialogComponent} from './apply-discount-dialog/apply-discount-dialog.component';
+
+export interface MobileData {
+  mobile: string;
+}
 
 @Component({
   selector: 'app-shopping-cart',
@@ -13,7 +18,7 @@ import {ArticleQuickCreationDialogComponent} from './article-quick-creation-dial
   templateUrl: 'shopping-cart.component.html'
 })
 export class ShoppingCartComponent implements OnInit, OnDestroy {
-
+  mobile: any;
   displayedColumns = ['id', 'description', 'retailPrice', 'amount', 'discount', 'total', 'actions'];
   dataSource: MatTableDataSource<Shopping>;
 
@@ -131,6 +136,14 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     );
   }
 
+    searchDiscount(numeroMovil) {
+      this.mobile = parseInt(numeroMovil, 10);
+      this.dialog.open(ApplyDiscountDialogComponent, {
+      data: {mobile: this.mobile}
+    });
+  }
+
+
   stockLabel(): string {
     return (this.shoppingCartService.getLastArticle()) ? 'Stock of ' + this.shoppingCartService.getLastArticle().description : 'Stock';
   }
@@ -155,7 +168,9 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   }
 
   createBudget() {
-    this.shoppingCartService.createBudget();
+    this.shoppingCartService.createBudget().subscribe(
+      () => this.ngOnInit()
+    );
   }
 
   ngOnDestroy(): void {

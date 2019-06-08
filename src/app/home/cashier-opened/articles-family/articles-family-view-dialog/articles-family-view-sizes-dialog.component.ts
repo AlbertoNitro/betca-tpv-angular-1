@@ -1,6 +1,7 @@
 import {Component, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
-import {ArticleSize} from './article-size-view.model';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {ArticleFamilyViewElement} from '../article-family-view-element.model';
+import {ShoppingCartService} from '../../shopping-cart/shopping-cart.service';
 
 
 @Component({
@@ -9,13 +10,20 @@ import {ArticleSize} from './article-size-view.model';
 })
 export class ArticlesFamilyViewSizesDialogComponent {
 
-  articlesSizeslist: ArticleSize[];
+  articlesSizeslist: ArticleFamilyViewElement[];
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any[],
+    private shoppingCartService: ShoppingCartService,
+    private dialog: MatDialog, public dialogRef: MatDialogRef<ArticlesFamilyViewSizesDialogComponent>) {
     this.articlesSizeslist = data;
   }
 
-  addSizeToCart(reference: string) {
-    console.log('add to cart');
+  addSizeToCart(code: string) {
+    return this.shoppingCartService.add(code).subscribe(data => {}, () => {},
+      () => {
+        this.dialogRef.close();
+      }
+    );
   }
 }

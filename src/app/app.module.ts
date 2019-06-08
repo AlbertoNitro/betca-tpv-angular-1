@@ -6,6 +6,7 @@ import {CdkTableModule} from '@angular/cdk/table';
 
 import {CoreModule} from './core/core.module';
 import {CashierService} from './home/shared/cashier.service';
+import {AlarmService} from './home/alarms/alarm.service';
 import {ArticleService} from './home/shared/article.service';
 import {BudgetService} from './home/budgets/budget.service';
 import {CashierClosureService} from './home/cashier-opened/cashier/cashier-closure.service';
@@ -18,15 +19,20 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {StatisticsService} from './home/stadistics/statistics.service';
+import {StockManagerService} from './home/stock-manager/stock-manager.service';
 import {ProviderService} from './home/providers/provider.service';
 import {OfferService} from './home/offers/offer.service';
 import {OrderService} from './home/order/order.service';
 import {ArticleFamilyService} from './home/articles-families/shared/articles-families.service';
-import {VoucherService} from './home/vouchers/voucher.service';
+import {VoucherService} from './home/shared/voucher.service';
 import {ModalComponent} from './home/order/modal/modal.component';
 import {TicketsService} from './home/tickets/tickets.service';
 import {ArticleFamilyViewService} from './home/cashier-opened/articles-family/articles-families-view.service';
 import {RgpdService} from './home/rgpd/rgpd.service';
+import {InvoiceUpdateService} from './home/invoice/invoice-update.service';
+import {MatInputModule} from '@angular/material';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {NegativeInvoiceDialogComponent} from './home/invoice/negative-invoice-dialog.component';
 
 @NgModule({
   imports: [
@@ -38,6 +44,8 @@ import {RgpdService} from './home/rgpd/rgpd.service';
     CoreModule,
     FormsModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
     NgxChartsModule
 
   ],
@@ -50,6 +58,7 @@ import {RgpdService} from './home/rgpd/rgpd.service';
   entryComponents: [AppRoutingModule.DIALOGS, ModalComponent],
   providers: [
     AdminsService,
+    AlarmService,
     ArticleFamilyService,
     ArticleFamilyViewService,
     ArticleService,
@@ -57,8 +66,12 @@ import {RgpdService} from './home/rgpd/rgpd.service';
     CashierClosureService,
     CashierService,
     CashMovementService,
+    InvoiceUpdateService,
+    MatFormFieldModule,
+    MatInputModule,
     ShoppingCartService,
     StatisticsService,
+    StockManagerService,
     UserService,
     ProviderService,
     TicketsService,

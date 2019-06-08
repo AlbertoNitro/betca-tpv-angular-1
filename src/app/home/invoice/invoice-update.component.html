@@ -1,3 +1,32 @@
-<p>
-  invoice-update works!
-</p>
+<mat-card>
+  <mat-card-title>Search</mat-card-title>
+  <form [formGroup]="invoiceUpdateForm">
+<mat-form-field>
+  <input matInput placeholder="Mobile" type="text" [(ngModel)]= "mobile" formControlName="mobile" formGroupName="mobile"
+         cdkFocusInitial>
+</mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Date from" [matDatepicker]="dateFrom" [(ngModel)]="selectDateFrom" formControlName="dateFrom" formGroupName="dateFrom">
+      <mat-datepicker-toggle matSuffix [for]="dateFrom"></mat-datepicker-toggle>
+      <mat-datepicker #dateFrom ></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Date to" [matDatepicker]="dateTo" [(ngModel)]="selectDateTo" formControlName="dateTo" formGroupName="dateTo">
+      <mat-datepicker-toggle matSuffix [for]="dateTo"></mat-datepicker-toggle>
+      <mat-datepicker #dateTo ></mat-datepicker>
+    </mat-form-field>
+      <button type="submit" mat-mini-fab color="primary" (click)="search()">
+  <mat-icon>search</mat-icon>
+</button>
+  <button (click)="resetMobile()" color="primary" mat-mini-fab>
+    <mat-icon>close</mat-icon>
+  </button>
+  </form>
+  <app-crud [title]="title" [columns]="columns"
+                  [data]="data" [createAction]="false"
+                  (read)="generatePdf($event.id)" (update)="update($event.id)"
+                  (delete)="deleteInfo()" >
+  </app-crud>
+</mat-card>
+

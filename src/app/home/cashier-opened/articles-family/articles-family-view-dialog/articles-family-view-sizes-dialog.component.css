@@ -1,3 +1,7 @@
-.separator{
+.separator_ver{
   margin-bottom: 10px;
+}
+
+.separator_hor{
+  margin-right: 8px;
 }

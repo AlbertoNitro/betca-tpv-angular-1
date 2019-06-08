@@ -1,13 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog, MatDialogConfig} from '@angular/material';
-import { CancelYesDialogComponent } from '../../core/cancel-yes-dialog.component';
-import { OffersCreateDialogComponent } from './offers-create-dialog.component';
-import { OffersDetailsDialogComponent } from './offers-details-dialog.component';
+import {CancelYesDialogComponent} from '../../core/cancel-yes-dialog.component';
+import {OffersCreateDialogComponent} from './offers-create-dialog.component';
+import {OffersDetailsDialogComponent} from './offers-details-dialog.component';
 
 import {Offer} from './offer.model';
-import { OfferService } from './offer.service';
+import {OfferService} from './offer.service';
 import {FormControl, FormGroup} from '@angular/forms';
-import {count} from 'rxjs/operators';
 
 @Component({
   selector: 'app-offers',
@@ -28,8 +27,8 @@ export class OffersComponent implements OnInit {
     this.formSearchOffers = new FormGroup({
       id: new FormControl(''),
       offername: new FormControl(''),
-      idArticle: new FormControl(  ''),
-      activeOffers: new FormControl(  false),
+      idArticle: new FormControl(''),
+      activeOffers: new FormControl(false),
     });
     this.findAll();
   }
@@ -62,7 +61,7 @@ export class OffersComponent implements OnInit {
   }
 
   create() {
-    this.dialog.open(OffersCreateDialogComponent, { width: '60%', height: '90%' } ).afterClosed().subscribe(
+    this.dialog.open(OffersCreateDialogComponent, {width: '60%', height: '90%'}).afterClosed().subscribe(
       result => {
         this.reset(this.formSearchOffers);
       });
@@ -81,13 +80,19 @@ export class OffersComponent implements OnInit {
   }
 
   delete(offer: Offer) {
-    this.dialog.open(CancelYesDialogComponent).afterClosed().subscribe(
-    result => {
-      if (result) {
-        this.offers = this.offers.filter(h => h !== offer);
-        this.offerService.delete(offer).subscribe();
+    const dialogConfig: MatDialogConfig = {
+      data: {
+        message: 'The offer will be deleted',
+        question: 'Are you sure?'
       }
-    });
+    };
+    this.dialog.open(CancelYesDialogComponent, dialogConfig).afterClosed().subscribe(
+      result => {
+        if (result) {
+          this.offers = this.offers.filter(h => h !== offer);
+          this.offerService.delete(offer).subscribe();
+        }
+      });
   }
 
   findAll() {
