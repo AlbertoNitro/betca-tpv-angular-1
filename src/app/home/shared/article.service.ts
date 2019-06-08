@@ -11,9 +11,6 @@ import {ArticleQueryModel} from './article-query.model';
 
 @Injectable()
 export class ArticleService {
-  static createFamilySizes(familySizesForm: FormGroup): any {
-    throw new Error('Method not implemented.');
-  }
 
   constructor(private httpService: HttpService) {
   }
@@ -38,10 +35,9 @@ export class ArticleService {
     return this.httpService.successful('The article was deleted').delete(ApiEndpoint.ARTICLES + '/' + code);
   }
 
-  // TODO: API connection
-  createFamilySizes(familySizesForm) {
-    const formData = new FormData(familySizesForm);
-    console.log('Here is the form data! ', formData);
+  createFamilySizes(familySizesForm: FormGroup) {
+    const body = familySizesForm.value;
+    return this.httpService.post(ApiEndpoint.FAMILY_SIZES, body);
   }
 
   readPartiallyDefined(): Observable<ArticleDetailModel[]> {

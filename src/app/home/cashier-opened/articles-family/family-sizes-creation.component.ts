@@ -127,6 +127,12 @@ export class FamilySizesCreationComponent implements OnInit {
 
   public createFamilySizes() {
     this.familySizesForm.controls.sizesArray.setValue(this.defineSizesArray());
-    this.articleService.createFamilySizes(this.familySizesForm);
+    this.articleService.createFamilySizes(this.familySizesForm).subscribe(
+      response => {
+        console.log('Response -> ', response);
+      },
+      err => {
+        console.log('Err -> ', err);
+      });
   }
 }
