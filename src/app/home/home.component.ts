@@ -142,7 +142,7 @@ export class HomeComponent {
   ticketTracking() {
   }
 
-  createInvoice() {
+  generateInvoice() {
   }
 
   article() {
