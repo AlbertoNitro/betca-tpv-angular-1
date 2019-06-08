@@ -114,9 +114,7 @@ export class OrderComponent {
           data: {
             id: order.id,
             orderLine: {
-              Article : {
-                id: result[0].code
-              },
+              id: result[0].code,
               descriptionArticles: order.descriptionArticles,
               requiredAmount: order.requiredAmount,
               finalAmount: order.finalAmount

@@ -9,14 +9,14 @@ export interface Order {
   closingDate?: Date;
 }
 
-export interface  orderClose {
+export class orderClose {
   id: number;
-    orderLine: orderLine[];
+    orderLine: orderLine;
 }
 
 export interface orderLine {
   Article: {
-    id: number
+    code: number
   }
   id: number;
   descriptionOrders: string;
