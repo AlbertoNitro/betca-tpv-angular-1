@@ -9,6 +9,6 @@ export class InvoiceService {
   }
 
   generateInvoice(ticketReference: string): Observable<any> {
-    return this.httpService.pdf().get(ApiEndpoint.INVOICEGENERATE + '/' + ticketReference);
+    return this.httpService.pdf().get(ApiEndpoint.INVOICE + ApiEndpoint.INVOICEGENERATE + '/' + ticketReference);
   }
 }
