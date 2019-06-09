@@ -42,7 +42,6 @@
 <mat-form-field *ngIf= "requestedGiftTicket">
     <input matInput placeholder="Leave a Message" type="text" [(ngModel)]="ticketCreation.giftNote">
 </mat-form-field>
-
   <mat-checkbox [(ngModel)]="requestedInvoice" [disabled]="invalidInvoiceUser">
     <span> Create Invoice ({{ticketCreation.userMobile}})</span>
   </mat-checkbox>
