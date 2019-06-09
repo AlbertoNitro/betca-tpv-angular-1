@@ -2,7 +2,7 @@ export interface User {
   mobile: number;
   username: string;
   name?: string;
-  lastName?: string;
+  lastname?: string;
   email?: string;
   dni?: string;
   discount?: number ;
