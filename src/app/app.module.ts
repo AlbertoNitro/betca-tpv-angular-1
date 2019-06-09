@@ -33,6 +33,7 @@ import {InvoiceUpdateService} from './home/invoice/invoice-update.service';
 import {MatInputModule} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {NegativeInvoiceDialogComponent} from './home/invoice/negative-invoice-dialog.component';
+import {InvoiceService} from "./home/invoice/invoice.service";
 
 @NgModule({
   imports: [
@@ -79,7 +80,8 @@ import {NegativeInvoiceDialogComponent} from './home/invoice/negative-invoice-di
     OfferService,
     OrderService,
     RgpdService,
-    VoucherService
+    VoucherService,
+    InvoiceService
   ],
   bootstrap: [AppComponent]
 })
