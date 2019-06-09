@@ -1,7 +1,12 @@
 <h1 mat-dialog-title align="center">User Discount</h1>
 <div mat-dialog-content>
+  <ng-template [ngIf]="user" [ngIfElse]="notUser">
   <span align="center">Mobile: {{user.mobile}}</span><br><br>
   <span align="center">Discount: {{user.discount}}%</span>
+  </ng-template>
+  <ng-template #notUser>
+    <span align="center">User Not Found</span>
+  </ng-template>
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button mat-dialog-close>Cancel</button>

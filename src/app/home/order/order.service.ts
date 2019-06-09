@@ -3,7 +3,7 @@ import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
 import {HttpService} from '../../core/http.service';
 import {ApiEndpoint} from '../shared/api-endpoint.model';
-import {Order} from './order.model';
+import {Order, orderClose} from './order.model';
 import {OrderSearch} from '../order/order-search.model';
 import {OrderArticle} from './order-article.model';
 import {Article} from '../shared/article.model';
@@ -43,7 +43,7 @@ export class OrderService {
   }
 
   create(or): Observable<OrderArticle[]> {
-    return this.httpService.post(ApiEndpoint.ORDERS, or);
+    return this.httpService.successful('Successful operation').post(ApiEndpoint.ORDERS, or);
   }
 
   finById(order: Order): Observable<OrderArticle[]> {
@@ -54,7 +54,7 @@ export class OrderService {
     return this.httpService.put(ApiEndpoint.ORDERS + '\\' + order.id, order);
   }
 
-  closeOrder(order: Order[]): Observable<Order[]> {
+  closeOrder(order: orderClose): Observable<Order> {
     return this.httpService.post(ApiEndpoint.ORDERS + ApiEndpoint.CLOSE, order);
   }
 
@@ -64,7 +64,7 @@ export class OrderService {
 
   getArticleOrderList(orderArticle: OrderArticle[] ) {
     return orderArticle.forEach( (value) => {
-      const shopping = new OrderArticle(value.code, value.description, value.retailPrice, value.provider);
+      const shopping = new OrderArticle(value.code, value.description, value.amount, value.retailPrice, value.provider);
       this.shoppingCart.push(shopping);
       this.orderArticlesObservable.next(this.shoppingCart);
     });
@@ -81,7 +81,7 @@ export class OrderService {
                return this.orderArticlesObservable.next(this.shoppingCart);
             }
           });
-          const shopping = new OrderArticle(article.code, article.description, article.retailPrice, idProvider);
+          const shopping = new OrderArticle(article.code, article.description, article.amount, article.retailPrice, idProvider);
           if (article.stock < 1) {
             shopping.committed = false;
           }

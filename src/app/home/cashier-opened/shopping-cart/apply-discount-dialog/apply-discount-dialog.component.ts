@@ -5,7 +5,6 @@ import {User} from '../../../users/user.model';
 import {UserService} from '../../../users/user.service';
 import {Provider} from '../../../providers/provider.model';
 import {HttpClient} from '@angular/common/http';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {ShoppingCartService} from '../shopping-cart.service';
 
 @Component({
@@ -18,7 +17,6 @@ export class ApplyDiscountDialogComponent implements OnInit {
   provider: Provider = {};
   providers: [UserService, HttpClient];
 
-
   constructor(private userService: UserService,
               private shoppingCartService: ShoppingCartService,
               private http: HttpClient,
@@ -28,9 +26,8 @@ export class ApplyDiscountDialogComponent implements OnInit {
               ngOnInit() {
     this.findDiscountByMobile();
               }
-              findDiscountByMobile(): void {
+    findDiscountByMobile(): void {
     this.userService.findByMobile(<number><any>this.data.mobile).subscribe(respuesta => {
-      console.log(respuesta);
       this.user = respuesta;
     });
   }
