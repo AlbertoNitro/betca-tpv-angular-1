@@ -212,6 +212,7 @@ export class CheckOutDialogComponent {
   }
 
   validateUser() {
+
     if (!this.userFound.name ||
       !this.userFound.lastName ||
       !this.userFound.address) {

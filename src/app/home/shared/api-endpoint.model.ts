@@ -36,7 +36,6 @@ export class ApiEndpoint {
   public static GIFT_TICKETS = '/tickets/gift';
 
   public static FAMILY_SIZES = '/family-sizes';
-
   public static PROVIDERS = '/providers';
   public static ACTIVES = '/actives';
   public static SEARCH = '/search';

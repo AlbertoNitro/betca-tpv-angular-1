@@ -122,10 +122,12 @@ export class ShoppingCartService {
   checkOut(ticketCreation: TicketCreation): Observable<any> {
     ticketCreation.shoppingCart = this.shoppingCart;
     if(ticketCreation.invoiceRequired){
+
       return this.httpService.pdf().post(ApiEndpoint.INVOICE, ticketCreation).pipe(
         map(() => this.reset())
       )
     }else{
+
       return this.httpService.pdf().post(ApiEndpoint.TICKETS, ticketCreation).pipe(
         map(() => this.reset())
       );
