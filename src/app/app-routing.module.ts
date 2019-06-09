@@ -54,6 +54,7 @@ import {ArticlesFamiliesAttachDialogComponent} from './home/articles-families/up
 // tslint:disable-next-line:max-line-length
 import {ArticlesFamilyViewSizesDialogComponent} from './home/cashier-opened/articles-family/articles-family-view-dialog/articles-family-view-sizes-dialog.component';
 import {ApplyDiscountDialogComponent} from './home/cashier-opened/shopping-cart/apply-discount-dialog/apply-discount-dialog.component';
+import {GenerateInvoiceDialogComponent} from "./home/invoice/generate-invoice-dialog.component";
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: WelcomeComponent.URL},
@@ -143,6 +144,7 @@ export class AppRoutingModule {
     UserQuickCreationDialogComponent,
     VouchersUseDialogComponent,
     VoucherNewDialogComponent,
-    VoucherConsumedDialogComponent
+    VoucherConsumedDialogComponent,
+    GenerateInvoiceDialogComponent
   ];
 }
