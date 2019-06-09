@@ -1,0 +1,15 @@
+<h3 mat-dialog-title>Generate Invoice </h3>
+<mat-dialog-content>
+<mat-form-field>
+  <input matInput type="text" placeholder="Ticket Number"
+         [(ngModel)]="ticketReference"
+         required cdkFocusInitial/>
+</mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" (click)="generateInvoice()">
+    <mat-icon>receipt</mat-icon>
+    <span>Genearte Invoice</span>
+  </button>
+</mat-dialog-actions>

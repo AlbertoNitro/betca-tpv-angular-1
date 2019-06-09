@@ -1,5 +1,6 @@
 export class ApiEndpoint {
   public static INVOICE = '/invoice';
+  public static INVOICEGENERATE = '/generate-invoice'
   public static INVOICEUPDATEDATES = '/invoice-update/dates';
   public static INVOICEUPDATEMOBILE = '/invoice-update/mobile';
   public static INVOICEUPDATEMOBILEDATES = '/invoice-update/mobiledates';
