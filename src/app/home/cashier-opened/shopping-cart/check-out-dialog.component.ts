@@ -213,8 +213,7 @@ export class CheckOutDialogComponent {
 
   validateUser() {
 
-    if (!this.userFound.name ||
-      !this.userFound.lastname ||
+    if (!this.userFound.username ||
       !this.userFound.address) {
       this.invalidInvoiceUser = true;
     } else {
