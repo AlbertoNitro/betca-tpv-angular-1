@@ -31,6 +31,7 @@ export class FamilySizesCreationComponent implements OnInit {
       reference: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       provider: new FormControl('', Validators.required),
+      stock: new FormControl('', Validators.required),
       sizesArray: new FormControl([])
     });
   }
