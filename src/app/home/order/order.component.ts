@@ -10,7 +10,7 @@ import {ProviderService} from '../providers/provider.service';
 import {Provider} from '../providers/provider.model';
 import {Article} from '../shared/article.model';
 import {OrderArticle} from './order-article.model';
-import {$} from "protractor";
+import {$} from 'protractor';
 
 @Component({
   selector: 'app-order',
@@ -23,7 +23,7 @@ export class OrderComponent {
   order: { descriptionOrders: string; descriptionArticles: string; onlyClosingDate: boolean };
   data: Order[];
   title = 'Order management';
-  columns = ['descriptionOrders', 'descriptionArticles', 'requiredAmount', 'finalAmount', 'openingDate', 'closingDate'];
+  columns = ['descriptionOrders', 'openingDate', 'closingDate'];
   provider: { 'active': true };
   providers: Provider[];
   dataDialog: Article[];
@@ -45,12 +45,14 @@ export class OrderComponent {
 
   search() {
     this.orderService.readSearch(this.orderSearch).subscribe(
-      data => this.data = data
+      data => {
+        this.data = data;
+      }
     );
   }
 
   resetSearch() {
-    this.orderSearch = {descriptionOrders: '', descriptionArticles: '' , onlyClosingDate: false };
+    this.orderSearch = {descriptionOrders: '', descriptionArticles: '', onlyClosingDate: false};
   }
 
   create() {
@@ -62,7 +64,7 @@ export class OrderComponent {
           columns: this.columnsDialog,
           datos: this.dataDialog,
         },
-        width : '1000px'
+        width: '1000px'
       }
     );
   }
@@ -96,7 +98,7 @@ export class OrderComponent {
               datos: this.dataDialogArticle,
               orderSelect: order
             },
-            width : '1000px'
+            width: '1000px'
           }
         );
       }
