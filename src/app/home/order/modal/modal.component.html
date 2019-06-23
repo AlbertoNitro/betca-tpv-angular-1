@@ -3,7 +3,6 @@
   <table class="table table-striped">
     <thead>
     <tr>
-      <th scope="col">Article #</th>
       <th scope="col">Article</th>
       <th scope="col">Required Amount</th>
       <th scope="col">Final Amount</th>
@@ -11,12 +10,10 @@
     </thead>
     <tbody>
     <!-- TODO ngFor with all articles from Order -->
-    <tr>
-      <td><input [(ngModel)]="data.orderLine.Article.code"></td>
-      <td><input [(ngModel)]="data.orderLine.descriptionArticles"></td>
-      <td><input [(ngModel)]="data.orderLine.descriptionArticles"></td>
-      <td><input [(ngModel)]="data.orderLine.requiredAmount"></td>
-      <td><input [(ngModel)]="data.orderLine.finalAmount"></td>
+    <tr *ngFor="let item of data.orderLines">
+      <td><input [(ngModel)]="item.article.description"></td>
+      <td><input [(ngModel)]="item.requiredAmount"></td>
+      <td><input [(ngModel)]="item.finalAmount"></td>
     </tr>
     </tbody>
   </table>

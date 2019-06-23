@@ -1,3 +1,4 @@
+import {Article} from "../shared/article.model";
 
 export interface Order {
   id: number;
@@ -11,16 +12,5 @@ export interface Order {
 
 export class orderClose {
   id: number;
-    orderLine: orderLine;
-}
-
-export interface orderLine {
-  Article: {
-    code: number
-  }
-  id: number;
-  descriptionOrders: string;
-  descriptionArticles: string;
-  requiredAmount: number;
-  finalAmount: number;
+  orderLines: Array<any>;
 }
