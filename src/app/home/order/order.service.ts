@@ -59,7 +59,7 @@ export class OrderService {
   }
 
   closeOrder(order: orderClose): Observable<Order> {
-    return this.httpService.post(ApiEndpoint.ORDERS + ApiEndpoint.CLOSE, order);
+    return this.httpService.successful('Order Closed').post(ApiEndpoint.ORDERS + ApiEndpoint.CLOSE, order);
   }
 
   shoppingCartObservable(): Observable<OrderArticle[]> {

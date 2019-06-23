@@ -12,5 +12,6 @@ export interface Order {
 
 export class orderClose {
   id: number;
+  description: string;
   orderLines: Array<any>;
 }
