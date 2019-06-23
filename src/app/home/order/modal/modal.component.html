@@ -1,27 +1,28 @@
 <div>
-  <p>Confirm close Order # <input [(ngModel)]="data.id" disabled></p>
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th scope="col">Article #</th>
-      <th scope="col">Article</th>
-      <th scope="col">Required Amount</th>
-      <th scope="col">Final Amount</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- TODO ngFor with all articles from Order -->
-    <tr>
-      <td><input [(ngModel)]="data.orderLine.Article.code"></td>
-      <td><input [(ngModel)]="data.orderLine.descriptionArticles"></td>
-      <td><input [(ngModel)]="data.orderLine.descriptionArticles"></td>
-      <td><input [(ngModel)]="data.orderLine.requiredAmount"></td>
-      <td><input [(ngModel)]="data.orderLine.finalAmount"></td>
-    </tr>
-    </tbody>
+  <p class="mat-card-title">{{title}}</p>
+  <table mat-table [dataSource]="dataSource.orderLines" class="mat-elevation-z8">
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef fxFlex="33%"> Article. </th>
+      <td mat-cell *matCellDef="let element"> {{element.article.description}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="requiredAmount">
+      <th mat-header-cell *matHeaderCellDef fxFlex="33%"> Required Amount</th>
+      <td mat-cell *matCellDef="let element"> {{element.requiredAmount}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="finalAmount">
+      <th mat-header-cell *matHeaderCellDef fxFlex="33%"> Final Amount</th>
+      <td *matCellDef="let element"><input [(ngModel)]="element.finalAmount"></td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
-<div>
-  <button (click)="onNoClick()">No Thanks</button>
-  <button [mat-dialog-close]="data" cdkFocusInitial (click)="closeOrder(data)">Close Order</button>
+<div class="closeOrderButton">
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial (click)="closeOrder(data)">Close Order</button>
 </div>

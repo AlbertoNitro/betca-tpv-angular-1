@@ -43,7 +43,7 @@ export class OrderComponent {
     );
   }
 
-  search() {
+  public search() {
     this.orderService.readSearch(this.orderSearch).subscribe(
       data => {
         this.data = data;
@@ -106,28 +106,14 @@ export class OrderComponent {
   }
 
   closeOrderModal(order: Order): void {
-    console.log(order);
-    const getOrder = this.orderService.finById(order).subscribe(
+    const getOrder = this.orderService.finOrderById(order).subscribe(
       result => {
-        this.dataDialogArticle = result;
         console.log(result);
         const dialogRef = this.dialog.open(ModalComponent, {
-          width: '1700px',
-          data: {
-            id: order.id,
-            orderLine: {
-              id: result[0].code,
-              descriptionArticles: order.descriptionArticles,
-              requiredAmount: order.requiredAmount,
-              finalAmount: order.finalAmount
-            }
-          }
+          width: '1000px',
+          data: result
         });
       }
     );
-    /*const dialogRef = this.dialog.open(ModalComponent, {
-      width: '1700px',
-      data: order
-    });*/
   }
 }

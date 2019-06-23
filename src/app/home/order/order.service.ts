@@ -50,12 +50,16 @@ export class OrderService {
     return this.httpService.post(ApiEndpoint.ORDERS + ApiEndpoint.ARTICLE, order);
   }
 
+  finOrderById(order: Order): Observable<OrderArticle[]> {
+    return this.httpService.post(ApiEndpoint.ORDERS + ApiEndpoint.ORDER, order);
+  }
+
   update(order: Order): Observable<Order> {
     return this.httpService.put(ApiEndpoint.ORDERS + '\\' + order.id, order);
   }
 
   closeOrder(order: orderClose): Observable<Order> {
-    return this.httpService.post(ApiEndpoint.ORDERS + ApiEndpoint.CLOSE, order);
+    return this.httpService.successful('Order Closed').post(ApiEndpoint.ORDERS + ApiEndpoint.CLOSE, order);
   }
 
   shoppingCartObservable(): Observable<OrderArticle[]> {
@@ -65,6 +69,14 @@ export class OrderService {
   getArticleOrderList(orderArticle: OrderArticle[] ) {
     return orderArticle.forEach( (value) => {
       const shopping = new OrderArticle(value.code, value.description, value.amount, value.retailPrice, value.provider);
+      this.shoppingCart.push(shopping);
+      this.orderArticlesObservable.next(this.shoppingCart);
+    });
+  }
+
+  getArticleOrderListForClose(orderArticle: OrderArticle[] ) {
+    return orderArticle.forEach( (value) => {
+      const shopping = new OrderArticle(value.code, value.description, value.amount, value.amount, value.provider);
       this.shoppingCart.push(shopping);
       this.orderArticlesObservable.next(this.shoppingCart);
     });

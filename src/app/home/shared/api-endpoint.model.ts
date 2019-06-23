@@ -55,4 +55,6 @@ export class ApiEndpoint {
   public static ARTICLES_SEARCH = ApiEndpoint.ARTICLES + ApiEndpoint.SEARCH;
 
   public static ARTICLE = '/article';
+
+  public static ORDER = '/order';
 }
