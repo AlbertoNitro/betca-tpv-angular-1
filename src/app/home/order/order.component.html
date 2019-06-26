@@ -18,4 +18,4 @@
 </mat-card>
 
 <app-crud [data]="data" [title]="title" [columns]="columns"
-          (create)="create()" (read)="closeOrderModal($event)" (update)="update($event)" [deleteAction]="false"></app-crud>
+          (create)="create()" (read)="read($event)" (closeOrder)="closeOrderModal($event)" [closeAction]="true" (update)="update($event)" [deleteAction]="false"></app-crud>

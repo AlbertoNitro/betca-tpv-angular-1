@@ -13,10 +13,12 @@ export class CrudComponent {
   @Input() readAction = true;
   @Input() updateAction = true;
   @Input() deleteAction = true;
+  @Input() closeAction = false;
   @Output() create = new EventEmitter<any>();
   @Output() read = new EventEmitter<any>();
   @Output() update = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
+  @Output() closeOrder = new EventEmitter<any>();
   dataSource: MatTableDataSource<any>;
 
   @Input()
@@ -38,6 +40,10 @@ export class CrudComponent {
 
   onDelete(item) {
     this.delete.emit(item);
+  }
+
+  onClose(item) {
+    this.closeOrder.emit(item);
   }
 
 }
