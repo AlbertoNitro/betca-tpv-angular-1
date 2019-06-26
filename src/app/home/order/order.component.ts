@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 
 import {Order} from './order.model';
 import {OrderService} from './order.service';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {DetailsDialogComponent} from '../../core/details-dialog.component';
 import {OrderSaveDialogComponent} from './order-save-dialog.component';
 import {ModalComponent} from './modal/modal.component';
@@ -31,7 +31,8 @@ export class OrderComponent {
   titleDialog = 'Card articles';
   dataDialogArticle: OrderArticle[];
 
-  constructor(private orderService: OrderService, private  dialog: MatDialog, private providerService: ProviderService) {
+  constructor(private orderService: OrderService, private  dialog: MatDialog, private providerService: ProviderService,
+              public snackBar: MatSnackBar) {
     this.order = {descriptionOrders: '', descriptionArticles: '', onlyClosingDate: false};
     this.data = null;
     this.orderSearch = {descriptionOrders: '', descriptionArticles: '', onlyClosingDate: false};
@@ -108,7 +109,12 @@ export class OrderComponent {
   closeOrderModal(order: Order): void {
     const getOrder = this.orderService.finOrderById(order).subscribe(
       result => {
-        console.log(result);
+        if(result['closingDate']) {
+          this.snackBar.open('Order Closed', 'Close', {
+            duration: 3000
+          });
+          return;
+        }
         const dialogRef = this.dialog.open(ModalComponent, {
           width: '1000px',
           data: result
