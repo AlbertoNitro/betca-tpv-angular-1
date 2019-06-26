@@ -34,6 +34,7 @@ import {MatInputModule} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {NegativeInvoiceDialogComponent} from './home/invoice/negative-invoice-dialog.component';
 import {InvoiceService} from "./home/invoice/invoice.service";
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
@@ -47,8 +48,8 @@ import {InvoiceService} from "./home/invoice/invoice.service";
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    NgxChartsModule
-
+    NgxChartsModule,
+    MatSnackBarModule
   ],
   declarations: [
     AppComponent,
