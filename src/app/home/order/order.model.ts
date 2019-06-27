@@ -14,4 +14,11 @@ export class orderClose {
   id: number;
   description: string;
   orderLines: Array<any>;
+  provider: provider;
+}
+
+export class provider {
+  id: string;
+  note: string;
+  company: string;
 }

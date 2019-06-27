@@ -115,6 +115,7 @@ export class OrderComponent {
           });
           return;
         }
+        console.log(result);  
         const dialogRef = this.dialog.open(ModalComponent, {
           width: '1000px',
           data: result

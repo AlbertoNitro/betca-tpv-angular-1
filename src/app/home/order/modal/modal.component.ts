@@ -13,6 +13,7 @@ export class ModalComponent implements OnInit {
   displayedColumns: string[] = ['description', 'requiredAmount', 'finalAmount'];
   dataSource = this.data;
   title = this.data.description;
+  provider = this.data.provider.company;
   constructor(
     private orderService: OrderService,
     public dialogRef: MatDialogRef<ModalComponent>,
